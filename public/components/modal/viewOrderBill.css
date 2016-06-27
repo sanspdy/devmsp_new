@@ -1,0 +1,70 @@
+#orderHeading{
+    color:#017eba;
+    font-size: 1.5em;
+}
+.modal4{
+    height: 588px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.tble_headings{
+    color: black;
+    font-size: 18px;
+    /*border: 1px solid;*/
+    height: 66px;
+    background-color: #DAE0E0;
+    float: none !important;
+}
+.tble_attr{
+    padding: 2%;
+}
+.tble_attr1{
+    padding: 1%;
+}
+.tble_data{
+    color: grey;
+    /*padding: 2%;*/
+    font-size: 1em;
+    float: none !important;
+}
+#totl_price{
+    color: grey;
+    font-size: 1.6em;
+}
+
+#price{
+    color: red;
+    font-size: 1.6em;
+}
+
+#orderBtn{
+    background-color: #017eba;
+    color: white;
+    float: right;
+    height: 33px;
+    margin-right: 5%;
+    width: 113px;
+}
+
+.po-cross3{
+    float: right;
+    /* margin-right: 3%; */
+    /* margin-top: 1%;*/
+    top: 0;
+    left:0;
+}
+
+.billText{
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-bottom: -1%;
+}
+
+table { border-collapse:collapse; }
+table tbody td { border-bottom: 1px solid grey; padding: 1% }
+
+.placeOrderSpin{
+    position: absolute !important;
+    margin-left: 58%;
+}

@@ -1,0 +1,15 @@
+{
+  "name": "fabric",
+  "homepage": "https://github.com/kangax/fabric.js",
+  "version": "1.0.13",
+  "_release": "1.0.13",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.13",
+    "commit": "43dd170f5b7755299c1464ff09dd96cf24439eda"
+  },
+  "_source": "https://github.com/kangax/fabric.js.git",
+  "_target": "1.0.13",
+  "_originalSource": "fabric",
+  "_direct": true
+}

@@ -1,0 +1,38 @@
+<span ng-include="'includes/header.html'"></span>
+<div class="container-fluid archBody">
+<div>
+            <p id="heading1"><a href="" ng-click="redirectHome()"><span id="home">Home</span></a><span id="catal">> My Deployment Architectures</span></p>
+            <p id="deplHeading"> My Deployment Architectures MSP</p>
+    <form id="demo-2">
+        <input type="search"  ng-model="q" id="search" class="form-control" placeholder="Search">
+    </form>
+            <div id="block1" dir-paginate="data in SolnArray  | itemsPerPage:4 | filter:q  track by $index" pagination-id="pageMsp">
+                <span id="content1"> Architecture Name:{{data}}</span>
+                <br>
+                <!--<img class="viewDeplBom"  ng-click="viewBomMsp(data)" src="../../images/viewArch.jpg">-->
+                <img class="delArch"  ng-click="deleteArch(data)" src="../../images/deletearchitecture.jpg">
+                <img  class="archImg"  ng-click="moveToViewArch(data)" src="../../images/architecture.png">
+            </div>
+</div>
+    <dir-pagination-controls pagination-id="pageMsp" class="Pagination"
+                             max-size="5"
+                             direction-links="true"
+                             boundary-links="true" >
+    </dir-pagination-controls>
+    <div>
+    <p id="deplHeading1"> My Deployment Architectures Hybrid(Bluemix + MSP)</p>
+    <div id="block2" dir-paginate="data in SolnArrayHybrid | itemsPerPage:4  | filter:q track by $index" pagination-id="pageHybrid">
+        <span id="content11"> Architecture Name:{{data}}</span>
+        <br>
+        <!--<img class="viewDeplBom"  ng-click="viewBomHybrid(data)" src="../../images/viewArch.jpg">-->
+        <img class="delArch"  ng-click="deleteArchHybrid(data)" src="../../images/deletearchitecture.jpg">
+        <img  class="archImg"  ng-click="moveToViewArch(data)" src="../../images/architecture.png">
+    </div>
+    </div>
+    <dir-pagination-controls pagination-id="pageHybrid" class="Pagination"
+                             max-size="5"
+                             direction-links="true"
+                             boundary-links="true" >
+    </dir-pagination-controls>
+</div>
+

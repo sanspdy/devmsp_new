@@ -1,0 +1,85 @@
+.modal2{
+    width: 100%;
+    margin-top: 1%;
+    height:auto;
+}
+
+.po-cross1{
+    float: right;
+    /* margin-right: 3%; */
+    margin-top: -8%;
+    top: 0;
+    left:0;
+}
+
+#popupHeading{
+    color: #707171;
+    font-size: 1.4em;
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+}
+
+#create_btn{
+    color: #FFFFFF;
+    background-color: #017eba;
+    margin-top: 25%;
+    margin-left: 0%;
+    height: 45px;
+    width: 130px;
+    border-radius: 5px;
+}
+
+#open_btn{
+    color: #FFFFFF;
+    background-color: #017eba;
+    margin-top: 25%;
+    margin-left: 0%;
+    height: 45px;
+    width: 130px;
+    border-radius: 5px
+}
+
+.verticalLine {
+    border-left: 1px  solid grey;
+    height: 40px;
+    margin-left: 35%;
+}
+.or{
+    margin-left: 30%;
+}
+.modal-content{
+    border-radius: 0px !important;
+    /*width: 474px !important;
+    height: 188px !important;*/
+}
+
+hr.fancy-line {
+    border: 1px;
+    height: 1px;
+    position: relative;
+    margin: 0.5em 0; /* Keep other elements away from pseudo elements*/
+}
+hr.fancy-line:before {
+    top: -0.5em;
+    height: 1em;
+}
+
+.modal-backdrop {
+    z-index: 1000 !important;
+    /*barani  fix masking*/
+    height: 191% !important;
+    width:100% !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #ffffff;
+}
+.modal2{
+    z-index: 1050 !important;
+    background-color: #ffffff;
+}
+
+.modal.in .modal-dialog {
+    margin-top: 5% !important;
+}

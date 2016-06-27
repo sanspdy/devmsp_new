@@ -1,0 +1,43 @@
+<div class="container-fluid modal3" ng-show="ngShowModal2Msp">
+    <div class="row">
+        <p id="popupHeading"> MSP Solution Architecture</p>
+        <img class="po-cross1" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close">
+        <hr width="100%" align="left">
+        <form name="myForm" novalidate>
+            <div class="row">
+
+
+                <div class="col-xs-4">
+                    <p id="sol_name">Solution name</p>
+
+                </div>
+                <div class="col-xs-8">
+                    <input type="text" name="solnInput" id="solInput" placeholder="Maximum 25 Characters" ng-model="itemData.solnInput" minlength="0" maxlength="25" required>
+                    <span  style="color: red" ng-show="myForm.solnInput.$touched && myForm.solnInput.$invalid">Solution is required!!</span>
+
+
+                </div>
+
+                <div class="col-xs-4">
+
+                    <p id="sol_desc"> Description</p>
+                </div>
+                <div class="col-xs-8">
+
+                    <!-- <input type="text" id="txtArea" name="solDesc" placeholder="Maximum 200 Characters" ng-model="itemData.solDesc" minlength="0" maxlength="200" required>
+                    <span  style="color: red" ng-show="myForm.solDesc.$touched && myForm.solDesc.$invalid">Description is required!!</span>-->
+
+                    <textarea type="text" id="txtArea" name="solDesc" placeholder="Maximum 200 Characters" ng-model="itemData.solDesc" minlength="0" maxlength="200" required rows="5"></textarea>
+                    <span  style="color: red" ng-show="myForm.solDesc.$touched && myForm.solDesc.$invalid">Description is required!!</span>
+
+                    <!--</input>-->
+
+                </div>
+                <button type="button" id="solBtn" class="save-changes" ng-click="createCanvas()" ng-disabled="myForm.solnInput.$invalid || myForm.solDesc.$invalid"> CREATE</button>
+                <div class="alert1 alert-success1" ng-show="showSuccessAlert">
+                    <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')">×</button> <strong>Solution name</strong> {{successTextAlert}}</div>
+            </div>
+        </form>
+    </div>
+
+</div>

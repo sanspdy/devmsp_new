@@ -1,0 +1,218 @@
+<span ng-include="'includes/header.html'"></span>
+<script>
+	$(document).ready(function(){
+
+		$(".qtn1").on("click",function(){
+			$(".ans1").slideToggle();
+
+		});
+
+		$(".qtn2").on("click",function(){
+			$(".ans2").slideToggle();
+
+		});
+		$(".expandDiv111").on("click",function(){
+			$("#expandedDiv111").slideToggle();
+
+		})
+
+		$('.nav li a').click(function(e) {
+			$('.nav li').removeClass('active');
+			var $parent = $(this).parent();
+			if (!$parent.hasClass('active')) {
+				$parent.addClass('active');
+			}
+			e.preventDefault();
+		})
+
+		$(".qtn").on('click', function () {
+			$(".ans1").slideUp();
+			$(".ans2").slideUp();
+			var $ans =   $(this).parent().next('.ans');
+			console.log("$ans===" +JSON.stringify($(this)));
+			$ans.slideToggle();
+			$(".ans").not($ans).slideUp();
+		});
+
+		/*$(".qtn1").on('click', function () {
+			var $ans1 =   $(this).parent().next('.ans1');
+			console.log("$ans1===" +JSON.stringify($(this)));
+			$ans1.slideToggle();
+			$(".ans1").not($ans1).slideUp();
+		})
+*/
+	});
+
+</script>
+
+<div class="container canvasbody">
+	<div >
+		<div class="service_d">
+			<p id="heading">
+				<a href="" ng-click="redirectToHome()">
+					<span id="home">Home</span>
+				</a> ><span id="catal"> Bluemix-MSP Portal</span>
+			</p>
+
+			<div class="canvasMain">
+				<span id="canvasHeading">Services </span>
+				<span id="col-xs-2 btn_exp"> <img ng-class="{'tickSelColor': !isActive2, 'tickSelColor activeColor': isActive2}" ng-init="isActive2 = false" class="expandDiv111"  ng-click="edit2()"></span>
+				<p id="totalObjects"><span id="blueprints">{{objCount}} objects</span> | {{lineAdded}} Relationships</p>
+				<div class="row" id="expandedDiv111">
+					<loading ng-show="spinsCanvasCatalogue" class="canvasListSpin"></loading>
+					<fieldset  data-ng-repeat="choice in choices">
+						<span><img ng-src="../../assets/img/{{choice.selectedImage}}" width="25" height="25"/></span>
+						<span>{{choice.selectedImageTitle}}</span>
+						<p class="imagMarginStyle">
+							<img ng-src="../../assets/img/btn_seting_rollover.png" ng-click="openpopup($index)" />
+							<img ng-src="../../assets/img/btn_trush_rollover.png" class="remove"  ng-click="deleteObject($index)" />
+						</p>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		<div class="canvas_d">
+			<div class="canvas_title">
+			<span id="solutionName"> My Architecture Name:{{solnName}} </span>
+			<div class="canvas_btns">
+
+				<!--<button ng-click="addChild()" class="btnStyle">Connectors</button>
+				<button ng-click="printCanvas()" class="btnStyle">New Architecture</button>-->
+				<button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
+				<button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>
+
+
+			</div>
+			</div>
+			<loading ng-show="spinsCanvas" class="canvasScreenSpin" ></loading>
+			<div id="canvas-container" >
+
+				<canvas id="canvas" width="1350px" height="750px">
+					<img id="device_img" class="edge_icon2"  src="../../images/edge_device_orange.png">
+					<img id="devider_img" class="imgLength" src="../../images/canvas_devider.png">
+					<img id="edge_device" class="edge_icon"  src="../../images/edge%20Device.png">
+				</canvas>
+
+			</div>
+			<span class=" msp">MSP</span>
+			<span class="blue">Bluemix</span>
+
+		</div>
+		<form id="demo-2" style="float: right ; margin-bottom: 1%;
+    margin-top: -1%;">
+			<input type="search"  ng-model="q" id="search" class="form-control" placeholder="Search">
+		</form>
+		<div class="catlog_d">
+
+			<!--<div class="catalogue">-->
+			<!--<a href="#" ng-click="vis = !vis" class="show_catalogue">
+				<img  id="showCatalImg" ng-class="{'tickHybrid': !isActiveHybrid, 'tickHybrid activeColorHybrid': isActiveHybrid}"  ng-click="editHybrid()" ng-init="isActiveHybrid = false"  style="border: 0; float: left; margin-right: 15px">
+			</a><br/>-->
+			<!--<loading ng-show="spinsCatalogueList"></loading>-->
+
+			<div class="catalogue">
+				<div class=" row catal_icon">
+					<img src="../../images/catal_icon.png">
+					<span id="catalogue">Catalogue </span>
+				</div>
+				<div class=" row comp">
+					<div class="row expandedDivMargin">
+						<div class="col-xs-12">
+							<ul class="nav nav-pills nav-justified tabs-advanced">
+								<li class="active"><a data-toggle="tab" id="preturn" href="#PreviousOrders" ng-click="checkTab(1)">MSP</a></li>
+								<li><a data-toggle="tab" href="#DraftOrders" id="dreturn" ng-click="checkTab(2)">Bluemix Public</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-content" ng-show="previousOrders">
+						<div class="row tab-pane fade in active" ng-show="showMspCatalogue">
+							<div class="catal_icon1">
+								<div class="col-xs-10" id="mid">Middleware Components <loading ng-show="spinsCatalogueList" class="middlewareComp"></loading> </div>
+								<div class=" col-xs-2 btn_exp qtn"><img ng-class="{'tickSelColor': !isActive, 'tickSelColor activeColor': isActive}" ng-init="isActive = false" id="panel_expand" class="expandDiv"  ng-click="edit()"> </div>
+							</div>
+							<div class="row ans" id="expandedDiv1">
+								<div id="images">
+									<p class="msp_comp" ng-repeat="data in arrayOfComponents"><img draggable="true" class="msp_img" src="{{data.Icon}}" width="30" height="30"  ng-mousedown="getIndex($index)"> {{data.Title}}</p>
+								</div>
+							</div>
+							<!--<div class="catal_icon2">
+								<div class="col-xs-10" id="net">Network Blueprints</div>
+								&lt;!&ndash;<div class=" col-xs-2 btn_exp"><img src="images/dropdown_arrow1.png"> </div>&ndash;&gt;
+								<div class=" col-xs-2 btn_exp qtn">
+									<img ng-class="{'tickSelColor2': !isActive2, 'tickSelColor2 activeColor2': isActive2}" ng-init="isActive2 = false"  class="expandNetworkBlueprints"  ng-click="edit11()">
+								</div>
+							</div>
+							<div class="row ans" id="expandedDiv13">
+								<div class="details">
+									<div class=" col-xs-10 tier">1-T n/w </div>
+										<div class=" col-xs-2 qtn1">
+											<img ng-class="{'tickSelColor2Tier1': !isActive2Tier1, 'tickSelColor2Tier1 activeColor2Tier1': isActive2Tier1}" ng-init="isActive2Tier1 = false"  class="expandNetworkBlueprints"  ng-click="edit11Tier1()">
+									</div>
+								</div>
+								<div class="row ans1" id="expandedDiv1tier">
+									<div id="images3">
+										<img src="../../images/1tierPatch.jpg" width="50" height="50">
+										&lt;!&ndash;<p>1 tier patch</p>&ndash;&gt;
+									</div>
+								</div>
+								<div class="details">
+									<div class=" col-xs-10 tier">2-T n/w </div>
+										<div class=" col-xs-2 qtn2">
+											<img ng-class="{'tickSelColor2Tier2': !isActive2Tier2, 'tickSelColor2Tier2 activeColor2Tier2': isActive2Tier2}" ng-init="isActive2Tier2 = false"  class="expandNetworkBlueprints"  ng-click="edit11Tier2()">
+										</div>
+								</div>
+								<div class="row ans2" id="expandedDiv1tier2">
+									<div id="images4">
+										<img src="../../images/canvas_patch.png" width="50" height="50">
+										&lt;!&ndash;<p>2 tier patch</p>&ndash;&gt;
+									</div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+					<div class="tab-content" id="draft" ng-show="drafts">
+						<div class="row tab-pane fade in active" ng-show="showBlueCatalogue">
+							<div class="catal_icon1">
+								<div class="col-xs-10" id="mid1">Runtime <loading ng-show="spinsRuntimeList" class="runtime"></loading></div>
+								<div class=" col-xs-2 btn_exp qtn">
+									<img ng-class="{'tickSelColor1': !isActive1, 'tickSelColor1 activeColor1': isActive1}" ng-init="isActive1 = false" id="panel_expand1" class="expandDiv11"  ng-click="edit1()">
+								</div>
+							</div>
+
+							<div class="row ans" id="expandedDiv11">
+								 <!--<input ng-model="q" id="search" class="form-control" placeholder="Search">-->
+
+								<div id="images1">
+									<p class="msp_comp" ng-repeat="dataBluemix in arrayOfBluemixRuntimeServices"><img draggable="true" class="msp_img" src="{{dataBluemix.icon}}" width="30" height="30"  ng-mousedown="getIndexBluemix($index)"> {{dataBluemix.title}}</p>
+
+								</div>
+								<!--<div class=" col-xs-2 btn_exp"><img src="images/btn_panelexpand.png"> </div>-->
+							</div>
+							<div class="catal_icon2">
+								<div class="col-xs-10" id="net1">Services <loading ng-show="spinsServicesList" class="services"></loading></div>
+								<div class=" col-xs-2 btn_expServices qtn">
+									<img ng-class="{'tickSelColor1': !isActive1, 'tickSelColor1 activeColor1': isActive1}" ng-init="isActive1 = false"  class="expandServiceDiv"  ng-click="edit3()">
+								</div>
+							</div>
+							<div class="row ans" id="expandedServiceDiv">
+								<div id="images2">
+									<p class="msp_comp" ng-repeat="dataBluemixService in arrayOfBluemixService"><img draggable="true" class="msp_img" src="{{dataBluemixService.icon}}" width="30" height="30"  ng-mousedown="getIndexServiceBluemix($index)"> {{dataBluemixService.title}}</p>
+
+								</div>
+
+							</div>
+							<!--<div class="catal_icon3">
+								<div class="col-xs-10" id="vpn1">Provider</div>
+								<div class=" col-xs-2 btn_exp"><img src="images/dropdown_arrow1.png"> </div>
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<loading ng-show="spinsViewBoM" class="viewBomSpin"></loading>
+			<button class="button1 " ng-click="viewBill()">BILL OF MATERIAL</button>
+
+		</div>
+	</div>
+</div>
+

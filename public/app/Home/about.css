@@ -1,0 +1,213 @@
+*{
+	box-sizing: border-box;
+}
+
+.text{
+	font-family:OpenSans-Light;
+	color:#4dcf3c;
+	font-size:2em;
+}
+.button{
+	background-color: #017eba;
+	border-radius: 5px;
+	display: block;
+	width: 240px;
+	height: 60px;
+	color: #ffffff;
+	font-size: 14px;
+	margin-left: -80px;
+	margin-top: 50px;
+}
+
+
+.button-primary{
+	background-color:#ffffff;
+	display:block;
+	width:240px;
+	height:60px;
+	color:#017eba;
+	font-size: 14px;
+	border:1px solid #017eba;
+}
+.button-secondary{
+	background-color:#ffffff;
+	display:block;
+	width:240px;
+	height:60px;
+	color:#017eba;
+	font-size: 14px;
+	border:1px solid #000000;
+}
+.content1{
+	margin:120px;
+	float: left;
+	margin-left: 30%;
+}
+.rightCol > img{
+	margin-left:10px;
+	margin-right:10px;
+}
+.workRow{
+	background-color:#017eba;
+	height:350px;
+	width:100%;
+margin-left: -202px;
+	margin-top: 66px;
+}
+
+.workText{
+	color:#f6f8fa;
+	padding-top:10px;
+}
+.container{
+	margin-top:60px;
+	margin-bottom:50px
+}
+.componentsRow{
+	background-color:#eeeeee;
+	margin-bottom:20px;
+}
+.componentsContainer .col-md-6 {
+	margin-top:20px;
+}
+.subclass{
+	margin:20px;
+	margin-left: 16%;
+	width:300px;
+	height:171px;
+	background-color:#eeeeee;
+	border:1px solid ;
+	color:lightgrey;
+
+}
+.subclass1{
+	margin:20px;
+	width:150px;
+	height:150px;
+	background-color:#eeeeee;
+	border:1px solid ;
+}
+.componentImages{
+	margin-bottom: 45px;
+}
+
+.img2{
+
+}
+
+.img3{
+
+}
+
+
+.container {
+	/*height: auto ! important;*/
+	width: 1170px;
+}
+
+
+.container-fluid{
+	height:auto;
+}
+.img1{
+	margin-top: 61px;
+}
+
+.con1{
+	width: 312px;
+	margin-left: -85px;
+	font-size: 38px;
+}
+
+.con2{
+	width: 332px;
+	margin-left: -86px;
+	color: grey;
+	font-size: 30px;
+}
+
+.servicesHome{
+	text-align: center;
+	/*margin-right: 127px;*/
+}
+
+.img-circle{
+	margin-right: 172px;
+	margin-left: 44px;
+}
+
+.hrLine {
+	clear: both;
+	width: 20px;
+	background-color: #d1d1d1;
+	height: 1px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-style:dashed;
+}
+.stroke{
+	margin-left: -175px;
+	margin-right: -49px;
+}
+.img-circle {
+	margin-right: 169px;
+	margin-left: 37px !important;
+}
+
+.home_icons{
+	margin-left: 217px;
+}
+
+.serv1{
+	color: grey;
+	font-size: 23px;
+	width:298px;
+	text-align: center;
+	margin-left: -2%;
+
+}
+
+.serv2{
+	color: grey;
+	font-size: 23px;
+	width:298px;
+	text-align: center;
+}
+
+.serv3{
+	color: grey;
+	font-size: 23px;
+	width:298px !important;
+	text-align: center;
+	margin-left: 3%;
+}
+.sol{
+	color:white;
+	font-size: 20px;
+
+
+}
+.mode{
+	color:white;
+	font-size: 20px;
+}
+
+.depl{
+	color:white;
+	font-size: 20px;
+}
+
+.how_it_works{
+	margin-top:3%;
+}
+
+.how_works{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+.videoImg{
+	float: right;
+	margin-right: 6%;
+}

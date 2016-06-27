@@ -1,0 +1,131 @@
+<header>
+    <div class="row headerRow">
+        <div class="col-sm-12 " style="border-bottom-color: red;">
+            <div class="col-sm-4">
+                <!--<img src="images/menuico.png">-->
+                <div class=" col-sm-1 mobile-nav">
+                    <div class="menu-btn" id="menu-btn">
+                        <div></div>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="responsive-menu">
+
+                           <div>  <a ng-click="load()"><h4>MSP</h4></a> </div>
+
+                            <div> <a ng-click="navMsp()"><h4>Hybrid</h4></a> </div>
+
+                            <div> <a ng-click="viewDepl()"><h4>My Deployment Architecture</h4></a> </div>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <img src="../images/logo.png"/>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-4 col-sm-offset-4 " style="float: right;text-align:right;border-bottom-color: red;" >
+                <!--<a href="" id="searchButton" name="searchButton" class="rightCol"><img src="images/ico_search.png"></a>-->
+                <a href=""  id="profileButton" name="profileButton" class="rightCol profileshow"><img class="img-circle" src="images/ico_profile.png" width="40"></a>
+                <div id="toggleDiv" class="friend">
+                    <!--<a><div> My Deployment Architectures</div></a>-->
+                    <!--<a class="logoutmsp" ng-click="logoutMsp()">Logout</a>-->
+                    <a class="logoutmsp" ng-click="logoutMsp()"><h4>Logout</h4></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<script>
+    $(document).ready(function(){
+        $( "#profileButton" ).click(function() {
+            $( "#toggleDiv" ).css( "display", "block" );
+        });
+        $( "#toggleDiv" ).mouseover(function() {
+            $( "#toggleDiv" ).css( "display", "block" );
+        });
+        $( "#toggleDiv" ).mouseleave(function() {
+            $( "#toggleDiv" ).css( "display", "none" );
+        });
+    })
+
+
+    jQuery(function($){
+        $( '.menu-btn' ).click(function(){
+            $('.responsive-menu').toggleClass('expand')
+        })
+    })
+</script>
+
+<style>
+    /*#toggleDiv{
+        display:none;
+    }*/
+
+    #toggleDiv{
+        display:none;
+        text-align: center;
+        z-index:10;
+    }
+    .friend{
+        width: 184px;
+        height: 50px;
+        background-color: whitesmoke;
+        border: 1px solid grey;
+        float: right;
+        margin-left: 60%;
+        position: absolute
+    }
+    /*.logoutmsp{
+        float: left;
+    }*/
+
+    .menu-btn div {
+        position: absolute;
+        left: 100%;
+        top: 64%;
+        padding-right: 8px;
+        margin-top: -0.50em;
+        line-height: 1.2;
+        font-size: 18px;
+        font-weight: 200;
+        vertical-align: middle;
+        z-index: 99;
+    }
+
+    .menu-btn span {
+        display: block;
+        width: 19px;
+        height: 3px;
+        margin: 4px 0;
+        background: #017eba;
+        z-index: 99;
+    }
+
+    .responsive-menu{
+        background-color: whitesmoke;
+        width: 217px;
+        margin-left: -108%;
+        display: none;
+        position: absolute;
+        margin-top: 45%;
+        z-index: 10;
+    }
+
+    .expand {
+        display: block !important;
+    }
+    .mobile-nav{
+        margin-top: 2%;
+    }
+    .menulist{
+        color:#017eba;
+    }
+</style>

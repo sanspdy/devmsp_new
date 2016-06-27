@@ -1,0 +1,100 @@
+.loginmain{
+    background-color:#C6D7FF;
+    margin: 0 !important;
+    padding: 1.5% 2% 2% 2% !important;
+    width:100% !important;
+    /*height: 89vh;*/
+}
+
+.loginDiv{
+    border:1px solid white;
+    background-color: #D1DFFF;;
+    margin-bottom: 10%;
+    margin-top: 21%;
+    height:400px;
+
+}
+
+#login_heading {
+    font-size: 2.5vw;
+    color: gray;
+    text-align: center;
+    margin-top: 7%;
+    font-family: Open Sans Regular;
+}
+
+
+.form-control{
+    height: 45px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius:4px;
+}
+
+#inputEmail3{
+    background-color: #545966;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+.emailField{
+    width: 88% !important;
+    margin-left: 5%;
+    margin-top: 8%;
+
+}
+#inputPassword3{
+    background-color: #545966;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.passField{
+    width:88% !important;
+    margin-left: 5%;
+}
+
+#signInButton{
+    width: 82% !important;
+    margin-left: 8%;
+    margin-top: 6%;
+    height: 3.5em;
+    border-radius: 5px;
+}
+
+.save-changes-login {
+    background-color: #017eba;
+    color: #FFFFFF;
+}
+.save-changes-login[disabled] {
+    background-color: #9cc8d6;
+}
+.forgotPass{
+    text-align: center;
+    font-size: 1em;
+    color: gray;
+    padding: 2% 0% 18% 0%;
+}
+
+.padding0{
+    padding-left:0%;
+    padding-right:0%;
+}
+
+.loading {
+    margin-left: 151px;;
+    margin-bottom: -8px;
+    position: absolute;
+}
+
+.passicon{
+    float: right;
+    margin-top: -7%;
+    margin-right: 3%;
+}
+
+.tickSelColorShowPassword{
+    content:url("../../images/password_disible.png");
+}
+
+.tickSelColorShowPassword.activeColor{
+    content:url("../../images/password_visible.png");
+}

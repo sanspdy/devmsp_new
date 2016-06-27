@@ -1,0 +1,207 @@
+
+#catal{
+    font-size: 18px;
+    color:grey;
+}
+
+#heading1{
+    margin-top: 15px;
+   /* width: 129%;*/
+}
+#deplHeading{
+    font-size: 18px;
+   /* margin-top: 11%;*/
+    text-align: left;
+    color: #017eba;
+}
+
+#deplHeading1{
+    font-size: 18px;
+    /* margin-top: 11%;*/
+    text-align: left;
+    color: #017eba;
+}
+
+
+#block1{
+    /*border: 1px solid black;*/
+    height: 186px;
+    width: 21%;
+    background-color: white;
+    display: inline-block;
+    margin-left: 4%;
+    margin-bottom: 4%;
+
+}
+
+#block2{
+    /*border: 1px solid black;*/
+    height: 186px;
+    width: 21%;
+    background-color: white;
+    display: inline-block;
+    margin-left: 4%;
+    margin-bottom: 4%;
+}
+
+#block3{
+    border: 1px solid black;
+    height: 237px;
+    width: 90%;
+    background-color: white;
+    margin-top: 32%;
+}
+
+.archBody{
+    background-color: #DFEAE2 ;
+    height: 120vh !important;
+}
+
+#content1{
+    color: grey;
+    font-size: 16px;
+}
+
+
+#content11{
+    color: grey;
+    font-size: 16px;
+}
+
+#content2{
+    color: grey;
+    font-size: 1.5em;
+}
+
+#content3{
+    color: grey;
+    font-size: 1.5em;
+}
+
+.moreBtn{
+    background-color: white;
+    border: 1px solid #017eba;
+    color: #017eba;
+    float: right;
+    margin-right: 12%;
+    margin-top: -3%;
+}
+
+
+
+#viewBomBtn{
+    background-color: white;
+    border: 1px solid #017eba;
+    color: #017eba;
+    float: right;
+    margin-right: 12%;
+    margin-top: 4%;
+}
+#viewArchBtn{
+    background-color: white;
+    border: 1px solid #017eba;
+    color: #017eba;
+    float: right;
+    margin-right: 12%;
+    margin-top: 4%;
+}
+
+.archImg{
+    height: 88px;
+    width: 193px;
+    margin-left: 8%;
+}
+
+
+.viewDeplBom{
+height: 49px;
+width: 49px;
+margin-left: 4%;
+}
+
+.delArch{
+    height: 30px;
+    float: right;
+    margin-right: 8%;
+    width: 36px;
+}
+
+.Pagination{
+    margin-left: 31%;
+}
+#search{
+width: 276px;
+float: right;
+margin-top: -4%;
+}
+
+input {
+    outline: none;
+}
+input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none;
+}
+
+
+input[type=search] {
+    background: #ededed url(http://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 32px;
+    width: 55px;
+
+    -webkit-border-radius: 10em;
+    -moz-border-radius: 10em;
+    border-radius: 10em;
+
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+input[type=search]:focus {
+    width: 130px;
+    background-color: #fff;
+    border-color: #017eba;
+
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+
+input:-moz-placeholder {
+    color: #999;
+}
+input::-webkit-input-placeholder {
+    color: #999;
+}
+
+/* Demo 2 */
+#demo-2 input[type=search] {
+    width: 43px;
+    padding-left: 10px;
+    color: transparent;
+    cursor: pointer;
+}
+#demo-2 input[type=search]:hover {
+    background-color: #fff;
+}
+#demo-2 input[type=search]:focus {
+    width: 200px;
+    padding-left: 32px;
+    color: #000;
+    background-color: #fff;
+    cursor: auto;
+}
+#demo-2 input:-moz-placeholder {
+    color: transparent;
+}
+#demo-2 input::-webkit-input-placeholder {
+    color: transparent;
+}

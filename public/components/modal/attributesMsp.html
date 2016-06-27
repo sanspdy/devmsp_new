@@ -1,0 +1,94 @@
+<div class="container-fluid modal1" ng-show="ngShowModalMsp">
+    <div class="row">
+        <div class="row header" ng-show="showMSPAttributes">
+            <p class="pop_heading">{{attrTitle}} Attributes</p>
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
+
+            <hr>
+        </div>
+
+        <div class="row header" ng-show="showRuntimeAttributes">
+            <p class="pop_heading">{{popupDataRuntime.title}} Attributes</p>
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
+            <hr>
+        </div>
+
+        <div class="row header" ng-show="showServiceAttributes">
+            <p class="pop_heading">{{bluemixServiceTitle}} Attributes</p>
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
+
+            <hr>
+        </div>
+
+        <div class="row" ng-repeat="(key, value) in patternObjectIIB_Server" ng-show="showMSPAttributes">
+            <div class="col-xs-7">
+                <p class="keyStyle"> {{key}} </p>
+            </div>
+            <div class="col-xs-5">
+                <input class="spss_input" type="text" ng-model="patternObjectIIB_Server[key]" ng-blur="changedValueSaveMsp()">
+
+            </div>
+        </div>
+        <div class="row" ng-show="showMSPAttributes">
+            <div class="col-xs-7">
+                <p class="keyStyle"> Total Price </p>
+            </div>
+            <div class="col-xs-5">
+                <!--<p class="keyStyle"> {{total_Price}} </p>-->
+                <input class="spss_input" type="text" ng-model="total_Price" ng-readonly="true">
+
+            </div>
+        </div>
+
+        <div class="row" ng-show="showRuntimeAttributes">
+            <div class="col-xs-7">
+                <p class="keyStyle"> Title </p>
+                <p class="keyStyle"> Plan </p>
+            </div>
+            <div class="col-xs-5">
+                <input class="spss_input" type="text" ng-model="runtimeBluemixTitle" ng-readonly="true">
+                <input class="spss_input" type="text" ng-model="runtimeBluemixPlan" ng-readonly="true">
+            </div>
+        </div>
+
+        <div class="row" ng-repeat="(key, value) in memoryProperties" ng-show="showRuntimeAttributes">
+            <div class="col-xs-7">
+                <p class="keyStyle">{{key}}</p>
+            </div>
+            <div class="col-xs-5">
+                <input class="spss_input" type="text" ng-model="memoryProperties[key]" ng-blur="changedRuntimeValueSave()">
+            </div>
+        </div>
+
+        <div class="row"  ng-show="showServiceAttributes">
+            <div class="col-xs-5">
+                <div>
+                    <p class="keyStyle"> Name </p>
+                    <p class="keyStyle"> Description </p>
+                </div>
+                <p class="keyStyle"> URL </p>
+            </div>
+            <div class="col-xs-7">
+                <div ng-repeat="serviceData in propertiesObjectArray">
+                    <input class="spss_input" type="text" ng-model="serviceData.name" ng-readonly="true">
+                    <input class="spss_input" type="text" ng-model="serviceData.description" ng-readonly="true">
+                </div>
+                <a href="https://console.ng.bluemix.net/pricing/" target="_blank">Pricing</a>
+            </div>
+        </div>
+
+        <hr>
+        <div class=" btn_div row" ng-show="showMSPAttributes">
+            <button  class="save_btn" type="button" ng-click="saveDataMsp()">SAVE</button>
+        </div>
+
+        <div class=" btn_div row" ng-show="showRuntimeAttributes">
+            <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>
+        </div>
+
+        <div class=" btn_div row" ng-show="showServiceAttributes">
+            <button  class="save_btn" type="button" ng-click="saveDataService()">SAVE</button>
+        </div>
+
+    </div>
+</div>

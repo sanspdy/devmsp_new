@@ -1,0 +1,19 @@
+[
+  {
+    "SC#":"UI-0OYC70T",
+    "qualificationQuestionnaire" : [
+                                      {
+                                        "question" : "Is the deal lead by GBS",
+                                        "response" : "Y",
+                                        "comment" : "No comment"
+                                      },
+                                      {}
+                                   ],
+    "solutionAssignments" : {}
+  },
+  {
+    "SC#":"HX-BBR3SDY",
+    "qualificationQuestionnaire" : {},
+    "solutionAssignments" : {}
+  }
+]

@@ -1,0 +1,121 @@
+<span ng-include="'includes/header.html'"></span>
+<script>
+    $(document).ready(function(){
+        $(".expandDiv111Msp").on("click",function(){
+            $("#expandedDiv111Msp").slideToggle();
+        });
+        $(".qtnMsp").on('click', function () {
+            var $ans =   $(this).parent().next('.ansMsp');
+            //console.log("$ans====" +$ans);
+            console.log("$ans===" +JSON.stringify($(this)));
+            $ans.slideToggle();
+            $(".ansMsp").not($ans).slideUp();
+
+        })
+    });
+</script>
+<div class="container canvasbodyMsp">
+	<div >
+		<div class="service_d">
+            <p id="headingMsp">
+                <a href="" ng-click="redirect_to_Home()">
+                    <span id="homeMsp">Home</span>
+                </a> ><span id="catalMsp"> MSP Portal</span>
+            </p>
+
+            <div class="canvasMainMsp">
+                <span id="canvasHeadingMsp">Services </span>
+                <span id="col-xs-2 btn_expMsp"> <img ng-class="{'tickSelColorMspCanvas': !isActive2MspCanvas, 'tickSelColorMspCanvas activeColorMspCanvas': isActive2MspCanvas}" ng-init="isActive2MspCanvas = false" class="expandDiv111Msp" ng-click="edit2MspCanvas()"></span>
+                <p id="totalObjects"><span id="blueprints">{{objCount}} objects</span> | {{lineAddedMsp}} Relationships</p>
+                <div class="row" id="expandedDiv111Msp">  <loadingmsp ng-show="spinsCanvasCatalogueMsp"></loadingmsp>
+					<loading ng-show="spinsCanvasCatalogue" class="canvasListSpin"></loading>
+                    <fieldset data-ng-repeat="choice in choices">
+                        <span><img ng-src="../assets/img/{{choice.selectedImage}}" width="25" height="25"/></span>
+                        <span>{{choice.selectedImageTitle}}</span>
+                        <p class="imagMarginStyle">
+                            <img ng-src="../assets/img/btn_seting_rollover.png" ng-click="openpopupMsp($index)" />
+                            <img ng-src="../assets/img/btn_trush_rollover.png" class="remove" ng-click="deleteObject($index)" /></p>
+						</p>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+		<div class="canvas_d">
+			<div class="canvas_title">
+            <span id="solutionName"> My Architecture Name:{{solnName}} </span>
+            <div class="canvas_btns">
+
+                <!--<button ng-click="addChild()" class="btnStyle">Connectors</button>
+                <button ng-click="printCanvas()" class="btnStyle">New Architecture</button>-->
+
+                <button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
+                <button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>
+
+
+            </div>
+			</div>
+            <loadingmsp ng-show="spinsCanvas"></loadingmsp>
+            <div id="canvas-container">
+                <canvas id="canvas" width="1350" height="750">
+
+                    <img id="device_img" class="edge_icon_msp" src="images/edge Device.png">
+                </canvas>
+
+            </div>
+
+        </div>
+		<div class="catlog_d">
+
+            <!-- <a href="#" ng-click="vis = !vis" class="show_catalogue" >Show Catalogue</a><br/>-->
+            <!--<a href="#" ng-click="vis = !vis" class="show_catalogue">
+                <img id="showCatalImg" ng-class="{'tickMsp': !isActiveMsp, 'tickMsp activeColorMsp': isActiveMsp}" ng-click="editMsp()" ng-init="isActiveMsp = false" style="border: 0; float: left; margin-right: 15px">
+                &lt;!&ndash; <img id="showCatalImg" src="images/show_catalogue.jpeg" style="border: 0; float: left; margin-right: 15px"&ndash;&gt;
+            </a><br/>-->
+            <div class="catalogue">
+                <div class=" row catal_icon">
+                    <img src="images/catal_icon.png">
+                    <span id="catalogue">MSP Catalogue </span>
+                </div>
+                <div class=" row comp">
+                    <div class="row expandedDivMargin">
+                        <div class="col-xs-12">
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="row tab-pane fade in active">
+                            <div class="catal_icon1">
+                                <div class="col-xs-10" id="mid">Middleware Components <loadingmsp ng-show="spinsCatalogueListMsp"></loadingmsp></div>
+
+                                <div class=" col-xs-2 btn_expMsp qtnMsp"><img ng-class="{'tickSelColor': !isActive, 'tickSelColor activeColor': isActive}" ng-init="isActive = false" id="panel_expand" class="expandDiv " ng-click="editMiddlewareMsp()"> </div>
+                            </div>
+                            <div class="row ansMsp" id="expandedDiv1">
+                                <div id="images">
+                                    <p class="msp_comp" ng-repeat="data in arrayOfComponents"><img draggable="true" class="msp_img" src="{{data.Icon}}" width="30" height="30" ng-mousedown="getIndex($index)"> {{data.Title}}</p>
+
+                                </div>
+                            </div>
+                            <div class="catal_icon2">
+                                <div class="col-xs-10" id="net">Network Blueprints</div>
+                                <div class=" col-xs-2 btn_expMsp qtnMsp"><img ng-class="{'tickSelColorNet': !isActiveNet, 'tickSelColorNet activeColorNet': isActiveNet}" ng-init="isActiveNet = false" class="expandNetworkBlueprints " ng-click="editNet()" ></div>
+                            </div>
+                            <div class="row ansMsp" id="expandedDiv13">
+
+                                <div class="details">
+                                    1-T n/w
+                                </div>
+                                <div class="details">
+                                    2-T n/w
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<loading ng-show="spinsViewBoM" class="viewBomSpin"></loading>
+            <button class="button1Msp " ng-click="viewBillMsp()">BILL OF MATERIAL</button>
+
+        </div>
+    </div>
+</div>

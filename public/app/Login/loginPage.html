@@ -1,0 +1,43 @@
+<span ng-include="'includes/header1.html'"></span>
+<div class="container loginmain">
+    <div class="row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+            <div class="loginDiv">
+                <p id="login_heading"> Log In to GBS Cloud</p>
+                <form  name="loginform" class="form-horizontal paddingBox" novalidate>
+                    <div class="form-group form-group-loc" >
+                        <div class=" col-xs-6 emailField padding0">
+                            <input type="text" class="form-control" name="userId" id="inputEmail3" placeholder="User ID" style="font-style:italic"  ng-model="itemData.userId" ng-required="true" autofocus >
+                            <div ng-show="loginform.$submitted || loginform.userId.$touched">
+                                <span style="color:orange" ng-show="loginform.userId.$error.required">Username Required</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-loc">
+                        <div class=" col-xs-6 passField padding0">
+                            <div>
+                            <input type="{{inputType}}" class="form-control"  name="pwd" id="inputPassword3" placeholder="Password" style="font-style:italic" ng-model="itemData.pwd" ng-required="true" >
+                                <img id="passshow" class="passicon" ng-class="{'tickSelColorShowPassword': !isActive, 'tickSelColorShowPassword activeColor': isActive}" ng-init="isActive = false" ng-click="hideShowPassword()">
+                            </div>
+                            <div ng-show="loginform.$submitted || loginform.pwd.$touched">
+                                <span style="color:orange" ng-show="loginform.pwd.$error.required">Password Required</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <loading></loading>
+                            <button id="signInButton" class="save-changes-login" ng-click="loginAuthentication()" ng-disabled="loginform.userId.$invalid || loginform.pwd.$invalid" type="submit">SIGN IN</button>
+                        </div>
+                    </div>
+                    <!--<div class="row forgotPass paddingBox">
+                        <a href="#" ><u>Forgot  your password</u> or <u>Register</u></a>
+                    </div>-->
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-4"></div>
+    </div>
+</div>

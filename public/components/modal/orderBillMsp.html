@@ -1,0 +1,50 @@
+<div class="container-fluid  modal4" ng-show="ngShowModal4Msp">
+    <div class="billText">
+        <span id="orderHeading">View Bill of Material of {{solnEntered}} </span>
+        <img class="po-cross3" src="../../images/cross.png"  ng-click="dismissOrder()" alt="close">
+    </div>
+    <hr>
+    <table>
+        <thead>
+        <tr class="tble_headings col-xs-12">
+            <th class="col-xs-3 tble_attr">Product Name</th>
+            <th class="col-xs-3 tble_attr">Description</th>
+            <th class="col-xs-2 tble_attr">Provider</th>
+            <th class="col-xs-1 tble_attr">Quantity</th>
+            <th class="col-xs-1 tble_attr">Price($)</th>
+            <th class="col-xs-1 tble_attr">LicenseCost($)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="col-xs-12 tble_data" ng-repeat="data in viewBillOfOrderArray">
+            <td class="col-xs-3">{{data.productName}} </td>
+            <td class="col-xs-3">{{data.productDesc}}</td>
+            <td class="col-xs-2">{{data.productProvider}}</td>
+            <td class="col-xs-1" >{{data.productQuantity}}</td>
+            <td class="col-xs-1">{{data.productPrice}}</td>
+            <td class="col-xs-1">{{data.productLC}}</td>
+        </tr>
+        <tr class="col-xs-12 tble_data" ng-repeat="dataRuntime in bluemixRuntimeViewBillObjectArray">
+            <!--<td class="col-xs-2">{{serialNumber}}</td>-->
+            <td class="col-xs-3">{{dataRuntime.title}}</td>
+            <td class="col-xs-3">{{dataRuntime.title}}</td>
+            <td class="col-xs-2">Bluemix Runtime</td>
+            <td class="col-xs-1">1</td>
+            <td class="col-xs-1">{{dataRuntime.properties.price}}</td>
+        </tr>
+        <tr class="col-xs-12 tble_data" ng-repeat="dataServices in bluemixServiceViewBillObjectArray">
+            <!--<td class="col-xs-2">{{serialNumber}}</td>-->
+            <td class="col-xs-3">{{dataServices.title}}</td>
+            <td class="col-xs-3">{{dataServices.title}}</td>
+            <td class="col-xs-2">Bluemix Services</td>
+            <td class="col-xs-1">1</td>
+            <td class="col-xs-1"><a href="https://console.ng.bluemix.net/pricing/" style="color: #0e90d2" target="_blank">Pricing</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div class="row">
+        <span id="totl_price">Total Price-</span> <span id="price">${{viewBillFinalPrice}}</span>
+        <button id="orderBtn" type="button" ng-click="placeOrderMsp()">ORDER</button>
+    </div>
+</div>

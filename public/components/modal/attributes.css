@@ -1,0 +1,175 @@
+.keyStyle{
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+
+.pop_heading{
+    text-transform: capitalize;
+    color: #017eba;
+    margin-top: 3%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 168%;
+}
+
+
+.spss_input{
+    width: 73px;
+    padding: 1%;
+    margin-top: 3%;
+}
+
+#spss_select{
+    padding: 1%;
+    margin-top: 4%;
+    width: 87%;
+}
+
+#spss_flavor_select{
+    padding: 2%;
+    margin-top: 7%;
+    width: 87%;
+}
+
+#app_input{
+    padding: 1%;
+    margin-top: 7%;
+}
+
+
+#app_select_size{
+    padding: 2%;
+    margin-top: 7%;
+    width: 87%;
+}
+
+
+#app_flavor_select{
+    padding: 2%;
+    margin-top: 7%;
+    width: 87%;
+}
+
+.save_btn{
+    float: right;
+    background-color: #017eba;
+    margin-right: -45px;
+    /* height: 20% !important; */
+    color: white;
+    /* max-height: 7%; */
+    margin-bottom: 4%;
+    width: 17%;
+    height: 37px;
+}
+
+.btn_div{
+    padding: 0%;
+}
+
+.modal1{
+    /*width: autopx;*/
+    height:700px;
+    margin-top: 1%;
+    padding-right: 55px !important;
+    padding-left: 6px !important;
+    overflow-y: auto;
+}
+
+.po-cross{
+    float: right;
+    margin-top: -47px;
+    margin-right: -41px;
+    top: 0;
+    /* margin-right: 3%; */
+    left: 0;
+}
+
+.app-modal-window .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-o .modal-dialog {
+    width: 990px;
+}
+.app-modal-window-ns .modal-dialog {
+    width:440px;
+}
+
+
+.app-modal-window-sam .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-sa .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-att .modal-dialog {
+    width: 500px;
+}
+.app-modal-window-att2 .modal-dialog {
+    width: 700px;
+}
+.app-modal-window-att3 .modal-dialog {
+    width: 850px;
+}
+.app-modal-window-dc .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-nns .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-solpop .modal-dialog {
+    width: 440px;
+}
+.app-modal-window-nspop .modal-dialog {
+    width: 500px;
+}
+
+
+
+
+/*
+.modal-content1 {
+width: 446px;
+}
+.modal-dialog {
+    width: auto;
+
+}*/
+
+/*
+.attributepop{
+    width: 797px;
+    margin-left: -29%;
+}*/
+.servicePl{
+    width: 132px;
+}
+
+.bullets{
+    margin-top: 26px;
+    margin-left: -5%;
+}
+.bulletData{
+    font-size: 17px;
+    color: #017eba;
+}
+.descData{
+    font-size: 17px;
+}
+
+
+.viewPricing{
+    position: absolute !important;
+    margin-top: 21%;
+    margin-left: 82%;
+
+}
+
+.keyTitle{
+    font-size: 17px;
+}
+
+.bluemixprop{
+    word-wrap: break-word;
+}
