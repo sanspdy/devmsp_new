@@ -51,3 +51,6 @@ angular.module('portalApp', [
 				redirectTo: '/sample'
 			});
 		}]);
+
+/*var history_api = typeof history.pushState !== 'undefined';
+if ( history_api ) history.pushState(null, '', '#StayHere');*/

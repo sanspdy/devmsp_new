@@ -57,7 +57,9 @@
 			<div class="canvasMain">
 				<span id="canvasHeading">Services </span>
 				<span id="col-xs-2 btn_exp"> <img ng-class="{'tickSelColor': !isActive2, 'tickSelColor activeColor': isActive2}" ng-init="isActive2 = false" class="expandDiv111"  ng-click="edit2()"></span>
-				<p id="totalObjects"><span id="blueprints">{{objCount}} objects</span> | {{lineAdded}} Relationships</p>
+				<p id="totalObjects"><span id="blueprints">{{objCount}} objects</span>
+					<!--| {{lineAdded}} Relationships-->
+				</p>
 				<div class="row" id="expandedDiv111">
 					<loading ng-show="spinsCanvasCatalogue" class="canvasListSpin"></loading>
 					<fieldset  data-ng-repeat="choice in choices">
@@ -211,7 +213,6 @@
 			</div>
 			<loading ng-show="spinsViewBoM" class="viewBomSpin"></loading>
 			<button class="button1 " ng-click="viewBill()">BILL OF MATERIAL</button>
-
 		</div>
 	</div>
 </div>

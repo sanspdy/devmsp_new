@@ -1,0 +1,17 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <img class="po-cross3" src="../../images/cross.png"  ng-click="dismissOrder()" alt="close">
+        <h4 class="modal-title">Do you want to edit ? </h4>
+    </div>
+    <div class="modal-body">
+        <p>This will create a new version of your existing solution. Please provide description for your new version.</p>
+
+        <p id="sol_desc"> Description :</p>
+        <textarea type="text" id="txtArea" name="solDesc" placeholder="Maximum 200 Characters" ng-model="textModel" minlength="0"  maxlength="400" required rows="5"></textarea>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="confirm(textModel)">Confirm</button>
+    </div>
+</div>

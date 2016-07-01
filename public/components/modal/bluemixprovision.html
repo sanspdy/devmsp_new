@@ -1,0 +1,50 @@
+<div class="container-fluid modal3" ng-show="ngShowModalprov">
+    <div class="row">
+        <p id="popupHeading"> Bluemix Provisioning</p>
+        <img class="po-cross1" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close">
+        <hr width="100%" align="left">
+        <p id="noteprov"> Please enter your Bluemix credentials in order to proceed for provisioning!!</p>
+        <form name="myForm" novalidate>
+            <div class="">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <p id="sol_name">Username</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <input type="text" name="solnInput" id="solInput" ng-model="itemData.username"  required autofocus >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <p id="bluepass"> Password</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <input type="password" id="pswdinput" name="solDesc"  ng-model="itemData.password"  ng-blur="getorganization()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <p id="selOrg"> Select Organization</p>
+                    </div>
+                    <loading ng-show="spinsOrgList" class=""></loading>
+                    <div class="col-xs-7">
+                        <select  class="orgsel" ng-model="servicedata.organization" placeholder="select plan" ng-options="organization for organization in orgDataArray" ng-change="getSpaces()"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <p id="selSpace"> Select Space</p>
+                    </div>
+                    <loading ng-show="spinsSpaceList" class=""></loading>
+                    <div class="col-xs-7">
+                        <select  class="orgsel" ng-model="servicedata.space" ng-options="space for space in spaceDataArray"></select>
+                    </div>
+                </div>
+                <!--<loading ng-show="viewCreatSol" class="viewCreatSol"></loading>-->
+                <button type="button" id="solBtn" class="save-changes" ng-click="proceedForOrder()">Proceed</button>
+                <!--<div class="alert1 alert-success1" ng-show="showSuccessAlert">
+                    <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')">×</button> <strong>Solution name</strong> {{successTextAlert}}</div>-->
+            </div>
+        </form>
+    </div>
+</div>

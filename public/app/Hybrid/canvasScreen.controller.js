@@ -23,6 +23,7 @@ angular.module('portalControllers')
         $scope.showBlueCatalogue = false;
         $scope.runtimeCatalogue = false;
         $scope.servicesCatalogue = false;
+        $scope.state = false;
         $scope.logoutMsp = function() {
             console.log("inside logout msp");
             localStorage.clear();
@@ -31,6 +32,41 @@ angular.module('portalControllers')
 
         $scope.editHybrid = function(){
             $scope.isActiveHybrid = !$scope.isActiveHybrid;
+        };
+
+        $scope.toggleState = function() {
+            $scope.state = !$scope.state;
+        };
+
+        $scope.navMsp = function(){
+            console.log('inside nav msp');
+            /*$location.path('/MSP');*/
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/solArchitectureMsp.html',
+                windowClass: 'app-modal-window-sam',
+                controller: 'solCtrlMsp',
+                backdrop: 'static',
+                resolve: {
+
+                }
+            });
+        }
+        $scope.loadHybrid = function(){
+            /*$location.path('/canvas');*/
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/solArchitecture.html',
+                controller: 'solCtrl',
+                windowClass: 'app-modal-window-sa',
+                backdrop: 'static',
+                resolve: {
+                }
+            });
+        }
+
+        $scope.viewDepl=function(){
+            $location.path('/deployment');
         };
 
         $scope.checkTab = function (num) {
@@ -110,20 +146,16 @@ angular.module('portalControllers')
                 $scope.previousOrders=false;
                 $scope.drafts=true;
             }
-        }
-
+        };
         $scope.edit = function(){
-
             $scope.isActive = !$scope.isActive;
-
-        }
+        };
 
         $scope.edit1 = function(){
             $scope.servicesCatalogue = false;
             $scope.runtimeCatalogue = true;
             console.log('inside edit1 function');
             $scope.isActive1 = !$scope.isActive1;
-
             $scope.spinsCatalogueList=false;
             $scope.spinsCanvas=false;
             $scope.spinsRuntimeList = true;
@@ -263,6 +295,8 @@ angular.module('portalControllers')
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = true;
                 $scope.loading=true;
+                console.log('user===' +JSON.stringify(user));
+                console.log('solnEntered===' +JSON.stringify($scope.solnEntered));
                 $http({
                     method: 'PUT',
                     url: 'http://cbicportal.mybluemix.net/api/getServiceInfo',
@@ -456,8 +490,6 @@ angular.module('portalControllers')
                     console.log("status data" + status);
                     console.log("config data" + config);
                     console.log("Data:" + data);
-
-
                 })
             }
 
@@ -855,13 +887,11 @@ angular.module('portalControllers')
                         var type='bluemix';
                         $scope.bluemixServiceSelectedImage = $scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex];
                         console.log("selected object name ==== " + $scope.bluemixServiceSelectedImage);
-
                         $scope.canvasCatalogueObject = {
                             'selectedImage': $scope.bluemixServiceimageSrcArray[1],
                             'selectedImageTitle': $scope.bluemixServiceSelectedImage,
                             'type': type
                         };
-
                         $scope.serviceUsername=sharedProperties.getProperty();
                         console.log('userEntered == '+$scope.serviceUsername);
                         // this / e.target is current target element.

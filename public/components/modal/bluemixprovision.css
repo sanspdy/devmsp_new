@@ -1,0 +1,32 @@
+#pswdinput{
+    width: 225px;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    margin: 0 auto;
+    margin-top: 4%;
+    padding: 2% 0% 2% 2%
+    /* padding: 2% 0% 16% 2%;*/
+}
+#selOrg{
+    color: #707171;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 7%;
+}
+.orgsel {
+    margin-top: 4%;
+    width: 223px;
+    height: 31px;
+}
+#selSpace{
+    color: #707171;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 7%;
+}
+#bluepass{
+    color: #707171;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 9%;
+}

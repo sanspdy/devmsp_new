@@ -5,27 +5,32 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     console.log('inside viewDeploymentArchCtrl');
     //--------------
     //edit page start here
+    $scope.solnEntered11=sharedProperties.getCurrentCSolName()
 
     // edit Div
     
     $scope.showDiv = function () {
         $scope.showhideprop = true;
         $scope.vEdit();
-        
-        
-        
     }
     // close Div
     $scope.hideDiv = function () {       
         $scope.showhideprop = false;
-        
-        
-        
-        
     }
+$scope.viewArchEdit=function(){
+    console.log("from edit button -->");
 
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/viewArchEdit.html',
+            /* windowClass: 'app-modal-window-sam',*/
+            controller: 'viewArchEditctrl',
+            backdrop: 'static',
+            resolve: {
+            }
+        });
 
-
+}
     //-----
 
     $scope.currentUser11 = sharedProperties.getProperty();
@@ -379,4 +384,263 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("config data" + JSON.stringify(config));
 
         })
+
+
+
+    $scope.placeServiceOrder=function () {
+        console.log('inside placeorder');
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        var user = $scope.currentUser;
+        console.log("inside place order");
+        console.log('$scope.solnEntered === '+$scope.solnEntered11);
+        $scope.placeOrderSpins = true;
+        $scope.viewCreatSol = false;
+        $scope.spinsCatalogueList=false;
+        $scope.spinsCanvas=false;
+        $scope.spinsCatalogueList = false;
+        $scope.spinsViewBoM = false;
+        $scope.loading = true;
+        /* $http({
+         method  : 'POST',
+         url     : 'http://cbicportal.mybluemix.net/api/placeOrder',
+         data    : $.param({'uname': user,soln_name: $scope.solnEntered11}),
+         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+         //forms user object
+         }).success(function(data,status,header,config) {
+
+         console.log("place order data ==="+JSON.stringify(data));
+         /!*$uibModalInstance.dismiss('cancel');
+         $location.path('/deployment');*!/
+         })*/
+        $scope.placeOrderSpins = false;
+
+
+        // var pwd = $scope.itemData.pwd;
+        //console.log('pwd==' +$scope.itemData.pwd);
+        /*var pwd = sharedProperties.getCurrentPassword();
+         console.log('pwd===' +pwd);*/
+
+
+
+        //modal opens
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/bluemixprovision.html',
+            controller: 'provisionCtrl',
+            backdrop: 'static',
+            windowClass: 'app-modal-window-att-prov',
+            resolve: {
+                /* parentDivCall: function () {
+                 return $scope.popupData;
+                 },
+                 countComp:function () {
+                 return $scope.actualMSPComponentIndex;
+                 },
+                 serviceType:function(){
+                 return 'msp';
+                 }*/
+            }
+        });
+    };
+})
+
+.service('sharedProperties', function () {
+    var user='';
+    var soln='';
+    var MSPChoiceIndex;
+    var runtimeChoiceIndex;
+    var serviceChoiceIndex;
+    var currentSoln;
+    var version='';
+    this.setVersion = function(versionId) {
+        console.log("VertionId==="+versionId);
+        version=versionId;
+
+    };
+    this.getVersion=function () {
+        return version;
+    }
+    this.setProperty = function(userId) {
+        console.log("userId==="+userId);
+        user=userId;
+
+    };
+    this.getProperty=function () {
+        return user;
+    }
+
+    this.setSoln = function(solutionName) {
+        console.log("solnName==="+solutionName);
+        soln=solutionName;
+
+    };
+    this.getSoln=function () {
+        return soln;
+    }
+
+    this.setCurrentCSolName=function(solName){
+        console.log("current solnName==="+solName);
+        currentSoln=solName;
+    }
+
+    this.getCurrentCSolName=function(){
+        return currentSoln;
+    }
+
+
+});
+
+
+
+angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
+    //alert("inside provision  ctrl");
+    $scope.ngShowModalprov = true;
+    /*$scope.selOrg = false;*/
+    /*$scope.showOrg = false;*/
+    $scope.spinsOrgList = false;
+    $scope.spinsSpaceList = false;
+    /*$scope.selSpace = false;
+    $scope.showSpace = false;*/
+    $scope.dismissModal = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.orgDataArray = [];
+    $scope.spaceDataArray = [];
+    $scope.getorganization = function(){
+        console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
+        console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
+        //alert('inside getorganization');
+        $scope.spinsOrgList=true;
+        $scope.loading=true;
+        $http({
+            method  : 'POST',
+            url     : 'http://cbicportal.mybluemix.net/api/getOrganizations',
+            data    : $.param({'username': $scope.itemData.username,'password':$scope.itemData.password}),
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        }).success(function(data,status,header,config)
+        {
+          /*  $scope.selOrg = true;*/
+            /*$scope.showOrg = true;*/
+            console.log("get organization data ==="+JSON.stringify(data));
+            $scope.orgData = data;
+            console.log('$scope.orgData===' +$scope.orgData);
+            $scope.orgList = $scope.orgData.entity_list[0];
+            console.log('$scope.orgList===' +JSON.stringify($scope.orgList));
+            for(var i=0;i<$scope.orgList.length;i++){
+                console.log('$scope.orgList.length===' +$scope.orgList.length);
+                $scope.orgData = $scope.orgList[i].name;
+                console.log('$scope.orgData' +JSON.stringify($scope.orgData));
+                $scope.orgDataArray.push($scope.orgData);
+                $scope.loading=false;
+
+            }
+            console.log('$scope.orgDataArray==' +JSON.stringify($scope.orgDataArray));
+
+
+            /*$uibModalInstance.dismiss('canceol');
+             $location.path('/deployment');*/
+        })
+    }
+    $scope.getSpaces = function(){
+        //alert("inside get spaces");
+        $scope.spinsSpaceList = true;
+        //alert('inside getorganization');
+        $scope.spinsOrgList=false;
+        $scope.loading = true;
+        var org = $scope.servicedata.organization;
+        console.log('org===' +JSON.stringify(org));
+        console.log('$scope.itemData.username==='+JSON.stringify($scope.itemData.username));
+        console.log('$scope.itemData.password==='+JSON.stringify($scope.itemData.password));
+
+
+        $http({
+            method  : 'POST',
+            url     : 'http://cbicportal.mybluemix.net/api/getSpaces',
+            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org}),
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        }).success(function(data,status,header,config)
+        {
+            /*$scope.selSpace = true;
+            $scope.showSpace = true;*/
+            console.log("get organization data ==="+JSON.stringify(data));
+            $scope.spaceList = data;
+            console.log('$scope.spaceList===' +JSON.stringify($scope.spaceList));
+            for(var i=0;i<$scope.spaceList.length;i++){
+                console.log('$scope.spaceList.length==' +$scope.spaceList.length);
+                $scope.spaceData = $scope.spaceList[i].space_name;
+                console.log('$scope.spaceData' +JSON.stringify($scope.spaceData));
+                $scope.spaceDataArray.push($scope.spaceData);
+                $scope.loading = false;
+
+            }
+            console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
+
+        })
+
+    }
+
+});
+
+angular.module('portalControllers').controller('viewArchEditctrl', function ($scope,$timeout,$window,$uibModal,$uibModalInstance,$rootScope,sharedProperties,$location,$http) {
+    console.log("from viewArchEdit----->");
+    $scope.dismissOrder = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+        console.log("cancel------>")
+    };
+    $scope.distext = '';
+    $scope.confirm = function (textModel) {
+        $scope.distext  = angular.copy(textModel);
+        $scope.ver=sharedProperties.getVersion();
+        $scope.loguser=sharedProperties.getProperty();
+        $scope.curSolution=sharedProperties.getCurrentCSolName()
+        $scope.distext  = angular.copy(textModel);
+
+
+        console.log("version from viewarch-- ----------- >"+$scope.ver);
+
+        console.log("user==================>"+ $scope.loguser);
+        console.log("solution name--------------->"+$scope.curSolution)
+        console.log("discription----------------"+$scope.distext)
+
+
+
+
+        $http({
+            method: 'POST',
+            url: 'http://cbicportal.mybluemix.net/api/v2/modifysolutionversion',
+            data    : $.param({'uname': $scope.loguser,
+                                'solnName':$scope.curSolution,
+                                'solnDesc':$scope.distext,
+                                'version':$scope.ver
+                                  }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    // console.log("inside success function");
+                    $scope.resultCanvasDetails = data;
+                    console.log('resultCanvasDetails === ' + JSON.stringify($scope.resultCanvasDetails));
+
+
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            })
+    }
+
 });

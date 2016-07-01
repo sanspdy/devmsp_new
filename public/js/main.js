@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('portalControllers', ['ui.bootstrap'])
     .run(function ($rootScope, $location,$window,$route,$uibModalStack) {
         console.log("refresh page");
@@ -17,31 +16,64 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $rootScope.actualLocation = $location.path();
         });
 
+        /*$rootScope.$on('$locationChangeStart', function(event, next, current){
+            alert('Sorry ! Back Button is disabled');
+            // Prevent the browser default action (Going back):
+            event.preventDefault();
+        });
+*/
         // while going back through the browser should land to the previous page
+
+       /* $rootScope.$on('$locationChangeStart', function(event) {
+            if (!$rootScope.isAuthenticated) {
+                event.preventDefault();
+            }
+        });*/
         $rootScope.$watch(function () {return $location.path()}, function (newLocation, oldLocation) {
             if($rootScope.actualLocation === newLocation) {
+
                 $uibModalStack.dismissAll();
-                //$location.path('/home') ;
+                //$location.path('/') ;
+                //event.preventDefault();
+                event.preventDefault();
+                window.history.forward();
             }
         });
     })
+
+     // directive for menu slide bar
+    .directive('sidebarDirective', function() {
+        return {
+            link : function(scope, element, attr) {
+                scope.$watch(attr.sidebarDirective, function(newVal) {
+                    if(newVal)
+                    {
+                        element.addClass('show');
+                        return;
+                    }
+                    element.removeClass('show');
+                });
+            }
+        };
+    })
+
     // controller for login page
     .controller('mainController',['$scope','$http','$location','$uibModal','sharedProperties','$anchorScroll','$window',function($scope,$http,$location,$uibModal,sharedProperties,$anchorScroll,$window){
         console.log("inside sample controller");
-
+        $scope.state = false;
         // function to logout from the portal
         $scope.logoutMsp = function() {
             console.log("inside logout msp");
             localStorage.clear();
             $location.path('/');
-        }
+        };
        // on click of get started go to the services offered section
         $scope.gotoBottom = function() {
             $location.hash('bottom');
             $anchorScroll();
         };
 
-        $scope.load = function(){
+        $scope.loadHybrid = function(){
             /*$location.path('/canvas');*/
             $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -57,13 +89,19 @@ angular.module('portalControllers', ['ui.bootstrap'])
         $scope.navigateToMSP=function(){
             alert('MSP');
         };
-        $scope.loadHybrid=function(){
-            alert('Hybrid');
-        };
-        $scope.viewDepl=function(){
-            alert('Deployment');
-        };
 
+
+
+
+        $scope.toggleState = function() {
+            $scope.state = !$scope.state;
+        };
+        /*$scope.loadHybrid=function(){
+            alert('Hybrid');
+        };*/
+        $scope.viewDepl=function(){
+            $location.path('/deployment');
+        };
         $scope.navMsp = function(){
             console.log('inside nav msp');
             /*$location.path('/MSP');*/
@@ -89,8 +127,8 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $location.hash('bottom');
             $anchorScroll();
         };
-        $scope.load = function(){
-            /*$location.path('/canvas');*/
+        /*$scope.load = function(){
+            /!*$location.path('/canvas');*!/
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/solArchitecture.html',
@@ -100,16 +138,17 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 resolve: {
                 }
             });
-        }
+        }*/
 
         $scope.navigateToMSP=function(){
             alert('MSP');
         };
-        $scope.loadHybrid=function(){
+        /*$scope.loadHybrid=function(){
             alert('Hybrid');
-        };
+        };*/
         $scope.viewDepl=function(){
-            alert('Deployment');
+            //alert('Deployment');
+            $location.path('/deployment');
         };
 
         $scope.navMsp = function(){
@@ -544,8 +583,11 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
 
         $scope.saveDataRuntime = function () {
-            console.log("inside save function" + JSON.stringify($scope.popupDataRuntime));
-            console.log("inside save function" + JSON.stringify($scope.popupDataRuntime.title));
+            console.log("username==" +JSON.stringify($scope.username));
+            console.log("solnName==" +JSON.stringify($scope.solnName));
+            console.log("popupDataRuntime.title" + JSON.stringify($scope.popupDataRuntime.title));
+            console.log("compRuntimeAdded" + JSON.stringify($scope.compRuntimeAdded));
+            console.log("popupDataRuntime" + JSON.stringify($scope.popupDataRuntime));
             $http({
                 method: 'PUT',
                 url: 'http://cbicportal.mybluemix.net/api/updateBMRuntimeInfo',
@@ -561,7 +603,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 //forms user object
             })
                 .success(function (data, status, header, config) {
-
                     if (data.errors) {
                         // Showing errors.
                         $scope.errorName = data.errors.name;
@@ -569,10 +610,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         console.log("inside success function");
                         $scope.popupDataRuntimeResult = data;
                         console.log(JSON.stringify($scope.popupDataRuntimeResult));
-
-
                     }
-
                 })
                 .error(function (data, status, header, config) {
                     console.log("header data" + header);
@@ -701,23 +739,23 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
 
 
-      $scope.planData = "";
+      //$scope.planData = "";
 
         $scope.pricedata = {};
-        $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,isselected,price){
+        $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
             console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
             console.log('guid===' +guid);
             console.log('country===' +country.name );
             console.log('unitID===' +unitID );
-            console.log('isselected===' +isselected);
+            //console.log('isselected===' +isselected);
             console.log('price===' +price);
 
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
 
-            isselected = true;
-            console.log('isselected===' +isselected);
+            //isselected = true;
+            //console.log('isselected===' +isselected);
 
 
             $http({
@@ -818,17 +856,19 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
+        $scope.saveDataService = function (radioselected) {
 
-        $scope.saveDataService = function () {
-            console.log('planData===' +JSON.stringify($scope.planData));
-            //console.log("inside save function" + JSON.stringify($scope.popupDataService));
-
- /* console.log('$scope.selectedFlag===' +JSON.stringify($scope.selectedFlag));*/
-           // $scope.selectedFlag = true;
-            //console.log("inside save function" + JSON.stringify($scope.popupDataService));
+            console.log('radioselected===' +JSON.stringify(radioselected));
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
-            console.log("inside save function" + JSON.stringify($scope.popupDataService.properties.selected));
-            $http({
+
+
+            var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
+                return data.entity.name === radioselected;
+            });
+            console.log('indexCourseId==' +indexCourseId);
+            var guid = $scope.propertiesObjectArrayData[indexCourseId].metadata.guid;
+            console.log('guid===' +JSON.stringify(guid));
+                $http({
                 method: 'PUT',
                 url: 'http://cbicportal.mybluemix.net/api/updateBMServiceInfo',
                 data: $.param({
@@ -837,7 +877,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     service_details: 'bluemix',
                     service_name: $scope.popupDataService.title,
                     component_cnt: $scope.compServiceAdded,
-                    solnjson: $scope.popupDataService
+                    solnjson: $scope.popupDataService,
+                    "serviceplan_guid":guid
+
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -1093,6 +1135,11 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
         $uibModalInstance.dismiss('cancel');
     };
 
+
+    $scope.dismissOrderBill = function () {
+        $uibModalInstance.dismiss('cancel');
+        $location.path('/deployment');
+    };
 
 
     $scope.viewBillOfOrderArray=[];
