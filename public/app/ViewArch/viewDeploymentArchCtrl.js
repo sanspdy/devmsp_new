@@ -1,15 +1,15 @@
-/**
- * Created by Swati on 4/27/2016.
- */
 angular.module('portalControllers').controller('viewDeploymentArchCtrl', function ($scope,$timeout,$window,$uibModal,$rootScope,sharedProperties,$location,$http) {
     console.log('inside viewDeploymentArchCtrl');
+    $scope.state = false;
     //--------------
     //edit page start here
-    $scope.solnEntered11=sharedProperties.getCurrentCSolName()
+    $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+
+        $scope.versionnum = sharedProperties.getVersion();
 
     // edit Div
-    
-    $scope.showDiv = function () {
+
+ $scope.showDiv = function () {
         $scope.showhideprop = true;
         $scope.vEdit();
     }
@@ -31,6 +31,52 @@ $scope.viewArchEdit=function(){
         });
 
 }
+
+    $scope.toggleState = function() {
+        $scope.state = !$scope.state;
+    };
+
+    $scope.navMsp = function(){
+        console.log('inside nav msp');
+        /*$location.path('/MSP');*/
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/solArchitectureMsp.html',
+            windowClass: 'app-modal-window-sam',
+            controller: 'solCtrlMsp',
+            backdrop: 'static',
+            resolve: {
+
+            }
+        });
+    }
+
+    $scope.loadHybrid = function(){
+        /*$location.path('/canvas');*/
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/solArchitecture.html',
+            controller: 'solCtrl',
+            windowClass: 'app-modal-window-sa',
+            backdrop: 'static',
+            resolve: {
+            }
+        });
+    }
+
+    $scope.viewDepl=function(){
+        $location.path('/deployment');
+    };
+
+
+    $scope.showDiv = function () {
+        $scope.showhideprop = true;
+        $scope.vEdit();
+    }
+    // close Div
+    $scope.hideDiv = function () {       
+        $scope.showhideprop = false;
+    }
     //-----
 
     $scope.currentUser11 = sharedProperties.getProperty();
@@ -594,7 +640,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         console.log("cancel------>")
     };
     $scope.distext = '';
-    $scope.confirm = function (textModel) {
+    $scope.confirms = function (textModel) {
         $scope.distext  = angular.copy(textModel);
         $scope.ver=sharedProperties.getVersion();
         $scope.loguser=sharedProperties.getProperty();
@@ -631,6 +677,33 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     // console.log("inside success function");
                     $scope.resultCanvasDetails = data;
                     console.log('resultCanvasDetails === ' + JSON.stringify($scope.resultCanvasDetails));
+                    $scope.newsolution=$scope.resultCanvasDetails.solution_name;
+                    $scope.newVersion=$scope.resultCanvasDetails.version;
+                    $scope.soln=$scope.newsolution;
+                    $scope.vers= $scope.newVersion;
+
+                    console.log("new solution ----->"+$scope.soln);
+                    console.log("new version ----->"+ $scope.vers);
+
+                   /* setTimeout(function () {
+                        $scope.$apply(function () {
+                            console.log("from $apply----->")
+                            $scope.versionnum=sharedProperties.getVersion()
+                            console.log("version nunb-->"+$scope.versionnum);
+                            $scope.versionnum = $scope.vers;
+                        });
+                    });*/
+                    $uibModalInstance.close();
+                    /*for(var i=0;i<$scope.resultCanvasDetails.length;i++){
+                        $scope.newsolution=$scope.resultCanvasDetails[i];
+                        $scope.newVersion=$scope.resultCanvasDetails[i]
+                        console.log("new solution ----->"+$scope.newsolution);
+                        console.log("new version ----->"+ $scope.newVersion);
+
+
+                    }*/
+
+
 
 
                 }

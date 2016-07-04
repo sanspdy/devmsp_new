@@ -80,6 +80,7 @@ angular.module('portalControllers')
                 $scope.drafts=false;
                 $scope.spinsCatalogueList=true;
                 $scope.spinsCanvas=false;
+                $scope.spinsCanvasCatalogue = false;
                 $scope.loading=true;
                 $http.get("http://cbicportal.mybluemix.net/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
                     // console.log("Data : " + JSON.stringify(data));
@@ -1460,7 +1461,7 @@ angular.module('portalControllers')
                  console.log("Current canvas : " + JSON.stringify(canvas));
                  canvas.clear();*/
                 //canvas.clear();
-                canvas.clear();
+                //canvas.clear();
                 var imgDevice = document.getElementById("device_img");
                 var deviderImg = document.getElementById("devider_img");
                 var edgeDevice = document.getElementById("edge_device");
@@ -1489,12 +1490,23 @@ angular.module('portalControllers')
 
                 $scope.choices = [];
                 $scope.objCount = 0;
-                $uibModal.open({
+
+                /*$uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/newSolArchitecture.html',
-
                     controller: 'newsolCtrl',
                     windowClass: 'app-modal-window-nns',
+                    backdrop: 'static',
+                    resolve: {
+
+                    }
+                });*/
+
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/newArchConfirmation.html',
+                    controller: 'newArchConfirmCtrl',
+                    windowClass: 'app-modal-window-newArch',
                     backdrop: 'static',
                     resolve: {
 

@@ -6,8 +6,9 @@
            <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
             <input class="btn btn-primary" type="button" ng-click="Vsave()" value="Save"/>
          </div>
-            <span id="solutionName"> My Architecture Name:{{solnEntered11}} </span>
+            <span id="solutionName"> My Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
             <a href="javascript:genPdfViewArch()"> Download PDF </a>
+
             <loading ng-show="spinsCanvas"></loading>
             <div id="canvas-container">
                 <canvas id="canvas" width="1350" height="745">

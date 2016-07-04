@@ -653,8 +653,8 @@ select{
     background-color: #017eba;
     color: #ffffff;
     border-radius: 6px;
-    width: 135px;
-    height: 38px;
+    width: 124px;
+    height: 30px;
 }
 
 .canvas_btns{
@@ -948,12 +948,14 @@ select{
 
 }
 
-.catlog_d{
+.catlog_hybrid{
 
     position: absolute;
-    left: 980px;
-    top: 97px;
+   /* left: 980px;
+    top: 97px;*/
     z-index: 3;
+    left: 72%;
+    top: 14%;
 }
 #demo-2{
     position: absolute;
@@ -966,12 +968,14 @@ select{
     cursor: pointer;
 }
 
-.canvas_title{
+.canvas_title_hybrid{
     position: absolute;
-    left:250px;
-    top: 8px;
+    /*left:250px;
+    top: 8px;*/
     z-index:6;
     width: 600px;
+    left: 30%;
+    top: 2%;
 
 }
 /* round button pj*/

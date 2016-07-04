@@ -1,11 +1,9 @@
 angular.module('portalControllers').controller('deplCtrl', function ($scope,$location,$uibModal,sharedProperties,$http,$rootScope) {
      console.log("inside depl ctrl");
-
     $scope.state = false;
     $scope.toggleState = function() {
         $scope.state = !$scope.state;
     };
-
     $scope.navMsp = function(){
         console.log('inside nav msp');
         /*$location.path('/MSP');*/
@@ -16,10 +14,9 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             controller: 'solCtrlMsp',
             backdrop: 'static',
             resolve: {
-
             }
         });
-    }
+    };
     $scope.loadHybrid = function(){
         /*$location.path('/canvas');*/
         $uibModal.open({
@@ -31,7 +28,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             resolve: {
             }
         });
-    }
+    };
 
     $scope.redirectHome = function () {
         console.log("inside depl controller");
@@ -96,8 +93,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         $location.path('/viewArchietecture');
 
     }*/
-
-
     $scope.moveToViewArch = function (index) {
 
 
@@ -609,19 +604,11 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
         $location.path('/viewArchietecture');
         console.log('version===  ' +JSON.stringify(version));
         sharedProperties.setVersion(version);
+
         $uibModalInstance.close();
 
 
     }
-
-
-
-
-
-
-
-
-
     console.log('$scope.versionData===>>>' +JSON.stringify($scope.versionData));
     Object.keys($scope.versionData).forEach(function (key) {
             console.log('versionData key values === ' + key);
@@ -648,9 +635,6 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
         }
     });
-
-
-
     // remove
     $scope.removeUser = function(index) {
         $scope.users.splice(index, 1);
@@ -662,14 +646,17 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
     /*$scope.rowclick = function(){
         console.log("Click 1 method")
     }*/
-    $scope.verEdit =function(){
+    $scope.verEdit =function(version){
+
         $location.path('/viewArchietecture');
+        console.log('version===  ' +JSON.stringify(version));
+
         $uibModalInstance.close();
-    }
+    };
     $scope.savetoPdf=function(){
 
 
-   }
+   };
    $scope.viewdelete=function(version,index) {
 
       // $scope.versionarray
@@ -706,6 +693,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
                    $scope.errorName = data.errors.name;
                } else {
                 $scope.deletedSolName = data;
+                   $scope.data.splice(index, 1);
                 console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
                }
            })
@@ -717,7 +705,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
        $scope.versionarray.splice(verIndex ,1);
 
-         $location.path('/deployment');
+       // $location.path('/deployment');
        $uibModalInstance.close();
    }
 
@@ -732,7 +720,6 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
 
     }
-
     /*$scope.savetoPdf=function(){
         /!*var doc = new jsPDF();
          doc.text(20,20,'Test Page1');
@@ -749,9 +736,5 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
             }
         })
     }*/
-
-
    
-
-
 })

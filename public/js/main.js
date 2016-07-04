@@ -33,10 +33,8 @@ angular.module('portalControllers', ['ui.bootstrap'])
             if($rootScope.actualLocation === newLocation) {
 
                 $uibModalStack.dismissAll();
-                //$location.path('/') ;
-                //event.preventDefault();
                 event.preventDefault();
-                window.history.forward();
+                window.history.forward(1);
             }
         });
     })
@@ -272,7 +270,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
         };
         this.getProperty=function () {
             return user;
-        }
+        };
 
         this.setSoln = function(solutionName) {
             console.log("solnName==="+solutionName);
@@ -1458,5 +1456,34 @@ angular.module('portalControllers').controller('SelectProperServiceCtrl', functi
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
+
+});
+
+
+angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance) {
+    console.log("inside newArchConfirmCtrl");
+    $scope.ngShowModalNewArch = true;
+
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.deleteArchitecture = function(){
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.createnewArch = function(){
+        $uibModalInstance.dismiss('cancel');
+        $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: '../components/modal/newSolArchitecture.html',
+         controller: 'newsolCtrl',
+         windowClass: 'app-modal-window-nns',
+         backdrop: 'static',
+         resolve: {
+
+         }
+         });
+    }
 
 });
