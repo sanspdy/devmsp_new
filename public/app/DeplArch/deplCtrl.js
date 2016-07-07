@@ -43,7 +43,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     $scope.versionarray=[]
         $scope.username = sharedProperties.getProperty();
         console.log('$scope.username' +$scope.username);
-        $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchNames?uname="+$scope.username)
+        $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchNames?uname="+$scope.username+"&version="+1)
             .success(function(data){
                 console.log('inside view DeployArch function');
                 $scope.components = data;

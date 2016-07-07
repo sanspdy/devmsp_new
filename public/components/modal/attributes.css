@@ -7,11 +7,12 @@
 .pop_heading{
     text-transform: capitalize;
     color: #017eba;
-    margin-top: 3%;
+    margin-top: 1%;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 168%;
+    /* float: left; */
+    /* margin-left: -78%; */
+    /* margin-right: 74%; */
+    font-size: 25px;
 }
 .spss_input{
     width: 73px;
@@ -49,14 +50,28 @@
 
 .save_btn{
     float: right;
+    margin-top: -4.5%;
     background-color: #017eba;
-    margin-right: -45px;
+    /* margin-right: -45px; */
     /* height: 20% !important; */
     color: white;
     /* max-height: 7%; */
-    margin-bottom: 4%;
-    width: 17%;
-    height: 37px;
+    /* margin-bottom: 4%; */
+    width: 7%;
+    height: 34px;
+}
+
+.save_btn_msp{
+    float: right;
+    margin-top: 4.5%;
+    background-color: #017eba;
+    margin-right: -11px;
+    /* height: 20% !important; */
+    color: white;
+    /* max-height: 7%; */
+    /* margin-bottom: 4%; */
+    width: 18%;
+    height: 34px;
 }
 
 .btn_div{
@@ -65,7 +80,7 @@
 
 .modal1{
     /*width: autopx;*/
-    /*height:700px;*/
+    height:500px;
     margin-top: 1%;
     padding-right: 55px !important;
     padding-left: 6px !important;
@@ -109,7 +124,7 @@
     width: 700px;
 }
 .app-modal-window-att3 .modal-dialog {
-    width: 1000px;
+    width: 1200px;
 }
 .app-modal-window-dc .modal-dialog {
     width: 440px;
@@ -165,5 +180,24 @@
 }
 
 .bluemixlabel{
-    margin-left: -21%;
+    /*margin-left: -21%;*/
+    margin-left: -9%;
+}
+.bluemixdata{
+    border-bottom: 1px solid #eee;
+    margin-top: 3%;
+    text-align: center;
+}
+
+.bluemixheading{
+    text-align: center;
+}
+
+.bluemixSpinner{
+    margin-left: 85%;
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    margin-top: 5%
+
 }

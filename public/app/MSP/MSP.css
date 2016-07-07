@@ -829,18 +829,18 @@ select{
 
 .catlog_d{
    position: absolute;
-    left: 980px;
+   /* left: 980px;*/
     top: 97px;
+    left: 72%;
     z-index: 3;
 }
 
 .canvas_title{
     position: absolute;
-    left:250px;
+    left: 27%;
     top: 8px;
     z-index:6;
     width: 600px;
-
 }
 
 /*.msp{

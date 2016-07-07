@@ -43,8 +43,10 @@
 			<div class="canvas_title">
             <span id="solutionName"> Architecture Name:{{solnName}} </span>
             <div class="canvas_btns">
-                <button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
-                <button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>
+                <button ng-click="addChild()" class="btnStyle">Connectors</button>
+                <button ng-click="printCanvas()" class="btnStyle">New Architecture</button>
+                <!--<button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
+                <button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>-->
             </div>
 			</div>
             <loadingmsp ng-show="spinsCanvas"></loadingmsp>
