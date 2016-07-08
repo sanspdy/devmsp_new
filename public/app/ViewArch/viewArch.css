@@ -4,15 +4,3 @@
     margin-right:0px;
     clear:left;
 }
-
-#placeBtn {
-    position: absolute;
-    z-index: 2;
-    left: 86%;
-    float: right;
-    background-color: #017eba;
-    margin-top: -12%;
-    width: 118px;
-    height: 37px;
-    color: white;
-}

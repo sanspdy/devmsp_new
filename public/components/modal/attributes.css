@@ -13,21 +13,26 @@
     margin-right: auto;
     font-size: 168%;
 }
+
+
 .spss_input{
     width: 73px;
     padding: 1%;
     margin-top: 3%;
 }
+
 #spss_select{
     padding: 1%;
     margin-top: 4%;
     width: 87%;
 }
+
 #spss_flavor_select{
     padding: 2%;
     margin-top: 7%;
     width: 87%;
 }
+
 #app_input{
     padding: 1%;
     margin-top: 7%;
@@ -65,7 +70,7 @@
 
 .modal1{
     /*width: autopx;*/
-    /*height:700px;*/
+    height:700px;
     margin-top: 1%;
     padding-right: 55px !important;
     padding-left: 6px !important;
@@ -100,16 +105,12 @@
 }
 .app-modal-window-att .modal-dialog {
     width: 500px;
-    height:500px;
-}
-.app-modal-window-att-prov .modal-dialog{
-    width:600px;
 }
 .app-modal-window-att2 .modal-dialog {
     width: 700px;
 }
 .app-modal-window-att3 .modal-dialog {
-    width: 1000px;
+    width: 850px;
 }
 .app-modal-window-dc .modal-dialog {
     width: 440px;
@@ -124,9 +125,23 @@
     width: 500px;
 }
 
-.app-modal-window-newArch .modal-dialog{
-    width:440px;
+
+
+
+/*
+.modal-content1 {
+width: 446px;
 }
+.modal-dialog {
+    width: auto;
+
+}*/
+
+/*
+.attributepop{
+    width: 797px;
+    margin-left: -29%;
+}*/
 .servicePl{
     width: 132px;
 }
@@ -157,13 +172,4 @@
 
 .bluemixprop{
     word-wrap: break-word;
-}
-
-.attrHeading{
-    font-size: 17px;
-    color: #017eba;
-}
-
-.bluemixlabel{
-    margin-left: -21%;
 }

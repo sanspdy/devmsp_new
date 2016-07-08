@@ -68,14 +68,3 @@ table tbody td { border-bottom: 1px solid grey; padding: 1% }
     position: absolute !important;
     margin-left: 58%;
 }
-
-
-#pdfbtn{
-    background-color: #017eba;
-    color: white;
-    float: right;
-    height: 33px;
-    margin-right: 5%;
-    width: 123px;
-    border-radius: 10%
-}

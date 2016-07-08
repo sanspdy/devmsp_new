@@ -10,17 +10,16 @@ angular.module('portalApp', [
 		function($routeProvider) {
 			$routeProvider.
 			when('/', {
-				    templateUrl: '/app/Home/home.html',
-					controller: 'mainController'
+				templateUrl: '/app/Login/loginPage.html',
+				controller: 'mainController'
 			}).
 			when('/canvas', {
 				templateUrl: 'app/Hybrid/canvasScreen.html',
 				controller: 'canvasController'
 			}).
-			when('/login', {
-					templateUrl: '/app/Login/loginPage.html',
-					controller: 'mainController'
-
+			when('/home', {
+				templateUrl: '/app/Home/home.html',
+				controller: 'mainController'
 			}).
 			when('/MSP', {
 				templateUrl: 'app/MSP/MSP.html',
@@ -52,6 +51,3 @@ angular.module('portalApp', [
 				redirectTo: '/sample'
 			});
 		}]);
-
-/*var history_api = typeof history.pushState !== 'undefined';
-if ( history_api ) history.pushState(null, '', '#StayHere');*/

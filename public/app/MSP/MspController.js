@@ -1007,13 +1007,7 @@ angular.module('portalControllers').controller('solCtrlMsp', function ($scope,$u
         $uibModalInstance.dismiss('cancel');
         $location.path('/deployment');
     }
-
-    $scope.dismissModalSolArch = function () {
-        $uibModalInstance.dismiss('cancel');
-        $location.path('/home');
-    };
-
-});
+})
 
 
 angular.module('portalControllers').controller('solutionCtrlMsp', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,$rootScope) {

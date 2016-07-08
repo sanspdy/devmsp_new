@@ -1,18 +1,18 @@
 <div class="modal-content">
     <div class="billText">
-        <span id="orderHeading">Version Details: {{solutionname}}</span>
+        <span id="orderHeading">Bill of Material of</span>
         <img class="po-cross3" src="../../images/cross.png"  ng-click="dismissOrder()" alt="close">
     </div>
 
     <table class="table table-bordered table-hover table-condensed">
         <tr style="font-weight: bold">
-            <td style="width:45%">Architecture Name</td>
+            <td style="width:45%">ArchName</td>
             <td style="width:20%">Status</td>
-
+            <!--<td style="width:20%">Group</td>-->
             <td style="width:25%"></td>
         </tr>
 
-        <tr ng-repeat="data in hybridversionObjectsArray" ng-click="do_some_action(data.version)">
+        <tr ng-repeat="data in hybridversionObjectsArray" ng-click="do_some_action()">
             <td >
              <span> V {{ data.version }} </span>
             </td>
@@ -36,13 +36,13 @@
                    </button>
                  </form>-->
                 <div class="buttons" >
-                    <button class="btn btn-primary" ng-click="do_some_action(data.version)">View</button>
+                    <button class="btn btn-primary" ng-click="verEdit()">edit</button>
                     <button class="btn btn-primary" ng-click="savetoPdf()">PDF</button>
-                    <button class="btn btn-danger" ng-click="viewdelete(data.version)">delete</button>
+                    <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="data in mspversionObjectsArray" ng-click="do_some_action_msp(data.version)">
+        <tr ng-repeat="data in mspversionObjectsArray" ng-click="do_some_action()">
             <td >
                 <span> V {{ data.version }} </span>
             </td>
@@ -60,9 +60,9 @@
                    </button>
                  </form>-->
                 <div class="buttons" >
-                    <button class="btn btn-primary" ng-click="do_some_action(data.version)">View</button>
+                    <button class="btn btn-primary" ng-click="verEdit()">edit</button>
                     <button class="btn btn-primary" ng-click="verDown()">PDF</button>
-                    <button class="btn btn-danger" ng-click=viewdelete(data.version)">delete</button>
+                    <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
                 </div>
             </td>
         </tr>
@@ -72,11 +72,11 @@
        <tbody>
 
        <tr ng-repeat="status in statusversionObjectsArray">
-           <td style="width:300px">
-               <b>MSP Status: </b> {{ status.msp_status}}
+           <td style="width:200px">
+               msp status {{ status.msp_status}}
            </td>
-           <td style="width:300px">
-               <b>Bluemix Status: </b> {{status.bluemix_status}}
+           <td style="width:200px">
+               bluemix status {{status.bluemix_status}}
            </td>
        </tr>
        </tbody>
@@ -85,22 +85,3 @@
     <!--<button class="btn btn-default" ng-click="addUser()">Add row</button>-->
 </div>
 
-<script type="text/javascript">
-
-    function genPdfViewArch(){
-        /*var doc = new jsPDF();
-         doc.text(20,20,'Test Page1');
-         doc.addPage();
-         doc.text(20,20,'Test Page2');
-         doc.save('Test.pdf');*/
-        html2canvas(document.getElementById("myArch"),{
-            onrendered:function(canvas){
-                var img = canvas.toDataURL("image/png");
-                var doc = new jsPDF('landscape');
-                doc.addImage(img,'JPEG',10,10);
-                doc.save('ViewArch.pdf');
-            }
-        })
-    }
-
-</script>

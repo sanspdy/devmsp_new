@@ -28,6 +28,7 @@
                     <textarea type="text" id="txtArea" name="solDesc" placeholder="Maximum 200 Characters" ng-model="itemData.solDesc" minlength="0" maxlength="200" required rows="5"></textarea>
                     <span  style="color: red" ng-show="myForm.solDesc.$touched && myForm.solDesc.$invalid">Description is required!!</span>
                     <!--</input>-->
+
                 </div>
                 <loading ng-show="viewCreatSol" class="viewCreatSol"></loading>
                 <button type="button" id="solBtn" class="save-changes" ng-click="createCanvas()" ng-disabled="myForm.solnInput.$invalid || myForm.solDesc.$invalid"> CREATE</button>

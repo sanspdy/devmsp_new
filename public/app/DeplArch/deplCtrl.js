@@ -1,35 +1,5 @@
 angular.module('portalControllers').controller('deplCtrl', function ($scope,$location,$uibModal,sharedProperties,$http,$rootScope) {
      console.log("inside depl ctrl");
-    $scope.state = false;
-    $scope.toggleState = function() {
-        $scope.state = !$scope.state;
-    };
-    $scope.navMsp = function(){
-        console.log('inside nav msp');
-        /*$location.path('/MSP');*/
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/solArchitectureMsp.html',
-            windowClass: 'app-modal-window-sam',
-            controller: 'solCtrlMsp',
-            backdrop: 'static',
-            resolve: {
-            }
-        });
-    };
-    $scope.loadHybrid = function(){
-        /*$location.path('/canvas');*/
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/solArchitecture.html',
-            controller: 'solCtrl',
-            windowClass: 'app-modal-window-sa',
-            backdrop: 'static',
-            resolve: {
-            }
-        });
-    };
-
     $scope.redirectHome = function () {
         console.log("inside depl controller");
         $location.path('/home');
@@ -40,10 +10,9 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         var pageSize1 = 3;
         $scope.SolnArray = [];
     $scope.SolnArrayHybrid=[];
-    $scope.versionarray=[]
         $scope.username = sharedProperties.getProperty();
         console.log('$scope.username' +$scope.username);
-        $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchNames?uname="+$scope.username)
+        $http.get("http://cbicportal.mybluemix.net/api/viewMyDeployArch?uname="+$scope.username)
             .success(function(data){
                 console.log('inside view DeployArch function');
                 $scope.components = data;
@@ -93,22 +62,19 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         $location.path('/viewArchietecture');
 
     }*/
+
+
     $scope.moveToViewArch = function (index) {
-
-
-        $scope.solName=index;
-        console.log('solution name'+ index);
+        console.log('inside version'+index);
         sharedProperties.setCurrentCSolName(index);
-        $scope.vers=sharedProperties.getVersion();
-        console.log("version ----------------->"+$scope.vers)
-
-
+        console.log('solution name'+ index);
+        $scope.solName=index
+        console.log('user name '+$scope.username );
         $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
             $scope.ResponseDataViewBillObject = data;
             console.log('version details === '+JSON.stringify($scope.ResponseDataViewBillObject));
             $scope.hybridData = $scope.ResponseDataViewBillObject;
             ///* $location.path('/viewArchietecture');*/
-
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/versiondetail.html',
@@ -119,8 +85,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                     indexVersion:function () {
                         return $scope.ResponseDataViewBillObject;
                     }
-
-
                 }
             });
         });
@@ -181,6 +145,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         console.log('$scope.SolnArray === ' +JSON.stringify($scope.SolnArray));
         $scope.deletedSolnName = $scope.SolnArray[solIndex];
         console.log('index of msp is' +solIndex);
+        /*$rootScope.solnName = $scope.itemData.solnInput;*/
         console.log("$scope.deletedSolnName === " +$scope.deletedSolnName);
 
     $http({
@@ -204,7 +169,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     }
 
     $scope.deleteArchHybrid = function (index) {
-        console.log('data of hybrid is------->' +index);
+        console.log('data of hybrid is' +index);
         var solIndex = $scope.SolnArrayHybrid.indexOf(index);
         console.log('solIndex hybrid === '+solIndex);
         var uid = sharedProperties.getProperty();
@@ -244,16 +209,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     var runtimeChoiceIndex;
     var serviceChoiceIndex;
     var currentSoln;
-    var version='';
-    var userEntered=''
-        this.setVersion = function(versionId) {
-            console.log("VertionId==="+versionId);
-            version=versionId;
-
-        };
-        this.getVersion=function () {
-            return version;
-        }
     this.setProperty = function(userId) {
         console.log("userId==="+userId);
         user=userId;
@@ -280,14 +235,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     this.getCurrentCSolName=function(){
         return currentSoln;
     }
-        this.setluser = function(userId) {
-            console.log("userId==="+userId);
-            luser=userId;
 
-        };
-        this.getluser=function () {
-            return luser;
-        }
 
 });
 
@@ -594,35 +542,22 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     }
 
 });
-angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties) {
+angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion) {
+   $scope.versionData = indexVersion;
+    console.log('$scope.versionData===' +JSON.stringify($scope.versionData));
 
-    $scope.versionData = indexVersion;
-    $scope.solutionname=sharedProperties.getCurrentCSolName();
-
-
-    $scope.do_some_action = function(version) {
-        $location.path('/viewArchietecture');
-        console.log('version===  ' +JSON.stringify(version));
-        sharedProperties.setVersion(version);
-
-        $uibModalInstance.close();
-
-
-    }
-    console.log('$scope.versionData===>>>' +JSON.stringify($scope.versionData));
     Object.keys($scope.versionData).forEach(function (key) {
-            console.log('versionData key values === ' + key);
-            if (key === 'hybrid') {
-                $scope.hybridversionObjectsArray = $scope.versionData[key];
-                console.log('$scope.hybridversionObjectsArray === ' + JSON.stringify($scope.hybridversionObjectsArray));
-                //sharedProperties.setVersion($rootScope.hybridversionObjectsArray);
+        console.log('versionData key values === ' + key);
+        if (key === 'hybrid') {
+            $scope.hybridversionObjectsArray = $scope.versionData[key];
+            console.log('$scope.hybridversionObjectsArray === ' + JSON.stringify($scope.hybridversionObjectsArray));
+            
+        }
+       if(key === 'msp') {
+            $scope.mspversionObjectsArray = $scope.versionData[key];
+            console.log('$scope.mspversionObjectsArray === ' + JSON.stringify($scope.mspversionObjectsArray));
 
-            }
-            if(key === 'msp') {
-                $scope.mspversionObjectsArray = $scope.versionData[key];
-                console.log('$scope.mspversionObjectsArray === ' + JSON.stringify($scope.mspversionObjectsArray));
-
-            }
+        }
        
 
     });
@@ -635,6 +570,9 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
         }
     });
+
+
+
     // remove
     $scope.removeUser = function(index) {
         $scope.users.splice(index, 1);
@@ -646,80 +584,15 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
     /*$scope.rowclick = function(){
         console.log("Click 1 method")
     }*/
-    $scope.verEdit =function(version){
+    $scope.do_some_action = function() {
+       // alert(123);
 
-        $location.path('/viewArchietecture');
-        console.log('version===  ' +JSON.stringify(version));
-
-        $uibModalInstance.close();
-    };
-    $scope.savetoPdf=function(){
-
-
-   };
-   $scope.viewdelete=function(version,index) {
-
-      // $scope.versionarray
-       $scope.versionarray=[];
-       var verIndex =  $scope.versionarray.indexOf($scope.solN);
-       console.log('$scope.versionarray === '+verIndex );
-       //console.log('index===' +index);
-
-       console.log('version22222===  ' +version);
-       $scope.solN=sharedProperties.getCurrentCSolName();
-       console.log("current solution name"+ $scope.solN);
-
-       var solnIndex = $scope.solN.indexOf(version);
-       console.log('solnIndex===' +solnIndex);
-
-       $scope.username = sharedProperties.getProperty();
-       console.log("current user"+  $scope.username );
-
-       $http({
-           method: 'POST',
-           url: 'http://cbicportal.mybluemix.net/api/v2/deleteSolutionVersion',
-           data: $.param({
-               "uname":$scope.username ,
-               "solnName": $scope.solN,
-              "version":version
-           }),
-           headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-           //forms user object
-       })
-           .success(function (data, status, header, config) {
-
-               if (data.errors) {
-                   // Showing errors.
-                   $scope.errorName = data.errors.name;
-               } else {
-                $scope.deletedSolName = data;
-                   $scope.data.splice(index, 1);
-                console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
-               }
-           })
-           .error(function (data, status, header, config) {
-               console.log("header data" + header);
-               console.log("status data" + status);
-               console.log("config data" + JSON.stringify(config));
-           })
-
-       $scope.versionarray.splice(verIndex ,1);
-
-       // $location.path('/deployment');
-       $uibModalInstance.close();
-   }
-
-
-    $scope.do_some_action_msp = function(version) {
-        console.log('version===' +JSON.stringify(version));
-
-        // alert(123);
-        //$scope.users.splice(index, 1);
         $location.path('/viewArchietecture');
         $uibModalInstance.close();
 
 
     }
+
     /*$scope.savetoPdf=function(){
         /!*var doc = new jsPDF();
          doc.text(20,20,'Test Page1');
@@ -736,5 +609,9 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
             }
         })
     }*/
+
+
    
+
+
 })
