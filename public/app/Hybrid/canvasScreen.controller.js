@@ -243,8 +243,7 @@ angular.module('portalControllers')
 
                     $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                     var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                    var label_bluemixService = $scope.bluemixServiceObjects.title;
-
+                    var label_bluemixService = $scope.bluemixServiceObjects.label;
                     $scope.bluemixServiceIcon.push(icon_bluemixService);
                     $scope.bluemixServiceLabel.push(label_bluemixService);
                 }
@@ -742,7 +741,6 @@ angular.module('portalControllers')
                         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         //forms user object
                     })
-
                         .success(function(data) {
                             console.log("inside success function");
                             $scope.DataResponse = data;
@@ -1681,17 +1679,93 @@ angular.module('portalControllers')
                 // Replace with a fallback to a library solution.
                 // alert("This browser doesn't support the HTML5 Drag and Drop API.");
             }
-
             $scope.redirectToHome = function(){
-                console.log("inside redirect");
-                $location.path('/home');
-
+                //alert("inside redirect to home");
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/homePageConfirm.html',
+                    windowClass: 'app-modal-window-sam',
+                    controller: 'confirmHomeCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                    }
+                });
+                /*console.log("inside redirect");
+                $location.path('/home');*/
                 //$state.go('/home');
             };
-
         })
+    });
 
-    })
 
-    
-    
+angular.module('portalControllers').controller('confirmHomeCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+     //alert("inside confirmHome  ctrl");
+    $scope.openConfirmHomePage = true;
+    $scope.ProceedToHome = function(){
+        //alert('inside proceed to home');
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/ProceedHomeSavedata.html',
+            windowClass: 'app-modal-window-sam',
+            controller: 'SaveDataCtrl',
+            backdrop: 'static',
+            resolve: {
+            }
+        });
+    };
+
+    $scope.cancelProceed = function(){
+        //alert('inside cancel Proceed');
+        $uibModalInstance.dismiss('cancel');
+        $location.path('/canvas');
+    };
+});
+
+
+angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
+    //alert("inside save data  ctrl");
+    $scope.ConfirmHomePageSavedata = true;
+    $scope.SaveArch = function(){
+        //alert('inside saveArch');
+        console.log('$scope.currentUser1===' +JSON.stringify($scope.currentUser1));
+        console.log('$scope.solnEntered1===' +JSON.stringify($scope.solnEntered1));
+        console.log('$scope.canvasCreated===' +JSON.stringify($scope.canvasCreated));
+        /*$http({
+            method: 'PUT',
+            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser1,
+                'solnName': $scope.solnEntered1,
+                'canvasinfo': $scope.canvasCreated,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/home');
+
+                }
+
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            })*/
+    };
+    $scope.DelArch = function(){
+        //alert('inside delArch');
+    };
+});

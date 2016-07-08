@@ -504,8 +504,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
 
-    $scope.getCanvasInformation = sharedPropertiesCanvas.getCanvasinfo();
-    console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));
+    /*$scope.getCanvasInformation = sharedPropertiesCanvas.getCanvasinfo();
+    console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));*/
     //--------------
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
@@ -591,17 +591,16 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     $http({
         method: 'POST',
-        url: 'http://cbicportal.mybluemix.net/api/getCanvasInfo',
+        url: 'http://cbicportal.mybluemix.net/api/v2/getCanvasInfo',
         data: $.param({
             "soln_name":$scope.solnEntered11,
-
-
+            "uname":$scope.currentUser11,
+            "version":1
         }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         //forms user object
     })
         .success(function (data, status, header, config) {
-
             if (data.errors) {
                 // Showing errors.
                 $scope.errorName = data.errors.name;
@@ -609,15 +608,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
+                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
-
                     var canvas;
                     // window.newAnimation = function () {
                     /*canvas = new fabric.Canvas('canvas');*/
                     canvas = new fabric.Canvas('canvas',{
                         selection: true,
                     });
-
                     canvas.on("object:selected", function(options) {
                         options.target.bringToFront();
                         $( "#canvas-container").draggable("enable");
@@ -713,7 +711,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $(function() {
                         $("#canvas-container").draggable();
                     });
-                    var imgDevice = document.getElementById("device_img");
+                   /* var imgDevice = document.getElementById("device_img");
                     var deviderImg = document.getElementById("devider_img");
                     var edgeDevice = document.getElementById("edge_device");
 
@@ -741,12 +739,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     imgInstance3.lockMovementY = true;
                     imgInstance3.lockMovementX = true;
                     imgInstance3.hasControls=false;
-
+*/
                     // we need this here because this is when the canvas gets initialized
                     // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                     // }
 
-                    var canvasRenderObject=$scope.resultCanvasDetails[0];
+                    var canvasRenderObject=$scope.resultCanvasDetails.canvas[0];
+                    console.log('canvasRenderObject===' +canvasRenderObject);
                     canvas.loadFromDatalessJSON(canvasRenderObject);
                     canvas.renderAll();
 
@@ -1639,8 +1638,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                     $scope.esave = function(){
                         console.log("from save----->")
-                        $scope.ver=sharedProperties.getVersion();
-                        console.log("current version ----->"+$scope.vers)
+                        $scope.newVer= sharedProperties.getNewersion();
+                        console.log("current version ----->"+$scope.newVer)
                         /*console.log("created canvas== "+canvas);
                          console.log("Current canvas : " + JSON.stringify(canvas));*/
                         $scope.canvasCreated=JSON.stringify(canvas);
@@ -1666,7 +1665,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 'uname':  $scope.currentUser1,
                                 'solnName':  $scope.solnEntered1,
                                 'canvasinfo': $scope.canvasCreated,
-                                'version':$scope.ver
+                                'version':$scope.newVer
                             }),
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                             //forms user object
@@ -1876,50 +1875,67 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 })
 
 .service('sharedProperties', function () {
-    var user='';
-    var soln='';
-    var MSPChoiceIndex;
-    var runtimeChoiceIndex;
-    var serviceChoiceIndex;
-    var currentSoln;
-    var version='';
-    this.setVersion = function(versionId) {
-        console.log("VertionId==="+versionId);
-        version=versionId;
+        var user='';
+        var soln='';
+        var MSPChoiceIndex;
+        var runtimeChoiceIndex;
+        var serviceChoiceIndex;
+        var currentSoln;
+        var version='';
+        this.setVersion = function(versionId) {
+            console.log("VertionId==="+versionId);
+            version=versionId;
 
-    };
-    this.getVersion=function () {
-        return version;
-    }
-    this.setProperty = function(userId) {
-        console.log("userId==="+userId);
-        user=userId;
+        };
+        this.getVersion=function () {
+            return version;
+        }
+        this.setProperty = function(userId) {
+            console.log("userId==="+userId);
+            user=userId;
 
-    };
-    this.getProperty=function () {
-        return user;
-    }
+        };
+        this.getProperty=function () {
+            return user;
+        }
 
-    this.setSoln = function(solutionName) {
-        console.log("solnName==="+solutionName);
-        soln=solutionName;
+        this.setSoln = function(solutionName) {
+            console.log("solnName==="+solutionName);
+            soln=solutionName;
 
-    };
-    this.getSoln=function () {
-        return soln;
-    }
+        };
+        this.getSoln=function () {
+            return soln;
+        }
 
-    this.setCurrentCSolName=function(solName){
-        console.log("current solnName==="+solName);
-        currentSoln=solName;
-    }
+        this.setCurrentCSolName=function(solName){
+            console.log("current solnName==="+solName);
+            currentSoln=solName;
+        }
 
-    this.getCurrentCSolName=function(){
-        return currentSoln;
-    }
+        this.getCurrentCSolName=function(){
+            return currentSoln;
+        }
+
+        this.setCanvas=function(canSol){
+            console.log("current canvasName==="+canSol);
+            canvasName=canSol;
+        }
+
+        this.getCanvas=function(){
+            return canvasName;
+        }
+        this.setNewversion = function(newversionId) {
+            console.log("VertionId==="+newversionId);
+            newversion=newversionId;
+
+        };
+        this.getNewersion=function () {
+            return newversion;
+        }
 
 
-});
+    });
 
 
 
@@ -2004,12 +2020,14 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 console.log('$scope.spaceData' +JSON.stringify($scope.spaceData));
                 $scope.spaceDataArray.push($scope.spaceData);
                 $scope.loading = false;
-
             }
             console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
-
         })
-
+    }
+    $scope.proceedForOrder = function(){
+        //alert("inside proceed for order");
+        $uibModalInstance.dismiss('cancel');
+        $location.path('/deployment');
     }
 
 });
@@ -2049,7 +2067,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                 'version':$scope.ver
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-
         })
             .success(function (data, status, header, config) {
 
@@ -2064,6 +2081,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.newVersion=$scope.editCanvasDetails.version;
                     $scope.soln=$scope.newsolution;
                     $scope.vers= $scope.newVersion;
+                    $scope.Vertype=$scope.editCanvasDetails.type;
+                    sharedProperties.setNewversion($scope.newVersion)
                     $scope.Vertype=$scope.editCanvasDetails.type;
 
 

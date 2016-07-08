@@ -1500,6 +1500,9 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.deleteArchitecture = function(){
         $uibModalInstance.dismiss('cancel');
     };
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 
     $scope.createnewArch = function(){
         $uibModalInstance.dismiss('cancel');

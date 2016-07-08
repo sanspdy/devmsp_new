@@ -2343,27 +2343,25 @@ exports.getBluemixServicesList = function(request, response) {
                                 doc_count = docListJson1.length;
                                 console.log("Total Records:"+ doc_count);
                                 var titles = [];
-                                var label = [];
 
                                 console.log(docListJson1);
                                 for (i = 0; i < doc_count; i++) {
                                     if(docListJson1[i]!=null) {
                                         if(docListJson1[i].hasOwnProperty("entity")!=null) {
                                             if(docListJson1[i].entity!=null && docListJson1[i].entity!="") {
-                                                if(docListJson1[i].entity.hasOwnProperty("display_name") && docListJson1[i].entity.hasOwnProperty("label")) {
+                                                if(docListJson1[i].entity.hasOwnProperty("label")) {
                                                     if (!docListJson1[i].language) {
                                                         titles[i] = docListJson1[i].entity.display_name;
-                                                        label[i] = docListJson1[i].entity.label;
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                titles=titles.sort();
                                 for (i = 0; i < doc_count; i++) {
                                     output[i] = {
                                         "title" : titles[i],
-                                        "label": label[i],
                                         "icon" : "/images/MSP_Logos/IBM.png"
                                     };
                                 }
@@ -2574,17 +2572,15 @@ exports.getBluemixBuildpackList = function(request, response) {
 
 
                                     titles[j] = docListJson1[j].resources[0].entity.display_name;
-                                console.log("title",titles[j]);
 
 
-                                //titles = titles.sort();
+                               // titles = titles.sort();
 
 
                                     output[j] = {
                                         "title": titles[j],
                                         "icon": "/images/MSP_Logos/IBM.png"
                                     };
-                                console.log("output",output[j]);
 
 
                             }
@@ -3393,7 +3389,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                 }
                             }
                             else{
-                                resp.write("0.0");
+                                resp.write("There's no property extra");
                                 resp.end();
                                 console.log("There's no property extra");
                             }
