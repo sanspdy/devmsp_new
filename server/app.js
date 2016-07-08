@@ -111,7 +111,7 @@ var client_secret = ssoConfig.credentials.secret;
 var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
 var token_url = ssoConfig.credentials.tokenEndpointUrl;
 var issuer_id = ssoConfig.credentials.issuerIdentifier;
-var callback_url = "http://devmsp.mybluemix.net/net/auth/sso/callback";
+var callback_url = "http://devmsp.mybluemix.net/auth/sso/callback";
 
 console.log("sso config : " + ssoConfig);
 console.log("client_id : " + client_id);
@@ -141,7 +141,7 @@ var Strategy = new OpenIDConnectStrategy({
 
 passport.use(Strategy);
 app.get('/login', passport.authenticate('openidconnect', {
-    // successRedirect: redirect_url,
+   // successRedirect: redirect_url,
     //failureRedirect: "/failure",
 
 }));
