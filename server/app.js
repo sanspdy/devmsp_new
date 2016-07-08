@@ -18,6 +18,9 @@ var config = require('./config/environment');
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 // bootstrap bluemix
 var host = (process.env.VCAP_APP_HOST || 'localhost');
@@ -126,10 +129,9 @@ var exports = module.exports = app;
 
 
 
+
 //sso start
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var passport = require('passport');
+
 
 app.use(cookieParser());
 app.use(session({resave: 'true', saveUninitialized: 'true' , secret: 'keyboard cat'}));
