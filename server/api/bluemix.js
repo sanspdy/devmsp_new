@@ -62,8 +62,7 @@ function initDBConnection() {
                 .warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
         }
     } else {
-        console
-            .warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
+        // console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
         // For running this app locally you can get your Cloudant credentials
         // from Bluemix (VCAP_SERVICES in "cf env" output or the Environment
         // Variables section for an app in the Bluemix console dashboard).
@@ -84,7 +83,7 @@ function initDBConnection() {
         cloudant = require('cloudant')(dbCredentials.url);
         console.log("cloudant instance");
 
-        console.warn('local settings completed');
+        // console.warn('local settings completed');
 
     }
 }
@@ -311,7 +310,7 @@ exports.v1_getBluemixServiceInfo=function(request, response) {
                 dbSoln.find({selector: {solution_name: SolName}},function (err, result) {
                     if (!err) {
                         console.log(result);
-                        if (result.docs === null || result.docs === undefined) {
+                        if (result.docs !== null || result.docs !== undefined) {
                             console.log("null value in result. there is no such data");
                             failure_response.description="null value in result. there is no such data"
                             response.write(JSON.stringify(failure_response));
@@ -328,49 +327,11 @@ exports.v1_getBluemixServiceInfo=function(request, response) {
 
                                         var services = result.docs[0].service_details.bluemix[0].services[compcnt];
                                         var nameofservice = result.docs[0].service_details.bluemix[0].services[compcnt].title;
-                                        //services.properties[0].extra = JSON.parse(services.properties[0].extra);
                                         if (nameofservice == service_name) {
-
-                                            for (var i = 0; i < services.properties[0].length; i++) {
-                                                if (services.properties[0][i].entity.extra === null || services.properties[0][i].entity.extra === undefined) {
-                                                    console.log("Inside if");
-                                                }
-                                                else if ( !services.properties[0][i].entity.extra.hasOwnProperty("costs")) {
-                                                    console.log("Inside else if 1");
-                                                    /*response.send(services);
-                                                     response.end();*/
-                                                }
-                                                else if (services.properties[0][i].entity.extra.costs[0] === null) {
-                                                    console.log("Inside else if 2");
-                                                    /*response.send(services);
-                                                     response.end();*/
-                                                }
-                                                else if (!services.properties[0][i].entity.extra.costs[0].hasOwnProperty("currencies")) {
-                                                    console.log("Inside else if 3")
-                                                    /*response.send(services);
-
-                                                     response.end();*/
-                                                }
-                                                else {
-                                                    console.log("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                                                    for(var j=0;j<services.properties[0][i].entity.extra.costs.length;j++){
-                                                        delete services.properties[0][i].entity.extra.costs[j].currencies;
-                                                        console.log("*************************************", services);
-                                                    }
-
-
-                                                    /* response.send(services);
-                                                     //response.write(JSON.stringify(services));
-                                                     response.end();*/
-                                                }
-
-                                            }
-                                            response.send(services);
+                                            console.log(services);
+                                            response.write(JSON.stringify(services));
                                             response.end();
-
-
-                                        }
-                                        else {
+                                        } else {
                                             console.log("Service name in the requested component count is not matching");
                                             failure_response.description = "Service name in the requested component count is not matching";
                                             response.write(JSON.stringify(failure_response));
@@ -631,7 +592,7 @@ exports.v1_getBluemixRuntimeInfo=function(request, response) {
             getbmruntimeinfo();
         }
     }
-        else{
+    else{
         console.log("There is no username, solution name, servicename, component count defined in JSON in body");
         failure_response.description="There is no username, solution name, servicename, component count defined in JSON in body"
         response.write(JSON.stringify(failure_response));
@@ -640,12 +601,12 @@ exports.v1_getBluemixRuntimeInfo=function(request, response) {
 
     function getbmruntimeinfo(){
         try {
-            if (service_det == "runtime") {
+            if (service_det == "bluemix") {
 
                 dbSoln.find({selector: {solution_name: SolName}},function (err, result) {
                     if (!err) {
                         console.log(result);
-                        if (result.docs === null || result.docs === undefined) {
+                        if (result.docs !== null || result.docs !== undefined) {
                             console.log("null value in result. there is no such data");
                             failure_response.description="null value in result. there is no such data"
                             response.write(JSON.stringify(failure_response));
@@ -1065,7 +1026,7 @@ exports.getbluemixtoken=function(reqst, response) {
     var https = require('https');
     var data = JSON.stringify({
         'grant_type' : 'password',
-        'username' : 'santhoshmuniswami@in.ibm.com',
+        'usernamae' : 'santhoshmuniswami@in.ibm.com',
         'password' : '*****'
     });
 
@@ -1178,7 +1139,7 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
     console.log(label_name);
 
     try {
-        db.find({selector : {"entity" : {"label" : label_name}}}, function(err, result) {
+        db.find({selector : {"entity" : {label : label_name}}}, function(err, result) {
             if (!err) {
                 console.log(result);
                 if(result.docs !== null || result.docs !== undefined || result.docs !== []) {
@@ -1278,7 +1239,6 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
                 path : service_planUrl,
                 method : 'GET',
                 headers : {
-                    'Accept': 'application/json',
                     'Authorization' : full_token
                 }
 
@@ -1295,78 +1255,19 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
                 });
                 res.on('end', function() {
                     properties = JSON.stringify(properties);
-                    console.log(properties);
                     properties1 = JSON.parse(properties);
                     properties1 = JSON.parse(properties1);
+                    console.log(properties1);
                     console.log(properties1.total_results);
-                    //var service_guid = properties1.resources[0].metadata.guid;
-                    //console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",service_guid);
-                    filtered_properties = properties1.resources;
-                    for(var i=0; i<filtered_properties.length; i++){
-                        filtered_properties[i].entity.extra = JSON.parse(filtered_properties[i].entity.extra);
-                    }
-                    // filtered_properties.extra = JSON.parse(filtered_properties.extra);
-                    // delete filtered_properties.extra.costs[0].currencies;
+                    filtered_properties = properties1.resources[0].entity;
                     property_json = {
                         "title" : label_name,
                         "properties" : [ filtered_properties ]
                     };
-                    //property_json = JSON.stringify(property_json)
+                    property_json = JSON.stringify(property_json)
                     console.log(property_json);
 
-                    try{
-                        console.log("Hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                        dbplan = cloudant.use("bluemixserviceplans");
-                        dbplan.find({selector : {"title":label_name}},function(err,result){
-                            console.log("selectorrrrrrrrrrrrrrrrrrrrrrr");
-                            if(result.docs.length === 0){
-                                console.log("in resultttttttttttttttttttttttttttttttt");
-                                dbplan.insert(property_json,function(err,result){
-                                    if(!err){
-                                        console.log("Data inserted");
-
-
-                                    }
-                                    else{
-                                        console.log("Error in inserting");
-
-                                    }
-                                    /*                                   dbplan.find({selector : {"title":label_name}},function(err,result){
-                                     console.log("findinggggggggggggggggggggggggggggggggggggggggggg");
-                                     for(var i=1;i<property_json.properties.length;i++){
-                                     console.log("/////////////////////////////////////",property_json.properties[i]);
-                                     result.docs[0].properties[i]=property_json.properties[i];
-                                     console.log("++++++++++++++++++++++++++++++++++++++",result.docs[0].properties[i]);
-                                     dbplan.insert(result.docs[0],function(err,result){
-                                     if(!err){
-                                     console.log(result.docs);
-                                     console.log("------------Data inserted----------------");
-                                     }
-                                     else{
-                                     console.log("------------Error inserting data----------------");
-                                     }
-
-                                     });
-                                     }
-
-                                     });*/
-
-
-                                });
-
-                            }
-                            else{
-                                console.log("Data already exists");
-
-                            }
-                        });
-
-                    }
-                    catch(err){
-                        console.log("There was some error");
-
-                    }
-                    resp.send(property_json);
+                    resp.write(property_json);
                     resp.end();
 
                 });
@@ -1417,36 +1318,6 @@ exports.getRuntimePrice=function(reqst, resp) {
 
 }
 
-/*
- exports.getBMServicePrice=function(reqst, resp) {
-
- var qty = parseInt(reqst.body.qty);
- var price = parseInt(reqst.body.price);
-
- console.log("Quantity:" + qty);
- console.log("Price:" + price);
-
- if (qty == null) {
- failure_response.description = "Please give instance details";
- resp.write(JSON.stringify(failure_response));
- resp.end();
- } else if (price == null) {
- failure_response.description = "Please give memory details";
- resp.write(JSON.stringify(failure_response));
- resp.end();
- } else {
- var service_price = (qty * price) ;
- service_price=Math.round(service_price);
- console.log(service_price);
- var resjson = {
- "final_price" : service_price
- };
- resp.write(JSON.stringify(resjson));
- resp.end();
- }
-
- }
- */
 
 exports.updateBMServiceInfo=function(request, response) {
     console.log(requestMessage);
@@ -1461,13 +1332,12 @@ exports.updateBMServiceInfo=function(request, response) {
     var service_name = request.body.service_name;
     var compcnt = request.body.component_cnt;
     var solution_json = request.body.solnjson;
-    var service_guid = request.body.service_guid;
     console.log("Response from body: "
         + JSON.stringify(solution_json));
     // console.log(JSON.stringify(solutionJson));
     // response.write(JSON.stringify(solutionJson));
 
-    if (username === null) {
+    if (username == null) {
         console
             .log("no sufficient details. returning false info");
         var resjson = {
@@ -1511,7 +1381,6 @@ exports.updateBMServiceInfo=function(request, response) {
 
     else {
         try {
-            console.log(solution_json);
 
             dbSoln
                 .find(
@@ -1524,18 +1393,6 @@ exports.updateBMServiceInfo=function(request, response) {
                         if (!err) {
                             // var services=
                             // result.docs[0].service_details.msp[compcnt];
-                            console.log("------------------------------------------------",JSON.stringify(result.docs[0]));
-                            console.log("vfhvsfjjjjjjjjjjvllssssssssssssssss",JSON.stringify(solution_json.properties[0]));
-                            for(var i=0;i<solution_json.properties[0].length;i++){
-                                console.log("printing ele",solution_json.properties[0][i].metadata.guid);
-                                if(solution_json.properties[0][i].metadata.guid === service_guid){
-                                    solution_json.properties[0][i].selected = "true";
-                                    break;
-                                }
-                                else{
-                                    console.log("No service selected");
-                                }
-                            }
 
                             result.docs[0].service_details.bluemix[0].services[compcnt] = solution_json;
                             dbSoln
@@ -2343,27 +2200,25 @@ exports.getBluemixServicesList = function(request, response) {
                                 doc_count = docListJson1.length;
                                 console.log("Total Records:"+ doc_count);
                                 var titles = [];
-                                var label = [];
 
                                 console.log(docListJson1);
                                 for (i = 0; i < doc_count; i++) {
                                     if(docListJson1[i]!=null) {
                                         if(docListJson1[i].hasOwnProperty("entity")!=null) {
                                             if(docListJson1[i].entity!=null && docListJson1[i].entity!="") {
-                                                if(docListJson1[i].entity.hasOwnProperty("display_name") && docListJson1[i].entity.hasOwnProperty("label")) {
+                                                if(docListJson1[i].entity.hasOwnProperty("label")) {
                                                     if (!docListJson1[i].language) {
-                                                        titles[i] = docListJson1[i].entity.display_name;
-                                                        label[i] = docListJson1[i].entity.label;
+                                                        titles[i] = docListJson1[i].entity.label;
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
+                                titles=titles.sort();
                                 for (i = 0; i < doc_count; i++) {
                                     output[i] = {
                                         "title" : titles[i],
-                                        "label": label[i],
                                         "icon" : "/images/MSP_Logos/IBM.png"
                                     };
                                 }
@@ -2405,7 +2260,7 @@ exports.getBluemixServicesList = function(request, response) {
 
 }
 
-exports.old_getBluemixBuildpackList = function(request, response) {
+exports.getBluemixBuildpackList = function(request, response) {
     console.log("*** Request Received ***");
     initDBConnection();
     db = cloudant.use(dbCredentials.dbBluemix_buildpack);
@@ -2435,74 +2290,34 @@ exports.old_getBluemixBuildpackList = function(request, response) {
                             if (i >= len) {
 
                                 docListJson = JSON.stringify(docList);
-                                console.log(docListJson);
+                                // console.log(docListJson);
 
                                 var docListJson1 = JSON.parse(docListJson);
                                 console.log(docListJson1);
 
-                                if(docListJson1 != null && docListJson1 != undefined){
-                                    if(docListJson1[0] != null && docListJson1[0] != undefined) {
-                                        if(docListJson1[0].hasOwnProperty("resources")) {
-                                            if(docListJson1[0].resources != null && docListJson1[0].resources != undefined) {
-                                                doc_count = docListJson1[0].resources.length;
-                                                console.log("Total Records:" + doc_count);
-                                                var titles = [];
-                                                var output = [];
+                                doc_count = docListJson1[0].resources.length;
+                                console.log("Total Records:"+ doc_count);
+                                var titles = [];
+                                var output = [];
 
-                                                for (i = 0; i < doc_count; i++) {
-                                                    titles[i] = docListJson1[0].resources[i].entity.label;
-                                                }
-
-                                                titles = titles.sort();
-
-                                                for (i = 0; i < doc_count; i++) {
-
-                                                    output[i] = {
-                                                        "title": titles[i],
-                                                        "icon": "/images/MSP_Logos/IBM.png"
-                                                    };
-                                                }
-                                                console.log(output);
-                                                response.write(JSON.stringify(output));
-                                                console.log('Components are successfully fetched');
-                                                response.end();
-                                                console.log(responseMessage);
-                                            }
-                                            else {
-                                                console.log("Error while fetching services list from server");
-                                                failure_response.description = "Error while fetching services list from server"
-                                                response.write(JSON.stringify(failure_response));
-                                                console.log(errMessage);
-                                                response.end();
-                                                console.log(responseMessage);
-                                            }
-                                        }
-                                        else {
-                                            console.log("Error while fetching services list from server");
-                                            failure_response.description = "Error while fetching services list from server"
-                                            response.write(JSON.stringify(failure_response));
-                                            console.log(errMessage);
-                                            response.end();
-                                            console.log(responseMessage);
-                                        }
-                                    }
-                                    else {
-                                        console.log("Error while fetching services list from server");
-                                        failure_response.description = "Error while fetching services list from server"
-                                        response.write(JSON.stringify(failure_response));
-                                        console.log(errMessage);
-                                        response.end();
-                                        console.log(responseMessage);
-                                    }
+                                for (i = 0; i < doc_count; i++) {
+                                    titles[i] = docListJson1[0].resources[i].entity.name;
                                 }
-                                else {
-                                    console.log("Error while fetching services list from server");
-                                    failure_response.description = "Error while fetching services list from server"
-                                    response.write(JSON.stringify(failure_response));
-                                    console.log(errMessage);
-                                    response.end();
-                                    console.log(responseMessage);
+
+                                titles=titles.sort();
+
+                                for (i = 0; i < doc_count; i++) {
+
+                                    output[i] = {
+                                        "title" : titles[i],
+                                        "icon" : "/images/MSP_Logos/IBM.png"
+                                    };
                                 }
+                                console.log(output);
+                                response.write(JSON.stringify(output));
+                                console.log('Components are successfully fetched');
+                                response.end();
+                                console.log(responseMessage);
                             }
                         } else {
                             err.id = document.id;
@@ -2535,126 +2350,6 @@ exports.old_getBluemixBuildpackList = function(request, response) {
     }
 
 }
-
-
-
-
-
-exports.getBluemixBuildpackList = function(request, response) {
-    console.log("*** Request Received ***");
-    db = cloudant.use(dbCredentials.dbBluemix_buildpack);
-
-    var docList = [];
-    var componenttitle = [];
-    var i = 1;
-    var titles = [];
-    var output = [];
-    try {
-        db.find({selector: {service:"runtime"}},function(err, result) {
-
-            if (!err) {
-
-                docList = result.docs;
-                docListJson = JSON.stringify(docList);
-                console.log("doc list printing", docListJson);
-
-                var docListJson1 = JSON.parse(docListJson);
-                console.log(docListJson1);
-                console.log("no of docs", docListJson1.length);
-
-                for(var j=0;j<docListJson1.length;j++){
-
-                if (docListJson1[j] != null && docListJson1[j] != undefined) {
-                    if (docListJson1[j] != null && docListJson1[j] != undefined) {
-                        if (docListJson1[j].hasOwnProperty("resources")) {
-                            if (docListJson1[j].resources != null && docListJson1[j].resources != undefined) {
-                                /*doc_count = docListJson1.resources.length;
-                                 console.log("Total Records:" + doc_count);*/
-
-
-
-                                    titles[j] = docListJson1[j].resources[0].entity.display_name;
-                                console.log("title",titles[j]);
-
-
-                                //titles = titles.sort();
-
-
-                                    output[j] = {
-                                        "title": titles[j],
-                                        "icon": "/images/MSP_Logos/IBM.png"
-                                    };
-                                console.log("output",output[j]);
-
-
-                            }
-                            else {
-                                console.log("Error while fetching services list from server 1");
-                                failure_response.description = "Error while fetching services list from server"
-                                response.write(JSON.stringify(failure_response));
-                                console.log(errMessage);
-                                response.end();
-                                console.log(responseMessage);
-                            }
-                        }
-                        else {
-                            console.log("Error while fetching services list from server 2");
-                            failure_response.description = "Error while fetching services list from server"
-                            response.write(JSON.stringify(failure_response));
-                            console.log(errMessage);
-                            response.end();
-                            console.log(responseMessage);
-                        }
-                    }
-                    else {
-                        console.log("Error while fetching services list from server 3");
-                        failure_response.description = "Error while fetching services list from server"
-                        response.write(JSON.stringify(failure_response));
-                        console.log(errMessage);
-                        response.end();
-                        console.log(responseMessage);
-                    }
-                }
-                else {
-                    console.log("Error while fetching services list from server 4");
-                    failure_response.description = "Error while fetching services list from server"
-                    response.write(JSON.stringify(failure_response));
-                    console.log(errMessage);
-                    response.end();
-                    console.log(responseMessage);
-                }
-            }
-                console.log(output);
-                response.write(JSON.stringify(output));
-                console.log('Components are successfully fetched');
-                response.end();
-                console.log(responseMessage);
-
-
-
-
-            } else {
-                var errMessage = "Error occurred while accessing components : \n"
-                    + JSON.stringify(err);
-                response.write(errMessage);
-                console.log(errMessage);
-                response.end();
-                console.log(responseMessage);
-            }
-        });
-
-    } catch (err) {
-        console.log("There is some error:")
-        console.log(err.stack);
-        console.log("*** Request Responded ***");
-        var resjson = {
-            "status" : "failed"
-        };
-        response.write(JSON.stringify(resjson));
-    }
-
-}
-
 
 exports.AddBMComponentToCanvas = function(request, response) {
     console.log(requestMessage);
@@ -2901,7 +2596,7 @@ exports.AddBMComponentToCanvas = function(request, response) {
 
 }
 
-exports.v1_AddBMComponentToCanvas = function(request, response) {
+exports.v1_AddComponentToCanvas = function(request, response) {
     console.log(requestMessage);
     console.log("*************************************************************************")
     initDBConnection();
@@ -3005,74 +2700,56 @@ exports.v1_AddBMComponentToCanvas = function(request, response) {
 
                                         if (service_det == "bluemix") {
                                             console.log("Properties got from Bluemix Services:"+properties);
-                                            var dbplan = cloudant.use("bluemixserviceplans");
-                                            dbplan.find({selector:{"title":service_name}},function(err3,result3){
-                                                for(var i=0;i<result3.docs[0].properties[0].length;i++){
-                                                    result3.docs[0].properties[0][i].selected="false";
-                                                }
-                                                console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",result3.docs[0].properties);
-                                                var d = new Date();
-                                                var n = d.getTime();
-                                                console.log("Time stamp",n);
-                                                var service_name = result3.docs[0].title + n;
-                                                console.log("Service name",service_name);
-                                                if(result.docs !== null || result.docs !==undefined){
-                                                    if(result.docs[0].hasOwnProperty("service_details") !== undefined || result.docs[0].service_details !== null) {
-                                                        if (result.docs[0].hasOwnProperty("bluemix") !== undefined || result.docs[0].hasOwnProperty("bluemix") !==null) {
-                                                            if (result.docs[0].bluemix !== null || (result.docs[0].bluemix[0].hasOwnProperty("services") !== null || result.docs[0].bluemix[0].hasOwnProperty("services") !== undefined)) {
-                                                                result.docs[0].service_details.bluemix[0].services[compcnt] = {
-                                                                    "title": result3.docs[0].title,
-                                                                    "service_name": service_name,
-                                                                    "properties": [ result3.docs[0].properties[0] ]
-                                                                };
-                                                                dbSoln.insert(result.docs[0], function (err2, result2) {
-                                                                    console.log("response from insert");
-                                                                    if (err2) {
-                                                                        console.log(err2);
-                                                                        console.log(errMessage);
-                                                                        console.log("Error occurred while inserting components and values in database");
-                                                                        failure_response.description = "Error occurred while accessing components : ";
-                                                                        response.write(JSON.stringify(failure_response));
-                                                                        response.end();
-                                                                    } else {
-                                                                        console.log("New doc created ..");
-                                                                        console.log("*** Request Responded ***");
-                                                                        response.write(JSON.stringify(success_response));
-                                                                        response.end();
-                                                                    }
-                                                                });
-                                                            }
-                                                            else{
-                                                                console.log("There is no property called bluemix services");
-                                                                failure_response.description = "There is no property called msp";
-                                                                response.write(JSON.stringify(failure_response));
-                                                                response.end();
-                                                            }
+                                            if(result.docs !== null || result.docs !==undefined){
+                                                if(result.docs[0].hasOwnProperty("service_details") !== undefined || result.docs[0].service_details !== null) {
+                                                    if (result.docs[0].hasOwnProperty("bluemix") !== undefined || result.docs[0].hasOwnProperty("bluemix") !==null) {
+                                                        if (result.docs[0].bluemix !== null || (result.docs[0].bluemix[0].hasOwnProperty("services") !== null || result.docs[0].bluemix[0].hasOwnProperty("services") !== undefined)) {
+                                                            result.docs[0].service_details.bluemix[0].services[compcnt] = JSON.parse(properties);
+                                                            dbSoln.insert(result.docs[0], function (err2, result2) {
+                                                                console.log("response from insert");
+                                                                if (err2) {
+                                                                    console.log(err2);
+                                                                    console.log(errMessage);
+                                                                    console.log("Error occurred while inserting components and values in database");
+                                                                    failure_response.description = "Error occurred while accessing components : ";
+                                                                    response.write(JSON.stringify(failure_response));
+                                                                    response.end();
+                                                                } else {
+                                                                    console.log("New doc created ..");
+                                                                    console.log("*** Request Responded ***");
+                                                                    response.write(JSON.stringify(success_response));
+                                                                    response.end();
+                                                                }
+                                                            });
                                                         }
                                                         else{
-                                                            console.log("There is no property called bluemix");
+                                                            console.log("There is no property called bluemix services");
                                                             failure_response.description = "There is no property called msp";
                                                             response.write(JSON.stringify(failure_response));
                                                             response.end();
                                                         }
-
                                                     }
                                                     else{
-                                                        console.log("There is no property called service details");
-                                                        failure_response.description = "There is no property called service details";
+                                                        console.log("There is no property called bluemix");
+                                                        failure_response.description = "There is no property called msp";
                                                         response.write(JSON.stringify(failure_response));
                                                         response.end();
                                                     }
+
                                                 }
                                                 else{
-                                                    console.log("There is no data in result");
-                                                    failure_response.description = "There is no data in result";
+                                                    console.log("There is no property called service details");
+                                                    failure_response.description = "There is no property called service details";
                                                     response.write(JSON.stringify(failure_response));
                                                     response.end();
                                                 }
-
-                                            });
-
+                                            }
+                                            else{
+                                                console.log("There is no data in result");
+                                                failure_response.description = "There is no data in result";
+                                                response.write(JSON.stringify(failure_response));
+                                                response.end();
+                                            }
                                         }
                                         else{
                                             console.log("There is no data in result");
@@ -3289,155 +2966,4 @@ exports.v1_AddBMRuntimeToCanvas = function(request, response) {
             response.end();
         }
     }
-}
-
-exports.getBMServicePrice=function(reqst, resp) {
-
-    var quantity = reqst.body.quantity;
-    //var quantity = parseInt(qty);
-    var country = reqst.body.country;
-    //var compcnt = parseInt(reqst.body.cnt);
-    var serviceplan_guid = reqst.body.serviceplan_guid;
-    var service_name = reqst.body.service_name;
-    var unit_id = reqst.body.unit_id;
-    var price = null;
-
-    console.log("Quantity:" + quantity);
-    console.log("Country:" + country);
-    var dbplan = cloudant.use("bluemixserviceplans");
-    var dbdiscount = cloudant.use("serviceplan_discount");
-    var final_price=0.0;
-    var price_cal={};
-
-    /*if (instances == null) {
-     failure_response.description = "Please give instance details";
-     resp.write(JSON.stringify(failure_response));
-     resp.end();
-     } else if (memories == null) {
-     failure_response.description = "Please give memory details";
-     resp.write(JSON.stringify(failure_response));
-     resp.end();
-     } else {
-     */
-    dbplan.find({selector:{"title": service_name}},function(err,result){
-        if(!err){
-            if(result.docs[0].properties[0] !== undefined || result.docs[0].properties[0] !== null){
-                for(var i=0;i<result.docs[0].properties[0].length;i++){
-                    var properties = result.docs[0].properties[0][i];
-                    if(properties.metadata.guid === serviceplan_guid){
-                        if(properties.hasOwnProperty("entity") && properties.entity !== undefined && properties.entity !== null){
-                            if(properties.entity.hasOwnProperty("extra") && properties.entity.extra !== undefined && properties.entity.extra !== null){
-                                if(properties.entity.extra.hasOwnProperty("costs") && properties.entity.extra.costs !== undefined && properties.entity.extra.costs !== null){
-                                    for(var j=0;j<properties.entity.extra.costs.length;j++){
-                                        if( properties.entity.extra.costs[j].unitId === unit_id)
-                                        price_cal = properties.entity.extra.costs[j].currencies;
-                                    }
-                                   // var price_cal = properties.entity.extra.costs[0].currencies;
-                                    dbdiscount.find({selector:{"guid":serviceplan_guid}}, function(err1,result1){
-                                        console.log(unit_id);
-                                        var discount = result1.docs[0].cost_plan[unit_id];
-                                        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$",discount);
-                                        if(discount === "free"){
-                                            final_price = 0;
-                                            resp.write(JSON.stringify(final_price));
-                                            resp.end();
-                                        }
-                                        else {
-                                           // discount = parseInt(discount);
-                                            if (country === "IND") {
-                                                console.log(i);
-                                                console.log("***************************", price_cal[14].amount.INR);
-                                                var actual_price = parseFloat(price_cal[14].amount.INR);
-
-                                                final_price = (quantity - discount) * actual_price;
-
-                                                console.log(final_price);
-                                                if(final_price < 0){
-                                                    final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
-                                                    resp.end();
-                                                }
-                                                else {
-                                                    resp.write(JSON.stringify(final_price));
-                                                    resp.end();
-                                                }
-
-
-                                            }
-                                            if (country === "USD") {
-                                                console.log("***************************", price_cal[25].amount.USD);
-                                                var actual_price = price_cal[25].amount.USD;
-                                                console.log("vsfvsf",actual_price);
-
-                                                final_price = (quantity - discount) * actual_price;
-                                                console.log("dhuvhdvadv",final_price);
-                                                if(final_price < 0){
-                                                    final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
-                                                    resp.end();
-                                                }
-                                                else {
-                                                    resp.write(JSON.stringify(final_price));
-                                                    resp.end();
-                                                }
-
-                                            }
-
-                                        }
-                                    });
-                                }
-                                else{
-                                    resp.write("There's no property costs");
-                                    resp.end();
-                                    console.log("There's no property costs");
-                                }
-                            }
-                            else{
-                                resp.write("0.0");
-                                resp.end();
-                                console.log("There's no property extra");
-                            }
-                        }
-                        else{
-                            resp.write("There's no property entity");
-                            resp.end();
-                            console.log("There's no property entity");
-                        }
-
-
-                    }
-                    else{
-                        console.log(i);
-                        /*if(i === (result.docs[0].properties[0].length -1)){
-                         console.log(result.docs[0].properties[0].length - 1);
-                         resp.write("There is no matching guid for this service. Please select another");
-                         resp.end();
-                         }*/
-
-                        console.log("There is no matching guid for this service. Please select another");
-                    }
-                }
-                // console.log(final_price);
-
-                /*resp.write("There is no matching guid for this service. Please select another");
-                 resp.end();*/
-            }
-            else{
-                resp.write("There's no properties for this service");
-                resp.end();
-                console.log("There's no properties for this service")
-            }
-
-
-        }
-
-        else{
-            resp.write("There is some error");
-            console.log("There is some error");
-        }
-
-
-    });
-
-
 }

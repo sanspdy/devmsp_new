@@ -1,7 +1,7 @@
 <div class="modal-content">
     <div class="billText">
-        <span id="orderHeading">Version Details:{{solutionname}}</span>
-        <img class="po-crossVersion" src="../../images/btn_popup_cross.png"  ng-click="dismissOrder()" alt="close">
+        <span id="orderHeading">Version Details: {{solutionname}}</span>
+        <img class="po-cross3" src="../../images/cross.png"  ng-click="dismissOrder()" alt="close">
     </div>
 
     <table class="table table-bordered table-hover table-condensed">
@@ -72,11 +72,11 @@
        <tbody>
 
        <tr ng-repeat="status in statusversionObjectsArray">
-           <td style="width:200px">
-               <b>MSP Status:</b> {{ status.msp_status}}
+           <td style="width:300px">
+               <b>MSP Status: </b> {{ status.msp_status}}
            </td>
-           <td style="width:260px">
-               <b>Bluemix Status:</b> {{status.bluemix_status}}
+           <td style="width:300px">
+               <b>Bluemix Status: </b> {{status.bluemix_status}}
            </td>
        </tr>
        </tbody>

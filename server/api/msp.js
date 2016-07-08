@@ -51,8 +51,7 @@ function initDBConnection() {
                 .warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
         }
     } else {
-        console
-            .warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
+        // console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
         // For running this app locally you can get your Cloudant credentials
         // from Bluemix (VCAP_SERVICES in "cf env" output or the Environment
         // Variables section for an app in the Bluemix console dashboard).
@@ -73,19 +72,12 @@ function initDBConnection() {
         cloudant = require('cloudant')(dbCredentials.url);
         console.log("cloudant instance");
 
-        console.warn('local settings completed');
+        // console.warn('local settings completed');
 
     }
 }
 
-var success_response = {
-    "status" : "success"
-};
 
-var failure_response = {
-    "status" : "failed",
-    "description" : ""
-};
 // Initiating Database connection function
 initDBConnection();
 
@@ -847,6 +839,27 @@ exports.getMspComponentlists = function(reqst, response) {
         req.write(data);
 
         req.end();
+
+        // setTimeout(function() {
+        //     console.log("*** Request Responded ***");
+        //     lengthofresult = result.length;
+        //     console.log(lengthofresult);
+        //
+        //     console.log(result);
+        //
+        //     // title_extract=JSON.parse(result);
+        //
+        //     // for(k=0;k<title_extract.length;k++)
+        //     // {
+        //
+        //     // extracted_title[k]=title_extract[k].Title
+        //
+        //     // }
+        //     // console.log(JSON.stringify(extracted_title));
+        //     // response.write(JSON.stringify(extracted_title) );
+        //     response.write(result);
+        //     response.end();
+        // }, 500);
 
     } catch (err) {
         console.log("There is some error:")

@@ -2,20 +2,17 @@
     <div class="row">
         <div class="row header" ng-show="showMSPAttributes">
             <p class="pop_heading">{{attrTitle}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
             <hr>
         </div>
         <div class="row header" ng-show="showRuntimeAttributes">
             <p class="pop_heading">{{popupDataRuntime.title}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
             <hr>
         </div>
         <div class="row header" ng-show="showServiceAttributes">
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
-            <div class=" btn_div row" ng-show="showServiceAttributes">
-                <button  class="save_btn" type="button" ng-click="saveDataService(planData)">SAVE</button>
-            </div>
+            <img class="po-cross" src="../../images/cross.png"  ng-click="cancel()" alt="close">
             <hr>
         </div>
         <div class="row" ng-repeat="(key, value) in patternObjectIIB_Server" ng-show="showMSPAttributes">
@@ -67,8 +64,8 @@
 
         <div ng-show="showServiceAttributes">
             <ul style="list-style: none;">
-                <li class="row bluemixheading">
-                    <div class="col-xs-3 attrHeading">
+                <li class="row">
+                    <div class="col-xs-2 attrHeading">
                         Plan
                     </div>
                     <div class="col-xs-4 attrHeading">
@@ -80,21 +77,19 @@
                     <div class="col-xs-2 attrHeading">
                         Quantity
                     </div>
-                    <div class="col-xs-1 attrHeading">
+                    <div class="col-xs-2 attrHeading">
                         Estimate
                     </div>
                 </li>
-                <loading ng-show="viewbluemixPrice" class="bluemixSpinner"></loading>
                 <!--<hr>-->
-                <li  class="row bluemixdata" ng-repeat="property in propertiesObjectArrayData ">
-                    <div class="bluemixprop col-xs-3">
-                        <label class="bluemixlabel">
-                            <input class=""  ng-value="property.entity.name" type="radio" name="PlanName" ng-model="$parent.planData"/>
+                <li  class="row" ng-repeat="property in propertiesObjectArrayData ">
+                    <div class="bluemixprop col-xs-2">
+                        <label>
+                            <input class="bluemixlabel"  ng-value="property.entity.name" type="radio" name="PlanName" ng-model="$parent.planData"/> {{property.entity.name}}
                         </label>
-                            {{property.entity.name}}
                     </div>
                     <div class="col-xs-4">
-                        {{property.entity.extra.bullets[0]}}
+                        {{property.entity.description}}
                     </div>
                     <div class="col-xs-2">
                         <select ng-model="selectedCountry[$index]" ng-options="country.name for country in propertiesObjectArrayData.names track by country.id">
@@ -104,26 +99,27 @@
                         <input class="spss_input" type="text" ng-model="property.entity.extra.costs[0].unitQuantity" ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
 )">
                     </div>
-                    <div class="col-xs-1">
-                        <!--<loading ng-show="viewbluemixPrice" class=""></loading>-->
-                        <p ng-show="showPriceBefore"> --</p>
-                        <p ng-show="showPriceAfter"> {{pricedata[$index]}}</p>
+                    <div class="col-xs-2">
+                        <loading ng-show="viewbluemixPrice" class=""></loading>
+                        <p> --</p>
+                        <p> {{pricedata[$index]}}</p>
                         <!--<input type="text" ng-model="pricedata[$index]">-->
                     </div>
                 </li>
             </ul>
         </div>
     </div>
+    <hr>
     <div class=" btn_div row" ng-show="showMSPAttributes">
-        <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
+        <button  class="save_btn" type="button" ng-click="saveData()">SAVE</button>
     </div>
     <div class=" btn_div row" ng-show="showRuntimeAttributes">
         <p ng-show="showRuntimeAttributes"><b>Note:</b></p>
         <p ng-show="showRuntimeAttributes">Click <a href ="https://console.ng.bluemix.net/pricing/" target="_blank">here</a> for Pricing Details</p>
         <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>
     </div>
-    <!--<div class=" btn_div row" ng-show="showServiceAttributes">
+    <div class=" btn_div row" ng-show="showServiceAttributes">
         <button  class="save_btn" type="button" ng-click="saveDataService(planData)">SAVE</button>
-    </div>-->
+    </div>
 
 </div>

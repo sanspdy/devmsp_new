@@ -1,56 +1,10 @@
 <span ng-include="'includes/header.html'"></span>
-<script>
-    $(document).ready(function(){
-
-        $(".qtn1").on("click",function(){
-            $(".ans1").slideToggle();
-
-        });
-
-        $(".qtn2").on("click",function(){
-            $(".ans2").slideToggle();
-
-        });
-        $(".expandDiv111").on("click",function(){
-            $("#expandedDiv111").slideToggle();
-
-        })
-
-        $('.nav li a').click(function(e) {
-            $('.nav li').removeClass('active');
-            var $parent = $(this).parent();
-            if (!$parent.hasClass('active')) {
-                $parent.addClass('active');
-            }
-            e.preventDefault();
-        })
-
-        $(".qtn").on('click', function () {
-            $(".ans1").slideUp();
-            $(".ans2").slideUp();
-            var $ans =   $(this).parent().next('.ans');
-            console.log("$ans===" +JSON.stringify($(this)));
-            $ans.slideToggle();
-            $(".ans").not($ans).slideUp();
-        });
-
-        /*$(".qtn1").on('click', function () {
-         var $ans1 =   $(this).parent().next('.ans1');
-         console.log("$ans1===" +JSON.stringify($(this)));
-         $ans1.slideToggle();
-         $(".ans1").not($ans1).slideUp();
-         })
-         */
-    });
-
-</script>
 <div class="container canvasbody" id="viewArch">
-
     <div class="row">
         <div class="espace">
             <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" value="Edit"/>
            <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
-            <input class="btn btn-primary" type="button" ng-click="esave()" value="Save"/>
+            <input class="btn btn-primary" type="button" ng-click="Vsave()" value="Save"/>
          </div>
             <span id="solutionName"> My Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
             <a href="javascript:genPdfViewArch()"> Download PDF </a>

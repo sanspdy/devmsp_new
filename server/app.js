@@ -1,10 +1,5 @@
-/**
- * Main application file
- */
 
 'use strict';
-
-
 
 // Set default node environment to development; Bluemix runtime is production
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -13,16 +8,11 @@ var express = require('express');
 var cloudantUtil = require('./lib/cloudantUtil');
 var config = require('./config/environment');
 
-// cloudantUtil.init();
+cloudantUtil.init();
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var passport = require('passport');
-
-
 
 // bootstrap bluemix
 var host = (process.env.VCAP_APP_HOST || 'localhost');
@@ -30,8 +20,8 @@ var port = (process.env.VCAP_APP_PORT || 9000);
 
 if (host !== 'localhost') app.set('env', 'production');
 
-require('./config/express')(app);
-require('./routes')(app);
+//require('./config/express')(app);
+//require('./routes')(app);
 
 var dbCredentials = {
     dbComponents : 'components',
@@ -50,6 +40,13 @@ var cloudant;
 var http = require('http');
 var querystring = require('querystring');
 var db;
+
+// Insert routes below
+
+
+//sso starts here
+
+
 //sso start
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -77,38 +74,38 @@ var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
 var ssoConfig = services.SingleSignOn[0];
 // From Prajwal space
 /*var ssoConfig = {
- "name": "msp_sso",
- "label": "SingleSignOn",
- "plan": "standard",
- "credentials": {
- "secret": "gW6M3Tc6zt",
- "tokenEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
- "authorizationEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
- "issuerIdentifier": "msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com",
- "clientId": "xJqUpbqxXH",
- "serverSupportedScope": [
- "openid"
- ]
- }
- };*/
+    "name": "msp_sso",
+    "label": "SingleSignOn",
+    "plan": "standard",
+    "credentials": {
+        "secret": "gW6M3Tc6zt",
+        "tokenEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
+        "authorizationEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
+        "issuerIdentifier": "msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com",
+        "clientId": "xJqUpbqxXH",
+        "serverSupportedScope": [
+            "openid"
+        ]
+    }
+};*/
 // From Aravind Space
 /*
- var ssoConfig =  {
- "name": "Single Sign On-rm",
- "label": "SingleSignOn",
- "plan": "standard",
- "credentials": {
- "secret": "Lx6eVATRHO",
- "tokenEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
- "authorizationEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
- "issuerIdentifier": "ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com",
- "clientId": "DI65KpK2QA",
- "serverSupportedScope": [
- "openid"
- ]
- }
- };
- */
+var ssoConfig =  {
+    "name": "Single Sign On-rm",
+    "label": "SingleSignOn",
+    "plan": "standard",
+    "credentials": {
+        "secret": "Lx6eVATRHO",
+        "tokenEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
+        "authorizationEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
+        "issuerIdentifier": "ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com",
+        "clientId": "DI65KpK2QA",
+        "serverSupportedScope": [
+            "openid"
+        ]
+    }
+};
+*/
 var client_id = ssoConfig.credentials.clientId;
 var client_secret = ssoConfig.credentials.secret;
 var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
@@ -144,7 +141,7 @@ var Strategy = new OpenIDConnectStrategy({
 
 passport.use(Strategy);
 app.get('/login', passport.authenticate('openidconnect', {
-    // successRedirect: redirect_url,
+   // successRedirect: redirect_url,
     //failureRedirect: "/failure",
 
 }));
@@ -289,7 +286,6 @@ app.get('/failure', function(req, res) {
 // single sign on ends here
 
 //sso ends here
-
 function initDBConnection() {
 
     if (process.env.VCAP_SERVICES) {
@@ -335,6 +331,15 @@ function initDBConnection() {
         // dbCredentials.user = "REPLACE ME";
         // dbCredentials.password = "REPLACE ME";
         // dbCredentials.url = "REPLACE ME";
+        ///==========prajwal space details===============
+       // dbCredentials.host = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
+       // dbCredentials.port = "443";// vcapServices[vcapService][0].credentials.port;
+        //dbCredentials.user = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix";// vcapServices[vcapService][0].credentials.username;
+        //dbCredentials.password = "270b50ffd5c988c394071b4461b3cee719ccfab85fb4f97e03404547b2327482";// vcapServices[vcapService][0].credentials.password;
+       // dbCredentials.url = "https://f87237e0-cde8-4713-a1f1-851b0531561c-bluemix:270b50ffd5c988c394071b4461b3cee719ccfab85fb4f97e03404547b2327482@f87237e0-cde8-4713-a1f1-851b0531561c-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.url;
+
+
+        //===============================================
 
         dbCredentials.host = "25064b88-10f3-4362-8343-ef934099c077-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
         dbCredentials.port = "443";// vcapServices[vcapService][0].credentials.port;
@@ -366,8 +371,3 @@ console.log('App started on port ' + port);
 
 // Expose app
 var exports = module.exports = app;
-
-
-
-
-

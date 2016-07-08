@@ -218,6 +218,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                         }
 
                     }
+
                 }
 
                 $scope.loading=false;
@@ -226,7 +227,6 @@ angular.module('portalControllers', ['ui.bootstrap'])
                     console.log("header data" +header);
                     console.log("status data" +status);
                     console.log("config data" +JSON.stringify(config));
-                    $scope.loading=false;
 
                 })
 
@@ -248,7 +248,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
         return {
             restrict: 'E',
             replace:true,
-            template: '<span class="loading"><img src="../images/ajax-loader.gif" width="80" height="80" /></span>',
+            template: '<span class="loading"><img src="../images/ajax-loader.gif" width="40" height="40" /></span>',
             link: function (scope, element, attr) {
                 scope.$watch('loading', function (val) {
                     if (val)
@@ -280,19 +280,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
         this.getSoln=function () {
             return soln;
         }
-    })
-
-.service('sharedPropertiesCanvas', function(){
-    var cinfo='';
-
-    this.setviewArchData = function(canInfo){
-        console.log("canInfo===" +canInfo);
-        cinfo = canInfo;
-    };
-    this.getCanvasinfo = function(){
-        return cinfo;
-    }
-});
+    });
 
 angular.module('portalControllers').controller('AttrCtrl', function ($scope,parentDivCall,countComp,serviceType,$uibModal,$uibModalInstance,sharedProperties,$http) {
     $scope.showMSPAttributes=false;
@@ -434,7 +422,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                    $scope.loading=false;
+
                 })
         };
 
@@ -452,15 +440,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log("popupData1=== " + JSON.stringify($scope.popupData1));
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/v2/updateServiceInfo',
+                url: 'http://cbicportal.mybluemix.net/api/updateServiceInfo',
                 data: $.param({
                     'uname': $scope.username,
                     'solnName': $scope.solnName,
                     'service_details': 'msp',
                     'service_name': $scope.attrCatalog_name,
                     'component_cnt': $scope.compAdded,
-                    'solnjson': $scope.popupData1,
-                    'version':1
+                    'solnjson': $scope.popupData1
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -483,9 +470,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                    $scope.loading=false;
 
-                });
+                })
             $uibModalInstance.dismiss('cancel');
 
 
@@ -584,7 +570,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                    $scope.loading=false;
 
                 })
         };
@@ -603,15 +588,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log("popupDataRuntime" + JSON.stringify($scope.popupDataRuntime));
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/v2/updateBMRuntimeInfo',
+                url: 'http://cbicportal.mybluemix.net/api/updateBMRuntimeInfo',
                 data: $.param({
                     uname: $scope.username,
                     solnName: $scope.solnName,
                     service_details: 'runtime',
                     service_name: $scope.popupDataRuntime.title,
                     component_cnt: $scope.compRuntimeAdded,
-                    solnjson: $scope.popupDataRuntime,
-                    version:1
+                    solnjson: $scope.popupDataRuntime
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -630,7 +614,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                    $scope.loading=false;
 
                 })
             $uibModalInstance.dismiss('cancel');
@@ -757,8 +740,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
       //$scope.planData = "";
 
         $scope.pricedata = {};
-        $scope.showPriceBefore= true;
-        $scope.showPriceAfter = false;
         $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
             console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
             console.log('guid===' +guid);
@@ -797,8 +778,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         // console.log("inside success function");
                         $scope.pricedata[price] = data;
                         console.log(JSON.stringify($scope.pricedata));
-                        $scope.showPriceBefore= false;
-                        $scope.showPriceAfter = true;
                         /*$('#r' +price).val($scope.pricedata);*/
                         /*document.getElementById('#r' +price).value = $scope.pricedata;*/
                         /*$scope.propertiesObjectArrayData.pricedata = $scope.pricedata;*/
@@ -812,7 +791,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                    $scope.loading=false;
 
                 })
         };
@@ -890,7 +868,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('guid===' +JSON.stringify(guid));
                 $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/v2/updateBMServiceInfo',
+                url: 'http://cbicportal.mybluemix.net/api/updateBMServiceInfo',
                 data: $.param({
                     uname: $scope.username,
                     solnName: $scope.solnName,
@@ -898,8 +876,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     service_name: $scope.popupDataService.title,
                     component_cnt: $scope.compServiceAdded,
                     solnjson: $scope.popupDataService,
-                    "serviceplan_guid":guid,
-                    version:1
+                    "serviceplan_guid":guid
 
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -923,7 +900,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("header data" + header);
                     console.log("status data" + status);
                     console.log("config data" + JSON.stringify(config));
-                        $scope.loading=false;
 
                 });
             $uibModalInstance.dismiss('cancel');
@@ -1047,7 +1023,6 @@ angular.module('portalControllers').controller('solutionCtrl', function ($scope,
                 console.log("header data" +header);
                 console.log("status data" +status);
                 console.log("config data" +JSON.stringify(config));
-                $scope.loading=false;
 
             })
     }
@@ -1112,14 +1087,13 @@ angular.module('portalControllers').controller('newsolutionCtrl', function ($sco
                 console.log("header data" +header);
                 console.log("status data" +status);
                 console.log("config data" +JSON.stringify(config));
-                $scope.loading=false;
 
             })
     }
 
 });
-angular.module('portalControllers').controller('orderBillCtrl', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
-     alert("inside order bill ctrl");
+angular.module('portalControllers').controller('orderBillCtrl', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location) {
+    // alert("inside order bill ctrl");
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
@@ -1171,18 +1145,15 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.patternObjectIIB_Server={};
     $scope.solnEntered=sharedProperties.getSoln();
     $scope.quantityValueArray=[];
-    var userName = sharedProperties.getProperty();
-    console.log('userName===' +JSON.stringify(userName))
     $scope.spinsCatalogueList=false;
     $scope.spinsCanvas=false;
     $scope.spinsCatalogueList = false;
     $scope.spinsViewBoM = true;
     $scope.loading = true;
 
-    $http.get("http://cbicportal.mybluemix.net/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+1).success(function(data){
+    $http.get("http://cbicportal.mybluemix.net/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
-        sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
             console.log('ResponseDataViewBillObject key values === '+ key);
             if(key==='msp'){
@@ -1500,9 +1471,6 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.deleteArchitecture = function(){
         $uibModalInstance.dismiss('cancel');
     };
-    $scope.dismissDel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
 
     $scope.createnewArch = function(){
         $uibModalInstance.dismiss('cancel');
@@ -1516,7 +1484,6 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 
          }
          });
-
     }
 
 });

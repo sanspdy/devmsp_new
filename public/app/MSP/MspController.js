@@ -709,7 +709,7 @@ angular.module('portalControllers')
                             console.log('componentCount MSP === ' + $scope.mspCount);
                             $http({
                                 method: 'PUT',
-                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb',
+                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
                                 data: $.param({
                                     'uname': user1,
                                     'solnName': $scope.solnEntered,
@@ -1373,5 +1373,3 @@ angular.module('portalControllers').controller('orderBillCtrlMsp', function ($sc
         })
     }
 });
-
-

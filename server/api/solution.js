@@ -62,8 +62,7 @@ function initDBConnection() {
                 .warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
         }
     } else {
-        console
-            .warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
+        // console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
         // For running this app locally you can get your Cloudant credentials
         // from Bluemix (VCAP_SERVICES in "cf env" output or the Environment
         // Variables section for an app in the Bluemix console dashboard).
@@ -84,7 +83,7 @@ function initDBConnection() {
         cloudant = require('cloudant')(dbCredentials.url);
         console.log("cloudant instance");
 
-        console.warn('local settings completed');
+        // console.warn('local settings completed');
 
     }
 }
@@ -317,78 +316,12 @@ exports.createSolution=function(request, response) {
     }
 }
 
-exports.modifySolution=function(request,response){
-    console.log(requestMessage);
-
-    var dbSoln = cloudant.use(dbCredentials.dbSolution);
-    if(request.body == null) {
-        console.log("There is no data in body");
-        failure_response.description = "There is no data in body"
-        response.write(JSON.stringify(failure_response));
-        response.end();
-    }
-    else if(request.body.hasOwnProperty("uname") && request.body.hasOwnProperty("solnName") && request.body.hasOwnProperty("version")  ) {
-
-        var username = request.body.uname;
-        var solnName = request.body.solnName;
-        var version=request.body.version;
-
-        try {
-            dbSoln.find({selector: {solution_name: solnName, user: username, version: version}}, function (err, result) {
-                if (!err) {
-                    if (result.docs[0] !== null && result.docs[0] !== undefined) {
-                        if(result.docs[0].solution_name === solnName && result.docs[0].version === version ){
-                            console.log("Response Sent");
-                            response.write(JSON.stringify(result.docs));
-                            response.end();
-                        }
-                        else{
-                            console.log(err);
-                            console.log(result.docs);
-                            failure_response.description = "there is no such solution"
-                            response.write(JSON.stringify(failure_response));
-                            response.end();
-                        }
-                    }
-                    else{
-                        console.log(err);
-                        failure_response.description = "there is no value in docs"
-                        response.write(JSON.stringify(failure_response));
-                        response.end();
-                    }
-                }
-                else{
-                    console.log(err);
-                    failure_response.description = "error while inserting. please try again"
-                    response.write(JSON.stringify(failure_response));
-                    response.end();
-                }
-            });
-        }
-        catch (err) {
-            console.log("error while fetching existing solution")
-            console.log(err.stack);
-            console.log("*** Request Responded ***");
-            failure_response.description = "error while fetching existing solution. please try again"
-            response.write(JSON.stringify(failure_response));
-        }
-
-    }
-    else{
-        console.log("There is no username, solution name, version defined in body");
-        failure_response.description="There is no username, solution name, version defined in body. Please provide keys in following format: uname, solnName, solnDesc ";
-        response.write(JSON.stringify(failure_response));
-        response.end();
-    }
-}
-
-
-
 
 
 exports.creatHybridSolution=function (request, response) {
 
     console.log(requestMessage);
+    db = cloudant.use(dbCredentials.dbComponents);
     var dbSoln = cloudant.use(dbCredentials.dbSolution);
 
     //checking request body whether it is null
@@ -410,12 +343,6 @@ exports.creatHybridSolution=function (request, response) {
             "type": "hybrid",
             "date_created": date,
             "solution_desc": SolDesc,
-            "version":1,
-            "provisioning_status": [{
-                "msp_status": "Not submitted",
-                "bluemix_status": "Not Submitted"
-            }],
-            "order_status":"saved",
             "service_details": {
                 "msp": [],
                 "bluemix": [{
@@ -425,7 +352,132 @@ exports.creatHybridSolution=function (request, response) {
             },
             "canvas_details": [],
             "connection_info": {
-                "msp": {},
+                "msp": {
+                    "infra_det": {
+                        "resources": {
+                            "router_small_dev_customer": {
+                                "type": "OS::Neutron::Router",
+                                "properties": {
+                                    "external_gateway_info": {
+                                        "network": {
+                                            "get_param": "param_ext_gateway_small_dev_network"
+                                        }
+                                    }
+                                }
+                            },
+                            "network_small_dev_dmz": {
+                                "type": "OS::Neutron::Net",
+                                "properties": {
+                                    "name": {
+                                        "get_param": "param_dmz_network_small_dev_name"
+                                    }
+                                }
+                            },
+                            "network_small_dev_core": {
+                                "type": "OS::Neutron::Net",
+                                "properties": {
+                                    "name": {
+                                        "get_param": "param_core_network_small_dev_name"
+                                    }
+                                }
+                            },
+                            "subnet_small_dev_dmz": {
+                                "type": "OS::Neutron::Subnet",
+                                "properties": {
+                                    "network_id": {
+                                        "get_resource": "network_small_dev_dmz"
+                                    },
+                                    "cidr": {
+                                        "get_param": "param_subnet_small_dev_dmz_cidr"
+                                    },
+                                    "gateway_ip": {
+                                        "get_param": "param_subnet_small_dev_dmz_gateway_ip"
+                                    },
+                                    "allocation_pools": [{
+                                        "start": {
+                                            "get_param": "param_subnet_small_dev_dmz_start"
+                                        },
+                                        "end": {
+                                            "get_param": "param_subnet_small_dev_dmz_end"
+                                        }
+                                    }]
+                                }
+                            },
+                            "subnet_small_dev_core": {
+                                "type": "OS::Neutron::Subnet",
+                                "properties": {
+                                    "network_id": {
+                                        "get_resource": "network_small_dev_core"
+                                    },
+                                    "cidr": {
+                                        "get_param": "param_subnet_small_dev_core_cidr"
+                                    },
+                                    "gateway_ip": {
+                                        "get_param": "param_subnet_small_dev_core_gateway_ip"
+                                    },
+                                    "allocation_pools": [{
+                                        "start": {
+                                            "get_param": "param_subnet_small_dev_core_start"
+                                        },
+                                        "end": {
+                                            "get_param": "param_subnet_small_dev_core_end"
+                                        }
+                                    }]
+                                }
+                            },
+                            "ri_small_dev_dmz": {
+                                "type": "OS::Neutron::RouterInterface",
+                                "properties": {
+                                    "router_id": {
+                                        "get_resource": "router_small_dev_customer"
+                                    },
+                                    "subnet_id": {
+                                        "get_resource": "subnet_small_dev_dmz"
+                                    }
+                                }
+                            },
+                            "ri_small_dev_core": {
+                                "type": "OS::Neutron::RouterInterface",
+                                "properties": {
+                                    "router_id": {
+                                        "get_resource": "router_small_dev_customer"
+                                    },
+                                    "subnet_id": {
+                                        "get_resource": "subnet_small_dev_core"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_iis": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_iis1_data"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_http": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_http1_data"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_workbench": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_workbench_data"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "middleware_comp": []
+                },
                 "bluemix": {}
             }
         };
@@ -449,14 +501,14 @@ exports.creatHybridSolution=function (request, response) {
         }
         else {
             try {
-                dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, result) {
+                dbSoln.find({selector: {solution_name: SolName}}, function (err, result) {
                     if (!err) {
                         console.log(result.docs[0]);
                         if (result.docs[0] !== null && result.docs[0] !== undefined) {
                             if (result.docs[0].hasOwnProperty("solution_name") !== undefined || result.docs[0].hasOwnProperty("solution_name") !== null) {
                                 if (result.docs[0].solution_name == SolName) {
                                     console.log("already exist solution name");
-                                    failure_response.description = "Already exist solution name. Please modify"
+                                    failure_response.description = "already exist solution name"
                                     response.write(JSON.stringify(failure_response));
                                     response.end();
                                 }
@@ -475,7 +527,6 @@ exports.creatHybridSolution=function (request, response) {
 
                                     response.end();
                                 } else {
-                                    console.log(result2);
                                     console.log("New doc created ..");
                                     response.write(JSON.stringify(success_response));
                                     console.log(responseMessage);
@@ -541,18 +592,137 @@ exports.creatMpsSolution=function (request, response) {
             "type":"msp",
             "date_created": date,
             "solution_desc": SolDesc,
-            "version":1,
-            "provisioning_status": [{
-                "msp_status": "Not submitted",
-                "bluemix_status": "Not Submitted"
-            }],
-            "order_status":"saved",
             "service_details": {
                 "msp": []
             },
             "canvas_details": [],
             "connection_info": {
-                "msp": {}
+                "msp": {
+                    "infra_det": {
+                        "resources": {
+                            "router_small_dev_customer": {
+                                "type": "OS::Neutron::Router",
+                                "properties": {
+                                    "external_gateway_info": {
+                                        "network": {
+                                            "get_param": "param_ext_gateway_small_dev_network"
+                                        }
+                                    }
+                                }
+                            },
+                            "network_small_dev_dmz": {
+                                "type": "OS::Neutron::Net",
+                                "properties": {
+                                    "name": {
+                                        "get_param": "param_dmz_network_small_dev_name"
+                                    }
+                                }
+                            },
+                            "network_small_dev_core": {
+                                "type": "OS::Neutron::Net",
+                                "properties": {
+                                    "name": {
+                                        "get_param": "param_core_network_small_dev_name"
+                                    }
+                                }
+                            },
+                            "subnet_small_dev_dmz": {
+                                "type": "OS::Neutron::Subnet",
+                                "properties": {
+                                    "network_id": {
+                                        "get_resource": "network_small_dev_dmz"
+                                    },
+                                    "cidr": {
+                                        "get_param": "param_subnet_small_dev_dmz_cidr"
+                                    },
+                                    "gateway_ip": {
+                                        "get_param": "param_subnet_small_dev_dmz_gateway_ip"
+                                    },
+                                    "allocation_pools": [{
+                                        "start": {
+                                            "get_param": "param_subnet_small_dev_dmz_start"
+                                        },
+                                        "end": {
+                                            "get_param": "param_subnet_small_dev_dmz_end"
+                                        }
+                                    }]
+                                }
+                            },
+                            "subnet_small_dev_core": {
+                                "type": "OS::Neutron::Subnet",
+                                "properties": {
+                                    "network_id": {
+                                        "get_resource": "network_small_dev_core"
+                                    },
+                                    "cidr": {
+                                        "get_param": "param_subnet_small_dev_core_cidr"
+                                    },
+                                    "gateway_ip": {
+                                        "get_param": "param_subnet_small_dev_core_gateway_ip"
+                                    },
+                                    "allocation_pools": [{
+                                        "start": {
+                                            "get_param": "param_subnet_small_dev_core_start"
+                                        },
+                                        "end": {
+                                            "get_param": "param_subnet_small_dev_core_end"
+                                        }
+                                    }]
+                                }
+                            },
+                            "ri_small_dev_dmz": {
+                                "type": "OS::Neutron::RouterInterface",
+                                "properties": {
+                                    "router_id": {
+                                        "get_resource": "router_small_dev_customer"
+                                    },
+                                    "subnet_id": {
+                                        "get_resource": "subnet_small_dev_dmz"
+                                    }
+                                }
+                            },
+                            "ri_small_dev_core": {
+                                "type": "OS::Neutron::RouterInterface",
+                                "properties": {
+                                    "router_id": {
+                                        "get_resource": "router_small_dev_customer"
+                                    },
+                                    "subnet_id": {
+                                        "get_resource": "subnet_small_dev_core"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_iis": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_iis1_data"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_http": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_http1_data"
+                                    }
+                                }
+                            },
+                            "fp_small_dev_workbench": {
+                                "type": "OS::Neutron::FloatingIP",
+                                "properties": {
+                                    "floating_network": "msp11ext-net",
+                                    "port_id": {
+                                        "get_resource": "port_small_dev_workbench_data"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "middleware_comp": []
+                }
             }
         };
 
@@ -575,7 +745,7 @@ exports.creatMpsSolution=function (request, response) {
         }
         else {
             try {
-                dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, result) {
+                dbSoln.find({selector: {solution_name: SolName}}, function (err, result) {
                     if (!err) {
                         console.log(result.docs[0]);
                         if (result.docs[0] !== null && result.docs[0] !== undefined) {
@@ -873,144 +1043,6 @@ exports.updateCanvasInfo=function(request, response) {
     }
 
 }
-
-
-exports.v2_updateCanvasInfo=function(request, response) {
-    console.log(requestMessage);
-    console
-        .log("*************************************************************************")
-    var dbSoln = cloudant.use(dbCredentials.dbSolution);
-
-    var username = request.body.uname;
-    var SolName = request.body.solnName;
-    var version = parseInt(request.body.version);
-    // console.log(request.body);
-    // var service_det=request.body.service_details;
-    // var service_name=request.body.service_name;
-    var canvas_info = request.body.canvasinfo;
-    // var connection_info = request.body.connectioninfo;
-    // var solution_json=request.body.solnjson;
-    //console.log("Response from body: "+ JSON.stringify(canvas_info));
-    console.log(request.body);
-    // console.log(JSON.stringify(solutionJson));
-    // response.write(JSON.stringify(solutionJson));
-
-
-    if (username == null) {
-        console
-            .log("no username details. returning false info");
-        var resjson = {
-            "status" : "failed",
-        };
-        response.write(JSON.stringify(resjson));
-        response.end();
-    } else if (SolName == null) {
-        console
-            .log("no solname details. returning false info");
-        var resjson = {
-            "status" : "failed",
-        };
-        response.write(JSON.stringify(resjson));
-        response.end();
-    } else if (canvas_info == null) {
-        console
-            .log("no canvasinfo details. returning false info");
-        var resjson = {
-            "status" : "failed",
-        };
-        response.write(JSON.stringify(resjson));
-        response.end();
-    }
-    else{
-
-
-        try {
-            dbSoln.find({selector : {solution_name: SolName, user: username, version:version}
-                },
-                function(err, result) {
-                    if (!err) {
-                        if(result.docs[0]!=null) {
-                            if (result.docs[0].hasOwnProperty("canvas_details")) {
-
-                                result.docs[0].canvas_details[0] = canvas_info;
-
-                                console.log(result.docs[0].canvas_details[0]);
-
-                                dbSoln.insert(result.docs[0],function (err2,result2) {
-                                    console.log("response from insert");
-                                    console.log("response from insert "+ JSON.stringify(result));
-                                    if (err) {
-                                        console.log(err2);
-                                    } else {
-                                        console.log("New doc created ..");
-                                        setTimeout(function () {
-                                                console.log("*** Request Responded ***");
-                                                console.log("Status Success");
-                                                var resjson = {
-                                                    "status": "success"
-                                                };
-                                                response.write(JSON.stringify(resjson));
-                                                response.end();
-                                            },
-                                            500);
-                                    }
-                                });
-                            }
-                            else {
-                                var errMessage = "Error occurred while accessing components : \n";
-                                console.log(errMessage);
-                                console.log("*** Request Responded ***");
-                                var resjson = {
-                                    "status": "failed"
-                                };
-                                response.write(JSON.stringify(resjson));
-                                response.end();
-                            }
-                        }
-                        else {
-                            var errMessage = "Error occurred while accessing components : \n";
-                            console.log(errMessage);
-                            console.log("*** Request Responded ***");
-                            var resjson = {
-                                "status": "failed"
-                            };
-                            response.write(JSON.stringify(resjson));
-                            response.end();
-                        }
-
-                    } else {
-                        var errMessage = "Error occurred while accessing components : \n"
-                            + JSON.stringify(err);
-
-                        console.log(errMessage);
-
-                        console.log(responseMessage);
-                        setTimeout(
-                            function() {
-                                console
-                                    .log("*** Request Responded ***");
-                                var resjson = {
-                                    "status" : "failed"
-                                };
-                                response.write(JSON.stringify(resjson));
-                                response.end();
-                            }, 1000);
-                    }
-                });
-        } catch (err) {
-            console.log("There is some error:")
-            console.log(err.stack);
-            console.log("*** Request Responded ***");
-            var resjson = {
-                "status" : "failed"
-            };
-            response.write(JSON.stringify(resjson));
-        }
-    }
-
-}
-
-
 
 
 exports.viewBillofMaterial=function(request, response) {
@@ -1411,11 +1443,6 @@ exports.removeComponentFromSolutiondb=function(request, response) {
     }
 
 }
-
-
-
-
-
 
 exports.deleteSolution=function(request, response) {
     console.log(requestMessage);
@@ -1858,6 +1885,7 @@ exports.v1_placeOrder=function(reqst, resp) {
                     var service_properties=[];
 
                     for (i = 0; i < msp_len; i++)
+
                     {
                         msp_service_names[i] = msp_services[i].catalog_name;
                         service_properties[i]=msp_services[i].Pattern;
@@ -1932,262 +1960,13 @@ exports.v1_placeOrder=function(reqst, resp) {
     }
 }
 
-exports.acceptdummy=function (request,response) {
-    console.log("*** Request Received ***");
-    var requestparameter=request.body;
-    console.log(requestparameter);
-    response.send(requestparameter);
-    response.end();
-}
-
-exports.v2_placeOrder=function(reqst, resp) {
-    console.log("*** Request Received ***");
-    var soln = reqst.body.soln_name;
-    var uname=reqst.body.uname;
-    var version=reqst.body.version;
-    var resultjson;
-    var orderjson;
-    var randomno = "";
-    var orderstatus=false;
-
-    var contactname=reqst.body.contactname;
-    var contactmail=reqst.body.contactmail;
-
-    var space_guid = reqst.body.space_guid;
-    var service_name = reqst.body.service_name;
-    var service_plan_guid = reqst.body.service_plan_guid;
-    var bmusername = reqst.body.bmusername;
-    var bmpassword = reqst.body.bmpassword;
-
-    console.log("Placeorder for" + soln);
-    var dbSoln = cloudant.use(dbCredentials.dbSolution);
-    var dbfinaljson=cloudant.use(dbCredentials.dbFinalJson);
-
-    if (soln === null || uname === null || version===null || soln === undefined || uname === undefined || version===undefined) {
-        console.log("Please provide Solution name, username, version in body as JSON");
-        failure_response.description = "Please provide Solution name, username, version in body as JSON";
-        resp.write(JSON.stringify(failure_response));
-        resp.end();
-    } else{
-
-        dbSoln.find({selector : {user:uname, solution_name : soln}}, function(er, allresult) {
-            if (er) {
-                console.log("There is no such solution in database. Please check username and solution name");
-                failure_response.description = "There is no such solution in database.";
-                resp.write(JSON.stringify(failure_response));
-                resp.end();
-            }
-            else{
-                solutioncnt=allresult.docs.length;
-                for(i=0;i<solutioncnt;i++){
-                    if(allresult.docs[i].order_status==="submitted"){
-                        orderstatus=false;
-                    }
-                }
-                if(orderstatus === true){
-                    console.log("Solution is already provisioned.");
-                    failure_response.description = "Solution is already provisioned.";
-                    resp.write(JSON.stringify(failure_response));
-                    resp.end();
-                }
-                else {
-                    dbSoln.find({
-                        selector: {
-                            user: uname,
-                            solution_name: soln,
-                            version: version
-                        }
-                    }, function (err, result) {
-                        if (!err) {
-                            console.log("received result");
-                            if (result.docs[0] == null) {
-                                console.log("null value in result");
-                                failure_response.description = "There is no such solution and version exist. please check.";
-                                resp.write(JSON.stringify(failure_response));
-                                resp.end();
-                            } else {
-
-                                resultjson = result.docs[0];
-
-                                resultjson.order_status = "submitted";
-                                resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
-                                resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
-
-                                dbSoln.insert(resultjson, '', function (err1, res1) {
-                                    if (err1) {
-                                        console.log("Error while updating status into DB. Please try again");
-                                        failure_response.description = "Error while updating status into DB. Please try again";
-                                        resp.write(JSON.stringify(failure_response));
-                                        resp.end();
-                                    }
-                                    else {
-                                        //insert decomposition code.
-
-                                        var msp_properties = resultjson.service_details.msp;
-                                        var bluemix_properties = resultjson.service_details.bluemix;
-
-                                        //calling function which sends request to provision bluemix services and runtimes
-                                        bluemixprovisioning();
-
-                                        //calling imi api for msp component provisioning.
-
-                                        function bluemixprovisioning() {
-                                            var data = {
-                                                "soln_name": soln,
-                                                "uname": uname,
-                                                "version": version,
-                                                "space_guid": space_guid,
-                                                "service_name": service_name,
-                                                "service_plan_guid": service_plan_guid,
-                                                "bmusername": bmusername,
-                                                "bmpassword": bmpassword
-                                            };
-
-                                            var options = {
-                                                path: '/api/acceptdummy',
-                                                method: 'POST',
-                                                headers: {
-                                                    'Content-Type': 'application/json',
-                                                    'Content-Length': data.length
-                                                }
-                                            };
-
-                                            var req = http.request(options, function (res) {
-                                                // res.setEncoding('utf8');
-                                                console.log("Request sent to Bluemix");
-                                            });
-                                            req.on('error', function (err, result) {
-                                                console.log(err);
-                                                console.log("Error while fetching data from IMI Server. Please try later");
-                                                failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                response.write(JSON.stringify(failure_response));
-                                                // response.end();
-                                            });
-                                            req.write(data);
-                                            req.end();
-                                        }
-
-
-                                        mspprovisioning();
-
-                                        function mspprovisioning() {
-                                            randomno = resultjson._id;
-                                            console.log(randomno);
-
-                                            var msp_services = [];
-                                            msp_services = resultjson.service_details.msp;
-                                            msp_len = msp_services.length;
-                                            var msp_service_names = [];
-
-                                            var service_properties=[];
-
-                                            for (i = 0; i < msp_len; i++)
-                                            {
-                                                msp_service_names[i] = msp_services[i].catalog_name;
-                                                service_properties[i]=msp_services[i].Pattern;
-                                                console.log("Properties______________________________");
-                                                console.log(JSON.stringify(service_properties[i]));
-                                            }
-
-                                            orderjson = {
-                                                "Order_ID" : randomno,
-                                                "Ordered_Items" : msp_service_names,
-                                                "Data_Center" : "Amsterdam 1",
-                                                "Originating_From" : "mpaas",
-                                                "User_ID" : "superadmin@in.ibm.com",
-                                                "Comments" : "some-comments",
-                                                "Ordered_ItemDetails" : {
-
-                                                }
-                                            };
-
-                                            var offering={};
-                                            offering[soln]={ "orderedItemFormData" : {}};
-                                            console.log('offering === '+JSON.stringify(offering[soln]));
-
-                                            for (i = 0; i < msp_len; i++)
-                                            {
-                                                var group="Group"+(i+1);
-                                                offering[soln]['orderedItemFormData'][group]=service_properties[i];
-                                            }
-
-                                            orderjson.Ordered_ItemDetails=offering;
-
-                                            final_json_formatted=orderjson;
-
-
-                                            console.log("Final JSON:");
-                                            console.log(final_json_formatted);
-                                            console.log(JSON.stringify(final_json_formatted));
-
-                                            dbfinaljson.insert(final_json_formatted,'',function(errors, result2) {
-                                                if(!errors){
-                                                    console.log("Data inserted in Final JSON DB");
-                                                    var resjson = {
-                                                        "status" : "success"
-                                                    };
-                                                    resp.write(JSON.stringify(success_response));
-                                                    resp.end();
-                                                }
-                                                else{
-                                                    failure_response.description = "Data insertion in Final JSON DB failed";
-                                                    resp.write(JSON.stringify(failure_response));
-                                                    resp.end();
-                                                }
-                                            });
-                                            // insert msp provisioning code here...
-                                                var options = {
-                                                    path : '/api/acceptdummy',
-                                                    method : 'POST',
-                                                    headers : {
-                                                        'Content-Type' : 'application/json',
-                                                        'Content-Length' : data.length
-                                                    }
-                                                };
-
-                                                var req = http.request(options, function(res) {
-                                                    // res.setEncoding('utf8');
-                                                    console.log("Request sent to Bluemix");
-
-                                                });
-                                                req.on('error',function(err,result) {
-                                                    console.log(err);
-                                                    console.log("Error while fetching data from IMI Server. Please try later");
-                                                    failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                    response.write(JSON.stringify(failure_response));
-                                                    // response.end();
-                                                });
-                                                req.write(bm_provision_data);
-
-                                                req.end();
-                                        }
-                                    }
-                                });
-
-                            }
-                        } else {
-                            var errMessage = "Error occurred while accessing components : \n" + JSON.stringify(err);
-                            console.log(responseMessage);
-                            console.log("*** Request Responded ***");
-                            failure_response.description = "Error occurred while accessing components";
-                            resp.write(JSON.stringify(failure_response));
-                            resp.end();
-                        }
-                    });
-                }
-            }
-        });
-    }
-}
-
-
-
 exports.v1_viewBillOfMaterial = function(request, response) {
 
     console.log(requestMessage);
     console
         .log("*************************************************************************")
 
+    initDBConnection();
     var dbSoln = cloudant.use(dbCredentials.dbSolution);
 
     // var username=request.body.uname;
@@ -2209,7 +1988,8 @@ exports.v1_viewBillOfMaterial = function(request, response) {
                 function (err, result) {
                     if (!err) {
                         if (result.docs[0]) {
-                            if (result.docs[0].hasOwnProperty("service_details") !== undefined) {
+                            if (result.docs[0]
+                                    .hasOwnProperty("service_details") !== undefined) {
                                 if (result.docs[0].service_details
                                         .hasOwnProperty("msp") !== undefined) {
                                     if (result.docs[0].service_details
@@ -2761,111 +2541,6 @@ exports.viewMyDeployArch = function(request, response) {
         });
     }
 }
-
-
-
-
-exports.viewMyDeployArchNames = function(request, response) {
-    var username = request.query.uname;
-    if(username==null){
-        console.log("There is some error:");
-        console.log("*** Request Responded ***");
-        var resjson = {
-            "status" : "failed",
-            "description": "Please check username"
-        };
-        response.write(JSON.stringify(resjson));
-        response.end();
-    }
-    else {
-
-        console.log(requestMessage);
-        console.log("*************************************************************************");
-        //initDBConnection();
-        var dbSoln = cloudant.use(dbCredentials.dbSolution);
-        var solnames = [];
-        var docList = [];
-        var length=[];
-        var doc_len;
-        var soln_list={};
-        var failure_response = {
-            "status": "failed",
-            "description": ""
-        };
-        var msplist=[];
-        var hybridlist=[];
-
-        dbSoln.find({selector : {user : username, version: 1} },function(err, result) {
-            if (!err) {
-                console.log(JSON.stringify(result));
-                length=result.length;
-                console.log("Length of result:"+length);
-
-                if (result != null) {
-                    if (result.hasOwnProperty("docs")) {
-                        console.log(result.docs);
-                        if (result.docs != null) {
-                            doc_len=result.docs.length;
-                            console.log("Length of docs:"+doc_len);
-                            for(i=0;i<doc_len;i++){
-                                if(result.docs[i]!=null){
-                                    if(result.docs[i].hasOwnProperty("solution_name")!==null || result.docs[i].hasOwnProperty("solution_name")!== undefined){
-
-
-
-                                        solnames[i]=result.docs[i].solution_name;
-
-                                        if(result.docs[i].type === "msp"){
-                                            msplist.push(solnames[i]);
-                                        }
-                                        else{
-                                            hybridlist.push(solnames[i]);
-                                        }
-
-                                    }
-                                }
-                            }
-                            //soln_list={ "solution_names": solnames.sort(), "msp": msplist.sort(), "hybrid":hybridlist.sort() };
-                            soln_list={ "msp": msplist.sort(), "hybrid":hybridlist.sort() };
-                            console.log(soln_list);
-                            response.write(JSON.stringify(soln_list));
-                            response.end();
-                        }
-
-                        else {
-                            console.log("There is no docs in result");
-                            failure_response.description="There is no docs in result"
-                            response.write(JSON.stringify(failure_response));
-                            response.end();
-                        }
-
-                    }
-                    else {
-                        console.log("There is no property docs in result");
-                        failure_response.description="There is no docs in result"
-                        response.write(JSON.stringify(failure_response));
-                        response.end();
-                    }
-                }
-                else {
-                    console.log("There is value in result");
-                    failure_response.description="There is no docs in result"
-                    response.write(JSON.stringify(failure_response));
-                    response.end();
-                }
-            }
-            else {
-                console.log("There is some error in finding data");
-                failure_response.description="no data found"
-                response.write(JSON.stringify(failure_response));
-                response.end();
-            }
-        });
-    }
-}
-
-
-
 
 exports.AddComponentToCanvas = function(request, response) {
     console.log(requestMessage);

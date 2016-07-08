@@ -16,21 +16,10 @@
 .po-cross2{
     float: right;
     /* margin-right: 3%; */
-   /* margin-top: -12%;*/
+    margin-top: -12%;
     top: 0;
     left:0;
 }
-
-
-.po-cross3{
-    float: right;
-    margin-right: -2%;
-    margin-top: -17%;
-    top: 0;
-    left: 0;
-}
-
-
 
 
 #popupHeading{
@@ -130,5 +119,5 @@ hr.fancy-line:before {
 }
 
 .modalNewArch{
-    height: 185px;
+    height:350px;
 }
