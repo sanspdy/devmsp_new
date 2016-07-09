@@ -12,6 +12,27 @@
     left:0;
 }
 
+
+.po-cross2{
+    float: right;
+    /* margin-right: 3%; */
+   /* margin-top: -12%;*/
+    top: 0;
+    left:0;
+}
+
+
+.po-cross3{
+    float: right;
+    margin-right: -2%;
+    margin-top: -17%;
+    top: 0;
+    left: 0;
+}
+
+
+
+
 #popupHeading{
     color: #707171;
     font-size: 1.4em;
@@ -19,10 +40,23 @@
     margin-bottom: 1%;
 }
 
+#noteprov{
+    color:#707171;
+}
+
 #create_btn{
     color: #FFFFFF;
     background-color: #017eba;
     margin-top: 25%;
+    margin-left: 0%;
+    height: 45px;
+    width: 130px;
+    border-radius: 5px;
+}
+#createnewArch{
+    color: #FFFFFF;
+    background-color: #017eba;
+    /*margin-top: 25%;*/
     margin-left: 0%;
     height: 45px;
     width: 130px;
@@ -38,6 +72,17 @@
     width: 130px;
     border-radius: 5px
 }
+
+#deleteArch{
+    color: #FFFFFF;
+    background-color: #017eba;
+    /*margin-top: 25%;*/
+    margin-left: 0%;
+    height: 45px;
+    width: 130px;
+    border-radius: 5px
+}
+
 
 .verticalLine {
     border-left: 1px  solid grey;
@@ -82,4 +127,8 @@ hr.fancy-line:before {
 
 .modal.in .modal-dialog {
     margin-top: 5% !important;
+}
+
+.modalNewArch{
+    height: 185px;
 }

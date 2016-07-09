@@ -2,6 +2,9 @@
 angular.module('portalControllers')
     .controller('canvasController',function($scope,$http,$timeout,$window,$uibModal,$rootScope,sharedProperties,$location){
 
+        $scope.showMSP = true;
+        $scope.showHybrid = false;
+        $scope.showDepl = true;
         $scope.spinsCatalogueList=false;
         $scope.lineAdded=0;
         $scope.spinsCanvas=false;
@@ -23,6 +26,7 @@ angular.module('portalControllers')
         $scope.showBlueCatalogue = false;
         $scope.runtimeCatalogue = false;
         $scope.servicesCatalogue = false;
+        $scope.state = false;
         $scope.logoutMsp = function() {
             console.log("inside logout msp");
             localStorage.clear();
@@ -31,6 +35,41 @@ angular.module('portalControllers')
 
         $scope.editHybrid = function(){
             $scope.isActiveHybrid = !$scope.isActiveHybrid;
+        };
+
+        $scope.toggleState = function() {
+            $scope.state = !$scope.state;
+        };
+
+        $scope.navMsp = function(){
+            console.log('inside nav msp');
+            /*$location.path('/MSP');*/
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/solArchitectureMsp.html',
+                windowClass: 'app-modal-window-sam',
+                controller: 'solCtrlMsp',
+                backdrop: 'static',
+                resolve: {
+
+                }
+            });
+        }
+        $scope.loadHybrid = function(){
+            /*$location.path('/canvas');*/
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/solArchitecture.html',
+                controller: 'solCtrl',
+                windowClass: 'app-modal-window-sa',
+                backdrop: 'static',
+                resolve: {
+                }
+            });
+        }
+
+        $scope.viewDepl=function(){
+            $location.path('/deployment');
         };
 
         $scope.checkTab = function (num) {
@@ -44,6 +83,7 @@ angular.module('portalControllers')
                 $scope.drafts=false;
                 $scope.spinsCatalogueList=true;
                 $scope.spinsCanvas=false;
+                $scope.spinsCanvasCatalogue = false;
                 $scope.loading=true;
                 $http.get("http://cbicportal.mybluemix.net/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
                     // console.log("Data : " + JSON.stringify(data));
@@ -110,20 +150,16 @@ angular.module('portalControllers')
                 $scope.previousOrders=false;
                 $scope.drafts=true;
             }
-        }
-
+        };
         $scope.edit = function(){
-
             $scope.isActive = !$scope.isActive;
-
-        }
+        };
 
         $scope.edit1 = function(){
             $scope.servicesCatalogue = false;
             $scope.runtimeCatalogue = true;
             console.log('inside edit1 function');
             $scope.isActive1 = !$scope.isActive1;
-
             $scope.spinsCatalogueList=false;
             $scope.spinsCanvas=false;
             $scope.spinsRuntimeList = true;
@@ -210,8 +246,7 @@ angular.module('portalControllers')
 
                     $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                     var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                    var label_bluemixService = $scope.bluemixServiceObjects.title;
-
+                    var label_bluemixService = $scope.bluemixServiceObjects.label;
                     $scope.bluemixServiceIcon.push(icon_bluemixService);
                     $scope.bluemixServiceLabel.push(label_bluemixService);
                 }
@@ -251,8 +286,6 @@ angular.module('portalControllers')
                         console.log('$scope.actualMSPComponentIndex === '+$scope.actualMSPComponentIndex);
                     }
                 }
-
-
                 var user = $scope.currentUser;
                 var serviceName1 = $scope.choices[index].selectedCatalogName;
                 console.log("serviceName ============" + serviceName1);
@@ -263,15 +296,18 @@ angular.module('portalControllers')
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = true;
                 $scope.loading=true;
+                console.log('user===' +JSON.stringify(user));
+                console.log('solnEntered===' +JSON.stringify($scope.solnEntered));
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/getServiceInfo',
+                    url: 'http://cbicportal.mybluemix.net/api/v2/getServiceInfo',
                     data: $.param({
                         'uname': user,
                         'solnName': $scope.solnEntered,
                         'service_details': 'msp',
                         'service_name': serviceName1,
-                        'component_cnt': $scope.actualMSPComponentIndex
+                        'component_cnt': $scope.actualMSPComponentIndex,
+                        'version':1
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     //forms user object
@@ -339,13 +375,14 @@ angular.module('portalControllers')
                 $scope.loading=true;
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/getBluemixRuntimeInfo',
+                    url: 'http://cbicportal.mybluemix.net/api/v2/getBluemixRuntimeInfo',
                     data: $.param({
                         'uname': user,
                         'solnName': $scope.solnEntered,
                         'service_details': 'runtime',
                         'service_name': runtimeServiceName,
-                        'component_cnt': $scope.actualruntimeComponentIndex
+                        'component_cnt': $scope.actualruntimeComponentIndex,
+                        'version':1
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     //forms user object
@@ -414,13 +451,14 @@ angular.module('portalControllers')
 
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/v1/getBluemixServiceInfo',
+                    url: 'http://cbicportal.mybluemix.net/api/v2/getBluemixServiceInfo',
                     data: $.param({
                         'uname': user,
                         'solnName': $scope.solnEntered,
                         'service_details': 'bluemix',
                         'service_name': bluemixServiceName,
-                        'component_cnt': $scope.actualServiceComponentIndex
+                        'component_cnt': $scope.actualServiceComponentIndex,
+                        'version':1
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     //forms user object
@@ -456,8 +494,6 @@ angular.module('portalControllers')
                     console.log("status data" + status);
                     console.log("config data" + config);
                     console.log("Data:" + data);
-
-
                 })
             }
 
@@ -566,7 +602,7 @@ angular.module('portalControllers')
             $(function() {
                 $("#canvas-container").draggable();
             });
-            var imgDevice = document.getElementById("device_img");
+            /*var imgDevice = document.getElementById("device_img");
             var deviderImg = document.getElementById("devider_img");
             var edgeDevice = document.getElementById("edge_device");
 
@@ -593,7 +629,7 @@ angular.module('portalControllers')
             canvas.add(imgInstance3);
             imgInstance3.lockMovementY = true;
             imgInstance3.lockMovementX = true;
-            imgInstance3.hasControls=false;
+            imgInstance3.hasControls=false;*/
 
             // we need this here because this is when the canvas gets initialized
             ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
@@ -703,12 +739,11 @@ angular.module('portalControllers')
 
                     $http({
                         method  : 'PUT',
-                        url     : 'http://cbicportal.mybluemix.net/api/AddComponentToCanvas',
-                        data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount}),
+                        url     : 'http://cbicportal.mybluemix.net/api/v2/AddComponentToCanvas',
+                        data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount,'version':1}),
                         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         //forms user object
                     })
-
                         .success(function(data) {
                             console.log("inside success function");
                             $scope.DataResponse = data;
@@ -793,8 +828,8 @@ angular.module('portalControllers')
                         $scope.loading=true;
                         $http({
                             method  : 'PUT',
-                            url     : 'http://cbicportal.mybluemix.net/api/v1/AddBMRuntimeToCanvas',
-                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount}),
+                            url     : 'http://cbicportal.mybluemix.net/api/v2/AddBMRuntimeToCanvas',
+                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':1}),
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
 
@@ -805,7 +840,6 @@ angular.module('portalControllers')
                                 $scope.loading=false;
                             }).error(function(data,status,header,config){
                             $timeout(function() {
-
                                 console.log("header data" +header);
                                 console.log("status data" +status);
                                 console.log("config data" +config);
@@ -855,13 +889,11 @@ angular.module('portalControllers')
                         var type='bluemix';
                         $scope.bluemixServiceSelectedImage = $scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex];
                         console.log("selected object name ==== " + $scope.bluemixServiceSelectedImage);
-
                         $scope.canvasCatalogueObject = {
                             'selectedImage': $scope.bluemixServiceimageSrcArray[1],
                             'selectedImageTitle': $scope.bluemixServiceSelectedImage,
                             'type': type
                         };
-
                         $scope.serviceUsername=sharedProperties.getProperty();
                         console.log('userEntered == '+$scope.serviceUsername);
                         // this / e.target is current target element.
@@ -878,8 +910,8 @@ angular.module('portalControllers')
                         $scope.loading=true;
                         $http({
                             method  : 'PUT',
-                            url     : 'http://cbicportal.mybluemix.net/api/v1/AddBMComponentToCanvas',
-                            data    : $.param({'uname': user, 'solnName': $scope.solnServiceEntered, 'service_details': 'bluemix','service_name': serviceName,'component_cnt': bluemixServiceCompCount}),
+                            url     : 'http://cbicportal.mybluemix.net/api/v2/AddBMComponentToCanvas',
+                            data    : $.param({'uname': user, 'solnName': $scope.solnServiceEntered, 'service_details': 'bluemix','service_name': serviceName,'component_cnt': bluemixServiceCompCount,'version':1}),
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data) {
                             console.log("inside bluemix runtime success function");
@@ -1241,13 +1273,14 @@ angular.module('portalControllers')
                             console.log('componentCount MSP === ' + $scope.mspCount);
                             $http({
                                 method: 'PUT',
-                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                url: 'http://cbicportal.mybluemix.net/api/v2/removeComponentFromSolutiondb',
                                 data: $.param({
                                     'uname': user1,
                                     'solnName': $scope.solnEntered,
                                     'service_details': 'msp',
                                     'service_name': serviceName1,
-                                    'component_cnt': $scope.actualMSPComponentIndex
+                                    'component_cnt': $scope.actualMSPComponentIndex,
+                                    'version':1
                                 }),
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                 //forms user object
@@ -1294,13 +1327,14 @@ angular.module('portalControllers')
                             }
                             $http({
                                 method: 'PUT',
-                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                url: 'http://cbicportal.mybluemix.net/api/v2/removeComponentFromSolutiondb ',
                                 data: $.param({
                                     'uname': user,
                                     'solnName': $scope.solnEntered,
                                     'service_details': 'runtime',
                                     'service_name': runtimeServiceName,
-                                    'component_cnt': $scope.actualruntimeComponentIndex
+                                    'component_cnt': $scope.actualruntimeComponentIndex,
+                                    'version':1
                                 }),
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                 //forms user object
@@ -1347,13 +1381,14 @@ angular.module('portalControllers')
 
                             $http({
                                 method: 'PUT',
-                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                url: 'http://cbicportal.mybluemix.net/api/v2/removeComponentFromSolutiondb ',
                                 data: $.param({
                                     'uname': user,
                                     'solnName': $scope.solnEntered,
                                     'service_details': 'bluemix',
                                     'service_name': bluemixServiceName,
-                                    'component_cnt': $scope.actualServiceComponentIndex
+                                    'component_cnt': $scope.actualServiceComponentIndex,
+                                    'version':1
                                 }),
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                 //forms user object
@@ -1430,8 +1465,8 @@ angular.module('portalControllers')
                  console.log("Current canvas : " + JSON.stringify(canvas));
                  canvas.clear();*/
                 //canvas.clear();
-                canvas.clear();
-                var imgDevice = document.getElementById("device_img");
+                //canvas.clear();
+                /*var imgDevice = document.getElementById("device_img");
                 var deviderImg = document.getElementById("devider_img");
                 var edgeDevice = document.getElementById("edge_device");
 
@@ -1456,21 +1491,85 @@ angular.module('portalControllers')
                 canvas.add(imgInstance3);
                 imgInstance3.lockMovementY = true;
                 imgInstance3.lockMovementX = true;
-
+*/
                 $scope.choices = [];
                 $scope.objCount = 0;
-                $uibModal.open({
+
+                /*$uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/newSolArchitecture.html',
-
                     controller: 'newsolCtrl',
                     windowClass: 'app-modal-window-nns',
                     backdrop: 'static',
                     resolve: {
 
                     }
+                });*/
+
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/newArchConfirmation.html',
+                    controller: 'newArchConfirmCtrl',
+                    windowClass: 'app-modal-window-newArch',
+                    backdrop: 'static',
+                    resolve: {
+
+                    }
                 });
             };
+
+            /*$scope.saveArch = function(){
+                alert('inside saveArch function');
+                /!*console.log("created canvas== "+canvas);
+                 console.log("Current canvas : " + JSON.stringify(canvas));*!/
+                $scope.canvasCreated=JSON.stringify(canvas);
+                console.log("Current canvasCreated : " + $scope.canvasCreated);
+                var s1=canvas;
+                console.log('s1 type === '+typeof s1);
+                $scope.currentUser1 = sharedProperties.getProperty();
+                console.log('userEntered == ' + $scope.currentUser1);
+                $scope.solnEntered1 = sharedProperties.getSoln();
+                console.log('solnEntered1 == ' + $scope.solnEntered1);
+                $scope.spinsViewBoM = true;
+                $scope.spinsRuntimeList = false;
+                $scope.spinsServicesList=false;
+                $scope.spinsCanvasCatalogue = false;
+                $scope.spinsCanvas=false;
+                $scope.loading=true;
+                $http({
+                    method: 'PUT',
+                    url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+                    data: $.param({
+                        'uname': $scope.currentUser1,
+                        'solnName': $scope.solnEntered1,
+                        'canvasinfo': $scope.canvasCreated,
+                        'version':1
+                    }),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    //forms user object
+                })
+                    .success(function (data, status, header, config) {
+
+                        if (data.errors) {
+                            // Showing errors.
+                            $scope.errorName = data.errors.name;
+                        } else {
+                            console.log("inside success function");
+                            $scope.PostDataResponse = data;
+                            console.log(JSON.stringify($scope.PostDataResponse));
+
+
+                        }
+                        $scope.spinsViewBoM = false;
+
+                    })
+                    .error(function (data, status, header, config) {
+                        console.log("header data" + header);
+                        console.log("status data" + status);
+                        console.log("config data" + JSON.stringify(config));
+
+                    })
+            };*/
 
             $scope.viewBill = function(){
                 /*console.log("created canvas== "+canvas);
@@ -1491,11 +1590,12 @@ angular.module('portalControllers')
                 $scope.loading=true;
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/updateCanvasInfo',
+                    url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
                     data: $.param({
                         'uname': $scope.currentUser1,
                         'solnName': $scope.solnEntered1,
-                        'canvasinfo': $scope.canvasCreated
+                        'canvasinfo': $scope.canvasCreated,
+                        'version':1
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     //forms user object
@@ -1635,17 +1735,120 @@ angular.module('portalControllers')
                 // Replace with a fallback to a library solution.
                 // alert("This browser doesn't support the HTML5 Drag and Drop API.");
             }
-
             $scope.redirectToHome = function(){
-                console.log("inside redirect");
-                $location.path('/home');
-
+                //alert("inside redirect to home");
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/homePageConfirm.html',
+                    windowClass: 'app-modal-window-sam',
+                    controller: 'confirmHomeCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                    }
+                });
+                /*console.log("inside redirect");
+                $location.path('/home');*/
                 //$state.go('/home');
             };
-
         })
+    });
 
-    })
 
-    
-    
+angular.module('portalControllers').controller('confirmHomeCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+     //alert("inside confirmHome  ctrl");
+    $scope.openConfirmHomePage = true;
+    $scope.ProceedToHome = function(){
+        //alert('inside proceed to home');
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/ProceedHomeSavedata.html',
+            windowClass: 'app-modal-window-sam',
+            controller: 'SaveDataCtrl',
+            backdrop: 'static',
+            resolve: {
+            }
+        });
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.cancelProceed = function(){
+        //alert('inside cancel Proceed');
+        $uibModalInstance.dismiss('cancel');
+        $location.path('/canvas');
+    };
+});
+
+
+angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
+    //alert("inside save data  ctrl");
+    $scope.ConfirmHomePageSavedata = true;
+    $scope.SaveArch = function(){
+        //alert('inside saveArch');
+        console.log('$scope.currentUser1===' +JSON.stringify($scope.currentUser1));
+        console.log('$scope.solnEntered1===' +JSON.stringify($scope.solnEntered1));
+        console.log('$scope.canvasCreated===' +JSON.stringify($scope.canvasCreated));
+        /*$http({
+            method: 'PUT',
+            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser1,
+                'solnName': $scope.solnEntered1,
+                'canvasinfo': $scope.canvasCreated,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/home');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            })*/
+    };
+    $scope.DelArch = function(){
+        alert('inside delArch');
+        console.log('$scope.currentUser1===' +JSON.stringify($scope.currentUser1));
+        console.log('$scope.solnEntered===' +JSON.stringify($scope.solnEntered));
+        $http({
+            method: 'POST',
+            url: 'http://cbicportal.mybluemix.net/api/v2/deleteSolutionVersion',
+            data: $.param({
+                'uname': $scope.currentUser1,
+                'solnName': $scope.solnEntered,
+                "version":1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    $scope.deletedSolName = data;
+                    //$scope.data.splice(index, 1);
+                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            })
+    };
+});

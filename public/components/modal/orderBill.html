@@ -6,15 +6,12 @@
         })
     });
 </script>
-
-
 <div class="container-fluid  modal4" id="testDiv" ng-show="ngShowModal4">
     <div class="billText">
-        <span id="orderHeading">Bill of Material of {{solnEntered}} </span>
-        <img class="po-cross3" src="../../images/cross.png"  ng-click="dismissOrder()" alt="close">
+        <span id="orderHeading">Bill of Material <b> :</b>{{solnEntered}} </span>
+        <img class="po-cross2" src="../../images/btn_popup_cross.png"  ng-click="dismissOrderBill()" alt="close">
     </div>
     <hr>
-
     <div id="exportable">
         <table>
             <thead>
@@ -98,7 +95,7 @@
 
                         </div>
                         <div class="col-xs-3">
-                            <p>  {{dataServices.properties.entity.planData}}</p>
+                            <p>  {{dataServices.properties[0].entity.name}}</p>
                         </div>
                     </div>
                 </td>
@@ -114,11 +111,10 @@
     <div class="row">
         <span id="totl_price">Total Price-</span> <span id="price">${{viewBillFinalPrice}}</span>
         <loading ng-show="placeOrderSpins" class="placeOrderSpin"></loading>
-        <button id="orderBtn" type="button" ng-click="placeOrder()" ng-show="showOrderBtn">ORDER</button>
+        <button  id="pdfbtn" ng-click="exportData()">Download</button>
+       <!-- <button id="orderBtn" type="button" ng-click="placeOrder()" ng-show="showOrderBtn">ORDER</button>-->
     </div>
     <!--<a href="javascript:genPdf()"> Download PDF </a>-->
-    <button ng-click="exportData()">Generate Report</button>
-
     <!--<div>
         <span><img ng-class="{'tickDisplayProp': !isActive, 'tickDisplayProp activeColor': isActive} " ng-init="isActive = false" class="displayDiv img-circle"  ng-click="displayActive()"></span>
         <div  class="row" style="display:none;" id="DisplayProp">

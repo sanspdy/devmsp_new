@@ -43,10 +43,6 @@ var db;
 
 // Insert routes below
 
-
-//sso starts here
-
-
 //sso start
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -67,45 +63,9 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-// VCAP_SERVICES contains all the credentials of services bound to
-// this application. For details of its content, please refer to
-// the document or sample of each service.
+
 var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
 var ssoConfig = services.SingleSignOn[0];
-// From Prajwal space
-/*var ssoConfig = {
-    "name": "msp_sso",
-    "label": "SingleSignOn",
-    "plan": "standard",
-    "credentials": {
-        "secret": "gW6M3Tc6zt",
-        "tokenEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
-        "authorizationEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
-        "issuerIdentifier": "msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com",
-        "clientId": "xJqUpbqxXH",
-        "serverSupportedScope": [
-            "openid"
-        ]
-    }
-};*/
-// From Aravind Space
-/*
-var ssoConfig =  {
-    "name": "Single Sign On-rm",
-    "label": "SingleSignOn",
-    "plan": "standard",
-    "credentials": {
-        "secret": "Lx6eVATRHO",
-        "tokenEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
-        "authorizationEndpointUrl": "https://ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
-        "issuerIdentifier": "ssodemo-ol0mtu2tbl-cs19.iam.ibmcloud.com",
-        "clientId": "DI65KpK2QA",
-        "serverSupportedScope": [
-            "openid"
-        ]
-    }
-};
-*/
 var client_id = ssoConfig.credentials.clientId;
 var client_secret = ssoConfig.credentials.secret;
 var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
@@ -145,65 +105,6 @@ app.get('/login', passport.authenticate('openidconnect', {
     //failureRedirect: "/failure",
 
 }));
-/*
- app.get('/home',  function(req, res) {
- res.redirect('http://msp-portal.mybluemix.net/#/');
- });
-
- // app.get('/',  function(req, res) {
- //   res.redirect('http://msp-portal.mybluemix.net/home');
- // });
-
- app.get('/home2',  function(req, res) {
- res.redirect('http://msp-portal.mybluemix.net');
- });*/
-
-/*app.get('/',function(req,  res){
- console.log("I am hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
- require('./config/express')(app);
- require('./routes')(app);
-
-
- app.set('views', config.root + '/server/views');
- app.engine('html', require('ejs').renderFile);
- app.set('view engine', 'html');
- app.use(compression());
- app.use(bodyParser.urlencoded({ extended: false }));
- app.use(bodyParser.json());
- app.use(methodOverride());
- app.use(cookieParser());
-
-
- app.use(require('connect-livereload')());
- app.use(express.static(path.join(config.root, '.tmp')));
- app.use(express.static(path.join(config.root, 'public')));
- app.set('appPath', path.join(config.root, 'public'));
- app.use(morgan('dev'));
- app.use(errorHandler()); // Error handler - has to be last
- console.log("redirectinggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
- //var api=require('/app/app');
- res.redirect('/');
- //var redirect_url="http://msp-portal.mybluemix.net";
- });
- */
-/*
- app.get('/#/',function(req,  res){
- console.log(" In root# tag");
- res.redirect('http://msp-portal.mybluemix.net/#/login');
- });
-
- app.get('/',function(req,  res){
- console.log(" In root tag");
- res.redirect('http://msp-portal.mybluemix.net/#/login');
- });*/
-//app.get('/',routes.index);
-
-//var redirect_url="https://msp-portal.mybluemix.net";
-
-
-
-
-
 function ensureAuthenticatedold(req, res, next) {
     if(!req.isAuthenticated()) {
 
@@ -229,7 +130,6 @@ function ensureAuthenticated(req, res, next) {
 
 
     if(!req.isAuthenticated() && !req.path.indexOf('/login') == 0 && !req.path.indexOf('/auth') == 0)
-    //if(!req.isAuthenticated())
     {
 
         console.log(" redirecting for authentication *** ");
@@ -269,16 +169,6 @@ app.get("/auth/sso/callback",function(req,res,next) {
 app.get('/failure', function(req, res) {
     console.log(" *** /failure *** ");
     res.send('login failed'); });
-
-
-
-//
-//app.get('/',  function(request, response) {
-//  console.log(" *** /success *** ");
-//   response.send('Hello');
-// });
-
-
 
 //sso end
 
@@ -349,12 +239,6 @@ function initDBConnection() {
 
 // Initiating Database connection function
 initDBConnection();
-
-
-// Original Start server
-//server.listen(config.port, config.ip, function () {
-//  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-//});
 
 // Start server
 app.listen(port, host);

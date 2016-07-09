@@ -2,43 +2,28 @@
     <div class="row headerRow">
         <div class="col-sm-12 " style="border-bottom-color: red;">
             <div class="col-sm-4">
-                <!--<img src="images/menuico.png">-->
-                <div class=" col-sm-1 mobile-nav">
-                    <div class="menu-btn" id="menu-btn">
-                        <div></div>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div class="">
+                    <div>
+                        <div class="sidebar" sidebar-directive="state">
+                            <a href="#" id="navigation-toggle" ng-click="toggleState()"><img src="images/menuico.png"></a>
+                            <ul class="navigation">
+                                <li class="navigation-items" ng-show="showMSP"> <a ng-click="navMsp()">MSP</a>
+                                </li>
+                                <li class="navigation-items" ng-show="showHybrid"> <a ng-click="loadHybrid()">Hybrid</a>
+                                </li>
+                                <li class="navigation-items" ng-show="showDepl"> <a ng-click="viewDepl()">My Deployment Architectures</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <div class="responsive-menu">
-
-                           <div>  <a ng-click="load()"><h4>MSP</h4></a> </div>
-
-                            <div> <a ng-click="navMsp()"><h4>Hybrid</h4></a> </div>
-
-                            <div> <a ng-click="viewDepl()"><h4>My Deployment Architecture</h4></a> </div>
-
-                    </div>
-
                 </div>
-                <div class="col-sm-4">
-                    <img src="../images/logo.png"/>
-                </div>
-
-
             </div>
-
             <div class="col-sm-4 col-sm-offset-4 " style="float: right;text-align:right;border-bottom-color: red;" >
-                <!--<a href="" id="searchButton" name="searchButton" class="rightCol"><img src="images/ico_search.png"></a>-->
-                <a href=""  id="profileButton" name="profileButton" class="rightCol profileshow"><img class="img-circle" src="images/ico_profile.png" width="40"></a>
+                <a href=""  id="profileButton" name="profileButton" class="rightCol profileshow"><img class="img-circle" src="../images/ico_profile.png" width="40"></a>
                 <div id="toggleDiv" class="friend">
-                    <!--<a><div> My Deployment Architectures</div></a>-->
-                    <!--<a class="logoutmsp" ng-click="logoutMsp()">Logout</a>-->
                     <a class="logoutmsp" ng-click="logoutMsp()"><h4>Logout</h4></a>
                 </div>
             </div>
-
         </div>
     </div>
 </header>
@@ -65,10 +50,6 @@
 </script>
 
 <style>
-    /*#toggleDiv{
-        display:none;
-    }*/
-
     #toggleDiv{
         display:none;
         text-align: center;
@@ -83,9 +64,6 @@
         margin-left: 60%;
         position: absolute
     }
-    /*.logoutmsp{
-        float: left;
-    }*/
 
     .menu-btn div {
         position: absolute;
@@ -108,24 +86,45 @@
         background: #017eba;
         z-index: 99;
     }
-
-    .responsive-menu{
-        background-color: whitesmoke;
-        width: 217px;
-        margin-left: -108%;
-        display: none;
+    body {
+        font-family : arial;
+    }
+    .sidebar {
+        position : absolute;
+        top : 0;
+        left : -160px;;
+        transition : 100ms left;
+        z-index: 5;
+    }
+    #navigation-toggle {
         position: absolute;
-        margin-top: 45%;
-        z-index: 10;
+        left: 160px;
+        top: -7%;
+        color: white;
+        text-decoration: none;
+        padding: 20px;
+    }
+    .show {
+        left : 0;
+    }
+    .navigation {
+        list-style : none;
+        padding : 0;
+        margin : 0;
+    }
+    .navigation-items a {
+        display : block;
+        background-color : #444;
+        color : white;
+        line-height : 2em;
+        text-decoration : none;
+        padding : 10px 30px;
+        width : 145px;
+
+    }
+    .navigation-items a:hover {
+        background-color : #222;
     }
 
-    .expand {
-        display: block !important;
-    }
-    .mobile-nav{
-        margin-top: 2%;
-    }
-    .menulist{
-        color:#017eba;
-    }
+
 </style>

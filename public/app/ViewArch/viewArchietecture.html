@@ -1,13 +1,60 @@
 <span ng-include="'includes/header.html'"></span>
+<script>
+    $(document).ready(function(){
+
+        $(".qtn1").on("click",function(){
+            $(".ans1").slideToggle();
+
+        });
+
+        $(".qtn2").on("click",function(){
+            $(".ans2").slideToggle();
+
+        });
+        $(".expandDiv111").on("click",function(){
+            $("#expandedDiv111").slideToggle();
+
+        })
+
+        $('.nav li a').click(function(e) {
+            $('.nav li').removeClass('active');
+            var $parent = $(this).parent();
+            if (!$parent.hasClass('active')) {
+                $parent.addClass('active');
+            }
+            e.preventDefault();
+        })
+
+        $(".qtn").on('click', function () {
+            $(".ans1").slideUp();
+            $(".ans2").slideUp();
+            var $ans =   $(this).parent().next('.ans');
+            console.log("$ans===" +JSON.stringify($(this)));
+            $ans.slideToggle();
+            $(".ans").not($ans).slideUp();
+        });
+
+        /*$(".qtn1").on('click', function () {
+         var $ans1 =   $(this).parent().next('.ans1');
+         console.log("$ans1===" +JSON.stringify($(this)));
+         $ans1.slideToggle();
+         $(".ans1").not($ans1).slideUp();
+         })
+         */
+    });
+
+</script>
 <div class="container canvasbody" id="viewArch">
+
     <div class="row">
         <div class="espace">
-            <input class="btn btn-primary" type="button" ng-click="showDiv()" value="Edit"/>
-            <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>
-            <input class="btn btn-primary" type="button" ng-click="Vsave()" value="Save"/>
+            <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" value="Edit"/>
+           <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
+            <input class="btn btn-primary" type="button" ng-click="esave()" value="Save"/>
          </div>
-            <span id="solutionName"> My Architecture Name:{{solnEntered11}} </span>
+            <span id="solutionName"> My Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
             <a href="javascript:genPdfViewArch()"> Download PDF </a>
+
             <loading ng-show="spinsCanvas"></loading>
             <div id="canvas-container">
                 <canvas id="canvas" width="1350" height="745">
@@ -15,21 +62,14 @@
                     <img id="devider_img" class="imgLength" src="images/canvas_devider.png">
                     <img id="edge_device" class="edge_icon"  src="images/edge Device.png">
                 </canvas>
-
             </div>
             <span class=" msp">MSP</span>
             <span class="blue">Bluemix</span>
-
-        <dir ng-show='showhideprop'>
-
+        <div ng-show='showhideprop'>
             <div class="canvas_title">
                 <div class="canvas_btns">
-
-
                     <button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
                     <button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>
-
-
         </div>
             </div>
                 <div class="service_d" >
@@ -160,22 +200,18 @@
                         </div>
                     </div>
                     <loading ng-show="spinsViewBoM" class="viewBomSpin"></loading>
-
                     <button class="button1 " ng-click="viewBill()">BILL OF MATERIAL</button>
-
-
                 </div>
                 <!-- serach bar -->
                 <form id="demo-2" style="float: right ; margin-bottom: 1%; margin-top: -1%;">
                     <input type="search"  ng-model="q" id="search" class="form-control" placeholder="Search">
                 </form>
-                </dir>
-
+                </div>
         </div>
+    <button id="placeBtn" type="button" ng-click="placeServiceOrder()">ORDER</button>
 </div>
 
 <script type="text/javascript">
-
     function genPdfViewArch(){
         /*var doc = new jsPDF();
          doc.text(20,20,'Test Page1');
