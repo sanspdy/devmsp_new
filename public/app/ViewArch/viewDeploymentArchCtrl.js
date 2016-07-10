@@ -26,14 +26,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.runtimeCatalogue = false;
     $scope.servicesCatalogue = false;
     $scope.state = false;
-    $scope.showMSP = true;
-    $scope.showHybrid = true;
-    $scope.showDepl = true;
 
     //--
     //canvas function code
 
-    $scope.editHybrid = function(){
+   /* $scope.editHybrid = function(){
         $scope.isActiveHybrid = !$scope.isActiveHybrid;
     };
 
@@ -43,7 +40,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     $scope.navMsp = function(){
         console.log('inside nav msp');
-        /*$location.path('/MSP');*/
+        /!*$location.path('/MSP');*!/
         $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/solArchitectureMsp.html',
@@ -54,7 +51,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
             }
         });
-    }
+    }*/
 
 
     $scope.loadHybrid = function(){
@@ -87,7 +84,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.spinsCanvas=false;
             $scope.spinsCanvasCatalogue = false;
             $scope.loading=true;
-            $http.get("http://cbicportal.mybluemix.net/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
+            $http.get("/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
                 // console.log("Data : " + JSON.stringify(data));
                 $scope.arrayOfComponents = data;
                 console.log("new array data before === "+JSON.stringify($scope.arrayOfComponents));
@@ -167,7 +164,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.spinsRuntimeList = true;
         $scope.spinsServicesList = false;
         $scope.loading=true;
-        $http.get("http://cbicportal.mybluemix.net/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
+        $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
             console.log('inside http function');
             console.log("Data : " + JSON.stringify(data));
             $scope.bluemixRuntimeLabel=[];
@@ -190,7 +187,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
             console.log("Bluemix runtime icon length==="+$scope.bluemixRuntimeIcon.length);
             console.log("Bluemix runtime label length==="+$scope.bluemixRuntimeLabel.length);
-
             console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixRuntimeComponentLists));
             console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixRuntimeIcon));
             console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixRuntimeLabel));
@@ -234,7 +230,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.spinsCanvas=false;
         $scope.loading=true;
 
-        $http.get("http://cbicportal.mybluemix.net/api/getBluemixServicesList",{ cache: true}).success(function(data){
+        $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
             console.log('inside http function');
             console.log("Data : " + JSON.stringify(data));
             $scope.bluemixServiceLabel=[];
@@ -305,7 +301,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log('solnEntered===' +JSON.stringify($scope.solnEntered));
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/getServiceInfo',
+                url: '/api/getServiceInfo',
                 data: $.param({
                     'uname': user,
                     'solnName': $scope.solnEntered,
@@ -379,7 +375,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.loading=true;
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/getBluemixRuntimeInfo',
+                url: '/api/getBluemixRuntimeInfo',
                 data: $.param({
                     'uname': user,
                     'solnName': $scope.solnEntered,
@@ -454,7 +450,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/v1/getBluemixServiceInfo',
+                url: '/api/v1/getBluemixServiceInfo',
                 data: $.param({
                     'uname': user,
                     'solnName': $scope.solnEntered,
@@ -504,25 +500,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     //////////////////////////////end edit canvas*/
 
-
-
-
-    /*$scope.getCanvasInformation = sharedPropertiesCanvas.getCanvasinfo();
-    console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));*/
-    //--------------
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-        $scope.versionnum = sharedProperties.getVersion();
-    // edit Div
- $scope.showDiv = function () {
-        $scope.showhideprop = true;
-        $scope.vEdit();
-    }
-    // close Div
-    $scope.hideDiv = function () {       
-        $scope.showhideprop = false;
-    }
+    $scope.versionnum = sharedProperties.getVersion();
+
     $scope.viewArchEdit=function(){
         console.log("from edit button -->");
 
@@ -572,17 +554,15 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         });
     }
 
-    $scope.viewDepl=function(){
-        $location.path('/deployment');
-    };
+
 
 
     $scope.showDiv = function () {
         $scope.showhideprop = true;
-        $scope.vEdit();
+
     }
     // close Div
-    $scope.hideDiv = function () {       
+    $scope.hideDiv = function () {
         $scope.showhideprop = false;
     }
     //-----
@@ -591,14 +571,16 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     console.log('userEntered == ' + $scope.currentUser11);
     $scope.solnEntered11 = sharedProperties.getCurrentCSolName();
     console.log('solnEntered1 == ' + $scope.solnEntered11);
+    $scope.newVer= sharedProperties.getVersion();
+    console.log("current version ----->"+$scope.newVer)
 
     $http({
         method: 'POST',
-        url: 'http://cbicportal.mybluemix.net/api/v2/getCanvasInfo',
+        url: '/api/v2/getCanvasInfo',
         data: $.param({
             "soln_name":$scope.solnEntered11,
             "uname":$scope.currentUser11,
-            "version":1
+            "version":$scope.newVer
         }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         //forms user object
@@ -714,35 +696,35 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $(function() {
                         $("#canvas-container").draggable();
                     });
-                   /* var imgDevice = document.getElementById("device_img");
-                    var deviderImg = document.getElementById("devider_img");
-                    var edgeDevice = document.getElementById("edge_device");
+                    /* var imgDevice = document.getElementById("device_img");
+                     var deviderImg = document.getElementById("devider_img");
+                     var edgeDevice = document.getElementById("edge_device");
 
-                    var imgInstance1 = new fabric.Image(imgDevice);
-                    imgInstance1.left=400;
-                    imgInstance1.top=400;
-                    canvas.add(imgInstance1);
-                    imgInstance1.lockMovementY = true;
-                    imgInstance1.lockMovementX = true;
-                    imgInstance1.hasControls=false;
+                     var imgInstance1 = new fabric.Image(imgDevice);
+                     imgInstance1.left=400;
+                     imgInstance1.top=400;
+                     canvas.add(imgInstance1);
+                     imgInstance1.lockMovementY = true;
+                     imgInstance1.lockMovementX = true;
+                     imgInstance1.hasControls=false;
 
 
-                    var imgInstance2 = new fabric.Image(deviderImg);
-                    imgInstance2.left=615;
-                    imgInstance2.top=400;
-                    canvas.add(imgInstance2);
-                    imgInstance2.lockMovementY = true;
-                    imgInstance2.lockMovementX = true;
-                    imgInstance2.hasControls=false;
+                     var imgInstance2 = new fabric.Image(deviderImg);
+                     imgInstance2.left=615;
+                     imgInstance2.top=400;
+                     canvas.add(imgInstance2);
+                     imgInstance2.lockMovementY = true;
+                     imgInstance2.lockMovementX = true;
+                     imgInstance2.hasControls=false;
 
-                    var imgInstance3 = new fabric.Image(edgeDevice);
-                    imgInstance3.left=800;
-                    imgInstance3.top=400;
-                    canvas.add(imgInstance3);
-                    imgInstance3.lockMovementY = true;
-                    imgInstance3.lockMovementX = true;
-                    imgInstance3.hasControls=false;
-*/
+                     var imgInstance3 = new fabric.Image(edgeDevice);
+                     imgInstance3.left=800;
+                     imgInstance3.top=400;
+                     canvas.add(imgInstance3);
+                     imgInstance3.lockMovementY = true;
+                     imgInstance3.lockMovementX = true;
+                     imgInstance3.hasControls=false;
+                     */
                     // we need this here because this is when the canvas gets initialized
                     // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                     // }
@@ -857,7 +839,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                             $http({
                                 method  : 'PUT',
-                                url     : 'http://cbicportal.mybluemix.net/api/AddComponentToCanvas',
+                                url     : '/api/AddComponentToCanvas',
                                 data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount}),
                                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 //forms user object
@@ -949,7 +931,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 $scope.loading=true;
                                 $http({
                                     method  : 'PUT',
-                                    url     : 'http://cbicportal.mybluemix.net/api/v1/AddBMRuntimeToCanvas',
+                                    url     : '/api/v1/AddBMRuntimeToCanvas',
                                     data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount}),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 })
@@ -1033,7 +1015,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 $scope.loading=true;
                                 $http({
                                     method  : 'PUT',
-                                    url     : 'http://cbicportal.mybluemix.net/api/v1/AddBMComponentToCanvas',
+                                    url     : '/api/v1/AddBMComponentToCanvas',
                                     data    : $.param({'uname': user, 'solnName': $scope.solnServiceEntered, 'service_details': 'bluemix','service_name': serviceName,'component_cnt': bluemixServiceCompCount}),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }).success(function(data) {
@@ -1397,7 +1379,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     console.log('componentCount MSP === ' + $scope.mspCount);
                                     $http({
                                         method: 'PUT',
-                                        url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                        url: '/api/removeComponentFromSolutiondb ',
                                         data: $.param({
                                             'uname': user1,
                                             'solnName': $scope.solnEntered,
@@ -1450,7 +1432,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     }
                                     $http({
                                         method: 'PUT',
-                                        url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                        url: '/api/removeComponentFromSolutiondb ',
                                         data: $.param({
                                             'uname': user,
                                             'solnName': $scope.solnEntered,
@@ -1503,7 +1485,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                                     $http({
                                         method: 'PUT',
-                                        url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb ',
+                                        url: '/api/removeComponentFromSolutiondb ',
                                         data: $.param({
                                             'uname': user,
                                             'solnName': $scope.solnEntered,
@@ -1587,7 +1569,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                          canvas.clear();*/
                         //canvas.clear();
                         //canvas.clear();
-                        var imgDevice = document.getElementById("device_img");
+                       /* var imgDevice = document.getElementById("device_img");
                         var deviderImg = document.getElementById("devider_img");
                         var edgeDevice = document.getElementById("edge_device");
 
@@ -1611,7 +1593,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         imgInstance3.top=180;
                         canvas.add(imgInstance3);
                         imgInstance3.lockMovementY = true;
-                        imgInstance3.lockMovementX = true;
+                        imgInstance3.lockMovementX = true;*/
 
                         $scope.choices = [];
                         $scope.objCount = 0;
@@ -1641,8 +1623,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                     $scope.esave = function(){
                         console.log("from save----->")
-                        $scope.ver=sharedProperties.getVersion();
-                        console.log("current version ----->"+$scope.vers)
+                        $scope.newVer= sharedProperties.getNewersion();
+                        console.log("current version ----->"+$scope.newVer)
                         /*console.log("created canvas== "+canvas);
                          console.log("Current canvas : " + JSON.stringify(canvas));*/
                         $scope.canvasCreated=JSON.stringify(canvas);
@@ -1663,12 +1645,12 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                         $http({
                             method: 'PUT',
-                            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo' ,
+                            url: '/api/v2/updateCanvasInfo' ,
                             data: $.param({
                                 'uname':  $scope.currentUser1,
                                 'solnName':  $scope.solnEntered1,
                                 'canvasinfo': $scope.canvasCreated,
-                                'version':$scope.ver
+                                'version': $scope.newVer
                             }),
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                             //forms user object
@@ -1835,7 +1817,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.loading = true;
         /* $http({
          method  : 'POST',
-         url     : 'http://cbicportal.mybluemix.net/api/placeOrder',
+         url     : '/api/placeOrder',
          data    : $.param({'uname': user,soln_name: $scope.solnEntered11}),
          headers : {'Content-Type': 'application/x-www-form-urlencoded'}
          //forms user object
@@ -1877,51 +1859,68 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     };
 })
 
-.service('sharedProperties', function () {
-    var user='';
-    var soln='';
-    var MSPChoiceIndex;
-    var runtimeChoiceIndex;
-    var serviceChoiceIndex;
-    var currentSoln;
-    var version='';
-    this.setVersion = function(versionId) {
-        console.log("VertionId==="+versionId);
-        version=versionId;
+    .service('sharedProperties', function () {
+        var user='';
+        var soln='';
+        var MSPChoiceIndex;
+        var runtimeChoiceIndex;
+        var serviceChoiceIndex;
+        var currentSoln;
+        var version='';
+        this.setVersion = function(versionId) {
+            console.log("VertionId==="+versionId);
+            version=versionId;
 
-    };
-    this.getVersion=function () {
-        return version;
-    }
-    this.setProperty = function(userId) {
-        console.log("userId==="+userId);
-        user=userId;
+        };
+        this.getVersion=function () {
+            return version;
+        }
+        this.setProperty = function(userId) {
+            console.log("userId==="+userId);
+            user=userId;
 
-    };
-    this.getProperty=function () {
-        return user;
-    }
+        };
+        this.getProperty=function () {
+            return user;
+        }
 
-    this.setSoln = function(solutionName) {
-        console.log("solnName==="+solutionName);
-        soln=solutionName;
+        this.setSoln = function(solutionName) {
+            console.log("solnName==="+solutionName);
+            soln=solutionName;
 
-    };
-    this.getSoln=function () {
-        return soln;
-    }
+        };
+        this.getSoln=function () {
+            return soln;
+        }
 
-    this.setCurrentCSolName=function(solName){
-        console.log("current solnName==="+solName);
-        currentSoln=solName;
-    }
+        this.setCurrentCSolName=function(solName){
+            console.log("current solnName==="+solName);
+            currentSoln=solName;
+        }
 
-    this.getCurrentCSolName=function(){
-        return currentSoln;
-    }
+        this.getCurrentCSolName=function(){
+            return currentSoln;
+        }
+
+        this.setCanvas=function(canSol){
+            console.log("current canvasName==="+canSol);
+            canvasName=canSol;
+        }
+
+        this.getCanvas=function(){
+            return canvasName;
+        }
+        this.setNewversion = function(newversionId) {
+            console.log("VertionId==="+newversionId);
+            newversion=newversionId;
+
+        };
+        this.getNewersion=function () {
+            return newversion;
+        }
 
 
-});
+    });
 
 
 
@@ -1933,15 +1932,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
     /*$scope.selSpace = false;
-    $scope.showSpace = false;*/
+     $scope.showSpace = false;*/
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
-   /* $scope.orgDataArray = [];
-    $scope.spaceDataArray = [];*/
+    $scope.orgDataArray = [];
+    $scope.spaceDataArray = [];
     $scope.getorganization = function(){
-        $scope.orgDataArray = [];
-       // $scope.spaceDataArray = [];
         console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
         console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
         //alert('inside getorganization');
@@ -1949,13 +1946,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         $scope.loading=true;
         $http({
             method  : 'POST',
-            url     : 'http://cbicportal.mybluemix.net/api/getOrganizations',
+            url     : '/api/getOrganizations',
             data    : $.param({'username': $scope.itemData.username,'password':$scope.itemData.password}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
         }).success(function(data,status,header,config)
         {
-          /*  $scope.selOrg = true;*/
+            /*  $scope.selOrg = true;*/
             /*$scope.showOrg = true;*/
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.orgData = data;
@@ -1976,18 +1973,9 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             /*$uibModalInstance.dismiss('canceol');
              $location.path('/deployment');*/
         })
-    };
-    $scope.getSpaces = function(index){
-        $scope.spaceDataArray = [];
-        console.log('index==' +index);
+    }
+    $scope.getSpaces = function(){
         //alert("inside get spaces");
-        var indexCourseId = _.findIndex($scope.orgList, function (data) {
-            console.log('data==' +data);
-            return data.name === index;
-        });
-        console.log('indexCourseId===' +indexCourseId);
-        var spaceUrl = $scope.orgList[indexCourseId].space_url;
-        console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $scope.spinsSpaceList = true;
         //alert('inside getorganization');
         $scope.spinsOrgList=false;
@@ -2000,14 +1988,14 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
 
         $http({
             method  : 'POST',
-            url     : 'http://cbicportal.mybluemix.net/api/getSpaces',
-            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org,'space_url':spaceUrl}),
+            url     : '/api/getSpaces',
+            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
         }).success(function(data,status,header,config)
         {
             /*$scope.selSpace = true;
-            $scope.showSpace = true;*/
+             $scope.showSpace = true;*/
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.spaceList = data;
             console.log('$scope.spaceList===' +JSON.stringify($scope.spaceList));
@@ -2057,7 +2045,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         console.log("discription----------------"+$scope.distext)
         $http({
             method: 'POST',
-            url: 'http://cbicportal.mybluemix.net/api/v2/modifysolutionversion',
+            url: '/api/v2/modifysolutionversion',
             data    : $.param({'uname': $scope.loguser,
                 'solnName':$scope.curSolution,
                 'solnDesc':$scope.distext,
@@ -2078,6 +2066,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.newVersion=$scope.editCanvasDetails.version;
                     $scope.soln=$scope.newsolution;
                     $scope.vers= $scope.newVersion;
+                    $scope.Vertype=$scope.editCanvasDetails.type;
+                    sharedProperties.setNewversion($scope.newVersion)
                     $scope.Vertype=$scope.editCanvasDetails.type;
 
 
@@ -2124,7 +2114,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                             window.addEventListener("resize", resize);
                             resize();
                         });
-                        var imgDevice = document.getElementById("device_img");
+                        /*var imgDevice = document.getElementById("device_img");
                         var deviderImg = document.getElementById("devider_img");
                         var edgeDevice = document.getElementById("edge_device");
 
@@ -2151,7 +2141,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                         canvas.add(imgInstance3);
                         imgInstance3.lockMovementY = true;
                         imgInstance3.lockMovementX = true;
-                        imgInstance3.hasControls=false;
+                        imgInstance3.hasControls=false;*/
 
                         // we need this here because this is when the canvas gets initialized
                         // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);

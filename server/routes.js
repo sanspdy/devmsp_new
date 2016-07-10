@@ -9,11 +9,9 @@ var path = require('path');
 var solution = require('./api/solution');
 var bluemixjs = require('./api/bluemix');
 var mspjs = require('./api/msp');
-
 var v2_solution=require('./api/v2/solution');
 var v2_bluemixjs = require('./api/v2/bluemix');
 var v2_mspjs = require('./api/v2/msp');
-
 
 module.exports = function(app) {
 

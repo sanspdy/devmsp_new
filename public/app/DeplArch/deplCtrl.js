@@ -46,7 +46,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     $scope.versionarray=[]
         $scope.username = sharedProperties.getProperty();
         console.log('$scope.username' +$scope.username);
-        $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchNames?uname="+$scope.username+"&version="+1)
+        $http.get("/api/v2/viewMyDeployArchNames?uname="+$scope.username+"&version="+1)
             .success(function(data){
                 console.log('inside view DeployArch function');
                 $scope.components = data;
@@ -106,7 +106,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         console.log("version ----------------->"+$scope.vers)
 
 
-        $http.get("http://cbicportal.mybluemix.net/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
+        $http.get("/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
             $scope.ResponseDataViewBillObject = data;
             console.log('version details === '+JSON.stringify($scope.ResponseDataViewBillObject));
             $scope.hybridData = $scope.ResponseDataViewBillObject;
@@ -188,7 +188,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
     $http({
         method: 'POST',
-        url: 'http://cbicportal.mybluemix.net/api/deleteSolution',
+        url: '/api/deleteSolution',
         data: $.param({'user': uid, 'soln_name': $scope.deletedSolnName}),
         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         //forms user object
@@ -219,7 +219,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
         $http({
             method: 'POST',
-            url: 'http://cbicportal.mybluemix.net/api/deleteSolution',
+            url: '/api/deleteSolution',
             data: $.param({'user': uid, 'soln_name': $scope.deletedSolnNameHybrid}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             //forms user object
@@ -317,7 +317,7 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
     $scope.spinsViewBoM = true;
     $scope.loading = true;
 
-    $http.get("http://cbicportal.mybluemix.net/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
+    $http.get("/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
@@ -470,7 +470,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     $scope.spinsViewBoM = true;
     $scope.loading = true;
 
-    $http.get("http://cbicportal.mybluemix.net/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
+    $http.get("/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
@@ -680,7 +680,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
        $http({
            method: 'POST',
-           url: 'http://cbicportal.mybluemix.net/api/v2/deleteSolutionVersion',
+           url: '/api/v2/deleteSolutionVersion',
            data: $.param({
                "uname":$scope.username ,
                "solnName": $scope.solN,

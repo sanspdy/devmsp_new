@@ -41,7 +41,7 @@ angular.module('portalControllers')
             $scope.spinsCatalogueListMsp = true;
             $scope.loadingmsp =true;
 
-            $http.get("http://cbicportal.mybluemix.net/api/getMspComponentlists",{ cache: true}).success(function(data){
+            $http.get("/api/getMspComponentlists",{ cache: true}).success(function(data){
                 // console.log("Data : " + JSON.stringify(data));
                 $scope.arrayOfComponents = data;
                 console.log("new array data before === "+JSON.stringify($scope.arrayOfComponents));
@@ -134,7 +134,7 @@ angular.module('portalControllers')
                 $scope.loading=true;
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/getServiceInfo',
+                    url: '/api/getServiceInfo',
                     data: $.param({
                         'uname': user,
                         'solnName': $scope.solnEntered,
@@ -340,7 +340,7 @@ angular.module('portalControllers')
 
                     $http({
                         method  : 'PUT',
-                        url     : 'http://cbicportal.mybluemix.net/api/AddComponentToCanvas',
+                        url     : '/api/AddComponentToCanvas',
                         data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount}),
                         //data    : $.param({uname: '$scope.itemData.userId', solnName: '$scope.itemData.solnInput', service_details: 'msp',service_name: '$scope.valueOfSelectedImage',component_cnt: '$scope.objCount'}),
                         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -709,7 +709,7 @@ angular.module('portalControllers')
                             console.log('componentCount MSP === ' + $scope.mspCount);
                             $http({
                                 method: 'PUT',
-                                url: 'http://cbicportal.mybluemix.net/api/removeComponentFromSolutiondb',
+                                url: '/api/removeComponentFromSolutiondb',
                                 data: $.param({
                                     'uname': user1,
                                     'solnName': $scope.solnEntered,
@@ -818,7 +818,7 @@ angular.module('portalControllers')
 
                 $http({
                     method: 'PUT',
-                    url: 'http://cbicportal.mybluemix.net/api/updateCanvasInfo',
+                    url: '/api/updateCanvasInfo',
                     data: $.param({
                         'uname': $scope.currentUser1,
                         'solnName': $scope.solnEntered1,
@@ -1039,7 +1039,7 @@ angular.module('portalControllers').controller('solutionCtrlMsp', function ($sco
 
             $http({
                 method  : 'POST',
-                url     : 'http://cbicportal.mybluemix.net/api/v1/creatMpsSolution',
+                url     : '/api/v1/creatMpsSolution',
                 data    : $.param({'uname': uid, 'solnName': $rootScope.solnName, 'solnDesc': solnDesc}),
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -1139,7 +1139,7 @@ angular.module('portalControllers').controller('AttrCtrlMsp', function ($scope,p
             console.log('reqObj === ' + JSON.stringify(reqObj));
             $http({
                 method: 'POST',
-                url: 'http://cbicportal.mybluemix.net/api/getComponentPrice',
+                url: '/api/getComponentPrice',
                 data: $.param({
                     "IMI_Managed": "Y",
                     "Pattern": reqObj
@@ -1196,7 +1196,7 @@ angular.module('portalControllers').controller('AttrCtrlMsp', function ($scope,p
             console.log("popupData1=== " + JSON.stringify($scope.popupData1));
             $http({
                 method: 'PUT',
-                url: 'http://cbicportal.mybluemix.net/api/updateServiceInfo',
+                url: '/api/updateServiceInfo',
                 data: $.param({
                     'uname': $scope.username,
                     'solnName': $scope.solnName,
@@ -1269,7 +1269,7 @@ angular.module('portalControllers').controller('orderBillCtrlMsp', function ($sc
     $scope.spinsViewBoM = true;
     $scope.loading = true;
 
-    $http.get("http://cbicportal.mybluemix.net/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered)
+    $http.get("/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered)
         .success(function(data){
             $scope.ResponseDataViewBillObject = data;
             console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
@@ -1361,7 +1361,7 @@ angular.module('portalControllers').controller('orderBillCtrlMsp', function ($sc
         console.log('$scope.solnEntered === '+$scope.solnEntered);
         $http({
             method  : 'POST',
-            url     : 'http://cbicportal.mybluemix.net/api/placeOrder',
+            url     : '/api/placeOrder',
             data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object

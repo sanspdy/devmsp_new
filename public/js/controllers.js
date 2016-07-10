@@ -119,7 +119,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log('reqObj === ' + JSON.stringify(reqObj));
 			$http({
 				method: 'POST',
-				url: 'http://cbicportal.mybluemix.net/api/getComponentPrice',
+				url: '/api/getComponentPrice',
 				data: $.param({
 					"IMI_Managed": "Y",
 					"Pattern": reqObj
@@ -176,7 +176,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log("popupData1=== " + JSON.stringify($scope.popupData1));
 			$http({
 				method: 'PUT',
-				url: 'http://cbicportal.mybluemix.net/api/updateServiceInfo',
+				url: '/api/updateServiceInfo',
 				data: $.param({
 					'uname': $scope.username,
 					'solnName': $scope.solnName,
@@ -272,7 +272,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log('changed valuess memory final === '+$scope.instanceValueFinal);*!/
 			$http({
 				method: 'POST',
-				url: 'http://cbicportal.mybluemix.net/api/getRuntimePrice',
+				url: '/api/getRuntimePrice',
 				data: $.param({'inst':$scope.instanceValue, 'memory':$scope.memoryValueFinal}),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 				//forms user object
@@ -321,7 +321,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log("inside save function" + JSON.stringify($scope.popupDataRuntime.title));
 			$http({
 				method: 'PUT',
-				url: 'http://cbicportal.mybluemix.net/api/updateBMRuntimeInfo',
+				url: '/api/updateBMRuntimeInfo',
 				data: $.param({
 					uname: $scope.username,
 					solnName: $scope.solnName,
@@ -405,7 +405,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log('reqObj === ' + JSON.stringify(reqObj));
 			$http({
 				method: 'POST',
-				url: 'http://cbicportal.mybluemix.net/api/getComponentPrice',
+				url: '/api/getComponentPrice',
 				data: $.param({
 					"IMI_Managed": "Y",
 					"Pattern": reqObj
@@ -459,7 +459,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 			console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
 			$http({
 				method: 'PUT',
-				url: 'http://cbicportal.mybluemix.net/api/updateBMServiceInfo',
+				url: '/api/updateBMServiceInfo',
 				data: $.param({
 					uname: $scope.username,
 					solnName: $scope.solnName,
@@ -586,7 +586,7 @@ angular.module('portalControllers').controller('solutionCtrl', function ($scope,
 		$scope.loading = true;
 		$http({
 			method  : 'POST',
-			url     : 'http://cbicportal.mybluemix.net/api/v1/creatHybridSolution',
+			url     : '/api/v1/creatHybridSolution',
 			data    : $.param({'uname': uid, 'solnName': $rootScope.solnName, 'solnDesc': solnDesc}),
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			//forms user object
@@ -652,7 +652,7 @@ angular.module('portalControllers').controller('newsolutionCtrl', function ($sco
 		$scope.loading = true;
 		$http({
 			method  : 'POST',
-			url     : 'http://cbicportal.mybluemix.net/api/v1/creatHybridSolution',
+			url     : '/api/v1/creatHybridSolution',
 			data    : $.param({'uname': uid, 'solnName': $rootScope.solnName, 'solnDesc': solnDesc}),
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			//forms user object
@@ -704,7 +704,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
 	$scope.spinsViewBoM = true;
 	$scope.loading = true;
 
-	$http.get("http://cbicportal.mybluemix.net/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
+	$http.get("/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
 		$scope.ResponseDataViewBillObject = data;
 		console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 		
@@ -847,7 +847,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
 		$scope.loading = true;
 		$http({
 			method  : 'POST',
-			url     : 'http://cbicportal.mybluemix.net/api/placeOrder',
+			url     : '/api/placeOrder',
 			data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
 			headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			//forms user object
