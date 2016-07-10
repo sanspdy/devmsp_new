@@ -107,7 +107,6 @@ initDBConnection();
 
 
 
-/*
  //sso start
  var cookieParser = require('cookie-parser');
  var session = require('express-session');
@@ -241,7 +240,6 @@ initDBConnection();
  // single sign on ends here
 
  //sso ends here
- */
 
 
 // Start server
