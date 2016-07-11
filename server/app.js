@@ -239,6 +239,7 @@ initDBConnection();
  app.get('/api/things',function(request,response){
     response.send(JSON.stringify(sessionData));
     console.log('Session Data-->'+JSON.stringify(sessionData));
+    response.end();
 }); 
 
  //sso end
