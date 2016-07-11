@@ -73,20 +73,14 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $location.hash('bottom');
             $anchorScroll();
         };
-        $http.get('/api/things').success(function (response) {
+        $http.get('/api/thing').success(function (response) {
             $scope.sessionData = response;
             console.log('Session Data in Client Side-->'+JSON.stringify($scope.sessionData));
             $scope.UserDetails=$scope.sessionData.passport.user;
             console.log('Session User-->'+JSON.stringify($scope.UserDetails));
             $scope.Name=$scope.UserDetails._json.displayName;
             console.log('Email ID-->'+$scope.Name);
-            if($scope.Name=='OMS Admin'){
-                $scope.ShowUploadDownloadButton=true;
-                console.log('ShowUploadDownloadButton'+$scope.ShowUploadDownloadButton);
-            }
-            else{
-                $scope.ShowUploadDownloadButton=false;
-            }
+           
 
         });
 
