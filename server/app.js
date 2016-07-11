@@ -212,13 +212,13 @@ initDBConnection();
  }
 
 
-
+var redirect_url="";
  app.get("/auth/sso/callback",function(req,res,next) {
  console.log(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! /auth/sso/callback *** ");
  ///console.log(redirect_url);
  require('./config/express')(app);
  require('./routes')(app);
- var redirect_url = req.session.originalUrl;
+ redirect_url = req.session.originalUrl;
  console.log(redirect_url);
  //var redirect_url2="https://msp-portal.mybluemix.net";
  //console.log("Request : " + req.originalUrl);
