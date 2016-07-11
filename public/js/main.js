@@ -9,7 +9,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
             console.log("refresh page event current"+current);
             if(next==current) {
                 console.log("refresh page");
-                $location.path('/home') ;
+                $location.path('/') ;
             }
         });
         $rootScope.$on('$locationChangeSuccess', function() {
