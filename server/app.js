@@ -234,6 +234,11 @@ initDBConnection();
  app.get('/failure', function(req, res) {
  console.log(" *** /failure *** ");
  res.send('login failed'); });
+ 
+ app.get('/api/things',function(request,response){
+    response.send(JSON.stringify(sessionData));
+    console.log('Session Data-->'+JSON.stringify(sessionData));
+}); 
 
  //sso end
 
