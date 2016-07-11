@@ -73,7 +73,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $location.hash('bottom');
             $anchorScroll();
         };
-        $http.get('/api/thing').success(function (response) {
+        $http.get('/api/things').success(function (response) {
             $scope.sessionData = response;
             console.log('Session Data in Client Side-->'+JSON.stringify($scope.sessionData));
             $scope.UserDetails=$scope.sessionData.passport.user;
