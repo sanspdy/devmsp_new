@@ -22,12 +22,10 @@ var port = (process.env.VCAP_APP_PORT || 9000);
 
 if (host !== 'localhost') app.set('env', 'production');
 
-require('./config/express')(app);
-require('./routes')(app);
+//require('./config/express')(app);
+//require('./routes')(app);
 
-app.get('/', function(req,res){
-   console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-});
+
 var dbCredentials = {
     dbComponents : 'components',
     dbBlueprints : 'blueprint',
