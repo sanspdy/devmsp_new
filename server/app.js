@@ -212,13 +212,13 @@ initDBConnection();
  }
 
 
-var redirect_url="";
+
  app.get("/auth/sso/callback",function(req,res,next) {
  console.log(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! /auth/sso/callback *** ");
  ///console.log(redirect_url);
  require('./config/express')(app);
  require('./routes')(app);
- redirect_url = req.session.originalUrl;
+ var redirect_url = req.session.originalUrl;
  console.log(redirect_url);
  //var redirect_url2="https://msp-portal.mybluemix.net";
  //console.log("Request : " + req.originalUrl);
@@ -227,7 +227,7 @@ var redirect_url="";
  //console.log("Request 2: " + JSON.parse(req));
  //var redirect_url = req.originalUrl;
  passport.authenticate('openidconnect', {
- successRedirect: "/success",
+ successRedirect: redirect_url,
  failureRedirect: "/failure",
  })(req,res,next);
  });
@@ -246,8 +246,9 @@ app.get('/success',ensureAuthenticated,function(request,response){
  res.send('login failed'); });
  
  app.get('/api/things',function(request,response){
+ 	sessionData=request.session;
+ 	console.log('Session Data-->'+JSON.stringify(sessionData));
     response.send(JSON.stringify(sessionData));
-    console.log('Session Data-->'+JSON.stringify(sessionData));
     response.end();
 }); 
 
