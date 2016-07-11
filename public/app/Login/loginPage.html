@@ -6,7 +6,11 @@
             <div class="loginDiv">
                 <p id="login_heading"> Log In to GBS Cloud</p>
                 <form  name="loginform" class="form-horizontal paddingBox" novalidate>
+                    <div ng-show="showErrormsg">
+                        {{msg}}
+                    </div>
                     <div class="form-group form-group-loc" >
+
                         <div class=" col-xs-6 emailField padding0">
                             <input type="text" class="form-control" name="userId" id="inputEmail3" placeholder="User ID" style="font-style:italic"  ng-model="itemData.userId" ng-required="true" autofocus >
                             <div ng-show="loginform.$submitted || loginform.userId.$touched">

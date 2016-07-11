@@ -89,22 +89,27 @@
                 <li  class="row bluemixdata" ng-repeat="property in propertiesObjectArrayData ">
                     <div class="bluemixprop col-xs-3">
                         <label class="bluemixlabel">
-                            <input class=""  ng-value="property.entity.name" type="radio" name="PlanName" ng-model="$parent.planData"/>
+                            <input class=""  ng-value="property.entity.extra.displayName" type="radio" name="PlanName" ng-model="$parent.planData"/>
                         </label>
                             {{property.entity.extra.displayName}}
                     </div>
                     <div class="col-xs-4">
-                        {{property.entity.extra.bullets[0]}}
+                        <ul style="list-style-type: square;padding-left: 21%">
+                            <li  style="text-align: left;" ng-repeat="property in property.entity.extra.bullets">
+                                {{property}}
+                            </li>
+                        </ul>
+
                     </div>
                     <div class="col-xs-2">
-                        <select ng-model="selectedCountry[$index]" ng-options="country.name for country in propertiesObjectArrayData.names track by country.id">
+                        <select ng-model="selectedCountry[$index]" ng-init="selectedCountry[$index] = names[0] " ng-options="country.name for country in propertiesObjectArrayData.names track by country.id">
                         </select>
                     </div>
                     <div class="col-xs-2">
                         <!--<input class="spss_input" type="text" ng-model="property.entity.extra.costs[0].unitQuantity" ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
 )">-->
 
-                        <input class="spss_input" type="text"  ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
+                        <input class="spss_input" type="text" ng-model="property.entity.extra.costs[0].unitQuantity" ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
 )">
                     </div>
                     <div class="col-xs-1">

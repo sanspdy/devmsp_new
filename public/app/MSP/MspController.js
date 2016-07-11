@@ -793,6 +793,7 @@ angular.module('portalControllers')
                 canvas.clear();
                 $scope.choices = [];
                 $scope.objCount = 0;
+
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/newSolArchitecture.html',

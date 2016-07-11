@@ -1,17 +1,19 @@
 <div class="modal-content">
     <div class="kim-background-container ng-scope">
-        <div class="container-fluid modalNewArch" ng-show="openConfirmHomePage">
+        <div class="container-fluid modalNewArchHomeConfirm" ng-show="openConfirmHomePage">
             <div class="row">
-                <p id="popupHeading">Do you want to proceed to home page </p>
+                <p id="homeConfirmPopup">  <span id="alertHead">Alert</span> <img class="po-crossHome" src="../../images/btn_popup_cross.png"  ng-click="dismissDel()" alt="close"></p>
                 <hr>
-                <img class="po-cross3" src="../../images/btn_popup_cross.png"  ng-click="dismissDel()" alt="close">
-                <hr  class="fancy-line" width="100%" align="left">
+                <p id="popupHeadingHomeConfirm">Your Architecture( {{solnEntered2}} ) has been modified. Do you want to save your Changes??</p>
+                <!--<hr>-->
+                <!--<img class="po-crossHome" src="../../images/btn_popup_cross.png"  ng-click="dismissDel()" alt="close">-->
+                <!--<hr  class="fancy-line" width="100%" align="left">-->
                 <div class="col-xs-12">
                     <div class="col-xs-6">
-                        <button type="button" id="createnewArch" ng-click="ProceedToHome()">Yes</button>
+                        <button type="button" id="SaveBtnHome" ng-click="ProceedToHome()">SAVE</button>
                     </div>
                     <div class="col-xs-6">
-                        <button type="button" id="deleteArch" ng-click="cancelProceed()"> No </button>
+                        <button type="button" id="CancelBtnHome" ng-click="cancelProceed()">CANCEL</button>
                     </div>
                 </div>
             </div>

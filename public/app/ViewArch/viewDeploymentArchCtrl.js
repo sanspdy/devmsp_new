@@ -26,11 +26,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.runtimeCatalogue = false;
     $scope.servicesCatalogue = false;
     $scope.state = false;
+    $scope.showMSP = true;
+    $scope.showHybrid = true;
+    $scope.showDepl = true;
 
     //--
     //canvas function code
 
-   /* $scope.editHybrid = function(){
+    $scope.editHybrid = function(){
         $scope.isActiveHybrid = !$scope.isActiveHybrid;
     };
 
@@ -40,7 +43,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     $scope.navMsp = function(){
         console.log('inside nav msp');
-        /!*$location.path('/MSP');*!/
+        /*$location.path('/MSP');*/
         $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/solArchitectureMsp.html',
@@ -51,8 +54,26 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
             }
         });
-    }*/
+    }
+//---------------
+   /* var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
 
+
+
+    download.addEventListener("click", function() {
+        // only jpeg is supported by jsPDF
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF();
+
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        var download = document.getElementById('download');
+
+        pdf.save("download.pdf");
+    }, false);
+*/
+
+    ///==================
 
     $scope.loadHybrid = function(){
         /*$location.path('/canvas');*/
@@ -187,6 +208,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
             console.log("Bluemix runtime icon length==="+$scope.bluemixRuntimeIcon.length);
             console.log("Bluemix runtime label length==="+$scope.bluemixRuntimeLabel.length);
+
             console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixRuntimeComponentLists));
             console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixRuntimeIcon));
             console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixRuntimeLabel));
@@ -200,24 +222,24 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
         })
 
-    }
+    };
 
     $scope.edit11 = function(){
         $scope.isActive2 = !$scope.isActive2;
-    }
+    };
     $scope.edit11Tier1 = function () {
         $scope.isActive2Tier1 = !$scope.isActive2Tier1;
 
-    }
+    };
 
     $scope.edit11Tier2 = function () {
         $scope.isActive2Tier2 = !$scope.isActive2Tier2;
 
-    }
+    };
 
     $scope.edit2 = function(){
         $scope.isActive2 = !$scope.isActive2;
-    }
+    };
 
     $scope.edit3 = function(){
         $scope.runtimeCatalogue = false;
@@ -500,11 +522,25 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     //////////////////////////////end edit canvas*/
 
+
+
+
+    /*$scope.getCanvasInformation = sharedPropertiesCanvas.getCanvasinfo();
+    console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));*/
+    //--------------
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-    $scope.versionnum = sharedProperties.getVersion();
-
+        $scope.versionnum = sharedProperties.getVersion();
+    // edit Div
+ $scope.showDiv = function () {
+        $scope.showhideprop = true;
+        $scope.vEdit();
+    }
+    // close Div
+    $scope.hideDiv = function () {       
+        $scope.showhideprop = false;
+    }
     $scope.viewArchEdit=function(){
         console.log("from edit button -->");
 
@@ -554,15 +590,17 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         });
     }
 
-
+    $scope.viewDepl=function(){
+        $location.path('/deployment');
+    };
 
 
     $scope.showDiv = function () {
         $scope.showhideprop = true;
-
+        $scope.vEdit();
     }
     // close Div
-    $scope.hideDiv = function () {
+    $scope.hideDiv = function () {       
         $scope.showhideprop = false;
     }
     //-----
@@ -696,35 +734,35 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $(function() {
                         $("#canvas-container").draggable();
                     });
-                    /* var imgDevice = document.getElementById("device_img");
-                     var deviderImg = document.getElementById("devider_img");
-                     var edgeDevice = document.getElementById("edge_device");
+                   /* var imgDevice = document.getElementById("device_img");
+                    var deviderImg = document.getElementById("devider_img");
+                    var edgeDevice = document.getElementById("edge_device");
 
-                     var imgInstance1 = new fabric.Image(imgDevice);
-                     imgInstance1.left=400;
-                     imgInstance1.top=400;
-                     canvas.add(imgInstance1);
-                     imgInstance1.lockMovementY = true;
-                     imgInstance1.lockMovementX = true;
-                     imgInstance1.hasControls=false;
+                    var imgInstance1 = new fabric.Image(imgDevice);
+                    imgInstance1.left=400;
+                    imgInstance1.top=400;
+                    canvas.add(imgInstance1);
+                    imgInstance1.lockMovementY = true;
+                    imgInstance1.lockMovementX = true;
+                    imgInstance1.hasControls=false;
 
 
-                     var imgInstance2 = new fabric.Image(deviderImg);
-                     imgInstance2.left=615;
-                     imgInstance2.top=400;
-                     canvas.add(imgInstance2);
-                     imgInstance2.lockMovementY = true;
-                     imgInstance2.lockMovementX = true;
-                     imgInstance2.hasControls=false;
+                    var imgInstance2 = new fabric.Image(deviderImg);
+                    imgInstance2.left=615;
+                    imgInstance2.top=400;
+                    canvas.add(imgInstance2);
+                    imgInstance2.lockMovementY = true;
+                    imgInstance2.lockMovementX = true;
+                    imgInstance2.hasControls=false;
 
-                     var imgInstance3 = new fabric.Image(edgeDevice);
-                     imgInstance3.left=800;
-                     imgInstance3.top=400;
-                     canvas.add(imgInstance3);
-                     imgInstance3.lockMovementY = true;
-                     imgInstance3.lockMovementX = true;
-                     imgInstance3.hasControls=false;
-                     */
+                    var imgInstance3 = new fabric.Image(edgeDevice);
+                    imgInstance3.left=800;
+                    imgInstance3.top=400;
+                    canvas.add(imgInstance3);
+                    imgInstance3.lockMovementY = true;
+                    imgInstance3.lockMovementX = true;
+                    imgInstance3.hasControls=false;
+*/
                     // we need this here because this is when the canvas gets initialized
                     // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                     // }
@@ -1569,7 +1607,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                          canvas.clear();*/
                         //canvas.clear();
                         //canvas.clear();
-                       /* var imgDevice = document.getElementById("device_img");
+                        var imgDevice = document.getElementById("device_img");
                         var deviderImg = document.getElementById("devider_img");
                         var edgeDevice = document.getElementById("edge_device");
 
@@ -1593,7 +1631,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         imgInstance3.top=180;
                         canvas.add(imgInstance3);
                         imgInstance3.lockMovementY = true;
-                        imgInstance3.lockMovementX = true;*/
+                        imgInstance3.lockMovementX = true;
 
                         $scope.choices = [];
                         $scope.objCount = 0;
@@ -1802,60 +1840,71 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function () {
-        console.log('inside placeorder');
-        $scope.currentUser = sharedProperties.getProperty();
-        console.log('userEntered == ' + $scope.currentUser);
-        var user = $scope.currentUser;
-        console.log("inside place order");
-        console.log('$scope.solnEntered === '+$scope.solnEntered11);
-        $scope.placeOrderSpins = true;
-        $scope.viewCreatSol = false;
-        $scope.spinsCatalogueList=false;
-        $scope.spinsCanvas=false;
-        $scope.spinsCatalogueList = false;
-        $scope.spinsViewBoM = false;
-        $scope.loading = true;
-        /* $http({
-         method  : 'POST',
-         url     : '/api/placeOrder',
-         data    : $.param({'uname': user,soln_name: $scope.solnEntered11}),
-         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-         //forms user object
-         }).success(function(data,status,header,config) {
+      console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+            console.log('invoke place order for msp prov');
+             $http({
+             method  : 'POST',
+             url     : '/api/v2/placeOrder',
+             data    : $.param({
+                 'uname': user,
+                 'soln_name': $scope.solnEntered11,
+                 'version':1,
+                 'contactname':'MANISHA',
+                 'contactmail':'manaror1@in.ibm.com',
+                 'space_guid':'abc',
+                 'service_name':'abc',
+                 'service_plan_guid':'abc',
+                 'bmusername':'manaror1@in.ibm.com',
+                 'bmpassword':'manisha2016'
 
-         console.log("place order data ==="+JSON.stringify(data));
-         /!*$uibModalInstance.dismiss('cancel');
-         $location.path('/deployment');*!/
-         })*/
-        $scope.placeOrderSpins = false;
+             }),
+             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+             //forms user object
+             }).success(function(data,status,header,config) {
 
+             console.log("place order data ==="+JSON.stringify(data));
+             /*$uibModalInstance.dismiss('cancel');
+             $location.path('/deployment');*/
+             })
+        }
+        else{
+            console.log('inside placeorder');
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            var user = $scope.currentUser;
+            console.log("inside place order");
+            console.log('$scope.solnEntered === '+$scope.solnEntered11);
+            $scope.placeOrderSpins = true;
+            $scope.viewCreatSol = false;
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCatalogueList = false;
+            $scope.spinsViewBoM = false;
+            $scope.loading = true;
 
-        // var pwd = $scope.itemData.pwd;
-        //console.log('pwd==' +$scope.itemData.pwd);
-        /*var pwd = sharedProperties.getCurrentPassword();
-         console.log('pwd===' +pwd);*/
+            $scope.placeOrderSpins = false;
+            //modal opens
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/bluemixprovision.html',
+                controller: 'provisionCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-att-prov',
+                resolve: {
+                    /* parentDivCall: function () {
+                     return $scope.popupData;
+                     },
+                     countComp:function () {
+                     return $scope.actualMSPComponentIndex;
+                     },
+                     serviceType:function(){
+                     return 'msp';
+                     }*/
+                }
+            });
+        }
 
-
-
-        //modal opens
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/bluemixprovision.html',
-            controller: 'provisionCtrl',
-            backdrop: 'static',
-            windowClass: 'app-modal-window-att-prov',
-            resolve: {
-                /* parentDivCall: function () {
-                 return $scope.popupData;
-                 },
-                 countComp:function () {
-                 return $scope.actualMSPComponentIndex;
-                 },
-                 serviceType:function(){
-                 return 'msp';
-                 }*/
-            }
-        });
     };
 })
 
@@ -1923,7 +1972,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     });
 
 
-
 angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
     //alert("inside provision  ctrl");
     $scope.ngShowModalprov = true;
@@ -1932,13 +1980,15 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
     /*$scope.selSpace = false;
-     $scope.showSpace = false;*/
+    $scope.showSpace = false;*/
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
-    $scope.orgDataArray = [];
-    $scope.spaceDataArray = [];
+   /* $scope.orgDataArray = [];
+    $scope.spaceDataArray = [];*/
     $scope.getorganization = function(){
+        $scope.orgDataArray = [];
+       // $scope.spaceDataArray = [];
         console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
         console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
         //alert('inside getorganization');
@@ -1952,7 +2002,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             //forms user object
         }).success(function(data,status,header,config)
         {
-            /*  $scope.selOrg = true;*/
+          /*  $scope.selOrg = true;*/
             /*$scope.showOrg = true;*/
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.orgData = data;
@@ -1973,9 +2023,18 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             /*$uibModalInstance.dismiss('canceol');
              $location.path('/deployment');*/
         })
-    }
-    $scope.getSpaces = function(){
+    };
+    $scope.getSpaces = function(index){
+        $scope.spaceDataArray = [];
+        console.log('index==' +index);
         //alert("inside get spaces");
+        var indexCourseId = _.findIndex($scope.orgList, function (data) {
+            console.log('data==' +data);
+            return data.name === index;
+        });
+        console.log('indexCourseId===' +indexCourseId);
+        var spaceUrl = $scope.orgList[indexCourseId].space_url;
+        console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $scope.spinsSpaceList = true;
         //alert('inside getorganization');
         $scope.spinsOrgList=false;
@@ -1989,13 +2048,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         $http({
             method  : 'POST',
             url     : '/api/getSpaces',
-            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org}),
+            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org,'space_url':spaceUrl}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
         }).success(function(data,status,header,config)
         {
             /*$scope.selSpace = true;
-             $scope.showSpace = true;*/
+            $scope.showSpace = true;*/
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.spaceList = data;
             console.log('$scope.spaceList===' +JSON.stringify($scope.spaceList));
@@ -2012,6 +2071,30 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
     $scope.proceedForOrder = function(){
         //alert("inside proceed for order");
         $uibModalInstance.dismiss('cancel');
+        $http({
+            method  : 'POST',
+            url     : '/api/v2/placeOrder',
+            data    : $.param({
+                'uname': 'manisha',
+                'soln_name': $scope.solnEntered11,
+                'version':1,
+                'contactname':'MANISHA',
+                'contactmail':'manaror1@in.ibm.com',
+                'space_guid':'abc',
+                'service_name':'abc',
+                'service_plan_guid':'abc',
+                'bmusername':'manaror1@in.ibm.com',
+                'bmpassword':'manisha2016'
+
+            }),
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        }).success(function(data,status,header,config) {
+
+            console.log("place order data ==="+JSON.stringify(data));
+            /*$uibModalInstance.dismiss('cancel');
+             $location.path('/deployment');*/
+        });
         $location.path('/deployment');
     }
 

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('portalControllers')
     .controller('canvasController',function($scope,$http,$timeout,$window,$uibModal,$rootScope,sharedProperties,$location){
-
+       // canvas.clear();
         $scope.showMSP = true;
         $scope.showHybrid = false;
         $scope.showDepl = true;
@@ -64,10 +64,10 @@ angular.module('portalControllers')
                 windowClass: 'app-modal-window-sa',
                 backdrop: 'static',
                 resolve: {
+
                 }
             });
-        }
-
+        };
         $scope.viewDepl=function(){
             $location.path('/deployment');
         };
@@ -1461,115 +1461,36 @@ angular.module('portalControllers')
 
             $scope.printCanvas = function()
             {
-                /*console.log("created canvas== "+canvas);
-                 console.log("Current canvas : " + JSON.stringify(canvas));
-                 canvas.clear();*/
-                //canvas.clear();
-                //canvas.clear();
-                /*var imgDevice = document.getElementById("device_img");
-                var deviderImg = document.getElementById("devider_img");
-                var edgeDevice = document.getElementById("edge_device");
-
-                var imgInstance1 = new fabric.Image(imgDevice);
-                imgInstance1.left=509;
-                imgInstance1.top=180;
-                canvas.add(imgInstance1);
-                imgInstance1.lockMovementY = true;
-                imgInstance1.lockMovementX = true;
-
-
-                var imgInstance2 = new fabric.Image(deviderImg);
-                imgInstance2.left=615;
-                imgInstance2.top=342;
-                canvas.add(imgInstance2);
-                imgInstance2.lockMovementY = true;
-                imgInstance2.lockMovementX = true;
-
-                var imgInstance3 = new fabric.Image(edgeDevice);
-                imgInstance3.left=722;
-                imgInstance3.top=180;
-                canvas.add(imgInstance3);
-                imgInstance3.lockMovementY = true;
-                imgInstance3.lockMovementX = true;
-*/
                 $scope.choices = [];
                 $scope.objCount = 0;
-
-                /*$uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '../components/modal/newSolArchitecture.html',
-                    controller: 'newsolCtrl',
-                    windowClass: 'app-modal-window-nns',
-                    backdrop: 'static',
-                    resolve: {
-
-                    }
-                });*/
-
-                $uibModal.open({
+                $scope.canvasCreated=JSON.stringify(canvas);
+                console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                 var newArchModal = $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/newArchConfirmation.html',
                     controller: 'newArchConfirmCtrl',
                     windowClass: 'app-modal-window-newArch',
                     backdrop: 'static',
                     resolve: {
-
+                        canvasInformation: function () {
+                            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                            return $scope.canvasCreated;
+                        }
                     }
                 });
+                newArchModal.result.then(function(clearCanvas){
+                        if(clearCanvas.clearCanvas === true){
+                            canvas.clear();
+                        }
+                },
+                function(){
+                    //canvas.clear();
+                })
             };
 
-            /*$scope.saveArch = function(){
-                alert('inside saveArch function');
-                /!*console.log("created canvas== "+canvas);
-                 console.log("Current canvas : " + JSON.stringify(canvas));*!/
-                $scope.canvasCreated=JSON.stringify(canvas);
-                console.log("Current canvasCreated : " + $scope.canvasCreated);
-                var s1=canvas;
-                console.log('s1 type === '+typeof s1);
-                $scope.currentUser1 = sharedProperties.getProperty();
-                console.log('userEntered == ' + $scope.currentUser1);
-                $scope.solnEntered1 = sharedProperties.getSoln();
-                console.log('solnEntered1 == ' + $scope.solnEntered1);
-                $scope.spinsViewBoM = true;
-                $scope.spinsRuntimeList = false;
-                $scope.spinsServicesList=false;
-                $scope.spinsCanvasCatalogue = false;
-                $scope.spinsCanvas=false;
-                $scope.loading=true;
-                $http({
-                    method: 'PUT',
-                    url: '/api/v2/updateCanvasInfo',
-                    data: $.param({
-                        'uname': $scope.currentUser1,
-                        'solnName': $scope.solnEntered1,
-                        'canvasinfo': $scope.canvasCreated,
-                        'version':1
-                    }),
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                    //forms user object
-                })
-                    .success(function (data, status, header, config) {
-
-                        if (data.errors) {
-                            // Showing errors.
-                            $scope.errorName = data.errors.name;
-                        } else {
-                            console.log("inside success function");
-                            $scope.PostDataResponse = data;
-                            console.log(JSON.stringify($scope.PostDataResponse));
 
 
-                        }
-                        $scope.spinsViewBoM = false;
 
-                    })
-                    .error(function (data, status, header, config) {
-                        console.log("header data" + header);
-                        console.log("status data" + status);
-                        console.log("config data" + JSON.stringify(config));
-
-                    })
-            };*/
 
             $scope.viewBill = function(){
                 /*console.log("created canvas== "+canvas);
@@ -1737,14 +1658,26 @@ angular.module('portalControllers')
             }
             $scope.redirectToHome = function(){
                 //alert("inside redirect to home");
+                $scope.canvasCreated=JSON.stringify(canvas);
+                console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/homePageConfirm.html',
-                    windowClass: 'app-modal-window-sam',
+                    windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmHomeCtrl',
                     backdrop: 'static',
                     resolve: {
-                    }
+                        canvasInformation: function () {
+                            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                            return $scope.canvasCreated;
+                        },
+                        /*countComp:function () {
+                            return $scope.actualServiceComponentIndex;
+                        },
+                        serviceType:function(){
+                            return 'bluemix';
+                        }
+*/                    }
                 });
                 /*console.log("inside redirect");
                 $location.path('/home');*/
@@ -1754,28 +1687,61 @@ angular.module('portalControllers')
     });
 
 
-angular.module('portalControllers').controller('confirmHomeCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+angular.module('portalControllers').controller('confirmHomeCtrl', function ($scope,$uibModal,$uibModalInstance,$location,canvasInformation,$http,sharedProperties) {
      //alert("inside confirmHome  ctrl");
     $scope.openConfirmHomePage = true;
-    $scope.ProceedToHome = function(){
-        //alert('inside proceed to home');
-
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/ProceedHomeSavedata.html',
-            windowClass: 'app-modal-window-sam',
-            controller: 'SaveDataCtrl',
-            backdrop: 'static',
-            resolve: {
-            }
-        });
+    console.log('canvasInformation===' +canvasInformation);
+    /*$scope.canvasData = canvasInformation;
+    console.log('$scope.canvasData===' +JSON.stringify($scope.canvasData));*/
+    $scope.currentUser2 = sharedProperties.getProperty();
+    console.log('userEntered2 == ' + $scope.currentUser2);
+    $scope.solnEntered2 = sharedProperties.getSoln();
+    console.log('solnEntered2 == ' + $scope.solnEntered2);
+    $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.ProceedToHome = function(){
+            $http({
+             method: 'PUT',
+             url: '/api/v2/updateCanvasInfo',
+             data: $.param({
+             'uname': $scope.currentUser2,
+             'solnName': $scope.solnEntered2,
+             'canvasinfo': canvasInformation,
+             'version':1
+             }),
+             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+             //forms user object
+             })
+             .success(function (data, status, header, config) {
+
+             if (data.errors) {
+             // Showing errors.
+             $scope.errorName = data.errors.name;
+             } else {
+             console.log("inside success function");
+             $scope.PostDataResponse = data;
+             console.log(JSON.stringify($scope.PostDataResponse));
+             $uibModalInstance.dismiss('cancel');
+             $location.path('/home');
+             }
+             })
+             .error(function (data, status, header, config) {
+             console.log("header data" + header);
+             console.log("status data" + status);
+             console.log("config data" + JSON.stringify(config));
+
+             });
+
+
+
     };
 
     $scope.cancelProceed = function(){
         //alert('inside cancel Proceed');
         $uibModalInstance.dismiss('cancel');
-        $location.path('/canvas');
+        //$location.path('/canvas');
     };
 });
 
@@ -1842,7 +1808,7 @@ angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,
                 } else {
                     $scope.deletedSolName = data;
                     //$scope.data.splice(index, 1);
-                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                    console.log('deleted solution name===='+JSON.stringify($scope.deletedSolName));
                 }
             })
             .error(function (data, status, header, config) {
@@ -1851,4 +1817,154 @@ angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,
                 console.log("config data" + JSON.stringify(config));
             })
     };
+});
+
+
+angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties,canvasInformation) {
+    console.log("inside newArchConfirmCtrl");
+    $scope.ngShowModalNewArch = true;
+    $scope.currentUser2 = sharedProperties.getProperty();
+    console.log('userEntered2 == ' + $scope.currentUser2);
+    $scope.solnEntered2 = sharedProperties.getSoln();
+    console.log('solnEntered2 == ' + $scope.solnEntered2);
+    console.log('canvasInformation===' +canvasInformation);
+    $scope.deleteArchitecture = function(){
+        var uid = sharedProperties.getProperty();
+        console.log("user name in solution ctrl === "+uid);
+        $scope.solnEntered=sharedProperties.getSoln();
+        console.log('$scope.solnEntered===' +$scope.solnEntered);
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'POST',
+            url: '/api/v2/deleteSolutionVersion',
+            data: $.param({
+                "uname":uid,
+                "solnName": $scope.solnEntered,
+                "version":1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    $scope.deletedSolName = data;
+                    // $scope.data.splice(index, 1);
+                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                    //canvas.clear();
+                    $uibModalInstance.close({clearCanvas:true});
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            });
+
+
+
+        /*$http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+                    //$location.path('/home');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+        */
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            resolve: {
+
+            }
+        });
+
+
+
+    };
+
+
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.createnewArch = function(){
+
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.close({clearCanvas:true});
+                    //canvas.clear();
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            resolve: {
+
+            }
+        });
+    }
 });

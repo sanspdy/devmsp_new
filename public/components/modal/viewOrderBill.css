@@ -62,6 +62,14 @@
     left:0;
 }
 
+.po-crossHome{
+    float: right;
+    margin-right: -2%;
+    /* margin-top: -13%; */
+    top: 0;
+    left: 0;
+}
+
 .billText{
     margin-top: 2%;
     margin-left: 2%;

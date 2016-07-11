@@ -10,7 +10,6 @@ angular.module('portalApp', [
 		function($routeProvider) {
 			$routeProvider.
 			when('/', {
-
 				templateUrl: '/app/Login/loginPage.html',
 				controller: 'mainController'
 			}).
@@ -19,7 +18,6 @@ angular.module('portalApp', [
 				controller: 'canvasController'
 			}).
 			when('/home', {
-
 				templateUrl: '/app/Home/home.html',
 				controller: 'mainController'
 			}).

@@ -38,7 +38,6 @@ angular.module('portalControllers', ['ui.bootstrap'])
             }
         });
     })
-
      // directive for menu slide bar
     .directive('sidebarDirective', function() {
         return {
@@ -58,6 +57,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
     // controller for login page
     .controller('mainController',['$scope','$http','$location','$uibModal','sharedProperties','$anchorScroll','$window',function($scope,$http,$location,$uibModal,sharedProperties,$anchorScroll,$window){
         console.log("inside sample controller");
+        $scope.showErrormsg = false;
         $scope.showMSP = true;
         $scope.showHybrid = true;
         $scope.showDepl = true;
@@ -206,6 +206,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 if (data.errors) {
                     // Showing errors.
                     $scope.errorName = data.errors.name;
+                    console.log('$scope.errorName===' +JSON.stringify($scope.errorName));
                 } else {
                     console.log("inside success function");
                     if ($scope.uid.length === 0) {
@@ -229,8 +230,10 @@ angular.module('portalControllers', ['ui.bootstrap'])
                     console.log("header data" +header);
                     console.log("status data" +status);
                     console.log("config data" +JSON.stringify(config));
+                    console.log("data===" +JSON.stringify(data));
                     $scope.loading=false;
-
+                    $scope.showErrormsg = true;
+                    $scope.msg = data;
                 })
 
         }
@@ -704,9 +707,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         if($scope.propertiesObjectFirstKey === 'entity') {
                             $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
                             console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
-                            $scope.planData = $scope.entity_data.name;
+                            /*$scope.planData = $scope.entity_data.name;
                             console.log('$scope.planData===' + $scope.planData);
-                            $scope.planDataArray.push($scope.planData);
+                            $scope.planDataArray.push($scope.planData);*/
                             console.log('$scope.planDataArray===' +JSON.stringify($scope.planDataArray));
                             $scope.descriptionData = $scope.entity_data.description;
                             console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
@@ -748,22 +751,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 }
             }
         });
-
-
-          /*$scope.selectCountry = function(index){
-              console.log('index===' +index);
-              console.log('selectedCountry[$index]===' +JSON.stringify(index));
-           console.log('selectCountry===' +$scope.selectedCountry);
-              };
-
-        $scope.selectCountry1 = function(){
-            console.log('selectCountry===' +JSON.stringify($scope.selectedCountry1));
-        };*/
-
-
-
-      //$scope.planData = "";
-
         $scope.pricedata = {};
         $scope.showPriceBefore= true;
         $scope.showPriceAfter = false;
@@ -778,11 +765,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
-
-            //isselected = true;
-            //console.log('isselected===' +isselected);
-
-
             $http({
                 method: 'POST',
                 url: '/api/getBMServicePrice',
@@ -807,10 +789,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         console.log(JSON.stringify($scope.pricedata));
                         $scope.showPriceBefore= false;
                         $scope.showPriceAfter = true;
-                        /*$('#r' +price).val($scope.pricedata);*/
-                        /*document.getElementById('#r' +price).value = $scope.pricedata;*/
-                        /*$scope.propertiesObjectArrayData.pricedata = $scope.pricedata;*/
-                        /*$scope.propertiesObjectArrayData.push($scope.pricedata);*/
                     }
                     $scope.loading=false;
                     $scope.viewbluemixPrice = false;
@@ -824,56 +802,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
                 })
         };
-        /*$scope.changedBluemixValueSave = function(){
-            alert("inside changedBluemixvalue save");
-            var bluemixQuantity = $scope.totalbluemixQuantity;
-            console.log('bluemixQuantity' +bluemixQuantity);
-            var selectedCountry = $scope.selectedCountry;
-            console.log('selectedCountry' +selectedCountry);
-            console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
-            console.log('bluemixServiceTitle===' +$scope.bluemixServiceTitle );
-            $scope.viewbluemixPrice = true;
-            $scope.loading=true;
-
-            $http({
-                method: 'POST',
-                url: '/api/getBMServicePrice',
-                data: $.param({
-                    "quantity": bluemixQuantity,
-                    "country": selectedCountry,
-                    "serviceplan_guid":$scope.service_plan_guid,
-                    "service_name":$scope.bluemixServiceTitle
-                }),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-                //forms user object
-            })
-                .success(function (data, status, header, config) {
-
-                    if (data.errors) {
-                        // Showing errors.
-                        $scope.errorName = data.errors.name;
-                    } else {
-                        // console.log("inside success function");
-                        $scope.pricedata = data;
-                        console.log(JSON.stringify($scope.pricedata));
-
-                    }
-                    $scope.loading=false;
-                    $scope.viewbluemixPrice = false;
-
-                })
-                .error(function (data, status, header, config) {
-                    console.log("header data" + header);
-                    console.log("status data" + status);
-                    console.log("config data" + JSON.stringify(config));
-
-                })
-        }*/;
-
-
-
-
-
         $scope.cost = function(index) {
             return $scope.pricedata;
 
@@ -886,15 +814,39 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.saveDataService = function (radioselected) {
             console.log('radioselected===' +JSON.stringify(radioselected));
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
-
-
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
-                return data.entity.name === radioselected;
+                return data.entity.extra.displayName === radioselected;
             });
             console.log('indexCourseId==' +indexCourseId);
             var guid = $scope.propertiesObjectArrayData[indexCourseId].metadata.guid;
             console.log('guid===' +JSON.stringify(guid));
-                $http({
+
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/BluemixPlanSave.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'BluemixPlanCtrl',
+                backdrop: 'static',
+                resolve: {
+                    serviceTitle: function () {
+                        return $scope.popupDataService.title;
+                    },
+                    compCount:function () {
+                        return $scope.compServiceAdded;
+                    },
+                    popupData:function () {
+                        return $scope.popupDataService;
+                    },
+                    guidPlan:function () {
+                        return guid;
+                    },
+                    planName : function(){
+                        return radioselected;
+                    }
+
+                }
+            });
+                /*$http({
                 method: 'PUT',
                 url: '/api/v2/updateBMServiceInfo',
                 data: $.param({
@@ -931,13 +883,80 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log("config data" + JSON.stringify(config));
                         $scope.loading=false;
 
-                });
-            $uibModalInstance.dismiss('cancel');
+                });*/
+            //$uibModalInstance.dismiss('cancel');
 
         }
 
 
 
+    }
+
+
+
+});
+
+
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName) {
+    $scope.openConfirmBluemixPlan = true;
+
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    console.log('serviceTitle==' +serviceTitle);
+    console.log('compCount==' +compCount);
+    console.log('popupData==' +popupData);
+    console.log('guidPlan==' +guidPlan);
+    $scope.username = sharedProperties.getProperty();
+    console.log('$scope.username===' +$scope.username);
+    $scope.solnName = sharedProperties.getSoln();
+    console.log('$scope.solnName===' +$scope.solnName);
+
+    $scope.SavePlan = function(){
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateBMServiceInfo',
+            data: $.param({
+                uname: $scope.username,
+                solnName: $scope.solnName,
+                service_details: 'bluemix',
+                service_name: serviceTitle,
+                component_cnt: compCount,
+                solnjson: popupData,
+                "serviceplan_guid":guidPlan,
+                version:1
+
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+
+                }
+
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+                $scope.loading=false;
+
+            });
+    };
+
+    $uibModalInstance.dismiss('cancel');
+
+    $scope.chooseAnother = function(){
+        $uibModalInstance.dismiss('cancel');
     }
 
 });
@@ -1353,10 +1372,10 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
                                                 if($scope.propertiesObjectFirstKey === 'entity') {
                                                     $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
                                                     console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
-                                                    $scope.planData = $scope.entity_data.name;
+                                                   /* $scope.planData = $scope.entity_data.name;
                                                     console.log('$scope.planData===' + $scope.planData);
-                                                    $scope.descriptionData = $scope.entity_data.description;
-                                                    console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
+                                                    $scope.descriptionData = $scope.entity_data.description;*/
+                                                    //console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
                                                     $scope.extraData = $scope.entity_data.extra;
                                                     console.log('$scope.extraData===' + JSON.stringify($scope.extraData));
                                                     if ($scope.entity_data.free === false) {
@@ -1485,68 +1504,5 @@ angular.module('portalControllers').controller('SelectProperServiceCtrl', functi
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
-
-});
-
-
-angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties) {
-    console.log("inside newArchConfirmCtrl");
-    $scope.ngShowModalNewArch = true;
-
-    $scope.dismissDel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
-    $scope.deleteArchitecture = function(){
-        var uid = sharedProperties.getProperty();
-        console.log("user name in solution ctrl === "+uid);
-        $scope.solnEntered=sharedProperties.getSoln();
-        console.log('$scope.solnEntered===' +$scope.solnEntered);
-        $uibModalInstance.dismiss('cancel');
-        $http({
-            method: 'POST',
-            url: '/api/v2/deleteSolutionVersion',
-            data: $.param({
-                "uname":uid,
-                "solnName": $scope.solnEntered,
-                "version":1
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-            //forms user object
-        })
-            .success(function (data, status, header, config) {
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
-                    $scope.deletedSolName = data;
-                   // $scope.data.splice(index, 1);
-                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("header data" + header);
-                console.log("status data" + status);
-                console.log("config data" + JSON.stringify(config));
-            })
-    };
-    $scope.dismissDel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
-    $scope.createnewArch = function(){
-        $uibModalInstance.dismiss('cancel');
-        $uibModal.open({
-         animation: $scope.animationsEnabled,
-         templateUrl: '../components/modal/newSolArchitecture.html',
-         controller: 'newsolCtrl',
-         windowClass: 'app-modal-window-nns',
-         backdrop: 'static',
-         resolve: {
-
-         }
-         });
-
-    }
 
 });
