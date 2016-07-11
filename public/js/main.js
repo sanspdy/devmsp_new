@@ -77,6 +77,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $scope.sessionData = response;
             console.log('Session Data in Client Side-->'+JSON.stringify($scope.sessionData));
             $scope.UserDetails=$scope.sessionData.passport.user.emailaddress;
+            sharedProperties.setProperty($scope.UserDetails);
             console.log('Session User-->'+JSON.stringify($scope.UserDetails));
 /*            $scope.Name=$scope.UserDetails._json.displayName;
             console.log('Email ID-->'+$scope.Name);*/
@@ -226,7 +227,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                         if ($scope.response.mystatus === true) {
                             console.log($scope.pwd);
                             console.log($scope.uid);
-                            sharedProperties.setProperty($scope.uid);
+                            //sharedProperties.setProperty($scope.uid);
                             //$state.go('/home');
                             $location.path('/home');
                         }
