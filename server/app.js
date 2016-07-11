@@ -227,10 +227,19 @@ initDBConnection();
  //console.log("Request 2: " + JSON.parse(req));
  //var redirect_url = req.originalUrl;
  passport.authenticate('openidconnect', {
- successRedirect: redirect_url,
+ successRedirect: "/success",
  failureRedirect: "/failure",
  })(req,res,next);
  });
+ 
+app.get('/success',ensureAuthenticated,function(request,response){
+    response.redirect(redirect_url);
+    sessionData=request.session;
+    console.log('Session data-->'+JSON.stringify(sessionData));
+    console.log(JSON.stringify(request.user));
+    response.write(JSON.stringify(request.user));
+    response.end();
+});
 
  app.get('/failure', function(req, res) {
  console.log(" *** /failure *** ");
