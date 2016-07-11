@@ -76,10 +76,10 @@ angular.module('portalControllers', ['ui.bootstrap'])
         $http.get('/api/things').success(function (response) {
             $scope.sessionData = response;
             console.log('Session Data in Client Side-->'+JSON.stringify($scope.sessionData));
-            $scope.UserDetails=$scope.sessionData.passport.user;
+            $scope.UserDetails=$scope.sessionData.passport.user.emailaddress;
             console.log('Session User-->'+JSON.stringify($scope.UserDetails));
-            $scope.Name=$scope.UserDetails._json.displayName;
-            console.log('Email ID-->'+$scope.Name);
+/*            $scope.Name=$scope.UserDetails._json.displayName;
+            console.log('Email ID-->'+$scope.Name);*/
            
 
         });

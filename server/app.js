@@ -247,7 +247,12 @@ app.get('/success',ensureAuthenticated,function(request,response){
  console.log(" *** /failure *** ");
  res.send('login failed'); });
  
-
+ app.get('/api/things',function(request,response){
+ 	//sessionData=request.session;
+ 	console.log('Inside Things--> Session Data-->'+JSON.stringify(sessionData));
+    response.send(JSON.stringify(sessionData));
+    //response.end();
+    }); 
  //sso end
 
 

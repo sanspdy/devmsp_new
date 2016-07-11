@@ -1,25 +1,14 @@
 {
-    "Params": {
-        "DevMode": {
-            "Instrumentation": {
-                "command": "",
-                "env": {
-                    "BLUEMIX_APP_MGMT_ENABLE": "devconsole+shell+inspector",
-                    "NODE_ENV": "development"
-                },
-                "memory": "384M"
-            },
-            "Packager": "com.ibm.perfectstorm.cloudoe.packager.LiveEditDeploymentPackager"
-        },
-        "Name": "devmsp",
-        "Target": {
-            "Org": "prajjava@in.ibm.com",
-            "Space": "Msp",
-            "Url": "https://api.ng.bluemix.net"
-        },
-        "Timeout": 60
+  "ServiceId": "com.ibm.cloudoe.orion.client.deploy",
+  "Params": {
+    "Target": {
+      "Url": "https://api.ng.bluemix.net",
+      "Org": "prajjava@in.ibm.com",
+      "Space": "Msp"
     },
-    "Path": "",
-    "ServiceId": "com.ibm.cloudoe.orion.client.deploy",
-    "Type": "Cloud Foundry"
+    "Name": "devmsp",
+    "Instrumentation": {}
+  },
+  "Path": "",
+  "Type": "Cloud Foundry"
 }

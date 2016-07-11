@@ -293,13 +293,7 @@ module.exports = function(app) {
 
     app.post('/api/createBluemixApp',v2_bluemixjs.createBluemixApp);
     
-     app.get('/api/things',function(request,response){
- 	//sessionData=request.session;
- 	console.log('Session Data-->'+JSON.stringify(sessionData));
-    response.send(JSON.stringify(sessionData));
-    response.end();
     
-    }); 
 
 
 //end--->
