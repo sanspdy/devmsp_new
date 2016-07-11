@@ -175,6 +175,7 @@ initDBConnection();
 
  req.session.originalUrl = req.originalUrl;
  res.redirect('/login');
+
  } else {
  return next();
  }
