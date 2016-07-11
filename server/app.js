@@ -88,11 +88,11 @@ function initDBConnection() {
         // dbCredentials.password = "REPLACE ME";
         // dbCredentials.url = "REPLACE ME";
 
-        dbCredentials.host = "25064b88-10f3-4362-8343-ef934099c077-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
+        dbCredentials.host = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
         dbCredentials.port = "443";// vcapServices[vcapService][0].credentials.port;
-        dbCredentials.user = "25064b88-10f3-4362-8343-ef934099c077-bluemix";// vcapServices[vcapService][0].credentials.username;
-        dbCredentials.password = "2da94111ea872c6a1e1ea36b91a3f078ad3a581e1249f21615bc83a953bfaabc";// vcapServices[vcapService][0].credentials.password;
-        dbCredentials.url = "https://25064b88-10f3-4362-8343-ef934099c077-bluemix:2da94111ea872c6a1e1ea36b91a3f078ad3a581e1249f21615bc83a953bfaabc@25064b88-10f3-4362-8343-ef934099c077-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.url;
+        dbCredentials.user = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix";// vcapServices[vcapService][0].credentials.username;
+        dbCredentials.password = "270b50ffd5c988c394071b4461b3cee719ccfab85fb4f97e03404547b2327482";// vcapServices[vcapService][0].credentials.password;
+        dbCredentials.url = "https://f87237e0-cde8-4713-a1f1-851b0531561c-bluemix:270b50ffd5c988c394071b4461b3cee719ccfab85fb4f97e03404547b2327482@f87237e0-cde8-4713-a1f1-851b0531561c-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.url;
 
         cloudant = require('cloudant')(dbCredentials.url);
         console.log("cloudant instance");
@@ -256,9 +256,6 @@ app.get('/success',ensureAuthenticated,function(request,response){
  //sso end
 
 
- // single sign on ends here
-
- //sso ends here
 
 
 // Start server
