@@ -492,7 +492,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     } else {
                         console.log("inside success function");
                         $scope.PostDataResponse = data;
-                        console.log(JSON.stringify($scope.PostDataResponse));
+                        //console.log(JSON.stringify($scope.PostDataResponse));
                     }
 
                 })
