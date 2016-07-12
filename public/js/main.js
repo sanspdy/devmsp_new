@@ -411,15 +411,17 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
             console.log('updated popupData1 values ==== ' + JSON.stringify($scope.popupData1["Pattern"]));
             var reqObj = $scope.popupData1["Pattern"];
+            var data1={
+                "IMI_Managed": "Y",
+                "Pattern": reqObj
+            }
+            console.log('data1==' +JSON.stringify(data1));
             console.log('reqObj === ' + reqObj);
             console.log('reqObj === ' + JSON.stringify(reqObj));
             $http({
                 method: 'POST',
                 url: '/api/getComponentPrice',
-                data: $.param({
-                    "IMI_Managed": "Y",
-                    "Pattern": JSON.stringify(reqObj)
-                }),
+                data: $.param(data1),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 //forms user object
             })
