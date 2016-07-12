@@ -413,7 +413,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             var reqObj = $scope.popupData1["Pattern"];
             var data1={
                 "IMI_Managed": "Y",
-                "Pattern": reqObj
+                "Pattern": JSON.stringify(reqObj)
             }
             console.log('data1==' +JSON.stringify(data1));
             console.log('reqObj === ' + reqObj);
@@ -421,7 +421,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             $http({
                 method: 'POST',
                 url: '/api/getComponentPrice',
-                data: $.param(JSON.stringify(data1)),
+                data: $.param((data1)),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 //forms user object
             })
