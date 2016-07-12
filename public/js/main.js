@@ -627,7 +627,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     service_details: 'runtime',
                     service_name: $scope.popupDataRuntime.title,
                     component_cnt: $scope.compRuntimeAdded,
-                    solnjson: $scope.popupDataRuntime,
+                    solnjson: JSON.stringify($scope.popupDataRuntime),
                     version:1
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
