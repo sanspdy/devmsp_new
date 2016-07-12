@@ -495,7 +495,7 @@ exports.getComponentPrice=function(reqst, response) {
 
     var http=require('http');
 
-    var data = JSON.stringify(priceJson);
+    //var data = JSON.stringify(priceJson);
 
     var result = "";
     try
