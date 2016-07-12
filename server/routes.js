@@ -223,7 +223,7 @@ module.exports = function(app) {
 // Need to edit. jst added v1.
     app.get('/api/v1/getMspComponentlists', mspjs.getMspComponentLists);
 
-
+app.get('/api/v2/getMspComponentlists', v2_mspjs.getMspComponentLists);
 
 // This is fetch the data those are hardcoded in our DB
     app.get('/api/getMspComponentlist',mspjs.getMspComponentlist);

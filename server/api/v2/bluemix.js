@@ -623,7 +623,7 @@ exports.getOrganizations = function(request,response){
                         console.log(err);
                     }
                     if (!err) {
-
+                        console.log("ch bc",full_token_new);
                         console.log("ended");
                     }
 
@@ -671,6 +671,17 @@ exports.getOrganizations = function(request,response){
                         orgs = JSON.stringify(orgs);
                         var orgs1 = JSON.parse(orgs);
                         orgs1 = JSON.parse(orgs1);
+                        console.log("print orgs", orgs1);
+                        if (orgs1.hasOwnProperty("code") && orgs1.code !== undefined && orgs1.code !== null && orgs1.code === 10002) {
+                            response.write("Wrong credentials");
+                            response.end();
+                        }
+                        else if (orgs1.hasOwnProperty("code") && orgs1.code !== undefined && orgs1.code !== null && orgs1.code !== 10002) {
+                            response.write("Some issue with bluemix");
+                            response.end();
+                        }
+                        else {
+
                         var orgs_new = orgs1.resources;
                         console.log("orgs111111111111111111111111111111111111111", orgs1);
                         console.log("orgs newwwwwwwwwwwwwwwwwwwwwwwwwww", orgs_new);
@@ -689,32 +700,9 @@ exports.getOrganizations = function(request,response){
 
                         };
                         console.log("dgvushvsiv;osiv'peopeofepfoepfoepfpefpefoefe", final_json);
-                        var dborg = cloudant.use("organizations");
-                        dborg.find({"selector": {"username": username}}, function (err, result) {
-                            if (!err) {
-                                if (result.docs.length === 0) {
-                                    dborg.insert(final_json, function (err1, result1) {
-                                        if (!err1) {
-                                            console.log("Data inserted");
-                                        }
-                                        else {
-                                            console.log("Error in insertion");
-                                        }
-
-                                    });
-                                }
-                                else{
-                                    console.log("Data already exists");
-                                }
-                            }
-                            else {
-                                console.log("Some error in finding");
-                            }
-                        });
-
-
                         response.send(final_json);
                         response.end();
+                    }
                     });
                 });
                 reqq.on('error', function () {
@@ -741,7 +729,7 @@ exports.getSpaces = function(request,response){
     var password = request.body.pass;
     var original_url = "api.ng.bluemix.net";
     var full_token_new="";
-    var space_url = "";
+    var space_url = request.body.space_url;
     var data={};
     var orgs=[];
     var options={};
@@ -763,38 +751,6 @@ exports.getSpaces = function(request,response){
         console.log("usernameeeeeeeeeeeeeeeeeeeeeeeeeee", username);
         console.log("passworddddddddddddddddddddddddddddddd", password);
         console.log("orgnameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", org_name);
-
-        try {
-
-            dborg.find({"selector": {"username": username}}, function (err, result) {
-                if (!err) {
-                    if (result.docs !== null || result.docs !== undefined) {
-                        for (var i = 0; i < result.docs[0].entity_list[0].length; i++) {
-                            console.log("here", result.docs[0].entity_list[0][i].name);
-                            console.log("org name", org_name);
-                            if (result.docs[0].entity_list[0][i].name === org_name) {
-                                console.log("hereeee");
-                                space_url = result.docs[0].entity_list[0][i].space_url;
-                                console.log("hjhdsjvhhdsjvsdvsdfv", space_url);
-                            }
-                            else {
-                                console.log("no matching org name found");
-                            }
-                        }
-                        console.log("vjdvava", space_url);
-                    }
-                    else{
-                        console.log("no spaces found for this user");
-                    }
-                }
-                else{
-                    console.log("There is some error in retrieving")
-                }
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
 
         //console.log("Inside Try1");
         console.log(username);
@@ -908,9 +864,11 @@ exports.bluemixProvisioning = function(request,response){
     var space_guid = request.body.space_guid;
     var service_name =[];
     var service_plan_guid = request.body.service_plan_guid;
-    var solnName = request.body.solnName;
+    var solnName = request.body.soln_name;
     var username = request.body.username;
     var password = request.body.password;
+    var uname = request.body.uname;
+    var version = request.body.version;
     var full_token_new="";
     var data={};
     var options={};
@@ -945,7 +903,7 @@ exports.bluemixProvisioning = function(request,response){
                 console.log("inside service guid loop");
                // console.log(service_plan_guid[k]);
                 var dbsoln = cloudant.use("solutions");
-                dbsoln.find({"selector": {"solution_name": solnName}}, function (err, result) {
+                dbsoln.find({selector: {user: uname, solution_name: solnName, version: version}}, function (err, result) {
                     if (!err) {
                         //console.log(k);
                         if (result.docs !== null || result.docs !== undefined) {
@@ -1150,7 +1108,7 @@ exports.bluemixProvisioning = function(request,response){
             }
         try {
             setTimeout(function () {
-                db_insert(service_name, solnName, full_token_new)
+                db_insert(service_name, solnName, full_token_new,uname,version)
 
             }, 20000);
 
@@ -1162,12 +1120,12 @@ exports.bluemixProvisioning = function(request,response){
     }
 }
 
-function db_insert(service_name,solnName,full_token_new){
+function db_insert(service_name,solnName,full_token_new,uname,version){
 
     console.log("Hey there");
     var original_url='api.ng.bluemix.net';
     var dbsoln = cloudant.use("solutions");
-    dbsoln.find({"selector": {"solution_name": solnName}}, function (err, result) {
+    dbsoln.find({"selector": {"solution_name": solnName,"user":uname,"version":version}}, function (err, result) {
         if (!err) {
 
             if (result.docs !== null || result.docs !== undefined) {
@@ -1255,7 +1213,9 @@ function db_insert(service_name,solnName,full_token_new){
 
                                                         }
                                                         else{
+
                                                             console.log("no change");
+
 
                                                         }
 
@@ -1274,17 +1234,29 @@ function db_insert(service_name,solnName,full_token_new){
                         console.log(err);
                     }
                 try{
+
                     setTimeout(function(){
+                        for(var k=0;k<ser_details.length;k++){
+                            if( !(ser_details[k].hasOwnProperty("status")) && ser_details[k].status === undefined ){
+                                ser_details[k].status = "not provisioned";
+                                console.log("ser detail",ser_details[k].status);
+                            }
+                        }
                         console.log("service details",JSON.stringify(ser_details));
-                        dbsoln.insert(result.docs[0],function(err,result){
-                            if(!err){
-                                console.log("Succeed");
-                            }
-                            else{
-                                console.log("Failure");
-                            }
-                        });
-                    },7000);
+                        setTimeout(function(){
+                            dbsoln.insert(result.docs[0],function(err,result){
+                                if(!err){
+                                    console.log("Succeed");
+                                }
+                                else{
+                                    console.log("Failure");
+                                }
+                            });
+
+
+                        },5000);
+
+                    },10000);
                 }
                 catch(err){
                     console.log(err);

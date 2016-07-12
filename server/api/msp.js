@@ -917,17 +917,6 @@ exports.getMspComponentLists = function(reqst, response) {
             console.log(lengthofresult);
 
             console.log(result);
-
-            // title_extract=JSON.parse(result);
-
-            // for(k=0;k<title_extract.length;k++)
-            // {
-
-            // extracted_title[k]=title_extract[k].Title
-
-            // }
-            // console.log(JSON.stringify(extracted_title));
-            // response.write(JSON.stringify(extracted_title) );
             response.write(result);
             response.end();
         }, 500);

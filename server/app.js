@@ -88,6 +88,16 @@ function initDBConnection() {
         // dbCredentials.password = "REPLACE ME";
         // dbCredentials.url = "REPLACE ME";
 
+        //--old connection code---
+
+       /* dbCredentials.host = "25064b88-10f3-4362-8343-ef934099c077-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
+        dbCredentials.port = "443";// vcapServices[vcapService][0].credentials.port;
+        dbCredentials.user = "25064b88-10f3-4362-8343-ef934099c077-bluemix";// vcapServices[vcapService][0].credentials.username;
+        dbCredentials.password = "2da94111ea872c6a1e1ea36b91a3f078ad3a581e1249f21615bc83a953bfaabc";// vcapServices[vcapService][0].credentials.password;
+        dbCredentials.url = "https://25064b88-10f3-4362-8343-ef934099c077-bluemix:2da94111ea872c6a1e1ea36b91a3f078ad3a581e1249f21615bc83a953bfaabc@25064b88-10f3-4362-8343-ef934099c077-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.url;
+        */
+        //------ends----------
+
         dbCredentials.host = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix.cloudant.com";// vcapServices[vcapService][0].credentials.host;
         dbCredentials.port = "443";// vcapServices[vcapService][0].credentials.port;
         dbCredentials.user = "f87237e0-cde8-4713-a1f1-851b0531561c-bluemix";// vcapServices[vcapService][0].credentials.username;
@@ -263,4 +273,4 @@ app.listen(port, host);
 console.log('App started on port ' + port);
 
 // Expose app
-exports = module.exports = app;
+var exports = module.exports = app;

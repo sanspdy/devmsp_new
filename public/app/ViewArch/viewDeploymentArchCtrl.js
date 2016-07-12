@@ -55,7 +55,98 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             }
         });
     }
+
+    //bill of meterial-->
+    $scope.viewBill = function(){
+        console.log("from viewBill------------->")
+        $scope.newVer= sharedProperties.getNewersion();
+        console.log("current version ----->"+$scope.newVer)
+        /*console.log("created canvas== "+canvas);
+         console.log("Current canvas : " + JSON.stringify(canvas));*/
+        $scope.canvasCreated=JSON.stringify(canvas);
+        console.log("Current canvasCreated : " + $scope.canvasCreated);
+        var s1=canvas;
+        console.log('s1 type === '+typeof s1);
+        $scope.currentUser1 = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser1);
+        // $scope.solnEntered1 = sharedProperties.getSoln();
+        $scope.solnEntered1=sharedProperties.getCurrentCSolName();
+        console.log('solnEntered1 == ' + $scope.solnEntered1);
+
+        /* /!*console.log("created canvas== "+canvas);
+         console.log("Current canvas : " + JSON.stringify(canvas));*!/
+         $scope.canvasCreated=JSON.stringify(canvas);
+         console.log("Current canvasCreated : " + $scope.canvasCreated);
+         var s1=canvas;
+         console.log('s1 type === '+typeof s1);
+         $scope.currentUser1 = sharedProperties.getProperty();
+         console.log('userEntered == ' + $scope.currentUser1);
+         $scope.solnEntered1=sharedProperties.getCurrentCSolName();
+         console.log('solnEntered1 == ' + $scope.solnEntered1);
+
+         $scope.newVer= sharedProperties.getVersion();
+         console.log("current version ----->"+$scope.newVer)*/
+
+
+
+        $scope.spinsViewBoM = true;
+        $scope.spinsRuntimeList = false;
+        $scope.spinsServicesList=false;
+        $scope.spinsCanvasCatalogue = false;
+        $scope.spinsCanvas=false;
+        $scope.loading=true;
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname':  $scope.currentUser1,
+                'solnName': $scope.solnEntered1,
+                'canvasinfo': $scope.canvasCreated,
+                'version':$scope.newVer
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+
+
+                }
+                $scope.spinsViewBoM = false;
+
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            })
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/orderBill.html',
+            size: 'lg',
+            controller: 'orderBillCtrl',
+            windowClass: 'app-modal-window-o',
+            backdrop: 'static',
+            resolve: {
+                isOrderButton:function(){
+                    return 'viewBOM';
+                }
+            }
+        });
+    };
+    //------------------
 //---------------
+
+
    /* var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
 

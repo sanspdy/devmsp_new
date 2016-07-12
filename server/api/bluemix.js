@@ -1211,7 +1211,7 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
     /*
      *
      * var request =
-     * http.get("/api/getbluemixtoken",
+     * http.get("http://cbicportal.mybluemix.net/api/getbluemixtoken",
      * function(response){ console.log(response.statusCode); //Read the Data
      * response.on('data', function (chunk) { console.log('BODY: ' + chunk)
      * token_json = chunk; }); });
@@ -1220,7 +1220,7 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
      */
     try {
         var data = "";
-        url = "/api/getbluemixtoken";
+        url = "http://cbicportal.mybluemix.net/api/getbluemixtoken";
 
         function download(url, callback) {
             http.get(url, function(res) {
@@ -2286,7 +2286,7 @@ exports.getBluemixServices = function(request, response) {
     var token;
 
     var request = http.get(
-        "/api/getbluemixtoken",
+        "http://cbicportal.mybluemix.net/api/getbluemixtoken",
         function(response) {
             console.log(response.statusCode);
             // Read the Data
@@ -2570,23 +2570,26 @@ exports.getBluemixBuildpackList = function(request, response) {
                             if (docListJson1[j].resources != null && docListJson1[j].resources != undefined) {
                                 /*doc_count = docListJson1.resources.length;
                                  console.log("Total Records:" + doc_count);*/
-
-
-
                                     titles[j] = docListJson1[j].resources[0].entity.display_name;
+<<<<<<< HEAD
+=======
                                 console.log("title",titles[j]);
 
 
                                 //titles = titles.sort();
 
 
+>>>>>>> df9168c379c46be6c6daadb4f28e944b10458819
                                     output[j] = {
                                         "title": titles[j],
                                         "icon": "/images/MSP_Logos/IBM.png"
                                     };
+<<<<<<< HEAD
+=======
                                 console.log("output",output[j]);
 
 
+>>>>>>> df9168c379c46be6c6daadb4f28e944b10458819
                             }
                             else {
                                 console.log("Error while fetching services list from server 1");
@@ -3350,6 +3353,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 var actual_price = parseFloat(price_cal[14].amount.INR);
 
                                                 final_price = (quantity - discount) * actual_price;
+                                                final_price = parseFloat(final_price).toFixed(2);
 
                                                 console.log(final_price);
                                                 if(final_price < 0){

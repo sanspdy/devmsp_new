@@ -95,6 +95,94 @@ var failure_response = {
     "description" : ""
 };
 
+
+
+
+
+
+
+exports.getMspComponentLists = function(reqst, response) {
+    console.log("*** Request Received ***");
+    var http = require('http');
+    try {
+        // This has to be enabled when IMI team create services with all
+        // parameters.
+        var data = JSON.stringify({
+            "category" : "Components"
+        });
+        var extracted_title = [];
+        var result = "";
+        // This should moved to cloudant and make it parameterised
+        var options = {
+            host : '5.10.122.180',
+            port : 9092,
+            path : '/CBSMSP/rest/catalog/fetch',
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+                'Content-Length' : data.length
+
+            },
+            // rejectUnauthorized: false,
+            // requestCert: true,
+            // agent: false
+        };
+
+        var req = http.request(options, function(res) {
+            // res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                console.log(data);
+                console.log(options);
+                console.log("body: " + chunk);
+                result += chunk;
+                console.log("******************** Result ******************");
+                console.log(result);
+
+            });
+            res.on('end',function(){
+
+                console.log("*** Request Responded ***");
+                lengthofresult = result.length;
+                console.log(lengthofresult);
+
+                console.log(result);
+                response.write(result);
+                response.end();
+            });
+        });
+        req.on('error',function(err,result) {
+            console.log(err);
+            console.log("Error while fetching data from IMI Server. Please try later");
+            failure_response.description = "Error while fetching data from IMI Server. Please try later"
+            response.write(JSON.stringify(failure_response));
+            response.end();
+        });
+
+        req.write(data);
+
+        req.end();
+
+
+    } catch (err) {
+        console.log("There is some error:")
+        console.log(err.stack);
+        console.log("*** Request Responded ***");
+        var resjson = {
+            "status" : "failed"
+        };
+        response.write(JSON.stringify(resjson));
+    }
+
+}
+
+
+
+
+
+
+
+
+
 exports.v2_updateServiceInfo=function(request, response) {
     console.log("updateServiceInfo : " + requestMessage);
     console.log("*************************************************************************")

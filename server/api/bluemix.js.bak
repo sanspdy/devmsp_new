@@ -1211,7 +1211,7 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
     /*
      *
      * var request =
-     * http.get("/api/getbluemixtoken",
+     * http.get("http://cbicportal.mybluemix.net/api/getbluemixtoken",
      * function(response){ console.log(response.statusCode); //Read the Data
      * response.on('data', function (chunk) { console.log('BODY: ' + chunk)
      * token_json = chunk; }); });
@@ -1220,7 +1220,7 @@ exports.getbluemixServicesproperties=function(reqst, resp) {
      */
     try {
         var data = "";
-        url = "/api/getbluemixtoken";
+        url = "http://cbicportal.mybluemix.net/api/getbluemixtoken";
 
         function download(url, callback) {
             http.get(url, function(res) {
@@ -2286,7 +2286,7 @@ exports.getBluemixServices = function(request, response) {
     var token;
 
     var request = http.get(
-        "/api/getbluemixtoken",
+        "http://cbicportal.mybluemix.net/api/getbluemixtoken",
         function(response) {
             console.log(response.statusCode);
             // Read the Data
