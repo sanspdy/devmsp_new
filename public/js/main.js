@@ -478,7 +478,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     'service_details': 'msp',
                     'service_name': $scope.attrCatalog_name,
                     'component_cnt': $scope.compAdded,
-                    'solnjson': JSON.stringify($scope.popupData1),
+                    'solnjson': $scope.popupData1,
                     'version':1
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
