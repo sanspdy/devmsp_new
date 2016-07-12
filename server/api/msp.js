@@ -94,9 +94,8 @@ exports.updateServiceInfo=function(request, response) {
     console
         .log("*************************************************************************")
     console.log("Request message: " + "updateServiceInfo : "
-        + request);
+        + JSON.stringify(request));
     var dbSoln = cloudant.use(dbCredentials.dbSolution);
-
     var username = request.body.uname;
     var SolName = request.body.solnName;
     // console.log(request.body);
