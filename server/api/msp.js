@@ -487,13 +487,16 @@ exports.updateMspConnectionInfo=function(request, response) {
 
 }
 
+var http=require('http');
+
 exports.getComponentPrice=function(reqst, response) {
     console.log("*** Request Received ***");
 
     var priceJson = reqst.body;
     console.log(priceJson);
 
-    var http=require('http');
+    priceJson.Pattern=JSON.parse(priceJson.Pattern);
+
 
     //var data = JSON.stringify(priceJson);
 

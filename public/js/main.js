@@ -412,7 +412,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             var reqObj = $scope.popupData1["Pattern"];
             var data1={
                 "IMI_Managed": "Y",
-                "Pattern": reqObj
+                "Pattern": JSON.stringify(reqObj)
             }
             console.log('data1==' +JSON.stringify(data1));
             console.log('reqObj === ' + reqObj);
