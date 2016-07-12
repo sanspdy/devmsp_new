@@ -930,7 +930,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 service_details: 'bluemix',
                 service_name: serviceTitle,
                 component_cnt: compCount,
-                solnjson: popupData,
+                solnjson: JSON.stringify(popupData),
                 "serviceplan_guid":guidPlan,
                 version:1
 

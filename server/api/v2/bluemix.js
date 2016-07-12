@@ -1727,7 +1727,7 @@ exports.v2_updateBMServiceInfo=function(request, response) {
     // var service_det=request.body.service_details;
     var service_name = request.body.service_name;
     var compcnt = request.body.component_cnt;
-    var solution_json = request.body.solnjson;
+    var solution_json = JSON.parse(request.body.solnjson);
     var service_guid = request.body.service_guid;
     console.log("Response from body: "
         + JSON.stringify(solution_json));
