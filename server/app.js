@@ -243,7 +243,7 @@ var sessionData;
  failureRedirect: "/failure",
  })(req,res,next);
  });
- 
+
 app.get('/success',ensureAuthenticated,function(request,response){
     response.redirect(redirect_url);
     sessionData=request.session;
@@ -256,13 +256,13 @@ app.get('/success',ensureAuthenticated,function(request,response){
  app.get('/failure', function(req, res) {
  console.log(" *** /failure *** ");
  res.send('login failed'); });
- 
+
  app.get('/api/things',function(request,response){
  	//sessionData=request.session;
  	console.log('Inside Things--> Session Data-->'+JSON.stringify(sessionData));
     response.send(JSON.stringify(sessionData));
     //response.end();
-    }); 
+    });
  //sso end
 
 

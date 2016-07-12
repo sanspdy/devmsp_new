@@ -406,7 +406,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
         })
         $scope.changedValueSave = function () {
-
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
             console.log('updated popupData1 values ==== ' + JSON.stringify($scope.popupData1["Pattern"]));

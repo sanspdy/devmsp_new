@@ -500,7 +500,7 @@ exports.getComponentPrice=function(reqst, response) {
     var result = "";
     try
     {
-        var data = priceJson;
+        var data = JSON.stringify(priceJson);
 
         // var options="http://5.10.122.181:8080/mpaas/rest/item/price"
         var options = {
@@ -510,7 +510,7 @@ exports.getComponentPrice=function(reqst, response) {
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json',
-                //'Content-Length' : data.length
+                'Content-Length' : data.length
 
             },
             // rejectUnauthorized: false,
