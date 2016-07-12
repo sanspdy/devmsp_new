@@ -300,12 +300,12 @@ select{
 .saveArchBtn{
     color: whitesmoke;
     position: fixed;
-    top: 85%;
-    left: 77%;
+    top: 77%;
+    left: 80%;
     background-color: #017eba;
     width: 98px;
     height: 33px;
-    /* border-radius: 7px; */
+    border-radius: 7px;
     float: right;
 }
 #home{
