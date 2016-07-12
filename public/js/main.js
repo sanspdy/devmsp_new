@@ -405,7 +405,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             }
 
         })
-
         $scope.changedValueSave = function () {
 
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
@@ -419,13 +418,12 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 url: '/api/getComponentPrice',
                 data: $.param({
                     "IMI_Managed": "Y",
-                    "Pattern": reqObj
+                    "Pattern": JSON.stringify(reqObj)
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 //forms user object
             })
                 .success(function (data, status, header, config) {
-
                     if (data.errors) {
                         // Showing errors.
                         $scope.errorName = data.errors.name;
@@ -494,8 +492,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         console.log("inside success function");
                         $scope.PostDataResponse = data;
                         console.log(JSON.stringify($scope.PostDataResponse));
-
-
                     }
 
                 })
