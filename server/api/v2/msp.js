@@ -196,7 +196,7 @@ exports.v2_updateServiceInfo=function(request, response) {
     // var service_det=request.body.service_details;
     var service_name = request.body.service_name;
     var compcnt = request.body.component_cnt;
-    var solution_json = request.body.solnjson;
+    var solution_json = JSON.parse(request.body.solnjson);
 
     console.log("Request from solution info: "+ "updateServiceInfo : "+ JSON.stringify(solution_json));
 

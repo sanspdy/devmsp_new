@@ -117,15 +117,18 @@ exports.updateServiceInfo=function(request, response) {
         var resjson = {
             "status" : "failed",
         };
+
         response.write(JSON.stringify(resjson));
         response.end();
     } else if (SolName == null) {
         console
             .log("updateServiceInfo : "
                 + "no sufficient details. returning false info");
+
         var resjson = {
             "status" : "failed",
         };
+
         response.write(JSON.stringify(resjson));
         response.end();
     } else if (service_name == null) {
@@ -137,6 +140,7 @@ exports.updateServiceInfo=function(request, response) {
         };
         response.write(JSON.stringify(resjson));
         response.end();
+
     } else if (compcnt == null) {
         console
             .log("updateServiceInfo : "
