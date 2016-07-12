@@ -410,7 +410,6 @@ angular.module('portalControllers')
 
                                 }
                             });
-
                             $scope.loading=false;
                         }
                     ).error(function (data, status, header, config) {
@@ -418,8 +417,6 @@ angular.module('portalControllers')
                     console.log("status data" + status);
                     console.log("config data" + config);
                     console.log("Data:" + data);
-
-
                 })
             }
 
