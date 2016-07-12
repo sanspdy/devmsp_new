@@ -2571,25 +2571,23 @@ exports.getBluemixBuildpackList = function(request, response) {
                                 /*doc_count = docListJson1.resources.length;
                                  console.log("Total Records:" + doc_count);*/
                                     titles[j] = docListJson1[j].resources[0].entity.display_name;
-<<<<<<< HEAD
-=======
+
                                 console.log("title",titles[j]);
 
 
                                 //titles = titles.sort();
 
 
->>>>>>> df9168c379c46be6c6daadb4f28e944b10458819
+
                                     output[j] = {
                                         "title": titles[j],
                                         "icon": "/images/MSP_Logos/IBM.png"
                                     };
-<<<<<<< HEAD
-=======
+
                                 console.log("output",output[j]);
 
 
->>>>>>> df9168c379c46be6c6daadb4f28e944b10458819
+
                             }
                             else {
                                 console.log("Error while fetching services list from server 1");

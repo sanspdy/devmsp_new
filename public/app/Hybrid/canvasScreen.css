@@ -956,7 +956,8 @@ select{
     left:0px;
     top: 17px;
     z-index: 1;
-    overflow: auto;
+    /*fix for 147*/
+    overflow:hidden;
 
 }
 
