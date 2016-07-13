@@ -1944,8 +1944,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("header data" + header);
             console.log("status data" + status);
             console.log("config data" + JSON.stringify(config));
-
-        })
+        });
 
 
 
@@ -1956,8 +1955,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
         $scope.Contact = sharedProperties.getContactName();
         console.log('$scope.Contact===' +$scope.Contact);
-        console.log('$scope.itemData.username===' +JSON.stringify($scope.itemData.username));
-        console.log('$scope.itemData.password===' +JSON.stringify($scope.itemData.password));
+        $scope.currentBMUser=sharedProperties.getBMuname();
+        $scope.currentBMPass=sharedProperties.getBMPass();
+        console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
+        console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1973,8 +1974,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                  'space_guid':'abc',
                  'service_name':'abc',
                  'service_plan_guid':'abc',
-                 'bmusername':'manaror1@in.ibm.com',
-                 'bmpassword':'manisha2016'
+                 /*'bmusername':'manaror1@in.ibm.com',
+                 'bmpassword':'manisha2016'*/
 
              }),
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -2009,15 +2010,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 backdrop: 'static',
                 windowClass: 'app-modal-window-att-prov',
                 resolve: {
-                    /* parentDivCall: function () {
-                     return $scope.popupData;
-                     },
-                     countComp:function () {
-                     return $scope.actualMSPComponentIndex;
-                     },
-                     serviceType:function(){
-                     return 'msp';
-                     }*/
+
                 }
             });
         }
@@ -2034,6 +2027,22 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var currentSoln;
         var version='';
         var Cn = '';
+        var BMuname = '';
+        var BMpass = '';
+        this.setBMuname = function(BMuser) {
+            console.log("BMuname==="+BMuser);
+            BMuname=BMuser;
+        };
+        this.getBMuname=function () {
+            return BMuname;
+        };
+        this.setBMPass = function(pass) {
+            console.log("pass==="+pass);
+            BMpass=pass;
+        };
+        this.getBMPass=function () {
+            return BMpass;
+        };
         this.setVersion = function(versionId) {
             console.log("VertionId==="+versionId);
             version=versionId;
@@ -2071,20 +2080,19 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         this.setCurrentCSolName=function(solName){
             console.log("current solnName==="+solName);
             currentSoln=solName;
-        }
+        };
 
         this.getCurrentCSolName=function(){
             return currentSoln;
-        }
+        };
 
         this.setCanvas=function(canSol){
             console.log("current canvasName==="+canSol);
             canvasName=canSol;
-        }
-
+        };
         this.getCanvas=function(){
             return canvasName;
-        }
+        };
         this.setNewversion = function(newversionId) {
             console.log("VertionId==="+newversionId);
             newversion=newversionId;
@@ -2093,16 +2101,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         this.getNewersion=function () {
             return newversion;
         }
-
-
     });
-
-
-angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
-    //alert("inside provision  ctrl");
+angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
     $scope.ngShowModalprov = true;
-    /*$scope.selOrg = false;*/
-    /*$scope.showOrg = false;*/
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
     /*$scope.selSpace = false;
@@ -2117,6 +2118,8 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
        // $scope.spaceDataArray = [];
         console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
         console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
+        sharedProperties.setBMuname($scope.itemData.username);
+        sharedProperties.setBMPass($scope.itemData.password);
         //alert('inside getorganization');
         $scope.spinsOrgList=true;
         $scope.loading=true;
@@ -2274,7 +2277,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.soln=$scope.newsolution;
                     $scope.vers= $scope.newVersion;
                     $scope.Vertype=$scope.editCanvasDetails.type;
-                    sharedProperties.setNewversion($scope.newVersion)
+                    sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
 
 
