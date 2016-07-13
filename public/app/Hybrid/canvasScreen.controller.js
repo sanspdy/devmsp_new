@@ -544,6 +544,7 @@ angular.module('portalControllers')
             });
 
             canvas.on("object:selected", function(options) {
+                console.log("selected---->")
                 options.target.bringToFront();
                 $( "#canvas-container").draggable("enable");
             });
@@ -637,6 +638,12 @@ angular.module('portalControllers')
 
             $(function() {
                 $("#canvas-container").draggable();
+            });
+            canvas.observe('mouse:down', function(){
+
+                var Get_obj = canvas.getActiveObject();
+                console.log("clicked on canvas---->")
+                $("#canvas-container").draggable("enable");
             });
             /*var imgDevice = document.getElementById("device_img");
             var deviderImg = document.getElementById("devider_img");
@@ -814,7 +821,9 @@ angular.module('portalControllers')
                             top: e.layerY+45,
                             left: e.layerX,
                             fontSize:15,
-                            hasControls: false
+                            hasControls: true,
+                            lockScalingX:true,
+                            lockScalingY:true
                         });
                         // canvas.add(tbText);
                         var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
@@ -899,7 +908,9 @@ angular.module('portalControllers')
                                 top: e.layerY+45,
                                 left: e.layerX,
                                 fontSize:15,
-                                hasControls: false
+                                hasControls: true,
+                                lockScalingX:true,
+                                lockScalingY:true
                             });
                             // canvas.add(tbText);
                             var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
@@ -980,7 +991,9 @@ angular.module('portalControllers')
                                 top: e.layerY+45,
                                 left: e.layerX,
                                 fontSize:15,
-                                hasControls: false
+                                hasControls: true,
+                                lockScalingX:true,
+                                lockScalingY:true
                             });
                             // canvas.add(tbText);
                             var group = new fabric.Group([oImgService, serviceText], { left: e.layerX, top: e.layerY });
@@ -1012,6 +1025,8 @@ angular.module('portalControllers')
                         e.target.opacity = 0.5;
                     },
                     'object:modified': function(e) {
+                        console.log("object:modi---->")
+                        $( "#canvas-container").draggable("disable")
                         e.target.opacity = 1;
                         $( "#canvas-container").draggable("enable");
                     }
