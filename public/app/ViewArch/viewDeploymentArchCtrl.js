@@ -825,6 +825,12 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $(function() {
                         $("#canvas-container").draggable();
                     });
+                    canvas.observe('mouse:down', function(){
+
+                        var Get_obj = canvas.getActiveObject();
+                        console.log("clicked on canvas---->")
+                        $("#canvas-container").draggable("enable");
+                    });
                    /* var imgDevice = document.getElementById("device_img");
                     var deviderImg = document.getElementById("devider_img");
                     var edgeDevice = document.getElementById("edge_device");
@@ -1008,7 +1014,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     top: e.layerY+45,
                                     left: e.layerX,
                                     fontSize:15,
-                                    hasControls: false
+                                    hasControls: true,
+                                    lockScalingX:true,
+                                    lockScalingY:true
                                 });
                                 // canvas.add(tbText);
                                 var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
@@ -1096,7 +1104,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         top: e.layerY+45,
                                         left: e.layerX,
                                         fontSize:15,
-                                        hasControls: false
+                                        hasControls: true,
+                                        lockScalingX:true,
+                                        lockScalingY:true
                                     });
                                     // canvas.add(tbText);
                                     var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
@@ -1137,6 +1147,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 var serviceName=$scope.bluemixServiceSelectedImage;
                                 console.log("serviceName============" +serviceName);
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
+                                $scope.newVer= sharedProperties.getNewersion();
+                                console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
                                 $scope.spinsServicesList = false;
@@ -1144,8 +1156,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 $scope.loading=true;
                                 $http({
                                     method  : 'PUT',
-                                    url     : '/api/v1/AddBMComponentToCanvas',
-                                    data    : $.param({'uname': user, 'solnName': $scope.solnServiceEntered, 'service_details': 'bluemix','service_name': serviceName,'component_cnt': bluemixServiceCompCount}),
+                                    url     : '/api/v2/AddBMComponentToCanvas',
+                                    data    : $.param({'uname': user,
+                                                        'solnName': $scope.solnServiceEntered,
+                                                         'service_details': 'bluemix',
+                                                          'service_name': serviceName,
+                                                           'component_cnt': bluemixServiceCompCount,
+                                                            'version': $scope.newVer }),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }).success(function(data) {
                                     console.log("inside bluemix runtime success function");
@@ -1178,7 +1195,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         top: e.layerY+45,
                                         left: e.layerX,
                                         fontSize:15,
-                                        hasControls: false
+                                        hasControls: true,
+                                        lockScalingX:true,
+                                        lockScalingY:true
                                     });
                                     // canvas.add(tbText);
                                     var group = new fabric.Group([oImgService, serviceText], { left: e.layerX, top: e.layerY });
@@ -1190,7 +1209,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                         }
 
-                        canvas.forEachObject(function(o){ o.hasBorders = o.hasControls = false; });
+                        canvas.forEachObject(function(o){  o.hasBorders = o.hasControls=true; o.lockScalingX= o.lockScalingY=true; });
 
                         canvas.on({
                             'mouse:down': function(e) {
@@ -1931,6 +1950,12 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function () {
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        //console.log('user===' +user);
+        console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1938,7 +1963,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              method  : 'POST',
              url     : '/api/v2/placeOrder',
              data    : $.param({
-                 'uname': user,
+                 'uname': $scope.currentUser,
                  'soln_name': $scope.solnEntered11,
                  'version':1,
                  'contactname':'MANISHA',
@@ -1953,7 +1978,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
              //forms user object
              }).success(function(data,status,header,config) {
-
              console.log("place order data ==="+JSON.stringify(data));
              /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
@@ -2007,14 +2031,23 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var serviceChoiceIndex;
         var currentSoln;
         var version='';
+        var Cn = '';
         this.setVersion = function(versionId) {
             console.log("VertionId==="+versionId);
             version=versionId;
-
         };
         this.getVersion=function () {
             return version;
-        }
+        };
+
+        this.setContactName = function(conName){
+            console.log("conName===" +conName);
+            Cn = conName;
+        };
+        this.getContactName = function(){
+            return Cn;
+        };
+
         this.setProperty = function(userId) {
             console.log("userId==="+userId);
             user=userId;

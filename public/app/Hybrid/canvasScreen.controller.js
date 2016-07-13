@@ -934,15 +934,11 @@ angular.module('portalControllers')
                             $scope.loading=false;
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
-
                             console.log("header data" +header);
                             console.log("status data" +status);
                             console.log("config data" +config);
                             console.log("Data:" +data);
-
-
-
-                        })
+                        });
 
                         $scope.count = 0;
 
@@ -972,7 +968,7 @@ angular.module('portalControllers')
 
                 }
 
-                canvas.forEachObject(function(o){ o.hasBorders = o.hasControls = false; });
+                canvas.forEachObject(function(o){  o.hasBorders = o.hasControls=true; o.lockScalingX= o.lockScalingY=true;});
 
                 canvas.on({
                     'mouse:down': function(e) {
@@ -1867,8 +1863,8 @@ angular.module('portalControllers').controller('confirmMspCtrl', function ($scop
     };
     $scope.ProceedToMsp = function(){
         console.log('canvasInformation===' +canvasInformation);
-        console.log('$scope.solnEntered2===' +JSON.stringify(solnEntered2));
-        console.log('$scope.currentUser2===' +JSON.stringify(currentUser2));
+        console.log('$scope.solnEntered2===' +JSON.stringify($scope.solnEntered2));
+        console.log('$scope.currentUser2===' +JSON.stringify($scope.currentUser2));
         $scope.spinsProceedToHome = true;
         $scope.loading=true;
         $http({
