@@ -622,7 +622,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-        $scope.versionnum = sharedProperties.getVersion();
+        var CurrentVer = sharedProperties.getVersion();
+       $scope.versionnum = CurrentVer;
     // edit Div
  $scope.showDiv = function () {
         $scope.showhideprop = true;
@@ -2285,7 +2286,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.vers= $scope.newVersion;
                     console.log('$scope.newVersion---->>>>>'+$scope.newVersion)
                     $scope.versionnum = $scope.newVersion;
-
+                     console.log('$scope.versionnum===' +$scope.versionnum);
                     $scope.Vertype=$scope.editCanvasDetails.type;
                     sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
