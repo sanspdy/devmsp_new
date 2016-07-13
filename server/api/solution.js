@@ -83,9 +83,7 @@ function initDBConnection() {
 
         cloudant = require('cloudant')(dbCredentials.url);
         console.log("cloudant instance");
-
         console.warn('local settings completed');
-
     }
 }
 
