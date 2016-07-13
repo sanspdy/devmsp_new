@@ -338,7 +338,7 @@ exports.v2_AddBMComponentToCanvas = function(request, response) {
             });
 
             options = {
-                host: 'cbicportal.mybluemix.net',
+                host: 'devmsp.mybluemix.net',
                 path: '/api/getbluemixServicesproperties',
                 method: 'POST',
                 headers: {
@@ -594,7 +594,7 @@ exports.getOrganizations = function(request,response){
                 "pass": password
             });
             options = {
-                host: 'cbicportal.mybluemix.net',
+                host: 'devmsp.mybluemix.net',
                 path: '/api/getToken',
                 method: 'POST',
                 headers: {
@@ -762,7 +762,7 @@ exports.getSpaces = function(request,response){
                 "pass": password
             });
             options = {
-                host: 'cbicportal.mybluemix.net',
+                host: 'devmsp.mybluemix.net',
                 path: '/api/getToken',
                 method: 'POST',
                 headers: {
@@ -948,7 +948,7 @@ exports.bluemixProvisioning = function(request,response){
                     "pass": password
                 });
                 options = {
-                    host: 'cbicportal.mybluemix.net',
+                    host: 'devmsp.mybluemix.net',
                     path: '/api/getToken',
                     method: 'POST',
                     headers: {
@@ -1290,7 +1290,7 @@ exports.createBluemixApp = function(request,response){
             "pass":password
         });
         options = {
-            host : 'cbicportal.mybluemix.net',
+            host : 'devmsp.mybluemix.net',
             path : '/api/getToken',
             method : 'POST',
             headers : {
