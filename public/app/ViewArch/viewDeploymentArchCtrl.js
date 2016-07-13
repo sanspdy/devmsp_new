@@ -1960,10 +1960,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
-        var serviceName1 = $scope.choices[index].selectedCatalogName;
+        //var serviceName1 = $scope.choices[index].selectedCatalogName;
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
-            console.log(serviceName1=== +serviceName1);
+            //console.log(serviceName1=== +serviceName1);
              $http({
              method  : 'POST',
              url     : '/api/v2/placeOrder',
@@ -1974,7 +1974,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                  'contactname':$scope.Contact,
                  'contactmail':$scope.currentUser,
                  /*'space_guid':'abc',*/
-                 'service_name':serviceName1
+                 'service_name':'ibm_integration_bus'
                  /*'service_plan_guid':'abc',*/
                  /*'bmusername':'manaror1@in.ibm.com',
                  'bmpassword':'manisha2016'*/
