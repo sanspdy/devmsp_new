@@ -357,7 +357,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                 $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                 var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                var label_bluemixService = $scope.bluemixServiceObjects.title;
+                var label_bluemixService = $scope.bluemixServiceObjects.label;
 
                 $scope.bluemixServiceIcon.push(icon_bluemixService);
                 $scope.bluemixServiceLabel.push(label_bluemixService);
@@ -2249,6 +2249,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         $scope.loguser=sharedProperties.getProperty();
         $scope.curSolution=sharedProperties.getCurrentCSolName()
         $scope.distext  = angular.copy(textModel);
+
+
         console.log("version from viewarch-- ----------- >"+$scope.ver);
         console.log("user==================>"+ $scope.loguser);
         console.log("solution name--------------->"+$scope.curSolution)
@@ -2279,7 +2281,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.Vertype=$scope.editCanvasDetails.type;
                     sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
-
+                    $scope.versionnum =$scope.newVersion
 
                     $uibModalInstance.close();
                     console.log("new solution ----->"+$scope.soln);
