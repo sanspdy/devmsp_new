@@ -139,8 +139,31 @@ initDBConnection();
  });
 
 
- var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
- var ssoConfig = services.SingleSignOn[0];
+
+if(process.env.VCAP_SERVICES) {
+    var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
+}
+else{
+    var services ={"SingleSignOn": [
+        {
+            "name": "msp_sso",
+            "label": "SingleSignOn",
+            "plan": "standard",
+            "credentials": {
+                "secret": "gW6M3Tc6zt",
+                "tokenEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/token",
+                "authorizationEndpointUrl": "https://msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/idaas/oidc/endpoint/default/authorize",
+                "issuerIdentifier": "msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com",
+                "clientId": "xJqUpbqxXH",
+                "serverSupportedScope": [
+                    "openid"
+                ]
+            }
+        }
+    ]}
+}
+
+var ssoConfig = services.SingleSignOn[0];
  var client_id = ssoConfig.credentials.clientId;
  var client_secret = ssoConfig.credentials.secret;
  var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
