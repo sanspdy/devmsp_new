@@ -1974,7 +1974,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                  'contactname':$scope.Contact,
                  'contactmail':$scope.currentUser,
                  /*'space_guid':'abc',*/
-                 'service_name':'ibm_integration_bus'
+                 //'service_name':'ibm_integration_bus'
                  /*'service_plan_guid':'abc',*/
                  /*'bmusername':'manaror1@in.ibm.com',
                  'bmpassword':'manisha2016'*/
