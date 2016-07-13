@@ -1815,7 +1815,7 @@ angular.module('portalControllers').controller('confirmDeplCtrl', function ($sco
         $scope.loading=true;
         $http({
             method: 'PUT',
-            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            url: '/api/v2/updateCanvasInfo',
             data: $.param({
                 'uname': $scope.currentUser2,
                 'solnName': $scope.solnEntered2,
@@ -1866,11 +1866,14 @@ angular.module('portalControllers').controller('confirmMspCtrl', function ($scop
         $uibModalInstance.dismiss('cancel');
     };
     $scope.ProceedToMsp = function(){
+        console.log('canvasInformation===' +canvasInformation);
+        console.log('$scope.solnEntered2===' +JSON.stringify(solnEntered2));
+        console.log('$scope.currentUser2===' +JSON.stringify(currentUser2));
         $scope.spinsProceedToHome = true;
         $scope.loading=true;
         $http({
             method: 'PUT',
-            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            url: '/api/v2/updateCanvasInfo',
             data: $.param({
                 'uname': $scope.currentUser2,
                 'solnName': $scope.solnEntered2,
@@ -1929,37 +1932,7 @@ angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,
         console.log('$scope.currentUser1===' +JSON.stringify($scope.currentUser1));
         console.log('$scope.solnEntered1===' +JSON.stringify($scope.solnEntered1));
         console.log('$scope.canvasCreated===' +JSON.stringify($scope.canvasCreated));
-        /*$http({
-            method: 'PUT',
-            url: '/api/v2/updateCanvasInfo',
-            data: $.param({
-                'uname': $scope.currentUser1,
-                'solnName': $scope.solnEntered1,
-                'canvasinfo': $scope.canvasCreated,
-                'version':1
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        })
-            .success(function (data, status, header, config) {
 
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
-                    console.log("inside success function");
-                    $scope.PostDataResponse = data;
-                    console.log(JSON.stringify($scope.PostDataResponse));
-                    $uibModalInstance.dismiss('cancel');
-                    $location.path('/home');
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("header data" + header);
-                console.log("status data" + status);
-                console.log("config data" + JSON.stringify(config));
-
-            })*/
     };
     $scope.DelArch = function(){
         alert('inside delArch');
@@ -2041,39 +2014,6 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 
 
 
-        /*$http({
-            method: 'PUT',
-            url: '/api/v2/updateCanvasInfo',
-            data: $.param({
-                'uname': $scope.currentUser2,
-                'solnName': $scope.solnEntered2,
-                'canvasinfo': canvasInformation,
-                'version':1
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        })
-            .success(function (data, status, header, config) {
-
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
-                    console.log("inside success function");
-                    $scope.PostDataResponse = data;
-                    console.log(JSON.stringify($scope.PostDataResponse));
-                    $uibModalInstance.dismiss('cancel');
-                    //$location.path('/home');
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("header data" + header);
-                console.log("status data" + status);
-                console.log("config data" + JSON.stringify(config));
-
-            });
-
-        */
 
         $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -2096,7 +2036,6 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     };
 
     $scope.createnewArch = function(){
-
         //$uibModalInstance.dismiss('cancel');
         $http({
             method: 'PUT',
