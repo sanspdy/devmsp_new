@@ -77,7 +77,10 @@ angular.module('portalControllers', ['ui.bootstrap'])
             $scope.sessionData = response;
             console.log('Session Data in Client Side-->'+JSON.stringify($scope.sessionData));
             $scope.UserDetails=$scope.sessionData.passport.user.emailaddress;
+            $scope.contactName = $scope.sessionData.passport.user.cn;
+            console.log('$scope.contactName===' +JSON.stringify($scope.contactName));
             sharedProperties.setProperty($scope.UserDetails);
+            sharedProperties.setContactName($scope.contactName);
             console.log('Session User-->'+JSON.stringify($scope.UserDetails));
 /*            $scope.Name=$scope.UserDetails._json.displayName;
             console.log('Email ID-->'+$scope.Name);*/
@@ -279,6 +282,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
     .service('sharedProperties', function () {
         var user='';
         var soln='';
+        var Cn='';
 
         this.setProperty = function(userId) {
             console.log("userId==="+userId);
@@ -288,12 +292,19 @@ angular.module('portalControllers', ['ui.bootstrap'])
         this.getProperty=function () {
             return user;
         };
+        this.setContactName = function(conName){
+            console.log("conName===" +conName);
+            Cn = conName;
+        };
+         this.getContactName = function(){
+             return Cn;
+         };
 
         this.setSoln = function(solutionName) {
             console.log("solnName==="+solutionName);
             soln=solutionName;
-
         };
+
         this.getSoln=function () {
             return soln;
         }
@@ -1169,6 +1180,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     };
 
     $scope.displaypropDiv = function(index){
+        console.log('inside display prop');
         if ($scope.followBtnImgUrl === '../../images/btn_panelexpand.png') {
             $scope.followBtnImgUrl = '../../images/btn_panelhide.png';
             $scope.propMSP = true;
@@ -1181,8 +1193,6 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
             $scope.propServices = false;
         }
     };
-
-
     $scope.ngShowModal4 = true;
     $scope.serialNumber=0;
     $scope.dismissOrder = function () {

@@ -934,15 +934,11 @@ angular.module('portalControllers')
                             $scope.loading=false;
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
-
                             console.log("header data" +header);
                             console.log("status data" +status);
                             console.log("config data" +config);
                             console.log("Data:" +data);
-
-
-
-                        })
+                        });
 
                         $scope.count = 0;
 

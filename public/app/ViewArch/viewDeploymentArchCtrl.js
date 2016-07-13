@@ -1950,6 +1950,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function () {
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        //console.log('user===' +user);
+        console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
+        console.log('$scope.itemData.username===' +JSON.stringify($scope.itemData.username));
+        console.log('$scope.itemData.password===' +JSON.stringify($scope.itemData.password));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1957,11 +1965,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              method  : 'POST',
              url     : '/api/v2/placeOrder',
              data    : $.param({
-                 'uname': user,
+                 'uname': $scope.currentUser,
                  'soln_name': $scope.solnEntered11,
                  'version':1,
-                 'contactname':'MANISHA',
-                 'contactmail':'manaror1@in.ibm.com',
+                 'contactname':$scope.Contact,
+                 'contactmail':$scope.currentUser,
                  'space_guid':'abc',
                  'service_name':'abc',
                  'service_plan_guid':'abc',
@@ -1972,7 +1980,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
              //forms user object
              }).success(function(data,status,header,config) {
-
              console.log("place order data ==="+JSON.stringify(data));
              /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
@@ -2026,14 +2033,23 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var serviceChoiceIndex;
         var currentSoln;
         var version='';
+        var Cn = '';
         this.setVersion = function(versionId) {
             console.log("VertionId==="+versionId);
             version=versionId;
-
         };
         this.getVersion=function () {
             return version;
-        }
+        };
+
+        this.setContactName = function(conName){
+            console.log("conName===" +conName);
+            Cn = conName;
+        };
+        this.getContactName = function(){
+            return Cn;
+        };
+
         this.setProperty = function(userId) {
             console.log("userId==="+userId);
             user=userId;
@@ -2153,8 +2169,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('org===' +JSON.stringify(org));
         console.log('$scope.itemData.username==='+JSON.stringify($scope.itemData.username));
         console.log('$scope.itemData.password==='+JSON.stringify($scope.itemData.password));
-
-
         $http({
             method  : 'POST',
             url     : '/api/getSpaces',
