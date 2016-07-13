@@ -1184,7 +1184,8 @@ exports.modifysolutionversion=function (request, response) {
                                                 "solution_name": doc.docs[0].solution_name,
                                                 "type": doc.docs[0].type,
                                                 "version": doc.docs[0].version,
-                                                "canvas_details":doc.docs[0].canvas_details};
+                                                "canvas_details":doc.docs[0].canvas_details,
+                                            "service_details":doc.docs[0].service_details};
                                             response.write(JSON.stringify(responsejson));
                                             console.log(responseMessage);
                                             response.end();
