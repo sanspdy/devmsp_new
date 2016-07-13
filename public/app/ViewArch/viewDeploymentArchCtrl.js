@@ -1948,7 +1948,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
 
-    $scope.placeServiceOrder=function () {
+    $scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
