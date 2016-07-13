@@ -1169,6 +1169,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     };
 
     $scope.displaypropDiv = function(index){
+        console.log('inside display prop');
         if ($scope.followBtnImgUrl === '../../images/btn_panelexpand.png') {
             $scope.followBtnImgUrl = '../../images/btn_panelhide.png';
             $scope.propMSP = true;
@@ -1181,8 +1182,6 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
             $scope.propServices = false;
         }
     };
-
-
     $scope.ngShowModal4 = true;
     $scope.serialNumber=0;
     $scope.dismissOrder = function () {

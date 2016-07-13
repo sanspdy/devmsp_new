@@ -1943,6 +1943,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function () {
+        console.log('user===' +user);
+        console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1965,7 +1967,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
              //forms user object
              }).success(function(data,status,header,config) {
-
              console.log("place order data ==="+JSON.stringify(data));
              /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
