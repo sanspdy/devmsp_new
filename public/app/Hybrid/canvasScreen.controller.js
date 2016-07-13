@@ -41,9 +41,9 @@ angular.module('portalControllers')
             $scope.state = !$scope.state;
         };
 
-        $scope.navMsp = function(){
+       /* $scope.navMsp = function(){
             console.log('inside nav msp');
-            /*$location.path('/MSP');*/
+            /!*$location.path('/MSP');*!/
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/solArchitectureMsp.html',
@@ -52,6 +52,25 @@ angular.module('portalControllers')
                 backdrop: 'static',
                 resolve: {
 
+                }
+            });
+        }*/
+
+
+        $scope.navMsp = function(){
+            $scope.canvasCreated=JSON.stringify(canvas);
+            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/MspPageConfirm.html',
+                windowClass: 'app-modal-window-homeConfirm',
+                controller: 'confirmMspCtrl',
+                backdrop: 'static',
+                resolve: {
+                    canvasInformation: function () {
+                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                        return $scope.canvasCreated;
+                    },
                 }
             });
         }
@@ -68,8 +87,28 @@ angular.module('portalControllers')
                 }
             });
         };
-        $scope.viewDepl=function(){
+        /*$scope.viewDepl=function(){
             $location.path('/deployment');
+        };*/
+
+
+        $scope.viewDepl=function(){
+            $scope.canvasCreated=JSON.stringify(canvas);
+            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/MspPageConfirm.html',
+                windowClass: 'app-modal-window-homeConfirm',
+                controller: 'confirmDeplCtrl',
+                backdrop: 'static',
+                resolve: {
+                    canvasInformation: function () {
+                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                        return $scope.canvasCreated;
+                    },
+                }
+            });
+            //$location.path('/deployment');
         };
 
         $scope.checkTab = function (num) {
@@ -1737,7 +1776,129 @@ angular.module('portalControllers').controller('confirmHomeCtrl', function ($sco
         //$location.path('/canvas');
     };
 });
+angular.module('portalControllers').controller('confirmDeplCtrl', function ($scope,$uibModal,$uibModalInstance,$location,canvasInformation,$http,sharedProperties) {
+    //alert("inside confirmHome  ctrl");
+    $scope.openConfirmMspPage = true;
+    console.log('canvasInformation===' +canvasInformation);
+    /*$scope.canvasData = canvasInformation;
+     console.log('$scope.canvasData===' +JSON.stringify($scope.canvasData));*/
+    $scope.currentUser2 = sharedProperties.getProperty();
+    console.log('userEntered2 == ' + $scope.currentUser2);
+    $scope.solnEntered2 = sharedProperties.getSoln();
+    console.log('solnEntered2 == ' + $scope.solnEntered2);
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.ProceedToMsp = function(){
+        $scope.spinsProceedToHome = true;
+        $scope.loading=true;
+        $http({
+            method: 'PUT',
+            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
 
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $scope.loading=false;
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/deployment');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            });
+    };
+
+    $scope.cancelProceedMsp = function(){
+        //alert('inside cancel Proceed');
+        $uibModalInstance.dismiss('cancel');
+        //$location.path('/canvas');
+    };
+});
+angular.module('portalControllers').controller('confirmMspCtrl', function ($scope,$uibModal,$uibModalInstance,$location,canvasInformation,$http,sharedProperties) {
+    //alert("inside confirmHome  ctrl");
+    $scope.openConfirmMspPage = true;
+    console.log('canvasInformation===' +canvasInformation);
+    /*$scope.canvasData = canvasInformation;
+     console.log('$scope.canvasData===' +JSON.stringify($scope.canvasData));*/
+    $scope.currentUser2 = sharedProperties.getProperty();
+    console.log('userEntered2 == ' + $scope.currentUser2);
+    $scope.solnEntered2 = sharedProperties.getSoln();
+    console.log('solnEntered2 == ' + $scope.solnEntered2);
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.ProceedToMsp = function(){
+        $scope.spinsProceedToHome = true;
+        $scope.loading=true;
+        $http({
+            method: 'PUT',
+            url: 'http://cbicportal.mybluemix.net/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $scope.loading=false;
+                    $uibModalInstance.dismiss('cancel');
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/solArchitectureMsp.html',
+                        windowClass: 'app-modal-window-sam',
+                        controller: 'solCtrlMsp',
+                        backdrop: 'static',
+                        resolve: {
+                        }
+                    });
+                    //$location.path('/home');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+
+
+    };
+
+    $scope.cancelProceedMsp = function(){
+        //alert('inside cancel Proceed');
+        $uibModalInstance.dismiss('cancel');
+        //$location.path('/canvas');
+    };
+});
 
 angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
     //alert("inside save data  ctrl");
