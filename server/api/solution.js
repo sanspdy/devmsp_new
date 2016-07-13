@@ -1979,7 +1979,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                 solutioncnt=allresult.docs.length;
                 for(i=0;i<solutioncnt;i++){
                     if(allresult.docs[i].order_status==="submitted"){
-                        orderstatus=false;
+                        orderstatus=true;
                     }
                 }
                 if(orderstatus === true){
@@ -2011,7 +2011,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                 resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
                                 resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
 
-                                dbSoln.insert(resultjson, '', function (err1, res1) {
+                                dbfinaljson.insert(resultjson, '', function (err1, res1) {
                                     if (err1) {
                                         console.log("Error while updating status into DB. Please try again");
                                         failure_response.description = "Error while updating status into DB. Please try again";
@@ -2024,8 +2024,10 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         var msp_properties = resultjson.service_details.msp;
                                         var bluemix_properties = resultjson.service_details.bluemix;
 
+
+
                                         //calling function which sends request to provision bluemix services and runtimes
-                                        bluemixprovisioning();
+                                        //bluemixprovisioning();
 
                                         //calling imi api for msp component provisioning.
 
@@ -2067,7 +2069,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         }
 
 
-                                        mspprovisioning();
+                                        //mspprovisioning();
 
                                         function mspprovisioning() {
                                             randomno = resultjson._id;
@@ -2160,6 +2162,11 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                                 req.end();
                                         }
+
+                                        //need to remove once the provisioning incorporated
+                                        console.log("*** Request Responded ***");
+                                        response.write(JSON.stringify(success_response));
+                                        response.end();
                                     }
                                 });
 
