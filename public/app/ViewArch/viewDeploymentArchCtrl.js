@@ -1147,6 +1147,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 var serviceName=$scope.bluemixServiceSelectedImage;
                                 console.log("serviceName============" +serviceName);
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
+                                $scope.newVer= sharedProperties.getNewersion();
+                                console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
                                 $scope.spinsServicesList = false;
@@ -1154,8 +1156,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 $scope.loading=true;
                                 $http({
                                     method  : 'PUT',
-                                    url     : '/api/v1/AddBMComponentToCanvas',
-                                    data    : $.param({'uname': user, 'solnName': $scope.solnServiceEntered, 'service_details': 'bluemix','service_name': serviceName,'component_cnt': bluemixServiceCompCount}),
+                                    url     : '/api/v2/AddBMComponentToCanvas',
+                                    data    : $.param({'uname': user,
+                                                        'solnName': $scope.solnServiceEntered,
+                                                         'service_details': 'bluemix',
+                                                          'service_name': serviceName,
+                                                           'component_cnt': bluemixServiceCompCount,
+                                                            'version': $scope.newVer }),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }).success(function(data) {
                                     console.log("inside bluemix runtime success function");
