@@ -701,7 +701,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.solnEntered11 = sharedProperties.getCurrentCSolName();
     console.log('solnEntered1 == ' + $scope.solnEntered11);
     $scope.newVer= sharedProperties.getVersion();
-    console.log("current version ----->"+$scope.newVer)
+    console.log("current version ----->"+$scope.newVer);
 
     $http({
         method: 'POST',
@@ -1960,6 +1960,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        $scope.newVer= sharedProperties.getVersion();
+        console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1970,7 +1972,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              data    : $.param({
                  'uname': $scope.currentUser,
                  'soln_name': $scope.solnEntered11,
-                 'version':1,
+                 'version':$scope.newVer,
                  'contactname':$scope.Contact,
                  'contactmail':$scope.currentUser,
                  /*'space_guid':'abc',*/
