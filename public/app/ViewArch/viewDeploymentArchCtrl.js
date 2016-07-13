@@ -2282,10 +2282,14 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.newVersion=$scope.editCanvasDetails.version;
                     $scope.soln=$scope.newsolution;
                     $scope.vers= $scope.newVersion;
+                    $scope.vers= $scope.newVersion;
+                    console.log('$scope.newVersion---->>>>>'+$scope.newVersion)
+                    $scope.versionnum = $scope.newVersion;
+
                     $scope.Vertype=$scope.editCanvasDetails.type;
                     sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
-                    $scope.versionnum =$scope.newVersion
+                    //$scope.versionnum =$scope.newVersion
 
                     $uibModalInstance.close();
                     console.log("new solution ----->"+$scope.soln);
