@@ -2031,14 +2031,23 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var serviceChoiceIndex;
         var currentSoln;
         var version='';
+        var Cn = '';
         this.setVersion = function(versionId) {
             console.log("VertionId==="+versionId);
             version=versionId;
-
         };
         this.getVersion=function () {
             return version;
-        }
+        };
+
+        this.setContactName = function(conName){
+            console.log("conName===" +conName);
+            Cn = conName;
+        };
+        this.getContactName = function(){
+            return Cn;
+        };
+
         this.setProperty = function(userId) {
             console.log("userId==="+userId);
             user=userId;
