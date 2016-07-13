@@ -972,7 +972,7 @@ angular.module('portalControllers')
 
                 }
 
-                canvas.forEachObject(function(o){ o.hasBorders = o.hasControls = false; });
+                canvas.forEachObject(function(o){  o.hasBorders = o.hasControls=true; o.lockScalingX= o.lockScalingY=true;});
 
                 canvas.on({
                     'mouse:down': function(e) {
