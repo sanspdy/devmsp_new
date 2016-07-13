@@ -57,23 +57,7 @@ angular.module('portalControllers')
         }*/
 
 
-        $scope.navMsp = function(){
-            $scope.canvasCreated=JSON.stringify(canvas);
-            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-            $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/MspPageConfirm.html',
-                windowClass: 'app-modal-window-homeConfirm',
-                controller: 'confirmMspCtrl',
-                backdrop: 'static',
-                resolve: {
-                    canvasInformation: function () {
-                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-                        return $scope.canvasCreated;
-                    },
-                }
-            });
-        }
+
         $scope.loadHybrid = function(){
             /*$location.path('/canvas');*/
             $uibModal.open({
@@ -92,24 +76,7 @@ angular.module('portalControllers')
         };*/
 
 
-        $scope.viewDepl=function(){
-            $scope.canvasCreated=JSON.stringify(canvas);
-            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-            $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/MspPageConfirm.html',
-                windowClass: 'app-modal-window-homeConfirm',
-                controller: 'confirmDeplCtrl',
-                backdrop: 'static',
-                resolve: {
-                    canvasInformation: function () {
-                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-                        return $scope.canvasCreated;
-                    },
-                }
-            });
-            //$location.path('/deployment');
-        };
+
 
         $scope.checkTab = function (num) {
             //alert($scope.arr[0]);
@@ -1729,6 +1696,45 @@ angular.module('portalControllers')
                 /*console.log("inside redirect");
                 $location.path('/home');*/
                 //$state.go('/home');
+            };
+
+
+            $scope.navMsp = function(){
+                $scope.canvasCreated=JSON.stringify(canvas);
+                console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/MspPageConfirm.html',
+                    windowClass: 'app-modal-window-homeConfirm',
+                    controller: 'confirmMspCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                        canvasInformation: function () {
+                            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                            return $scope.canvasCreated;
+                        },
+                    }
+                });
+            }
+
+
+            $scope.viewDepl=function(){
+                $scope.canvasCreated=JSON.stringify(canvas);
+                console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/MspPageConfirm.html',
+                    windowClass: 'app-modal-window-homeConfirm',
+                    controller: 'confirmDeplCtrl',
+                    backdrop: 'static',
+                    resolve: {
+                        canvasInformation: function () {
+                            console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                            return $scope.canvasCreated;
+                        },
+                    }
+                });
+                //$location.path('/deployment');
             };
         })
     });
