@@ -1950,8 +1950,12 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function () {
-        console.log('user===' +user);
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        //console.log('user===' +user);
         console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
@@ -1959,7 +1963,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
              method  : 'POST',
              url     : '/api/v2/placeOrder',
              data    : $.param({
-                 'uname': user,
+                 'uname': $scope.currentUser,
                  'soln_name': $scope.solnEntered11,
                  'version':1,
                  'contactname':'MANISHA',
