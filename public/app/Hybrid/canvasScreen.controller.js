@@ -1867,8 +1867,8 @@ angular.module('portalControllers').controller('confirmMspCtrl', function ($scop
     };
     $scope.ProceedToMsp = function(){
         console.log('canvasInformation===' +canvasInformation);
-        console.log('$scope.solnEntered2===' +JSON.stringify(solnEntered2));
-        console.log('$scope.currentUser2===' +JSON.stringify(currentUser2));
+        console.log('$scope.solnEntered2===' +JSON.stringify($scope.solnEntered2));
+        console.log('$scope.currentUser2===' +JSON.stringify($scope.currentUser2));
         $scope.spinsProceedToHome = true;
         $scope.loading=true;
         $http({
