@@ -352,6 +352,7 @@ select{
 
     width: 1350px;
     height: 750px;
+    overflow:hidden;
     /*box-shadow: 0 0 5px 1px black;*/
    /* margin-top: 10px;*/
     /*overflow: auto;*/
