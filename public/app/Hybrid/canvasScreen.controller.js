@@ -1527,11 +1527,8 @@ angular.module('portalControllers')
                             console.log("inside success function");
                             $scope.PostDataResponse = data;
                             console.log(JSON.stringify($scope.PostDataResponse));
-
-
                         }
                         $scope.spinsViewBoM = false;
-
                     })
                     .error(function (data, status, header, config) {
                         console.log("header data" + header);
@@ -1539,7 +1536,6 @@ angular.module('portalControllers')
                         console.log("config data" + JSON.stringify(config));
 
                     })
-
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: '../components/modal/orderBill.html',
