@@ -2214,6 +2214,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('$scope.Contact===' +$scope.Contact);
         console.log('$scope.itemData.username===' +$scope.itemData.username);
         console.log('$scope.itemData.password===' +$scope.itemData.password);
+        var indexCourseId = _.findIndex($scope.orgList, function (data) {
+            console.log('data==' +data);
+            return data.name === index;
+        });
+        console.log('indexCourseId===' +indexCourseId);
+        var spaceUrl = $scope.orgList[indexCourseId].space_url;
+        console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         //var spaceUrl = $scope.orgList[indexCourseId].space_url;
         //console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $uibModalInstance.dismiss('cancel');
@@ -2240,7 +2247,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
         });
-        $location.path('/deployment');
+        //$location.path('/deployment');
     }
 
 });

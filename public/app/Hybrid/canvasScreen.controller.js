@@ -122,7 +122,6 @@ angular.module('portalControllers')
                             var icon = $scope.MSPComponents["Icon"];
                             var catalog_category=$scope.MSPComponents["catalog_category"];
                             var catalog_name = $scope.MSPComponents["catalog_name"];
-
                             //push the name string in the array
                             console.log("title are:: "+title);
                             console.log("catalog_category  are:: "+catalog_category);
@@ -133,19 +132,14 @@ angular.module('portalControllers')
                             $scope.catalog_category.push(catalog_category);
                             $scope.catalog_name.push(catalog_name);
                             $scope.icon.push(icon);
-
-
                         }
-
                     }
-
                     console.log("title are:: "+$scope.Title);
                     console.log("catalog_category  are:: "+$scope.catalog_category);
                     console.log("catalog_name  are:: "+$scope.catalog_name);
                     console.log("icon  are:: "+$scope.icon);
                     $scope.loading=false;
                 })
-
             }
             if (num == 2) {
                 $scope.MSP=false;
