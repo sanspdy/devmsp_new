@@ -1980,16 +1980,23 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                  'version':$scope.newVer,
                  'contactname':$scope.Contact,
                  'contactmail':$scope.currentUser,
-                 /*'space_guid':'abc',*/
-                 //'service_name':'ibm_integration_bus'
-                 /*'service_plan_guid':'abc',*/
-                 /*'bmusername':'manaror1@in.ibm.com',
-                 'bmpassword':'manisha2016'*/
              }),
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
              //forms user object
              }).success(function(data,status,header,config) {
              console.log("place order data ==="+JSON.stringify(data));
+
+                 //alert('Order Placed Successfully');
+                 $uibModal.open({
+                     animation: $scope.animationsEnabled,
+                     templateUrl: '../components/modal/orderSuccess.html',
+                     controller: 'orderSuccessCtrl',
+                     backdrop: 'static',
+                     windowClass: 'app-modal-window-att-prov',
+                     resolve: {
+
+                     }
+                 });
              /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
              })
@@ -2148,8 +2155,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
 
             }
             console.log('$scope.orgDataArray==' +JSON.stringify($scope.orgDataArray));
-
-
             /*$uibModalInstance.dismiss('canceol');
              $location.path('/deployment');*/
         })
@@ -2237,6 +2242,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         $location.path('/deployment');
     }
 
+});
+
+angular.module('portalControllers').controller('orderSuccessCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
+    $scope.ngShowModalOrderSuccess = true;
+    $scope.dismissModal = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 });
 
 angular.module('portalControllers').controller('viewArchEditctrl', function ($scope,$timeout,$window,$uibModal,$uibModalInstance,$rootScope,sharedProperties,$location,$http) {
