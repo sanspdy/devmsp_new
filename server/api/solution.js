@@ -87,6 +87,14 @@ function initDBConnection() {
     }
 }
 
+var success_response = {
+    "status" : "success"
+};
+
+var failure_response = {
+    "status" : "failed",
+    "description" : ""
+};
 
 // Initiating Database connection function
 initDBConnection();
@@ -2007,14 +2015,18 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                 resultjson = result.docs[0];
 
+                                delete resultjson._id;
+                                delete resultjson._rev;
                                 resultjson.order_status = "submitted";
                                 resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
                                 resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
 
                                 dbfinaljson.insert(resultjson, '', function (err1, res1) {
                                     if (err1) {
+                                        console.log(err1);
+
                                         console.log("Error while updating status into DB. Please try again");
-                                        failure_response.description = "Error while updating status into DB. Please try again";
+                                        failure_response.description = "Error while updating status into DB. Please try again"+err1;
                                         resp.write(JSON.stringify(failure_response));
                                         resp.end();
                                     }
@@ -2169,8 +2181,8 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                         //need to remove once the provisioning incorporated
                                         console.log("*** Request Responded ***");
-                                        response.write(JSON.stringify(success_response));
-                                        response.end();
+                                        resp.write(JSON.stringify(success_response));
+                                        resp.end();
                                     }
                                 });
 
