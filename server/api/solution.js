@@ -1942,7 +1942,7 @@ exports.v2_placeOrder=function(reqst, resp) {
     console.log("*** Request Received ***");
     var soln = reqst.body.soln_name;
     var uname=reqst.body.uname;
-    var version=reqst.body.version;
+    var version=parseInt(reqst.body.version);
     var resultjson;
     var orderjson;
     var randomno = "";
