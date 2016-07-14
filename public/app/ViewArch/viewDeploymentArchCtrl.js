@@ -624,11 +624,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
        $scope.CurrentVer = sharedProperties.getVersion();
 
+    $scope.versionnum =  $scope.CurrentVer;
 
-    $scope.$apply(function() {
-        $scope.versionnum =  $scope.CurrentVer;
-
-    });
 
 
     // edit Div
