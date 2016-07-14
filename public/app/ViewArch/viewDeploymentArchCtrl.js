@@ -1981,7 +1981,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                  /*'service_plan_guid':'abc',*/
                  /*'bmusername':'manaror1@in.ibm.com',
                  'bmpassword':'manisha2016'*/
-
              }),
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
              //forms user object
@@ -2111,21 +2110,16 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
-    /*$scope.selSpace = false;
-    $scope.showSpace = false;*/
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
-   /* $scope.orgDataArray = [];
-    $scope.spaceDataArray = [];*/
+
     $scope.getorganization = function(){
         $scope.orgDataArray = [];
-       // $scope.spaceDataArray = [];
         console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
         console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
         sharedProperties.setBMuname($scope.itemData.username);
         sharedProperties.setBMPass($scope.itemData.password);
-        //alert('inside getorganization');
         $scope.spinsOrgList=true;
         $scope.loading=true;
         $http({
@@ -2136,8 +2130,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             //forms user object
         }).success(function(data,status,header,config)
         {
-          /*  $scope.selOrg = true;*/
-            /*$scope.showOrg = true;*/
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.orgData = data;
             console.log('$scope.orgData===' +$scope.orgData);
@@ -2199,24 +2191,35 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             }
             console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
         })
-    }
-    $scope.proceedForOrder = function(){
-        //alert("inside proceed for order");
+    };
+    $scope.proceedForOrder = function(org){
+        console.log('org===' +org);
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+        console.log('$scope.solnEntered11===' +$scope.solnEntered11);
+        $scope.newVer= sharedProperties.getVersion();
+        console.log("current version ----->"+$scope.newVer);
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
+        console.log('$scope.itemData.username===' +$scope.itemData.username);
+        console.log('$scope.itemData.password===' +$scope.itemData.password);
+        //var spaceUrl = $scope.orgList[indexCourseId].space_url;
+        //console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $uibModalInstance.dismiss('cancel');
         $http({
             method  : 'POST',
             url     : '/api/v2/placeOrder',
             data    : $.param({
-                'uname': 'manisha',
+                'uname': $scope.currentUser,
                 'soln_name': $scope.solnEntered11,
-                'version':1,
-                'contactname':'MANISHA',
-                'contactmail':'manaror1@in.ibm.com',
-                'space_guid':'abc',
-                'service_name':'abc',
+                'version':$scope.newVer,
+                'contactname':$scope.Contact,
+                'contactmail':$scope.currentUser,
+                'space_guid':spaceUrl,
                 'service_plan_guid':'abc',
-                'bmusername':'manaror1@in.ibm.com',
-                'bmpassword':'manisha2016'
+                'bmusername':$scope.itemData.username,
+                'bmpassword':$scope.itemData.password
 
             }),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
