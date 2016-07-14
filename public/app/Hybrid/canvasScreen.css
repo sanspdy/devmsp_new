@@ -234,7 +234,7 @@ select{
     padding: 1.5% 2% 2% 2% !important;
     background-color: #e1e9e3 !important;
     width:100% !important;
-    /*height: 800px;*/
+    height: 800px;
     /*height:705px;*/
     /*height:auto;*/
 }
