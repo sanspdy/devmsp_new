@@ -627,10 +627,11 @@ exports.getOrganizations = function(request,response){
                     token_data = msg_json.access_token;
                     console.log("------",msg_json);
                     full_token = token_type +' '+ token_data;
+                    full_token_new = full_token;
                     //console.log(full_token);
                     /*response.write(full_token);
                     response.end();*/
-                    console.log("full tokrn print ====",full_token);
+                    console.log("full tokrn print ====",full_token_new);
                 });
                 console.log("message : " + msg);
                 console.log(";;;;;;;;", msg_json);
