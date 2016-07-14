@@ -2819,7 +2819,7 @@ exports.viewMyDeployArchNames = function(request, response) {
         var msplist=[];
         var hybridlist=[];
 
-        dbSoln.find({selector : {user : username, version: 1, order_status: {"$elemMatch": {"$ne": "drafted"}}} },function(err, result) {
+        dbSoln.find({selector : {user : username, version: 1} },function(err, result) {
             if (!err) {
                 console.log(JSON.stringify(result));
                 length=result.length;
@@ -2837,13 +2837,16 @@ exports.viewMyDeployArchNames = function(request, response) {
 
 
 
-                                        solnames[i]=result.docs[i].solution_name;
+                                        if(result.docs[i].order_status !== "drafted") {
 
-                                        if(result.docs[i].type === "msp"){
-                                            msplist.push(solnames[i]);
-                                        }
-                                        else{
-                                            hybridlist.push(solnames[i]);
+                                            solnames[i] = result.docs[i].solution_name;
+
+                                            if (result.docs[i].type === "msp") {
+                                                msplist.push(solnames[i]);
+                                            }
+                                            else {
+                                                hybridlist.push(solnames[i]);
+                                            }
                                         }
 
                                     }
