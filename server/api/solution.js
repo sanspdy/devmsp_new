@@ -2181,8 +2181,8 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                         //need to remove once the provisioning incorporated
                                         console.log("*** Request Responded ***");
-                                        res1.write(JSON.stringify(success_response));
-                                        res1.end();
+                                        resp.write(JSON.stringify(success_response));
+                                        resp.end();
                                     }
                                 });
 
