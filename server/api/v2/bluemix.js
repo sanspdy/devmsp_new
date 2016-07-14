@@ -588,7 +588,7 @@ exports.getOrganizations = function(request,response){
     }
     else {
 
-        function gettoken() {
+
             var data = JSON.stringify({
                 'grant_type' : 'password'
             });
@@ -692,12 +692,12 @@ exports.getOrganizations = function(request,response){
                         reqq.write(data);
                         reqq.end();*/
 
-        }
+
 
 
         try {
             console.log("Inside try");
-            gettoken();
+            //gettoken();
 
             setTimeout(function () {
                 console.log("Inside fun");
