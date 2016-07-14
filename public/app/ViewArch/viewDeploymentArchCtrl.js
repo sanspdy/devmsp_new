@@ -357,7 +357,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                 $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                 var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                var label_bluemixService = $scope.bluemixServiceObjects.title;
+                var label_bluemixService = $scope.bluemixServiceObjects.label;
 
                 $scope.bluemixServiceIcon.push(icon_bluemixService);
                 $scope.bluemixServiceLabel.push(label_bluemixService);
@@ -622,7 +622,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-        $scope.versionnum = sharedProperties.getVersion();
+        var CurrentVer = sharedProperties.getVersion();
+       $scope.versionnum = CurrentVer;
     // edit Div
  $scope.showDiv = function () {
         $scope.showhideprop = true;
@@ -701,7 +702,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.solnEntered11 = sharedProperties.getCurrentCSolName();
     console.log('solnEntered1 == ' + $scope.solnEntered11);
     $scope.newVer= sharedProperties.getVersion();
-    console.log("current version ----->"+$scope.newVer)
+    console.log("current version ----->"+$scope.newVer);
 
     $http({
         method: 'POST',
@@ -1944,35 +1945,42 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("header data" + header);
             console.log("status data" + status);
             console.log("config data" + JSON.stringify(config));
-
-        })
-
+        });
 
 
-    $scope.placeServiceOrder=function () {
+
+    $scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
         console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
         $scope.Contact = sharedProperties.getContactName();
         console.log('$scope.Contact===' +$scope.Contact);
+        $scope.currentBMUser=sharedProperties.getBMuname();
+        $scope.currentBMPass=sharedProperties.getBMPass();
+        console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
+        console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
       console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        $scope.newVer= sharedProperties.getVersion();
+        console.log("current version ----->"+$scope.newVer);
+        //var serviceName1 = $scope.choices[index].selectedCatalogName;
         if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
+            //console.log(serviceName1=== +serviceName1);
              $http({
              method  : 'POST',
              url     : '/api/v2/placeOrder',
              data    : $.param({
                  'uname': $scope.currentUser,
                  'soln_name': $scope.solnEntered11,
-                 'version':1,
-                 'contactname':'MANISHA',
-                 'contactmail':'manaror1@in.ibm.com',
-                 'space_guid':'abc',
-                 'service_name':'abc',
-                 'service_plan_guid':'abc',
-                 'bmusername':'manaror1@in.ibm.com',
-                 'bmpassword':'manisha2016'
+                 'version':$scope.newVer,
+                 'contactname':$scope.Contact,
+                 'contactmail':$scope.currentUser,
+                 /*'space_guid':'abc',*/
+                 //'service_name':'ibm_integration_bus'
+                 /*'service_plan_guid':'abc',*/
+                 /*'bmusername':'manaror1@in.ibm.com',
+                 'bmpassword':'manisha2016'*/
 
              }),
              headers : {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -2007,15 +2015,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 backdrop: 'static',
                 windowClass: 'app-modal-window-att-prov',
                 resolve: {
-                    /* parentDivCall: function () {
-                     return $scope.popupData;
-                     },
-                     countComp:function () {
-                     return $scope.actualMSPComponentIndex;
-                     },
-                     serviceType:function(){
-                     return 'msp';
-                     }*/
+
                 }
             });
         }
@@ -2032,6 +2032,22 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var currentSoln;
         var version='';
         var Cn = '';
+        var BMuname = '';
+        var BMpass = '';
+        this.setBMuname = function(BMuser) {
+            console.log("BMuname==="+BMuser);
+            BMuname=BMuser;
+        };
+        this.getBMuname=function () {
+            return BMuname;
+        };
+        this.setBMPass = function(pass) {
+            console.log("pass==="+pass);
+            BMpass=pass;
+        };
+        this.getBMPass=function () {
+            return BMpass;
+        };
         this.setVersion = function(versionId) {
             console.log("VertionId==="+versionId);
             version=versionId;
@@ -2069,20 +2085,19 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         this.setCurrentCSolName=function(solName){
             console.log("current solnName==="+solName);
             currentSoln=solName;
-        }
+        };
 
         this.getCurrentCSolName=function(){
             return currentSoln;
-        }
+        };
 
         this.setCanvas=function(canSol){
             console.log("current canvasName==="+canSol);
             canvasName=canSol;
-        }
-
+        };
         this.getCanvas=function(){
             return canvasName;
-        }
+        };
         this.setNewversion = function(newversionId) {
             console.log("VertionId==="+newversionId);
             newversion=newversionId;
@@ -2091,16 +2106,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         this.getNewersion=function () {
             return newversion;
         }
-
-
     });
-
-
-angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http) {
-    //alert("inside provision  ctrl");
+angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
     $scope.ngShowModalprov = true;
-    /*$scope.selOrg = false;*/
-    /*$scope.showOrg = false;*/
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
     /*$scope.selSpace = false;
@@ -2115,6 +2123,8 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
        // $scope.spaceDataArray = [];
         console.log(' $scope.itemData.username===' +JSON.stringify($scope.itemData.username));
         console.log(' $scope.itemData.password===' +JSON.stringify($scope.itemData.password));
+        sharedProperties.setBMuname($scope.itemData.username);
+        sharedProperties.setBMPass($scope.itemData.password);
         //alert('inside getorganization');
         $scope.spinsOrgList=true;
         $scope.loading=true;
@@ -2167,8 +2177,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('org===' +JSON.stringify(org));
         console.log('$scope.itemData.username==='+JSON.stringify($scope.itemData.username));
         console.log('$scope.itemData.password==='+JSON.stringify($scope.itemData.password));
-
-
         $http({
             method  : 'POST',
             url     : '/api/getSpaces',
@@ -2246,6 +2254,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         $scope.loguser=sharedProperties.getProperty();
         $scope.curSolution=sharedProperties.getCurrentCSolName()
         $scope.distext  = angular.copy(textModel);
+
+
         console.log("version from viewarch-- ----------- >"+$scope.ver);
         console.log("user==================>"+ $scope.loguser);
         console.log("solution name--------------->"+$scope.curSolution)
@@ -2273,10 +2283,14 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.newVersion=$scope.editCanvasDetails.version;
                     $scope.soln=$scope.newsolution;
                     $scope.vers= $scope.newVersion;
+                    $scope.vers= $scope.newVersion;
+                    console.log('$scope.newVersion---->>>>>'+$scope.newVersion)
+                    $scope.versionnum = $scope.newVersion;
+                     console.log('$scope.versionnum===' +$scope.versionnum);
                     $scope.Vertype=$scope.editCanvasDetails.type;
-                    sharedProperties.setNewversion($scope.newVersion)
+                    sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
-
+                    //$scope.versionnum =$scope.newVersion
 
                     $uibModalInstance.close();
                     console.log("new solution ----->"+$scope.soln);
