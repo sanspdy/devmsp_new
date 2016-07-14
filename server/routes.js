@@ -292,6 +292,9 @@ app.get('/api/v2/getMspComponentlists', v2_mspjs.getMspComponentLists);
     app.post('/api/bluemixProvisioning',v2_bluemixjs.bluemixProvisioning);
 
     app.post('/api/createBluemixApp',v2_bluemixjs.createBluemixApp);
+
+
+    app.post('/api/updatestatus',v2_solution.updatestatus);
     
     
 
