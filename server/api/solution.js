@@ -3543,4 +3543,6 @@ exports.getServiceInfo =  function(request, response) {
 
 exports.updatestatus =  function(request, response) {
     //var status
+    response.write("success");
+    response.end();
 }
