@@ -2262,6 +2262,7 @@ angular.module('portalControllers').controller('orderSuccessCtrl', function ($sc
         $uibModalInstance.dismiss('cancel');
     };
     $scope.ProceedDepl = function(){
+        $uibModalInstance.dismiss('cancel');
         $location.path('/deployment');
     }
 });
