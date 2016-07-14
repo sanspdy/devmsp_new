@@ -1118,13 +1118,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     // console.log("group object is == "+JSON.stringify(group));
                                     canvas.add(group);
                                 });
-
                             }
-
                             if($scope.servicesCatalogue === true){
                                 $scope.objCount++;
                                 $scope.bluemixServiceComponentCount++;
-
                                 var indexServiceCompCount=$scope.bluemixServiceComponentCount;
                                 var bluemixServiceCompCount=indexServiceCompCount-1;
                                 $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
@@ -2244,6 +2241,16 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         }).success(function(data,status,header,config) {
 
             console.log("place order data ==="+JSON.stringify(data));
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/orderSuccess.html',
+                controller: 'orderSuccessCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-att-prov',
+                resolve: {
+
+                }
+            });
             /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
         });
