@@ -587,61 +587,122 @@ exports.getOrganizations = function(request,response){
         response.end();
     }
     else {
-        gettoken();
-        function gettoken() {
-            data = JSON.stringify({
-                "uname": username,
-                "pass": password
+
+
+            var data = JSON.stringify({
+                'grant_type' : 'password'
             });
-            options = {
-                host: 'devmsp.mybluemix.net',
-                path: '/api/getToken',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Content-Length': data.length
+
+            var dataString = JSON.stringify(data);
+
+            // console.log("data string : " + dataString);
+
+            var options = {
+                host : 'login.ng.bluemix.net',
+                port : 80,
+                path : '/UAALoginServerWAR/oauth/token'
+                + '?grant_type=password&username='+username+'&password='+password,
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                    'Content-Length' : data.length,
+                    'Accept' : 'application/json;charset=utf-8',
+                    'Authorization' : 'Basic Y2Y6'
                 }
 
             };
-            var StringDecoder = require('string_decoder').StringDecoder;
-            var reqq = https.request(options, function (res1) {
-                var decoder = new StringDecoder('utf8');
-                console.log(options);
-                console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + data);
-                console.log("Hey thereeeeeeeeeeeeeeeeeeee");
-                res1.on('data', function (chunk) {
-                    var text = decoder.write(chunk);
-                    console.log("vhunkkkkkkkkkkkkkkkkkkkkkkkkk", text);
-                    full_token_new += chunk;
-                    console.log("Tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", full_token_new);
+            var token = '';
+            var msg = "";
+            var msg_json = {};
+            var req = http.request(options, function(res) {
 
-
+                // console.log("response received : " + res);
+                res.setEncoding('utf8');
+                res.on('data', function(chunk) {
+                    msg += chunk;
                 });
-                res1.on('end', function (err, result) {
-                    if (err) {
-
-                        console.log(err);
-                    }
-                    if (!err) {
-                        console.log("ch bc",full_token_new);
-                        console.log("ended");
-                    }
-
+                res.on('end', function() {
+                    var msg_json = JSON.parse(msg);
+                    token_type = msg_json.token_type;
+                    token_data = msg_json.access_token;
+                    console.log("------",msg_json);
+                    full_token = token_type +' '+ token_data;
+                    full_token_new = full_token;
+                    //console.log(full_token);
+                    /*response.write(full_token);
+                    response.end();*/
+                    console.log("full tokrn print ====",full_token_new);
                 });
-            });
-            reqq.on('error', function (e) {
-                //console.log(error);
-                console.log("Errorrrrrrrrrrrrrrrrrrrrrrrr" + e);
-            });
-            reqq.write(data);
-            reqq.end();
+                console.log("message : " + msg);
+                console.log(";;;;;;;;", msg_json);
 
-        }
+            });
+            req.on('error', function() {
+                failure_response.description = "Error while fetching bluemix token"
+                response.write(JSON.stringify(failure_response));
+                response.end();
+            });
+
+            req.write(data);
+            req.end();
+
+            /*            data = JSON.stringify({
+                            "uname": username,
+                            "pass": password
+                        });
+                        options = {
+                            host: 'devmsp.mybluemix.net',
+                            path: '/api/getToken',
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Content-Length': data.length
+                            }
+
+                        };
+                        var StringDecoder = require('string_decoder').StringDecoder;
+                        var reqq = https.request(options, function (res1) {
+                            var decoder = new StringDecoder('utf8');
+                            console.log(options);
+                            console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + data);
+                            console.log("Hey thereeeeeeeeeeeeeeeeeeee");
+                            res1.on('data', function (chunk) {
+                                var text = decoder.write(chunk);
+                                console.log("vhunkkkkkkkkkkkkkkkkkkkkkkkkk", text);
+                                full_token_new += chunk;
+                                console.log("Tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", full_token_new);
+
+
+                            });
+                            res1.on('end', function (err, result) {
+                                if (err) {
+
+                                    console.log(err);
+                                }
+                                if (!err) {
+                                    console.log("ch bc",full_token_new);
+                                    console.log("ended");
+                                }
+
+                            });
+                        });
+                        reqq.on('error', function (e) {
+                            //console.log(error);
+                            console.log("Errorrrrrrrrrrrrrrrrrrrrrrrr" + e);
+                        });
+                        reqq.write(data);
+                        reqq.end();*/
+
+
 
 
         try {
             console.log("Inside try");
+            //gettoken();
+
             setTimeout(function () {
+                console.log("Inside fun");
+
                 console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", full_token_new);
                 var options = {
                     host: original_url,
@@ -755,56 +816,63 @@ exports.getSpaces = function(request,response){
         //console.log("Inside Try1");
         console.log(username);
         console.log(password);
-        gettoken();
-        function gettoken() {
-            data = JSON.stringify({
-                "uname": username,
-                "pass": password
+        var data = JSON.stringify({
+            'grant_type' : 'password'
+        });
+
+        var dataString = JSON.stringify(data);
+
+        // console.log("data string : " + dataString);
+
+        var options = {
+            host : 'login.ng.bluemix.net',
+            port : 80,
+            path : '/UAALoginServerWAR/oauth/token'
+            + '?grant_type=password&username='+username+'&password='+password,
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                'Content-Length' : data.length,
+                'Accept' : 'application/json;charset=utf-8',
+                'Authorization' : 'Basic Y2Y6'
+            }
+
+        };
+        var token = '';
+        var msg = "";
+        var msg_json = {};
+        var req = http.request(options, function(res) {
+
+            // console.log("response received : " + res);
+            res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                msg += chunk;
             });
-            options = {
-                host: 'devmsp.mybluemix.net',
-                path: '/api/getToken',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Content-Length': data.length
-                }
-
-            };
-            var StringDecoder = require('string_decoder').StringDecoder;
-            var reqq = https.request(options, function (res1) {
-                var decoder = new StringDecoder('utf8');
-                console.log(options);
-                console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + data);
-                console.log("Hey thereeeeeeeeeeeeeeeeeeee");
-                res1.on('data', function (chunk) {
-                    var text = decoder.write(chunk);
-                    console.log("vhunkkkkkkkkkkkkkkkkkkkkkkkkk", text);
-                    full_token_new += chunk;
-                    console.log("Tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", full_token_new);
-
-
-                });
-                res1.on('end', function (err, result) {
-                    if (err) {
-
-                        console.log(err);
-                    }
-                    if (!err) {
-
-                        console.log("ended");
-                    }
-
-                });
+            res.on('end', function() {
+                var msg_json = JSON.parse(msg);
+                token_type = msg_json.token_type;
+                token_data = msg_json.access_token;
+                console.log("------",msg_json);
+                full_token = token_type +' '+ token_data;
+                full_token_new = full_token;
+                //console.log(full_token);
+                /*response.write(full_token);
+                 response.end();*/
+                console.log("full tokrn print ====",full_token_new);
             });
-            reqq.on('error', function (e) {
-                //console.log(error);
-                console.log("Errorrrrrrrrrrrrrrrrrrrrrrrr" + e);
-            });
-            reqq.write(data);
-            reqq.end();
+            console.log("message : " + msg);
+            console.log(";;;;;;;;", msg_json);
 
-        }
+        });
+        req.on('error', function() {
+            failure_response.description = "Error while fetching bluemix token"
+            response.write(JSON.stringify(failure_response));
+            response.end();
+        });
+
+        req.write(data);
+        req.end();
+
 
         try {
             setTimeout(function () {

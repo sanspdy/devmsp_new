@@ -29,6 +29,13 @@
     top: 0;
     left: 0;
 }
+.po-crossOrderSuccess{
+    float: right;
+    margin-right: -2%;
+    margin-top: -12%;
+    top: 0;
+    left: 0;
+}
 
 
 
@@ -80,6 +87,17 @@
     width: 130px;
     border-radius: 5px;
 }
+
+#orderSuccess{
+    color: #FFFFFF;
+    background-color: #017eba;
+    /* margin-top: 25%; */
+    margin-left: 38%;
+    height: 34px;
+    width: 91px;
+    border-radius: 5px;
+}
+
 #createnewArch{
     color: #FFFFFF;
     background-color: #017eba;
