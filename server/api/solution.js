@@ -2013,8 +2013,10 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                 dbfinaljson.insert(resultjson, '', function (err1, res1) {
                                     if (err1) {
+                                        console.log(err1);
+
                                         console.log("Error while updating status into DB. Please try again");
-                                        failure_response.description = "Error while updating status into DB. Please try again";
+                                        failure_response.description = "Error while updating status into DB. Please try again"+err1;
                                         resp.write(JSON.stringify(failure_response));
                                         resp.end();
                                     }
