@@ -622,8 +622,15 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-        var CurrentVer = sharedProperties.getVersion();
-       $scope.versionnum = CurrentVer;
+       $scope.CurrentVer = sharedProperties.getVersion();
+
+
+    $scope.$apply(function() {
+        $scope.versionnum =  $scope.CurrentVer;
+
+    });
+
+
     // edit Div
  $scope.showDiv = function () {
         $scope.showhideprop = true;
@@ -2291,9 +2298,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
                     //$scope.versionnum =$scope.newVersion
-                    $scope.$apply(function() {
-                        $scope.versionnum =$scope.newVersion
-                    });
+                    $scope.versionnum =$scope.newVersion
 
                     $uibModalInstance.close();
                     console.log("new solution ----->"+$scope.soln);
