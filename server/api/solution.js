@@ -2007,6 +2007,8 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                 resultjson = result.docs[0];
 
+                                delete resultjson._id;
+                                delete resultjson._rev;
                                 resultjson.order_status = "submitted";
                                 resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
                                 resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
