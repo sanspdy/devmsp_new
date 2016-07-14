@@ -87,6 +87,14 @@ function initDBConnection() {
     }
 }
 
+var success_response = {
+    "status" : "success"
+};
+
+var failure_response = {
+    "status" : "failed",
+    "description" : ""
+};
 
 // Initiating Database connection function
 initDBConnection();
