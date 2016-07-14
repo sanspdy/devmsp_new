@@ -2,19 +2,19 @@
     <div class="kim-background-container ng-scope">
         <div class="container-fluid modalNewArch" ng-show="ngShowModalOrderSuccess">
             <div class="row">
-                <p id="popupHeading">Your Order has been Placed Successfully</p>
+                <p id="homeConfirmPopup">  <span id="alertHead">Order Confirmation</span> <img class="po-crossHome" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close"></p>
                 <hr>
-                <img class="po-cross3" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close">
-                <hr  class="fancy-line" width="100%" align="left">
+                <p id="popupHeadingHomeBluemixPlan">Do you want to save your Plan??</p>
+                <!--<img class="po-crossOrderSuccess" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close">
+                <hr  class="fancy-line" width="100%" align="left">-->
                 <div class="col-xs-12">
-                    <!--<div class="col-xs-6">
-                        <button type="button" id="createnewArch" ng-click="createnewArch()">Yes</button>
+                    <div class="">
+                        <button type="button" id="createnewArch" ng-click="ProceedDepl()">OK</button>
                     </div>
-                    <div class="col-xs-6">
-                        <button type="button" id="deleteArch" ng-click="deleteArchitecture()"> No </button>
-                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
