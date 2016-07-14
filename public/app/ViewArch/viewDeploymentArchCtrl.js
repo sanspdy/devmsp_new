@@ -2216,7 +2216,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('$scope.itemData.password===' +$scope.itemData.password);
         var indexCourseId = _.findIndex($scope.orgList, function (data) {
             console.log('data==' +data);
-            return data.name === index;
+            return data.name === org;
         });
         console.log('indexCourseId===' +indexCourseId);
         var spaceUrl = $scope.orgList[indexCourseId].space_url;
