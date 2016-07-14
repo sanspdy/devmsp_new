@@ -2144,7 +2144,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         }).success(function(data,status,header,config)
         {
             console.log("Success");
-        })
+        });
         $http({
             method  : 'POST',
             url     : '/api/getOrganizations',
@@ -2164,7 +2164,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 console.log('$scope.orgData' +JSON.stringify($scope.orgData));
                 $scope.orgDataArray.push($scope.orgData);
                 $scope.loading=false;
-
             }
             console.log('$scope.orgDataArray==' +JSON.stringify($scope.orgDataArray));
             /*$uibModalInstance.dismiss('canceol');
