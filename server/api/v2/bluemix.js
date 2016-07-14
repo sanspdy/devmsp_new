@@ -588,7 +588,7 @@ exports.getOrganizations = function(request,response){
     }
     else {
 
-        var gettoken = function() {
+        function gettoken() {
             var data = JSON.stringify({
                 'grant_type' : 'password'
             });
@@ -630,7 +630,7 @@ exports.getOrganizations = function(request,response){
                     //console.log(full_token);
                     /*response.write(full_token);
                     response.end();*/
-                    return full_token;
+                    console.log("full tokrn print ====",full_token);
                 });
                 console.log("message : " + msg);
                 console.log(";;;;;;;;", msg_json);
@@ -700,7 +700,7 @@ exports.getOrganizations = function(request,response){
 
             setTimeout(function () {
                 console.log("Inside fun");
-                var full_token_new2 = gettoken();
+                gettoken();
                 console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", full_token_new2);
                 var options = {
                     host: original_url,
