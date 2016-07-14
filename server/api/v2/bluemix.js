@@ -697,16 +697,18 @@ exports.getOrganizations = function(request,response){
 
         try {
             console.log("Inside try");
-            full_token_new = gettoken();
+
             setTimeout(function () {
-                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", full_token_new);
+                console.log("Inside fun");
+                var full_token_new2 = gettoken();
+                console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", full_token_new2);
                 var options = {
                     host: original_url,
                     path: '/v2/organizations',
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
-                        'Authorization': full_token_new
+                        'Authorization': full_token_new2
                     }
 
                 };
