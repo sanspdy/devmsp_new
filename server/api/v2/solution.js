@@ -1120,8 +1120,7 @@ exports.modifysolutionversion=function (request, response) {
                 console.log(abc);
                 dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, resultofall) {
                     if (!err) {
-
-
+                        
                         if (resultofall.docs[0] !== null && resultofall.docs[0] !== undefined) {
                             if (resultofall.docs[0].hasOwnProperty("solution_name") !== undefined && resultofall.docs[0].hasOwnProperty("solution_name") !== null) {
 

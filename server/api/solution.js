@@ -2027,7 +2027,10 @@ exports.v2_placeOrder=function(reqst, resp) {
 
 
                                         //calling function which sends request to provision bluemix services and runtimes
-                                        //bluemixprovisioning();
+                                        if(bmusername !== null && bmusername!== undefined && bmusername!== '' && bmpassword !== null && bmpassword!== undefined && bmpassword!== '' ){
+                                            //bluemixprovisioning();
+
+                                        }
 
                                         //calling imi api for msp component provisioning.
 
@@ -2068,8 +2071,9 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             req.end();
                                         }
 
-
-                                        //mspprovisioning();
+                                        if(bmusername !== null && bmusername!== undefined && bmusername!== '') {
+                                            //mspprovisioning();
+                                        }
 
                                         function mspprovisioning() {
                                             randomno = resultjson._id;

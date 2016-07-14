@@ -169,7 +169,8 @@ var ssoConfig = services.SingleSignOn[0];
  var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
  var token_url = ssoConfig.credentials.tokenEndpointUrl;
  var issuer_id = ssoConfig.credentials.issuerIdentifier;
- var callback_url = "http://devmsp.mybluemix.net/auth/sso/callback";
+var callback_url = "http://devmsp.mybluemix.net/auth/sso/callback";
+// var callback_url="http://localhost:9000/auth/sso/callback"
 
  console.log("sso config : " + ssoConfig);
  console.log("client_id : " + client_id);
