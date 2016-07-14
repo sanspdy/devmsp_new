@@ -2819,7 +2819,7 @@ exports.viewMyDeployArchNames = function(request, response) {
         var msplist=[];
         var hybridlist=[];
 
-        dbSoln.find({selector : {user : username, version: 1, "order_status": {"$elemMatch": {"$ne": "drafted"}}} },function(err, result) {
+        dbSoln.find({selector : {user : username, version: 1, order_status: {"$elemMatch": {"$ne": "drafted"}}} },function(err, result) {
             if (!err) {
                 console.log(JSON.stringify(result));
                 length=result.length;
