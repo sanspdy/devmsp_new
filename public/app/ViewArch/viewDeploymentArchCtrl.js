@@ -2137,16 +2137,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         $scope.loading=true;
         $http({
             method  : 'POST',
-            url     : '/api/getToken',
-            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password}),
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        }).success(function(data,status,header,config)
-        {
-            console.log("Success");
-        });
-        $http({
-            method  : 'POST',
             url     : '/api/getOrganizations',
             data    : $.param({'username': $scope.itemData.username,'password':$scope.itemData.password}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
