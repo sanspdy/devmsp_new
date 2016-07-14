@@ -2261,6 +2261,9 @@ angular.module('portalControllers').controller('orderSuccessCtrl', function ($sc
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
+    $scope.ProceedDepl = function(){
+        $location.path('/deployment');
+    }
 });
 
 angular.module('portalControllers').controller('viewArchEditctrl', function ($scope,$timeout,$window,$uibModal,$uibModalInstance,$rootScope,sharedProperties,$location,$http) {
