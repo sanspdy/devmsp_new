@@ -640,7 +640,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.viewArchEdit=function(){
         console.log("from edit button -->");
 
-        $rootScope.showhideprop=true;
+        //$rootScope.showhideprop=true;
         $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/viewArchEdit.html',
@@ -2312,6 +2312,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $scope.errorName = data.errors.name;
                 } else {
                     // console.log("inside success function");
+                    $rootScope.showhideprop=false;
                     $scope.editCanvasDetails = data;
                     console.log('editCanvasDetails===>' + JSON.stringify($scope.editCanvasDetails));
                     $scope.newsolution=$scope.editCanvasDetails.solution_name;

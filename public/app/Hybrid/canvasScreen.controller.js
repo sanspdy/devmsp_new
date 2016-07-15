@@ -602,7 +602,7 @@ angular.module('portalControllers')
 
             //--------------
 
-
+//funtion enable canvas drag-->
             $(function() {
                 $("#canvas-container").draggable();
             });
@@ -1012,6 +1012,8 @@ angular.module('portalControllers')
                     console.log (" drag end : " + img);
                 });
             }
+
+            //connecting line section here
             $scope.connectionInfo={
                 'connection_info':{
                     'services':[]
@@ -1580,7 +1582,7 @@ angular.module('portalControllers')
             }
 
             $scope.getIndexBluemix=function (index) {
-                console.log("index====="+index);
+                console.log("index=====>"+index);
                 $scope.selectedBluemixImageIndex=index;
             }
 
