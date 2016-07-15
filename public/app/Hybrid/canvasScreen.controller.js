@@ -832,7 +832,7 @@ angular.module('portalControllers')
                         var user=$scope.runtimeUsername;
                         var serviceName=$scope.bluemixRuntimeSelectedImage;
                         var serviceLabel = $scope.bluemixRuntimeSelectedLabel;
-                        console.log('servicelabel===' +bluemixRuntimeSelectedLabel);
+                        console.log('servicelabel===' +serviceLabel);
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
                         $scope.spinsCatalogueList=false;
