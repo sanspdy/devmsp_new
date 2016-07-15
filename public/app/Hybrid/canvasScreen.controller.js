@@ -2106,7 +2106,10 @@ angular.module('portalControllers').controller('ErrorWarningCtrl', function ($sc
     console.log('ErrorMsg===' +ErrorMsg);
     $scope.showError = ErrorMsg;
     $scope.ngShowModalErrorWarning = true;
-    $scope.dismissDel = function () {
+    $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
+    $scope.ErrorClose = function(){
+        $uibModalInstance.dismiss('cancel');
+    }
 });
