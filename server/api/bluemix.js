@@ -2310,8 +2310,8 @@ exports.getBluemixServices = function(request, response) {
 exports.getBluemixServicesList = function(request, response) {
     console.log("*** Request Received ***");
     initDBConnection();
-    db = cloudant.use(dbCredentials.dbBluemix_services);
-    //db = cloudant.use('bluemixdbs');
+    //db = cloudant.use(dbCredentials.dbBluemix_services);
+    db = cloudant.use('bluemixdbs');
     var docList = [];
     var componenttitle = [];
     var i = 1;

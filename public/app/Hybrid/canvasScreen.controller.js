@@ -237,8 +237,20 @@ angular.module('portalControllers')
             $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
                 if(data.status == 'failed'){
-                    alert(data.description);
+                    //alert(data.description);
                     $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
                 }
                 else {
                     console.log("Data : " + JSON.stringify(data));
@@ -2086,4 +2098,14 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
             }
         });
     }
+});
+
+
+angular.module('portalControllers').controller('ErrorWarningCtrl', function ($scope,$location,$uibModal,$uibModalInstance,ErrorMsg) {
+    console.log("inside newArchConfirmCtrl");
+    console.log('ErrorMsg===' +ErrorMsg);
+    $scope.ngShowModalErrorWarning = true;
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 });
