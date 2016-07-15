@@ -237,31 +237,36 @@ angular.module('portalControllers')
 
             $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
-                console.log("Data : " + JSON.stringify(data));
-                $scope.bluemixServiceLabel=[];
-                $scope.bluemixServiceIcon = [];
-                $scope.bluemixServiceComponentLists=[];
-
-                $scope.arrayOfBluemixService = data;
-                console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
-                for(var i=0;i<$scope.arrayOfBluemixService.length;i++) {
-                    $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
-
-                    $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
-                    var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                    var label_bluemixService = $scope.bluemixServiceObjects.label;
-                    $scope.bluemixServiceIcon.push(icon_bluemixService);
-                    $scope.bluemixServiceLabel.push(label_bluemixService);
+                if(data.status == 'failed'){
+                    alert(data.description);
                 }
+                else {
+                    console.log("Data : " + JSON.stringify(data));
+                    $scope.bluemixServiceLabel = [];
+                    $scope.bluemixServiceIcon = [];
+                    $scope.bluemixServiceComponentLists = [];
 
-                console.log("Bluemix service list length==="+$scope.bluemixServiceComponentLists.length);
-                console.log("Bluemix service icon length==="+$scope.bluemixServiceIcon.length);
-                console.log("Bluemix service label length==="+$scope.bluemixServiceLabel.length);
+                    $scope.arrayOfBluemixService = data;
+                    console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
+                    for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
+                        $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
 
-                console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
-                console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
-                console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
-                $scope.loading=false;
+                        $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
+                        var icon_bluemixService = $scope.bluemixServiceObjects.icon;
+                        var label_bluemixService = $scope.bluemixServiceObjects.label;
+                        $scope.bluemixServiceIcon.push(icon_bluemixService);
+                        $scope.bluemixServiceLabel.push(label_bluemixService);
+                    }
+
+                    console.log("Bluemix service list length===" + $scope.bluemixServiceComponentLists.length);
+                    console.log("Bluemix service icon length===" + $scope.bluemixServiceIcon.length);
+                    console.log("Bluemix service label length===" + $scope.bluemixServiceLabel.length);
+
+                    console.log("Bluemix runtime list keywise===" + JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
+                    console.log("Bluemix runtime icon keywise===" + JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
+                    console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
+                    $scope.loading = false;
+                }
             }).error(function(data,status,header,config){
                 console.log("header data" +header);
                 console.log("status data" +status);
