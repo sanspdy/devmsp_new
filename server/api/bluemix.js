@@ -2310,7 +2310,8 @@ exports.getBluemixServices = function(request, response) {
 exports.getBluemixServicesList = function(request, response) {
     console.log("*** Request Received ***");
     initDBConnection();
-    db = cloudant.use(dbCredentials.dbBluemix_services);
+    /*db = cloudant.use(dbCredentials.dbBluemix_services);*/
+    db = cloudant.use('bluemixdbs');
     var docList = [];
     var componenttitle = [];
     var i = 1;
@@ -2386,7 +2387,7 @@ exports.getBluemixServicesList = function(request, response) {
                 });
             } else {
                 console.log("Error while fetching services list from server");
-                failure_response.description = "Error while fetching services list from server"
+                failure_response.description = "Unable to reach Servers"
                 response.write(JSON.stringify(failure_response));
                 console.log(errMessage);
                 response.end();
