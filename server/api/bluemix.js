@@ -3343,7 +3343,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$",discount);
                                         if(discount === "free"){
                                             final_price = 0;
-                                            resp.write(JSON.stringify(final_price));
+                                            resp.send(final_price);
                                             resp.end();
                                         }
                                         else {
@@ -3359,11 +3359,11 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log(final_price);
                                                 if(final_price < 0){
                                                     final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
 
@@ -3378,11 +3378,11 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log("dhuvhdvadv",final_price);
                                                 if(final_price < 0){
                                                     final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
 
