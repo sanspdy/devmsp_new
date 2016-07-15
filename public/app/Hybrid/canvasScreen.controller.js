@@ -1231,9 +1231,9 @@ angular.module('portalControllers')
             }
 
             $scope.deleteObject = function (index) {
-
                 console.log('deleted object index == '+index);
                 var object = canvas.getActiveObject();
+                console.log('object===' +object);
                 if(object === null || object === undefined){
                     /*alert("Please Select the service from canvas to be deleted");*/
                     $uibModal.open({
