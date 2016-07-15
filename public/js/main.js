@@ -54,6 +54,20 @@ angular.module('portalControllers', ['ui.bootstrap'])
         };
     })
 
+    .directive('myEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind('keydown keypress', function (event) {
+                if (event.which === 13) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.myEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    })
+
     // controller for login page
     .controller('mainController',['$scope','$http','$location','$uibModal','sharedProperties','$anchorScroll','$window',function($scope,$http,$location,$uibModal,sharedProperties,$anchorScroll,$window){
         console.log("inside sample controller");
