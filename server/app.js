@@ -116,8 +116,6 @@ function initDBConnection() {
 // Initiating Database connection function
 initDBConnection();
 
-
-
  //sso start
  var cookieParser = require('cookie-parser');
  var session = require('express-session');
@@ -288,9 +286,6 @@ app.get('/success',ensureAuthenticated,function(request,response){
     //response.end();
     });
  //sso end
-
-
-
 
 // Start server
 app.listen(port, host);

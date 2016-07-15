@@ -99,6 +99,8 @@ var failure_response = {
 // Initiating Database connection function
 initDBConnection();
 
+
+//We are not using
 exports.createSolution=function(request, response) {
 
     console.log(requestMessage);
@@ -588,7 +590,7 @@ exports.creatMpsSolution=function (request, response) {
                             if (result.docs[0].hasOwnProperty("solution_name") !== undefined || result.docs[0].hasOwnProperty("solution_name") !== null) {
                                 if (result.docs[0].solution_name == SolName) {
                                     console.log("already exist solution name");
-                                    failure_response.description = "already exist solution name"
+                                    failure_response.description = "Solution Name already exist. Please change the solution name"
                                     response.write(JSON.stringify(failure_response));
                                     response.end();
                                 }
@@ -601,7 +603,7 @@ exports.creatMpsSolution=function (request, response) {
                                 if (err) {
                                     console.log(err);
 
-                                    failure_response.description = "error while inserting. please try again"
+                                    failure_response.description = "Error occured while creating a solution. Error while insertion"
                                     response.write(JSON.stringify(failure_response));
 
                                     response.end();
