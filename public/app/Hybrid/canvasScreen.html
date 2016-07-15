@@ -56,10 +56,14 @@
 					<fieldset  data-ng-repeat="choice in choices">
 						<span><img ng-src="../../assets/img/{{choice.selectedImage}}" width="25" height="25"/></span>
 						<span>{{choice.selectedImageTitle}}</span>
-						<p class="imagMarginStyle">
+						<p class="imagMarginStyle" id="showEnabledSettings[$index]">
 							<img ng-src="../../assets/img/btn_seting_rollover.png" ng-click="openpopup($index)" />
 							<img ng-src="../../assets/img/btn_trush_rollover.png" class="remove"  ng-click="deleteObject($index)" />
 						</p>
+						<!--<p class="imagMarginStyle hideDisabled" id="showDisabledSettings[$index]">
+							<img ng-src="../../assets/img/btn_seting.png" ng-click="openpopup($index)" />
+							<img ng-src="../../assets/img/btn_trush.png" class="remove"  ng-click="deleteObject($index)" />
+						</p>-->
 					</fieldset>
 				</div>
 			</div>
