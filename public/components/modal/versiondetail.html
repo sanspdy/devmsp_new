@@ -12,7 +12,7 @@
             <td style="width:25%"></td>
         </tr>
 
-        <tr ng-repeat="data in hybridversionObjectsArray" ng-click="do_some_action(data.version)">
+        <tr ng-repeat="data in hybridversionObjectsArray | orderBy:'version' :true " ng-click="do_some_action(data.version)">
             <td >
              <span> V {{ data.version }} </span>
             </td>
@@ -42,7 +42,7 @@
                 </div>
             </td>
         </tr>
-        <tr ng-repeat="data in mspversionObjectsArray" ng-click="do_some_action_msp(data.version)">
+        <tr ng-repeat="data in mspversionObjectsArray  | orderBy:'version' :true " ng-click="do_some_action_msp(data.version)">
             <td >
                 <span> V {{ data.version }} </span>
             </td>

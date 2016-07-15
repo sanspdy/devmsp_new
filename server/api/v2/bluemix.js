@@ -125,6 +125,7 @@ exports.v2_AddBMRuntimeToCanvas = function(request, response) {
         var service_det = request.body.service_details;
         var service_name = request.body.service_name;
         var compcnt = request.body.component_cnt;
+        var label=request.body.label;
         var properties = {};
         // console.log("Response from body: "+solutionJson);
         // console.log(JSON.stringify(solutionJson));
@@ -172,6 +173,7 @@ exports.v2_AddBMRuntimeToCanvas = function(request, response) {
 
             properties = {
                 "title": service_name,
+                "label":label,
                 "plan": "default",
                 "properties": {
                     "instance": "1",
@@ -199,6 +201,13 @@ exports.v2_AddBMRuntimeToCanvas = function(request, response) {
                                 if (result.docs[0].service_details.bluemix !== null && result.docs[0].service_details.bluemix !== undefined && (result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime") !== null && result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime") !== undefined)) {
 
                                     result.docs[0].service_details.bluemix[0].runtime[compcnt] = JSON.parse(properties);
+                                    console.log("result is",result.docs[0].service_details.bluemix[0].runtime[compcnt]);
+                                    var d = new Date();
+                                    var n = d.getTime();
+                                    console.log("Time stamp",n);
+                                    var appname = result.docs[0].service_details.bluemix[0].runtime[compcnt].title + ' '+n;
+                                    result.docs[0].service_details.bluemix[0].runtime[compcnt].appname = appname;
+                                    console.log( "final result",result.docs[0].service_details.bluemix[0].runtime[compcnt]);
                                     dbSoln.insert(result.docs[0],function (err2,result2) {
 
                                         if (err2) {
@@ -1009,56 +1018,62 @@ exports.bluemixProvisioning = function(request,response){
             catch (err) {
                 console.log(err);
             }
-            gettoken();
-            function gettoken() {
-                data = JSON.stringify({
-                    "uname": username,
-                    "pass": password
-                });
-                options = {
-                    host: 'devmsp.mybluemix.net',
-                    path: '/api/getToken',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': data.length
-                    }
+        var data = JSON.stringify({
+            'grant_type' : 'password'
+        });
 
-                };
-                var StringDecoder = require('string_decoder').StringDecoder;
-                var reqq = https.request(options, function (res1) {
-                    var decoder = new StringDecoder('utf8');
-                    console.log(options);
-                    console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + data);
-                    console.log("Hey thereeeeeeeeeeeeeeeeeeee");
-                    res1.on('data', function (chunk) {
-                        var text = decoder.write(chunk);
-                        console.log("vhunkkkkkkkkkkkkkkkkkkkkkkkkk", text);
-                        full_token_new += chunk;
-                        console.log("Tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", full_token_new);
+        var dataString = JSON.stringify(data);
 
+        // console.log("data string : " + dataString);
 
-                    });
-                    res1.on('end', function (err, result) {
-                        if (err) {
-
-                            console.log(err);
-                        }
-                        if (!err) {
-
-                            console.log("ended");
-                        }
-
-                    });
-                });
-                reqq.on('error', function (e) {
-                    //console.log(error);
-                    console.log("Errorrrrrrrrrrrrrrrrrrrrrrrr" + e);
-                });
-                reqq.write(data);
-                reqq.end();
-
+        var options = {
+            host : 'login.ng.bluemix.net',
+            port : 80,
+            path : '/UAALoginServerWAR/oauth/token'
+            + '?grant_type=password&username='+username+'&password='+password,
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                'Content-Length' : data.length,
+                'Accept' : 'application/json;charset=utf-8',
+                'Authorization' : 'Basic Y2Y6'
             }
+
+        };
+        var token = '';
+        var msg = "";
+        var msg_json = {};
+        var req = http.request(options, function(res) {
+
+            // console.log("response received : " + res);
+            res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                msg += chunk;
+            });
+            res.on('end', function() {
+                var msg_json = JSON.parse(msg);
+                token_type = msg_json.token_type;
+                token_data = msg_json.access_token;
+                console.log("------",msg_json);
+                full_token = token_type +' '+ token_data;
+                full_token_new = full_token;
+                //console.log(full_token);
+                /*response.write(full_token);
+                 response.end();*/
+                console.log("full tokrn print ====",full_token_new);
+            });
+            console.log("message : " + msg);
+            console.log(";;;;;;;;", msg_json);
+
+        });
+        req.on('error', function() {
+            failure_response.description = "Error while fetching bluemix token"
+            response.write(JSON.stringify(failure_response));
+            response.end();
+        });
+
+        req.write(data);
+        req.end();
 
             try {
                 var msg = "";
@@ -1186,7 +1201,7 @@ exports.bluemixProvisioning = function(request,response){
         }
 
     }
-}
+ }
 
 function db_insert(service_name,solnName,full_token_new,uname,version){
 
@@ -2027,5 +2042,443 @@ exports.v2_updateBMRuntimeInfo=function(request, response) {
             };
             response.write(JSON.stringify(resjson));
         }
+    }
+}
+
+exports.acceptdummy = function(request,response){
+
+    var solnName = request.body.soln_name;
+    var uname = request.body.uname;
+    var version = parseInt(request.body.version);
+    var space_guid = request.body.space_guid;
+    var service_plan_guid = request.body.service_plan_guid;
+    var bmusername = request.body.bmusername;
+    var bmpassword = request.body.bmpassword;
+    var dbsol = cloudant.use(dbCredentials.dbSolution);
+
+    try{
+        console.log("creds,",solnName,uname,version);
+
+        dbsol.find({"selector":{solution_name: solnName, user: uname, version:version}},function(err,result){
+            if(!err) {
+                console.log(result);
+                if (result.docs[0].hasOwnProperty("service_details") || result.docs[0].service_details[0] !== undefined) {
+                    console.log("here1");
+
+                    if (result.docs[0].service_details.bluemix[0].services !== undefined || result.docs[0].service_details.bluemix[0].services !== null) {
+                        console.log("here2");
+                        bluemixprovisioning();
+                    }
+                    else {
+                        console.log("No bluemix servvices to be provisioned");
+                    }
+
+                    if (result.docs[0].service_details.bluemix[0].runtime !== null || result.docs[0].service_details.bluemix[0].runtime !== undefined) {
+
+                        console.log("I am here3");
+                        bluemixappprovisioning();
+                    }
+                    else {
+                        console.log("No runtimes to be provisioned");
+                    }
+                }
+            }
+
+
+
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+
+    function bluemixprovisioning(){
+        var service_name =[];
+        var full_token_new="";
+        var data={};
+        var options={};
+        var data1='';
+        var index="";
+        var original_url='api.ng.bluemix.net';
+        if(bmusername === null){
+            response.write("No username provided");
+            response.end();
+        }
+        else if(bmpassword === null){
+            response.write("No username provided");
+            response.end();
+
+        }
+        else if(solnName === null){
+            response.write("No soln name provided");
+            response.end();
+        }
+        else if(service_plan_guid === null){
+            response.write("No soln name provided");
+            response.end();
+        }
+        else if(space_guid === null){
+            response.write("No space guid provided");
+            response.end();
+        }
+        else {
+            console.log(service_plan_guid[0]);
+
+            try {
+                console.log("inside service guid loop");
+                // console.log(service_plan_guid[k]);
+                var dbsoln = cloudant.use("solutions");
+                dbsoln.find({selector: {user: uname, solution_name: solnName, version: version}}, function (err, result) {
+                    if (!err) {
+                        //console.log(k);
+                        if (result.docs !== null || result.docs !== undefined) {
+                            var ser_details = result.docs[0].service_details.bluemix[0].services;
+                            for (var k = 0; k < service_plan_guid.length; k++) {
+                                l1: for (var i = 0; i < ser_details.length; i++) {
+                                    var properties = ser_details[i].properties[0];
+                                    for (var j = 0; j < properties.length; j++) {
+                                        console.log(service_plan_guid[k]);
+                                        if (properties[j].metadata.guid === service_plan_guid[k]) {
+                                            service_name[k] = ser_details[i].service_name;
+                                            index = i;
+                                            //console.log(service_name[k]);
+                                            break l1;
+
+                                        }
+                                        else {
+                                            console.log("No matching service plans found");
+                                        }
+                                    }
+                                }
+                            }
+                            console.log("service namemeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",service_name);
+
+                        }
+                        else {
+                            console.log("No data available");
+                        }
+                    }
+                    else {
+                        console.log("Some error in finding data");
+                    }
+                });
+            }
+            catch (err) {
+                console.log(err);
+            }
+            var data = JSON.stringify({
+                'grant_type' : 'password'
+            });
+
+            var dataString = JSON.stringify(data);
+
+            // console.log("data string : " + dataString);
+
+            var options = {
+                host : 'login.ng.bluemix.net',
+                port : 80,
+                path : '/UAALoginServerWAR/oauth/token'
+                + '?grant_type=password&username='+bmusername+'&password='+bmpassword,
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                    'Content-Length' : data.length,
+                    'Accept' : 'application/json;charset=utf-8',
+                    'Authorization' : 'Basic Y2Y6'
+                }
+
+            };
+            var token = '';
+            var msg = "";
+            var msg_json = {};
+            var req = http.request(options, function(res) {
+
+                // console.log("response received : " + res);
+                res.setEncoding('utf8');
+                res.on('data', function(chunk) {
+                    msg += chunk;
+                });
+                res.on('end', function() {
+                    var msg_json = JSON.parse(msg);
+                    token_type = msg_json.token_type;
+                    token_data = msg_json.access_token;
+                    console.log("------",msg_json);
+                    full_token = token_type +' '+ token_data;
+                    full_token_new = full_token;
+                    //console.log(full_token);
+                    /*response.write(full_token);
+                     response.end();*/
+                    console.log("full tokrn print ====",full_token_new);
+                });
+                console.log("message : " + msg);
+                console.log(";;;;;;;;", msg_json);
+
+            });
+            req.on('error', function() {
+                failure_response.description = "Error while fetching bluemix token"
+                response.write(JSON.stringify(failure_response));
+                response.end();
+            });
+
+            req.write(data);
+            req.end();
+
+            try {
+                var msg = "";
+                console.log("Inside Tryyyy");
+                setTimeout(function(){
+                    for(var i=0;i < service_name.length;i++) {
+                        (function(j){
+                            setTimeout(function(){
+                                console.log(j);
+
+                                console.log(service_name.length);
+                                console.log("service nameeeeeeeeeeeeeee", service_name[j]);
+                                console.log("service guiddddddddddddddd", service_plan_guid[j]);
+
+
+                                data = JSON.stringify({
+                                    "space_guid": space_guid,
+                                    "name": service_name[j],
+                                    "service_plan_guid": service_plan_guid[j]
+                                });
+                                console.log("Printing dataaaaaaaaaaaaaaaaaaaaaa", data);
+                                var options = {
+                                    host: 'api.ng.bluemix.net',
+                                    path: '/v2/service_instances'
+                                    + '?accepts_incomplete=true',
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': full_token_new
+                                    }
+
+                                };
+                                console.log("optionsssssssssssssssssssssssssssssssssssssssssss", options);
+                                // var StringDecoder = require('string_decoder').StringDecoder;
+
+
+                                var reqst = http.request(options, function (res) {
+                                    // var decoder = new StringDecoder('utf8');
+                                    console.log("Sent for request");
+                                    res.setEncoding('utf8');
+                                    res.on('data', function (chunk) {
+                                        //console.log(chunk);
+                                        //  var text = decoder.write(chunk);
+                                        // console.log(text);
+                                        msg += chunk;
+                                        //console.log(msg);
+
+                                    });
+                                    res.on('end', function () {
+                                        try {
+                                            //response.write(msg);
+
+                                            console.log("mdgggggggggggg",msg);
+                                            console.log("-----------------------------------------");
+                                            msg = JSON.stringify(msg);
+                                            var msg1 = JSON.parse(msg);
+                                            msg1 = JSON.parse(msg1);
+                                            console.log("messageeeeeeeeeeeeeeeeeeeeeeeeeeee",msg1);
+                                            console.log("-----------------------------------------");
+                                            console.log("here i am",i);
+                                            console.log(service_name.length - 1);
+
+
+                                        }
+                                        catch (err) {
+                                            console.log(err);
+                                        }
+
+                                    });
+                                });
+                                reqst.on('error', function (e) {
+                                    console.log(e);
+                                });
+                                reqst.write(data);
+                                reqst.end();
+
+                            },1000);
+                        }(i));
+
+
+                    }
+
+
+                },3000);
+
+
+
+
+
+            }
+            catch (err) {
+                console.log(err);
+            }
+            try {
+                setTimeout(function () {
+                    db_insert(service_name, solnName, full_token_new,uname,version)
+
+                }, 20000);
+
+            }
+            catch(err){
+                console.log(err);
+            }
+
+        }
+
+    }
+    function bluemixappprovisioning(){
+        var full_token_new = "";
+        var msg = "";
+        var app_details=[];
+        var appname="";
+        var dbsoln = cloudant.use("solutions");
+        var dbbuildpack = cloudant.use("bluemix_buildpack");
+
+        try{
+            dbsoln.find({selector:{user: uname, solution_name: solnName, version: version}},function(err,result){
+                if(!err){
+                    if (result.docs !== null || result.docs !== undefined){
+                        app_name=result.docs[0].service_details.bluemix[0].runtime;
+                        for(var i=0;i<app_name.length;i++){
+                            item={};
+                            item["space_guid"]=space_guid;
+                            item["name"]=app_name[i].appname;
+                            item["buildpack"]=app_name[i].label;
+                            item["memory"]=parseInt(app_name[i].properties.memory);
+                            item["instances"]=parseInt(app_name[i].properties.instance);
+                            app_details.push(item);
+                        }
+                        console.log("appname is:",app_details);
+
+                    }
+                    else{
+                        console.log("No data returned");
+                    }
+                }
+                else{
+                    console.log("error",err);
+                }
+
+            })
+
+
+        }
+        catch(err){
+            console.log(err);
+        }
+
+        var data = JSON.stringify({
+            'grant_type' : 'password'
+        });
+
+        var dataString = JSON.stringify(data);
+
+        // console.log("data string : " + dataString);
+
+        var options = {
+            host : 'login.ng.bluemix.net',
+            port : 80,
+            path : '/UAALoginServerWAR/oauth/token'
+            + '?grant_type=password&username='+bmusername+'&password='+bmpassword,
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                'Content-Length' : data.length,
+                'Accept' : 'application/json;charset=utf-8',
+                'Authorization' : 'Basic Y2Y6'
+            }
+
+        };
+        var token = '';
+        var msg = "";
+        var msg_json = {};
+        var req = http.request(options, function(res) {
+
+            // console.log("response received : " + res);
+            res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                msg += chunk;
+            });
+            res.on('end', function() {
+                var msg_json = JSON.parse(msg);
+                token_type = msg_json.token_type;
+                token_data = msg_json.access_token;
+                console.log("------",msg_json);
+                full_token = token_type +' '+ token_data;
+                full_token_new = full_token;
+                //console.log(full_token);
+                /*response.write(full_token);
+                 response.end();*/
+                console.log("full tokrn print ====",full_token_new);
+            });
+            console.log("message : " + msg);
+            console.log(";;;;;;;;", msg_json);
+
+        });
+        req.on('error', function() {
+            failure_response.description = "Error while fetching bluemix token"
+            response.write(JSON.stringify(failure_response));
+            response.end();
+        });
+
+        req.write(data);
+        req.end();
+
+
+        try{
+
+            setTimeout(function(){
+                for(var i=0;i<app_details.length;i++){
+                    (function(j){
+                        setTimeout(function(){
+                            data = JSON.stringify(app_details[j]);
+                            console.log(data);
+                            var options = {
+                                host : 'api.ng.bluemix.net',
+                                path : '/v2/apps',
+                                method : 'POST',
+                                headers : {
+                                    'Authorization' : full_token_new
+                                }
+
+                            };
+                            console.log("optionsssssssssssssssssssssssssssssssssssssssssss",options);
+                            // var StringDecoder = require('string_decoder').StringDecoder;
+
+                            var reqst = http.request(options,function(res){
+                                // var decoder = new StringDecoder('utf8');
+                                res.setEncoding('utf8');
+                                res.on('data',function(chunk){
+                                    console.log(chunk);
+                                    //  var text = decoder.write(chunk);
+                                    // console.log(text);
+                                    msg += chunk;
+                                    console.log(msg);
+
+                                });
+                                res.on('end',function(){
+                                    console.log("ended");
+                                    // response.write(msg);
+                                    // response.end();
+                                });
+                            });
+                            reqst.on('error',function (e) {
+                                console.log(e);
+                            });
+                            reqst.write(data);
+                            reqst.end();
+                        },3000);
+                    }(i));
+                }
+
+            },3000);
+        }
+        catch(err){
+            console.log(err);
+        }
+
+
     }
 }

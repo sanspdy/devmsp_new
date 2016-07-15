@@ -288,13 +288,13 @@ app.get('/success',ensureAuthenticated,function(request,response){
     //response.end();
     });
  //sso end
-
+app.listen(port, host);
+console.log('App started on port ' + port);
 
 
 
 // Start server
-app.listen(port, host);
-console.log('App started on port ' + port);
+
 
 // Expose app
 var exports = module.exports = app;
