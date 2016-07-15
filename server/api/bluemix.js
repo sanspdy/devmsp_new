@@ -2549,6 +2549,7 @@ exports.getBluemixBuildpackList = function(request, response) {
     var i = 1;
     var titles = [];
     var output = [];
+    var labels = [];
     try {
         db.find({selector: {service:"runtime"}},function(err, result) {
 
@@ -2571,6 +2572,7 @@ exports.getBluemixBuildpackList = function(request, response) {
                                 /*doc_count = docListJson1.resources.length;
                                  console.log("Total Records:" + doc_count);*/
                                     titles[j] = docListJson1[j].resources[0].entity.display_name;
+                                    labels[j] = docListJson1[j].resources[0].entity.label;
 
                                 console.log("title",titles[j]);
 
@@ -2581,6 +2583,7 @@ exports.getBluemixBuildpackList = function(request, response) {
 
                                     output[j] = {
                                         "title": titles[j],
+                                        "label": labels[j],
                                         "icon": "/images/MSP_Logos/IBM.png"
                                     };
 
