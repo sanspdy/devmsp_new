@@ -421,7 +421,7 @@ exports.creatHybridSolution=function (request, response) {
                 "msp_status": "Not submitted",
                 "bluemix_status": "Not Submitted"
             }],
-            "order_status":"saved",
+            "order_status":"drafted",
             "service_details": {
                 "msp": [],
                 "bluemix": [{
@@ -552,7 +552,7 @@ exports.creatMpsSolution=function (request, response) {
                 "msp_status": "Not submitted",
                 "bluemix_status": "Not Submitted"
             }],
-            "order_status":"saved",
+            "order_status":"drafted",
             "service_details": {
                 "msp": []
             },
@@ -939,6 +939,8 @@ exports.v2_updateCanvasInfo=function(request, response) {
                             if (result.docs[0].hasOwnProperty("canvas_details")) {
 
                                 result.docs[0].canvas_details[0] = canvas_info;
+
+                                result.docs[0].order_status = "saved"
 
                                 console.log(result.docs[0].canvas_details[0]);
 
@@ -2084,7 +2086,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         }
 
                                         if(bmusername !== null && bmusername!== undefined && bmusername!== '') {
-                                            //mspprovisioning();
+                                           mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
@@ -2140,11 +2142,11 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             dbfinaljson.insert(final_json_formatted,'',function(errors, result2) {
                                                 if(!errors){
                                                     console.log("Data inserted in Final JSON DB");
-                                                    var resjson = {
-                                                        "status" : "success"
-                                                    };
-                                                    resp.write(JSON.stringify(success_response));
-                                                    resp.end();
+                                                    // var resjson = {
+                                                    //     "status" : "success"
+                                                    // };
+                                                    // resp.write(JSON.stringify(success_response));
+                                                    // resp.end();
                                                 }
                                                 else{
                                                     failure_response.description = "Data insertion in Final JSON DB failed";
@@ -2835,13 +2837,16 @@ exports.viewMyDeployArchNames = function(request, response) {
 
 
 
-                                        solnames[i]=result.docs[i].solution_name;
+                                        if(result.docs[i].order_status !== "drafted") {
 
-                                        if(result.docs[i].type === "msp"){
-                                            msplist.push(solnames[i]);
-                                        }
-                                        else{
-                                            hybridlist.push(solnames[i]);
+                                            solnames[i] = result.docs[i].solution_name;
+
+                                            if (result.docs[i].type === "msp") {
+                                                msplist.push(solnames[i]);
+                                            }
+                                            else {
+                                                hybridlist.push(solnames[i]);
+                                            }
                                         }
 
                                     }
@@ -3537,3 +3542,5 @@ exports.getServiceInfo =  function(request, response) {
 
     }
 }
+
+

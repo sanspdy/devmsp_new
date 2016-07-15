@@ -1700,3 +1700,10 @@ exports.v2_deleteSolution=function(request, response) {
         response.end();
     }
 }
+
+
+exports.updatestatus =  function(request, response) {
+    //var status
+    response.write("success");
+    response.end();
+}

@@ -1118,13 +1118,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     // console.log("group object is == "+JSON.stringify(group));
                                     canvas.add(group);
                                 });
-
                             }
-
                             if($scope.servicesCatalogue === true){
                                 $scope.objCount++;
                                 $scope.bluemixServiceComponentCount++;
-
                                 var indexServiceCompCount=$scope.bluemixServiceComponentCount;
                                 var bluemixServiceCompCount=indexServiceCompCount-1;
                                 $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
@@ -2137,16 +2134,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         $scope.loading=true;
         $http({
             method  : 'POST',
-            url     : '/api/getToken',
-            data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password}),
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        }).success(function(data,status,header,config)
-        {
-            console.log("Success");
-        })
-        $http({
-            method  : 'POST',
             url     : '/api/getOrganizations',
             data    : $.param({'username': $scope.itemData.username,'password':$scope.itemData.password}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -2164,7 +2151,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 console.log('$scope.orgData' +JSON.stringify($scope.orgData));
                 $scope.orgDataArray.push($scope.orgData);
                 $scope.loading=false;
-
             }
             console.log('$scope.orgDataArray==' +JSON.stringify($scope.orgDataArray));
             /*$uibModalInstance.dismiss('canceol');
@@ -2225,6 +2211,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('$scope.Contact===' +$scope.Contact);
         console.log('$scope.itemData.username===' +$scope.itemData.username);
         console.log('$scope.itemData.password===' +$scope.itemData.password);
+        var indexCourseId = _.findIndex($scope.orgList, function (data) {
+            console.log('data==' +data);
+            return data.name === org;
+        });
+        console.log('indexCourseId===' +indexCourseId);
+        var spaceUrl = $scope.orgList[indexCourseId].space_url;
+        console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         //var spaceUrl = $scope.orgList[indexCourseId].space_url;
         //console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $uibModalInstance.dismiss('cancel');
@@ -2248,10 +2241,20 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         }).success(function(data,status,header,config) {
 
             console.log("place order data ==="+JSON.stringify(data));
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/orderSuccess.html',
+                controller: 'orderSuccessCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-att-prov',
+                resolve: {
+
+                }
+            });
             /*$uibModalInstance.dismiss('cancel');
              $location.path('/deployment');*/
         });
-        $location.path('/deployment');
+        //$location.path('/deployment');
     }
 
 });

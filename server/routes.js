@@ -223,7 +223,7 @@ module.exports = function(app) {
 // Need to edit. jst added v1.
     app.get('/api/v1/getMspComponentlists', mspjs.getMspComponentLists);
 
-app.get('/api/v2/getMspComponentlists', v2_mspjs.getMspComponentLists);
+    app.get('/api/v2/getMspComponentlists', v2_mspjs.getMspComponentLists);
 
 // This is fetch the data those are hardcoded in our DB
     app.get('/api/getMspComponentlist',mspjs.getMspComponentlist);
@@ -292,20 +292,23 @@ app.get('/api/v2/getMspComponentlists', v2_mspjs.getMspComponentLists);
     app.post('/api/bluemixProvisioning',v2_bluemixjs.bluemixProvisioning);
 
     app.post('/api/createBluemixApp',v2_bluemixjs.createBluemixApp);
-    
-    
+
+    app.post('/api/updatestatus',v2_solution.updatestatus);
+
+
+
 
 
 //end--->
 
 
-  // All undefined asset or api routes should return a 404
-  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
-      .get(errors[404]);
+    // All undefined asset or api routes should return a 404
+    app.route('/:url(api|auth|components|app|bower_components|assets)/*')
+        .get(errors[404]);
 
-  // All other routes should redirect to the index.html
-  app.route('/*')
-      .get(function(req, res) {
-        res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
-      });
+    // All other routes should redirect to the index.html
+    app.route('/*')
+        .get(function(req, res) {
+            res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
+        });
 };
