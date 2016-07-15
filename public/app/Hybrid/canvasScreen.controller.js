@@ -2104,6 +2104,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 angular.module('portalControllers').controller('ErrorWarningCtrl', function ($scope,$location,$uibModal,$uibModalInstance,ErrorMsg) {
     console.log("inside newArchConfirmCtrl");
     console.log('ErrorMsg===' +ErrorMsg);
+    $scope.showError = ErrorMsg;
     $scope.ngShowModalErrorWarning = true;
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
