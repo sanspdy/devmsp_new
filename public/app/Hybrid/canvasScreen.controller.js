@@ -738,9 +738,7 @@ angular.module('portalControllers')
                     $scope.spinsRuntimeList=false;
                     $scope.spinsServicesList=false;
                     $scope.spinsCatalogueList=false;
-                    //$('#showEnabledSettings'+$scope.choices.length).style('display','block');
                     $scope.loading=true;
-
                     $http({
                         method  : 'PUT',
                         url     : '/api/v2/AddComponentToCanvas',
@@ -749,12 +747,14 @@ angular.module('portalControllers')
                         //forms user object
                     })
                         .success(function(data) {
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             console.log("inside success function");
                             $scope.DataResponse = data;
                             console.log(JSON.stringify($scope.DataResponse));
                             $scope.loading=false;
-                            //$('#showDisabledSettings'+$scope.choices.length).style('visibility','hidden');
-
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                         })
 
                         .error(function(data,status,header,config){

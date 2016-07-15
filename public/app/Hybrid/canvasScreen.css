@@ -1074,3 +1074,8 @@ select{
   cursor:move;
   position:relative; /* important (all position that's not `static`) */
 }
+
+.hideDisabled{
+    display: none;
+
+}
