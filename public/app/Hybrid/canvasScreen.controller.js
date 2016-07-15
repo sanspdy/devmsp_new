@@ -171,6 +171,7 @@ angular.module('portalControllers')
                 $scope.bluemixRuntimeLabel=[];
                 $scope.bluemixRuntimeIcon = [];
                 $scope.bluemixRuntimeComponentLists=[];
+                $scope.bluemixRuntimeLabelName =[];
 
                 $scope.arrayOfBluemixRuntimeServices = data;
                 console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
@@ -180,9 +181,11 @@ angular.module('portalControllers')
                     $scope.bluemixRuntimeComponentLists.push($scope.bluemixRuntimeObjects);
                     var icon_bluemixRuntime = $scope.bluemixRuntimeObjects.icon;
                     var label_bluemixRuntime = $scope.bluemixRuntimeObjects.title;
+                    var Bluemix_label = $scope.bluemixRuntimeObjects.label;
 
                     $scope.bluemixRuntimeIcon.push(icon_bluemixRuntime);
                     $scope.bluemixRuntimeLabel.push(label_bluemixRuntime);
+                    $scope.bluemixRuntimeLabelName.push(Bluemix_label);
                 }
 
                 console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
@@ -811,6 +814,7 @@ angular.module('portalControllers')
                         console.log("selected object==== " + $scope.bluemixRuntimeselectedImageName[0]);
                         var type='runtime';
                         $scope.bluemixRuntimeSelectedImage = $scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex];
+                        $scope.bluemixRuntimeSelectedLabel = $scope.bluemixRuntimeLabelName[$scope.selectedBluemixImageIndex];
                         console.log("selected object name ==== " + $scope.bluemixRuntimeSelectedImage);
 
                         $scope.canvasCatalogueObject = {
@@ -827,6 +831,8 @@ angular.module('portalControllers')
                         console.log("$scope.solnEntered============" +$scope.solnRuntimeEntered);
                         var user=$scope.runtimeUsername;
                         var serviceName=$scope.bluemixRuntimeSelectedImage;
+                        var serviceLabel = $scope.bluemixRuntimeSelectedLabel;
+                        console.log('servicelabel===' +bluemixRuntimeSelectedLabel);
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
                         $scope.spinsCatalogueList=false;
@@ -837,10 +843,9 @@ angular.module('portalControllers')
                         $http({
                             method  : 'PUT',
                             url     : '/api/v2/AddBMRuntimeToCanvas',
-                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':1}),
+                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':1 ,'label':serviceLabel}),
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
-
                             .success(function(data) {
                                 console.log("inside bluemix runtime success function");
                                 angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
