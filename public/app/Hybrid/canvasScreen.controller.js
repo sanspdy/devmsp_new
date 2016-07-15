@@ -843,9 +843,13 @@ angular.module('portalControllers')
 
                             .success(function(data) {
                                 console.log("inside bluemix runtime success function");
+                                angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                                angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                                 $scope.runtimeDataResponse = data;
                                 console.log(JSON.stringify($scope.runtimeDataResponse));
                                 $scope.loading=false;
+                                angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                                angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                             }).error(function(data,status,header,config){
                             $timeout(function() {
                                 console.log("header data" +header);
@@ -925,9 +929,13 @@ angular.module('portalControllers')
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data) {
                             console.log("inside bluemix runtime success function");
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             $scope.serviceDataResponse = data;
                             console.log(JSON.stringify($scope.serviceDataResponse));
                             $scope.loading=false;
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
                             console.log("header data" +header);
