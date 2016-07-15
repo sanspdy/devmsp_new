@@ -33,14 +33,6 @@
 			$ans.slideToggle();
 			$(".ans").not($ans).slideUp();
 		});
-
-		/*$(".qtn1").on('click', function () {
-			var $ans1 =   $(this).parent().next('.ans1');
-			console.log("$ans1===" +JSON.stringify($(this)));
-			$ans1.slideToggle();
-			$(".ans1").not($ans1).slideUp();
-		})
-*/
 	});
 
 </script>
@@ -53,7 +45,6 @@
 					<span id="home">Home</span>
 				</a> ><span id="catal"> Bluemix-MSP Portal</span>
 			</p>
-
 			<div class="canvasMain">
 				<span id="canvasHeading">Services </span>
 				<span id="col-xs-2 btn_exp"> <img ng-class="{'tickSelColor': !isActive2, 'tickSelColor activeColor': isActive2}" ng-init="isActive2 = false" class="expandDiv111"  ng-click="edit2()"></span>

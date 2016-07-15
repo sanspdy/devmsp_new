@@ -596,7 +596,7 @@ angular.module('portalControllers')
 
             //--------------
 
-
+//funtion enable canvas drag-->
             $(function() {
                 $("#canvas-container").draggable();
             });
@@ -1006,6 +1006,8 @@ angular.module('portalControllers')
                     console.log (" drag end : " + img);
                 });
             }
+
+            //connecting line section here
             $scope.connectionInfo={
                 'connection_info':{
                     'services':[]
@@ -1229,9 +1231,9 @@ angular.module('portalControllers')
             }
 
             $scope.deleteObject = function (index) {
-
                 console.log('deleted object index == '+index);
                 var object = canvas.getActiveObject();
+                console.log('object===' +object);
                 if(object === null || object === undefined){
                     /*alert("Please Select the service from canvas to be deleted");*/
                     $uibModal.open({
@@ -1574,7 +1576,7 @@ angular.module('portalControllers')
             }
 
             $scope.getIndexBluemix=function (index) {
-                console.log("index====="+index);
+                console.log("index=====>"+index);
                 $scope.selectedBluemixImageIndex=index;
             }
 
