@@ -738,7 +738,7 @@ angular.module('portalControllers')
                     $scope.spinsRuntimeList=false;
                     $scope.spinsServicesList=false;
                     $scope.spinsCatalogueList=false;
-                    $('#showEnabledSettings'+$scope.choices.length).style('display','block');
+                    //$('#showEnabledSettings'+$scope.choices.length).style('display','block');
                     $scope.loading=true;
 
                     $http({
@@ -753,7 +753,7 @@ angular.module('portalControllers')
                             $scope.DataResponse = data;
                             console.log(JSON.stringify($scope.DataResponse));
                             $scope.loading=false;
-                            $('#showDisabledSettings'+$scope.choices.length).style('visibility','hidden');
+                            //$('#showDisabledSettings'+$scope.choices.length).style('visibility','hidden');
 
                         })
 
