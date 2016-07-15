@@ -2329,7 +2329,7 @@ exports.getBluemixServicesList = function(request, response) {
                 }
                 result.rows.forEach(function(document) {
 
-                    db.get(document.id,function(err,doc) {
+                    db.get(document.id,function(err1,doc) {
 
                         if (!err) {
                             docList.push(doc);
@@ -2376,8 +2376,15 @@ exports.getBluemixServicesList = function(request, response) {
                                 console.log(responseMessage);
                             }
                         } else {
-                            err.id = document.id;
-                            docList.push(err);
+                            err1.id = document.id;
+                            docList.push(err1);
+                            console.log("Error while fetching services list from server");
+                            failure_response.description = "Unable to reach Servers"
+                            response.write(JSON.stringify(failure_response));
+                            console.log(errMessage);
+                            response.end();
+                            console.log(responseMessage);
+
                             var errMessage = "Error occurred while accessing components : \n"+ JSON.stringify(err);
                             console.log(errMessage);
                         }
@@ -2389,7 +2396,7 @@ exports.getBluemixServicesList = function(request, response) {
                 console.log("Error while fetching services list from server");
                 failure_response.description = "Unable to reach Servers"
                 response.write(JSON.stringify(failure_response));
-                console.log(errMessage);
+                console.log(err);
                 response.end();
                 console.log(responseMessage);
             }
