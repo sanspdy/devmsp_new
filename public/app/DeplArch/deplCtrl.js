@@ -598,7 +598,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
 
 });
 angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties) {
-
+    $scope.varray=[];
     $scope.versionData = indexVersion;
     $scope.solutionname=sharedProperties.getCurrentCSolName();
 
@@ -619,6 +619,11 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
                 $scope.hybridversionObjectsArray = $scope.versionData[key];
                 console.log('$scope.hybridversionObjectsArray === ' + JSON.stringify($scope.hybridversionObjectsArray));
                 //sharedProperties.setVersion($rootScope.hybridversionObjectsArray);
+                for(var i=0;i< $scope.hybridversionObjectsArray.length;i++) {
+                    console.log('$scope.hybridversionObjectsArray === ' + JSON.stringify($scope.hybridversionObjectsArray[i].version));
+                    $scope.varray.push(JSON.stringify($scope.hybridversionObjectsArray[i].version));
+
+                }
 
             }
             if(key === 'msp') {
@@ -660,7 +665,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
 
    };
-   $scope.viewdelete=function(version,index) {
+   /*$scope.viewdelete=function(version,index) {
 
       // $scope.versionarray
        $scope.versionarray=[];
@@ -711,7 +716,60 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
        // $location.path('/deployment');
        $uibModalInstance.close();
    }
+*/
+    $scope.viewdelete=function(version,index) {
+        console.log("geting data--->"+ $scope.varray[0]);
+        console.log("index------>"+version)
 
+        $scope.versionarray=[];
+
+        var verIndex =  $scope.versionarray.indexOf($scope.solN);
+        console.log('$scope.versionarray === '+verIndex );
+        //console.log('index===' +index);
+
+        console.log('version22222===  ' +version);
+        $scope.solN=sharedProperties.getCurrentCSolName();
+        console.log("current solution name"+ $scope.solN);
+
+        var solnIndex = $scope.solN.indexOf(version);
+        console.log('solnIndex===' +solnIndex);
+
+        $scope.username = sharedProperties.getProperty();
+        console.log("current user"+  $scope.username );
+
+        $http({
+            method: 'POST',
+            url: '/api/v2/deleteSolutionVersion',
+            data: $.param({
+                "uname":$scope.username ,
+                "solnName": $scope.solN,
+                "version":version
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    $scope.deletedSolName = data;
+                    // $scope.data.splice(index, 1);
+
+                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            })
+
+        $scope.hybridversionObjectsArray.splice(version, 1);
+        // $location.path('/deployment');
+        // $uibModalInstance.close();
+    }
 
     $scope.do_some_action_msp = function(version) {
         console.log('version===' +JSON.stringify(version));
