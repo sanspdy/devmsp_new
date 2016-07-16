@@ -696,7 +696,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
                    $scope.errorName = data.errors.name;
                } else {
                 $scope.deletedSolName = data;
-                   $scope.data.splice(index, 1);
+                  // $scope.data.splice(index, 1);
                 console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
                }
            })
@@ -706,7 +706,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
                console.log("config data" + JSON.stringify(config));
            })
 
-       $scope.versionarray.splice(verIndex ,1);
+       $scope.hybridversionObjectsArray.splice(version ,1);
 
        // $location.path('/deployment');
        $uibModalInstance.close();

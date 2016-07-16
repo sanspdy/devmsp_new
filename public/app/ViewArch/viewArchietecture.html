@@ -47,6 +47,11 @@
 <div class="container canvasbody" id="viewArch">
 
     <div class="row">
+        <div class="canvas_tp">
+            <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
+
+            <button id="download">download</button>
+        </div>
         <div class="espace">
             <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" value="Edit"/>
            <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
@@ -67,8 +72,8 @@
             <span class="blue">Bluemix</span>
         <div ng-show='showhideprop'>
             <div class="canvas_title_hybrid">
-                <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-                <button id="download">download</button>
+                <!--<span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
+                <button id="download">download</button>-->
                 <div class="canvas_btns">
                     <button ng-click="addChild()" class="btnStyle">Connectors</button>
                     <button ng-click="printCanvas()" class="btnStyle">New Architecture</button>
