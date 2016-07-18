@@ -2134,48 +2134,52 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         sharedProperties.setBMPass($scope.itemData.password);
         $scope.spinsOrgList=true;
         $scope.loading=true;
-        $http({
-            method  : 'POST',
-            url     : '/api/getOrganizations',
-            data    : $.param({'username': $scope.itemData.username,'password':$scope.itemData.password}),
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        }).success(function(data,status,header,config)
-        {
-            console.log("get organization data ==="+JSON.stringify(data));
-            $scope.orgData = data;
-            if(data.status == 'failed'){
-                //alert(data.description);
-                $scope.loading = false;
-                $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '../components/modal/ErrorWarning.html',
-                    windowClass: 'app-modal-window-sam-Plan',
-                    controller: 'ErrorWarningCtrl',
-                    backdrop: 'static',
-                    resolve: {
-                        ErrorMsg: function () {
-                            return data.description;
-                        },
-                    }
-                });
-            }
-            else {
-                console.log('$scope.orgData===' + $scope.orgData);
-                $scope.orgList = $scope.orgData.description.entity_list[0];
-                console.log('$scope.orgList===' + JSON.stringify($scope.orgList));
-                for (var i = 0; i < $scope.orgList.length; i++) {
-                    console.log('$scope.orgList.length===' + $scope.orgList.length);
-                    $scope.orgData = $scope.orgList[i].name;
-                    console.log('$scope.orgData' + JSON.stringify($scope.orgData));
-                    $scope.orgDataArray.push($scope.orgData);
+        if($scope.itemData.username === undefined && $scope.$scope.itemData.password === undefined){
+          alert("uname and pass are undefined");
+        }
+        else {
+            $http({
+                method: 'POST',
+                url: '/api/getOrganizations',
+                data: $.param({'username': $scope.itemData.username, 'password': $scope.itemData.password}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            }).success(function (data, status, header, config) {
+                console.log("get organization data ===" + JSON.stringify(data));
+                $scope.orgData = data;
+                if (data.status == 'failed') {
+                    //alert(data.description);
                     $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
                 }
-                console.log('$scope.orgDataArray==' + JSON.stringify($scope.orgDataArray));
-                /*$uibModalInstance.dismiss('canceol');
-                 $location.path('/deployment');*/
-            }
-        })
+                else {
+                    console.log('$scope.orgData===' + $scope.orgData);
+                    $scope.orgList = $scope.orgData.description.entity_list[0];
+                    console.log('$scope.orgList===' + JSON.stringify($scope.orgList));
+                    for (var i = 0; i < $scope.orgList.length; i++) {
+                        console.log('$scope.orgList.length===' + $scope.orgList.length);
+                        $scope.orgData = $scope.orgList[i].name;
+                        console.log('$scope.orgData' + JSON.stringify($scope.orgData));
+                        $scope.orgDataArray.push($scope.orgData);
+                        $scope.loading = false;
+                    }
+                    console.log('$scope.orgDataArray==' + JSON.stringify($scope.orgDataArray));
+                    /*$uibModalInstance.dismiss('canceol');
+                     $location.path('/deployment');*/
+                }
+            })
+        }
     };
 
     $scope.getSpaces = function(index){
