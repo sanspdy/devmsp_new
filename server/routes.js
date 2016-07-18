@@ -59,6 +59,8 @@ module.exports = function(app) {
 // component in the deployment architecture
 //     app.put('/api/v1/AddBMComponentToCanvas', bluemixjs.v1_AddBMComponentToCanvas);
 
+    app.post('/api/acceptdummy',v2_bluemixjs.acceptdummy);
+
     app.put('/api/v2/AddBMComponentToCanvas', v2_bluemixjs.v2_AddBMComponentToCanvas);
 
 

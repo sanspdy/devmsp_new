@@ -239,7 +239,9 @@ select{
     /*height:auto;*/
 }
 
-
+.hideDisabled{
+    visibility: hidden;
+}
 
 
 .msp{
@@ -1071,4 +1073,8 @@ select{
   padding:10px 12px;
   cursor:move;
   position:relative; /* important (all position that's not `static`) */
+}
+
+.hideDisabled{
+    display: none;
 }

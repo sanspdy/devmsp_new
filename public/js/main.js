@@ -38,6 +38,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
             }
         });
     })
+
      // directive for menu slide bar
     .directive('sidebarDirective', function() {
         return {
@@ -51,6 +52,39 @@ angular.module('portalControllers', ['ui.bootstrap'])
                     element.removeClass('show');
                 });
             }
+        };
+    })
+
+    .directive('onlyDigits', function () {
+
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, element, attrs, modelCtrl) {
+                modelCtrl.$parsers.push(function (inputValue) {
+                    if (inputValue == undefined) return '';
+                    var transformedInput = inputValue.replace(/[^0-9]/g, '');
+                    if (transformedInput !== inputValue) {
+                        modelCtrl.$setViewValue(transformedInput);
+                        modelCtrl.$render();
+                    }
+                    return transformedInput;
+                });
+            }
+        };
+    })
+
+    .directive('myEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind('keydown keypress', function (event) {
+                if (event.which === 13) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.myEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
         };
     })
 

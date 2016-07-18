@@ -60,7 +60,7 @@
             <div class="col-xs-2" ng-repeat="(key, value) in memoryProperties" ng-show="showRuntimeAttributes">
                 <div class="col-xs-4">
                     <p class="keyStyle">{{key}}</p>
-                    <input class="spss_input" type="text" ng-model="memoryProperties[key]" ng-blur="changedRuntimeValueSave()">
+                    <input class="spss_input"  only-digits type="text" ng-model="memoryProperties[key]" ng-blur="changedRuntimeValueSave()">
                 </div>
             </div>
         </div>
@@ -109,7 +109,8 @@
                         <!--<input class="spss_input" type="text" ng-model="property.entity.extra.costs[0].unitQuantity" ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
 )">-->
 
-                        <input class="spss_input" type="text" ng-model="property.entity.extra.costs[0].unitQuantity" ng-blur="changedBluemixValueSave(property.entity.extra.costs[0].unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
+                        <input class="spss_input" type="text" min="0" ng-model="unitQuantity" only-digits my-enter="changedBluemixValueSave(unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
+)"  ng-blur="changedBluemixValueSave(unitQuantity,property.metadata.guid,property.entity.extra.costs[0].unitId,selectedCountry[$index],$index
 )">
                     </div>
                     <div class="col-xs-1">

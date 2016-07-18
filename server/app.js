@@ -286,9 +286,12 @@ app.get('/success',ensureAuthenticated,function(request,response){
     });
  //sso end
 
-// Start server
 app.listen(port, host);
 console.log('App started on port ' + port);
+
+
+// Start server
+
 
 // Expose app
 var exports = module.exports = app;

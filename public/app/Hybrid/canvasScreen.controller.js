@@ -171,6 +171,7 @@ angular.module('portalControllers')
                 $scope.bluemixRuntimeLabel=[];
                 $scope.bluemixRuntimeIcon = [];
                 $scope.bluemixRuntimeComponentLists=[];
+                $scope.bluemixRuntimeLabelName =[];
 
                 $scope.arrayOfBluemixRuntimeServices = data;
                 console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
@@ -180,9 +181,11 @@ angular.module('portalControllers')
                     $scope.bluemixRuntimeComponentLists.push($scope.bluemixRuntimeObjects);
                     var icon_bluemixRuntime = $scope.bluemixRuntimeObjects.icon;
                     var label_bluemixRuntime = $scope.bluemixRuntimeObjects.title;
+                    var Bluemix_label = $scope.bluemixRuntimeObjects.label;
 
                     $scope.bluemixRuntimeIcon.push(icon_bluemixRuntime);
                     $scope.bluemixRuntimeLabel.push(label_bluemixRuntime);
+                    $scope.bluemixRuntimeLabelName.push(Bluemix_label);
                 }
 
                 console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
@@ -231,41 +234,52 @@ angular.module('portalControllers')
             $scope.spinsCanvasCatalogue = false;
             $scope.spinsCanvas=false;
             $scope.loading=true;
-
             $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
-                console.log("Data : " + JSON.stringify(data));
-                $scope.bluemixServiceLabel=[];
-                $scope.bluemixServiceIcon = [];
-                $scope.bluemixServiceComponentLists=[];
-
-                $scope.arrayOfBluemixService = data;
-                console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
-                for(var i=0;i<$scope.arrayOfBluemixService.length;i++) {
-                    $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
-
-                    $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
-                    var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                    var label_bluemixService = $scope.bluemixServiceObjects.label;
-                    $scope.bluemixServiceIcon.push(icon_bluemixService);
-                    $scope.bluemixServiceLabel.push(label_bluemixService);
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
                 }
-
-                console.log("Bluemix service list length==="+$scope.bluemixServiceComponentLists.length);
-                console.log("Bluemix service icon length==="+$scope.bluemixServiceIcon.length);
-                console.log("Bluemix service label length==="+$scope.bluemixServiceLabel.length);
-
-                console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
-                console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
-                console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
-                $scope.loading=false;
+                else {
+                    console.log("Data : " + JSON.stringify(data));
+                    $scope.bluemixServiceLabel = [];
+                    $scope.bluemixServiceIcon = [];
+                    $scope.bluemixServiceComponentLists = [];
+                    $scope.arrayOfBluemixService = data;
+                    console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
+                    for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
+                        $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
+                        $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
+                        var icon_bluemixService = $scope.bluemixServiceObjects.icon;
+                        var label_bluemixService = $scope.bluemixServiceObjects.label;
+                        $scope.bluemixServiceIcon.push(icon_bluemixService);
+                        $scope.bluemixServiceLabel.push(label_bluemixService);
+                    }
+                    console.log("Bluemix service list length===" + $scope.bluemixServiceComponentLists.length);
+                    console.log("Bluemix service icon length===" + $scope.bluemixServiceIcon.length);
+                    console.log("Bluemix service label length===" + $scope.bluemixServiceLabel.length);
+                    console.log("Bluemix runtime list keywise===" + JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
+                    console.log("Bluemix runtime icon keywise===" + JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
+                    console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
+                    $scope.loading = false;
+                }
             }).error(function(data,status,header,config){
                 console.log("header data" +header);
                 console.log("status data" +status);
                 console.log("config data" +config);
                 console.log("Data:" +data);
-
-
             })
         }
 
@@ -738,9 +752,7 @@ angular.module('portalControllers')
                     $scope.spinsRuntimeList=false;
                     $scope.spinsServicesList=false;
                     $scope.spinsCatalogueList=false;
-
                     $scope.loading=true;
-
                     $http({
                         method  : 'PUT',
                         url     : '/api/v2/AddComponentToCanvas',
@@ -749,10 +761,14 @@ angular.module('portalControllers')
                         //forms user object
                     })
                         .success(function(data) {
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             console.log("inside success function");
                             $scope.DataResponse = data;
                             console.log(JSON.stringify($scope.DataResponse));
                             $scope.loading=false;
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                         })
 
                         .error(function(data,status,header,config){
@@ -809,6 +825,7 @@ angular.module('portalControllers')
                         console.log("selected object==== " + $scope.bluemixRuntimeselectedImageName[0]);
                         var type='runtime';
                         $scope.bluemixRuntimeSelectedImage = $scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex];
+                        $scope.bluemixRuntimeSelectedLabel = $scope.bluemixRuntimeLabelName[$scope.selectedBluemixImageIndex];
                         console.log("selected object name ==== " + $scope.bluemixRuntimeSelectedImage);
 
                         $scope.canvasCatalogueObject = {
@@ -825,6 +842,8 @@ angular.module('portalControllers')
                         console.log("$scope.solnEntered============" +$scope.solnRuntimeEntered);
                         var user=$scope.runtimeUsername;
                         var serviceName=$scope.bluemixRuntimeSelectedImage;
+                        var serviceLabel = $scope.bluemixRuntimeSelectedLabel;
+                        console.log('servicelabel===' +serviceLabel);
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
                         $scope.spinsCatalogueList=false;
@@ -835,15 +854,18 @@ angular.module('portalControllers')
                         $http({
                             method  : 'PUT',
                             url     : '/api/v2/AddBMRuntimeToCanvas',
-                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':1}),
+                            data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':1 ,'label':serviceLabel}),
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
-
                             .success(function(data) {
                                 console.log("inside bluemix runtime success function");
+                                angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                                angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                                 $scope.runtimeDataResponse = data;
                                 console.log(JSON.stringify($scope.runtimeDataResponse));
                                 $scope.loading=false;
+                                angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                                angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                             }).error(function(data,status,header,config){
                             $timeout(function() {
                                 console.log("header data" +header);
@@ -923,9 +945,13 @@ angular.module('portalControllers')
                             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data) {
                             console.log("inside bluemix runtime success function");
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             $scope.serviceDataResponse = data;
                             console.log(JSON.stringify($scope.serviceDataResponse));
                             $scope.loading=false;
+                            angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
+                            angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
                             console.log("header data" +header);
@@ -1244,7 +1270,6 @@ angular.module('portalControllers')
                         windowClass: 'app-modal-window-dc',
                         backdrop: 'static',
                         resolve: {
-
                         }
                     });
                 }else {
@@ -2072,5 +2097,19 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 
             }
         });
+    }
+});
+
+
+angular.module('portalControllers').controller('ErrorWarningCtrl', function ($scope,$location,$uibModal,$uibModalInstance,ErrorMsg) {
+    console.log("inside newArchConfirmCtrl");
+    console.log('ErrorMsg===' +ErrorMsg);
+    $scope.showError = ErrorMsg;
+    $scope.ngShowModalErrorWarning = true;
+    $scope.dismissModal = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.ErrorClose = function(){
+        $uibModalInstance.dismiss('cancel');
     }
 });

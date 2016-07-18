@@ -2185,7 +2185,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 rejectUnauthorized: true,
                                                 requestCert: true,
                                                 agent: false,
-                                                secureProtocol:
+                                                //secureProtocol:
                                             };
 
                                             var req = https.request(options, function(err,res) {

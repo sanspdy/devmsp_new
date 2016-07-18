@@ -2311,6 +2311,7 @@ exports.getBluemixServicesList = function(request, response) {
     console.log("*** Request Received ***");
     initDBConnection();
     db = cloudant.use(dbCredentials.dbBluemix_services);
+    //db = cloudant.use('bluemixdbs');
     var docList = [];
     var componenttitle = [];
     var i = 1;
@@ -2328,7 +2329,7 @@ exports.getBluemixServicesList = function(request, response) {
                 }
                 result.rows.forEach(function(document) {
 
-                    db.get(document.id,function(err,doc) {
+                    db.get(document.id,function(err1,doc) {
 
                         if (!err) {
                             docList.push(doc);
@@ -2375,8 +2376,15 @@ exports.getBluemixServicesList = function(request, response) {
                                 console.log(responseMessage);
                             }
                         } else {
-                            err.id = document.id;
-                            docList.push(err);
+                            err1.id = document.id;
+                            docList.push(err1);
+                            console.log("Error while fetching services list from server");
+                            failure_response.description = "Unable to reach Servers"
+                            response.write(JSON.stringify(failure_response));
+                            console.log(errMessage);
+                            response.end();
+                            console.log(responseMessage);
+
                             var errMessage = "Error occurred while accessing components : \n"+ JSON.stringify(err);
                             console.log(errMessage);
                         }
@@ -2386,9 +2394,9 @@ exports.getBluemixServicesList = function(request, response) {
                 });
             } else {
                 console.log("Error while fetching services list from server");
-                failure_response.description = "Error while fetching services list from server"
+                failure_response.description = "Unable to reach Servers"
                 response.write(JSON.stringify(failure_response));
-                console.log(errMessage);
+                console.log(err);
                 response.end();
                 console.log(responseMessage);
             }
@@ -2549,6 +2557,7 @@ exports.getBluemixBuildpackList = function(request, response) {
     var i = 1;
     var titles = [];
     var output = [];
+    var labels = [];
     try {
         db.find({selector: {service:"runtime"}},function(err, result) {
 
@@ -2571,6 +2580,7 @@ exports.getBluemixBuildpackList = function(request, response) {
                                 /*doc_count = docListJson1.resources.length;
                                  console.log("Total Records:" + doc_count);*/
                                     titles[j] = docListJson1[j].resources[0].entity.display_name;
+                                    labels[j] = docListJson1[j].resources[0].entity.label;
 
                                 console.log("title",titles[j]);
 
@@ -2581,6 +2591,7 @@ exports.getBluemixBuildpackList = function(request, response) {
 
                                     output[j] = {
                                         "title": titles[j],
+                                        "label": labels[j],
                                         "icon": "/images/MSP_Logos/IBM.png"
                                     };
 
@@ -3340,7 +3351,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$",discount);
                                         if(discount === "free"){
                                             final_price = 0;
-                                            resp.write(JSON.stringify(final_price));
+                                            resp.send(final_price);
                                             resp.end();
                                         }
                                         else {
@@ -3356,11 +3367,11 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log(final_price);
                                                 if(final_price < 0){
                                                     final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
 
@@ -3375,11 +3386,11 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log("dhuvhdvadv",final_price);
                                                 if(final_price < 0){
                                                     final_price = 0;
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.write(JSON.stringify(final_price));
+                                                    resp.send(final_price);
                                                     resp.end();
                                                 }
 

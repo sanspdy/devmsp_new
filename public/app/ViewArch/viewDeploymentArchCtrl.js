@@ -622,9 +622,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     //edit page start here
     $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
-       $scope.CurrentVer = sharedProperties.getVersion();
+       //$scope.CurrentVer = sharedProperties.getVersion();
 
-    $scope.versionnum =  $scope.CurrentVer;
+   // $scope.versionnum =  $scope.CurrentVer;
+    $scope.tname= sharedProperties.getVersion()
+    $rootScope.versionnum = $scope.tname
 
 
 
@@ -2330,7 +2332,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     sharedProperties.setNewversion($scope.newVersion);
                     $scope.Vertype=$scope.editCanvasDetails.type;
                     //$scope.versionnum =$scope.newVersion
-                    $scope.versionnum =$scope.newVersion
+                    $rootScope.versionnum = $scope.newVersion;
 
                     $uibModalInstance.close();
                     console.log("new solution ----->"+$scope.soln);

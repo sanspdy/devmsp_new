@@ -1,0 +1,20 @@
+<div class="modal-content">
+    <div class="kim-background-container ng-scope">
+        <div class="container-fluid modalNewArch" ng-show="ngShowModalErrorWarning">
+            <div class="row">
+                <p id="homeConfirmPopup">  <span id="alertHead">Alert!!</span> <img class="po-crossHome" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close"></p>
+                <hr>
+                <p id="ErrorMsg">{{showError}}</p>
+                <!--<img class="po-crossOrderSuccess" src="../../images/btn_popup_cross.png"  ng-click="dismissModal()" alt="close">
+                <hr  class="fancy-line" width="100%" align="left">-->
+                <div class="col-xs-12">
+                    <div class="">
+                        <button type="button" id="orderSuccess" ng-click="ErrorClose()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
