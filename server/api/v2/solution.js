@@ -358,28 +358,25 @@ exports.v2_viewBillOfMaterial = function(request, response) {
 
     console.log("Solution Name: " + JSON.stringify(SolName));
 
-    if (SolName === null) {
-        console
-            .log("no sufficient details. returning false info");
-        var resjson = {
-            "status": "No Solution present",
-        };
-        response.write(JSON.stringify(resjson));
+    if (SolName === null && SolName==="" && version === null && version==="" && uname === null && uname==="" && version===undefined && uname === undefined && SolName===undefined ) {
+        console.log("No sufficient details. Please check username, solution name, version");
+        failure_response.description = "No sufficient details. Please check username, solution name, version";
+        response.write(JSON.stringify(failure_response));
         response.end();
     }
+
     else{
         try {
             dbSoln.find({selector: {solution_name: SolName, user: username, version:version}},
                 function (err, result) {
                     if (!err) {
                         if (result.docs[0]) {
-                            if (result.docs[0].hasOwnProperty("service_details") !== undefined && result.docs[0].hasOwnProperty("service_details") !== null) {
+                            if (result.docs !== null && result.docs !== undefined && result.docs[0] !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details") !== undefined && result.docs[0].hasOwnProperty("service_details") !== null) {
                                 if (result.docs[0].service_details.hasOwnProperty("msp") !== undefined && result.docs[0].service_details.hasOwnProperty("msp") !== null) {
                                     if (result.docs[0].service_details.hasOwnProperty("bluemix") !== undefined && result.docs[0].service_details.hasOwnProperty("bluemix") !== null) {
                                         if (result.docs[0].service_details.bluemix[0] !== undefined && result.docs[0].service_details.bluemix[0] !== null){
-                                            if (result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime") !== undefined) {
+                                            if (result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime") !== undefined && result.docs[0].service_details.bluemix[0].runtime !== null) {
 
-                                                // var
                                                 // services=
                                                 // result.docs[0].service_details.msp[compcnt];
 
@@ -424,12 +421,11 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                     if (msp_services[i] !== undefined) {
                                                         if (msp_services[i].hasOwnProperty("priceDetails") !== undefined) {
                                                             if (msp_services[i].priceDetails === undefined) {
-                                                                console
-                                                                    .log("Requested service is returning null");
-                                                                var resjson = {
-                                                                    "status": "failed",
-                                                                };
-                                                                response.write(JSON.stringify(resjson));
+                                                                console.log("Requested service is returning null");
+                                                                console.log("*** Request Responded ***");
+                                                                //console.log("There is no price details for some components. Error ");
+                                                                failure_response.description = "Requested service is returning null";
+                                                                response.write(JSON.stringify(failure_response));
                                                                 response.end();
                                                             } else {
                                                                 tot_price = parseInt(msp_services[i].priceDetails.TotalPrice);
@@ -446,22 +442,21 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                             console.log("There is no price details for some components. Error ")
                                                             console.log(err);
                                                             console.log("*** Request Responded ***");
-                                                            var resjson = {
-                                                                "status": "failed"
-                                                            };
-                                                            response.write(JSON.stringify(resjson));
+                                                            //console.log("There is no price details for some components. Error ");
+                                                            failure_response.description = "There is no price details for some components. Error ";
+                                                            response.write(JSON.stringify(failure_response));
                                                             response.end();
                                                         }
                                                     }
                                                     else {
-                                                        console.log("There is no price details for some components. Error ")
+                                                        //console.log("There is no price details for some components. Error ")
                                                         console.log(err);
-                                                        console.log("*** Request Responded ***");
-                                                        var resjson = {
-                                                            "status": "failed"
-                                                        };
-                                                        response.write(JSON.stringify(resjson));
+                                                        console.log("There is no price details for some components. Error ");
+                                                        failure_response.description = "There is no price details for some components. Error ";
+                                                        response.write(JSON.stringify(failure_response));
                                                         response.end();
+                                                        console.log("*** Request Responded ***");
+
                                                     }
 
                                                 }
@@ -471,13 +466,12 @@ exports.v2_viewBillOfMaterial = function(request, response) {
 
                                                         if (blumix_runtime[i].properties.hasOwnProperty("price") !== undefined) {
                                                             if ( blumix_runtime[i].properties=== null ||blumix_runtime[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
-                                                                console
-                                                                    .log("Requested service is returning null");
-                                                                var resjson = {
-                                                                    "status": "failed",
-                                                                };
-                                                                response.write(JSON.stringify(resjson));
+                                                                //console.log("Requested service is returning null");
+                                                                console.log("There is no properties in bluemix component ");
+                                                                failure_response.description = "There is no properties in bluemix component ";
+                                                                response.write(JSON.stringify(failure_response));
                                                                 response.end();
+                                                                console.log("*** Request Responded ***");
                                                             } else {
                                                                 runtime_price = parseInt(blumix_runtime[i].properties.price);
                                                                 console.log("Runtime price:" + runtime_price);
@@ -488,25 +482,23 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                         else {
                                                             console.log("There is no price details for some components. Error ")
                                                             console.log(err);
-                                                            console.log("*** Request Responded ***");
-                                                            var resjson = {
-                                                                "status": "failed",
-                                                                "description": "There is no price details in bluemix"
-                                                            };
-                                                            response.write(JSON.stringify(resjson));
+                                                            //console.log("There is no price details for some components. Error ");
+                                                            failure_response.description = "There is no price details for some components. Error ";
+                                                            response.write(JSON.stringify(failure_response));
                                                             response.end();
+                                                            console.log("*** Request Responded ***");
+
                                                         }
                                                     }
                                                     else {
-                                                        console.log("There is property for that component ")
+                                                        //console.log("There is property for that component ")
                                                         console.log(err);
-                                                        console.log("*** Request Responded ***");
-                                                        var resjson = {
-                                                            "status": "failed",
-                                                            "description": "There is no property in bluemix"
-                                                        };
-                                                        response.write(JSON.stringify(resjson));
+                                                        console.log("There is no price details for some components. Error ");
+                                                        failure_response.description = "There is no price details for some components. Error ";
+                                                        response.write(JSON.stringify(failure_response));
                                                         response.end();
+                                                        console.log("*** Request Responded ***");
+
                                                     }
                                                 }
 
@@ -517,8 +509,7 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                 console.log("Final Total Price:");
                                                 console.log(final_msp_totalprice);
                                                 console.log(final_msp_licenseprice);
-                                                priceJson = JSON
-                                                    .stringify({
+                                                priceJson = JSON.stringify({
                                                         "msp": msp_services,
                                                         "bluemix": blumix_services,
                                                         "Final_MSP_Price": final_msp_totalprice,
@@ -531,68 +522,62 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                 response.end();
                                             }
                                             else {
-                                                console.log("There is no property called runtime ")
+                                                //console.log("There is no property called runtime ")
                                                 console.log(err);
-                                                console.log("*** Request Responded ***");
-                                                var resjson = {
-                                                    "status": "failed"
-                                                };
-                                                response.write(JSON.stringify(resjson));
+                                                console.log("There is no runtime in your solution");
+                                                failure_response.description = "There is no runtime in your solution";
+                                                response.write(JSON.stringify(failure_response));
                                                 response.end();
+                                                console.log("*** Request Responded ***");
+
                                             }
                                         }else {
-                                            console.log("There is no data in bluemix ")
+                                            console.log("There is no bluemix component in your solution")
                                             console.log(err);
-                                            console.log("*** Request Responded ***");
-                                            var resjson = {
-                                                "status": "failed",
-                                                "description":"There is no data in bluemix"
-                                            };
-                                            response.write(JSON.stringify(resjson));
+                                            console.log("There is no bluemix component in your solution");
+                                            failure_response.description = "There is no runtime in your solution";
+                                            response.write(JSON.stringify(failure_response));
                                             response.end();
+                                            console.log("*** Request Responded ***");
                                         }
                                     }
                                     else {
-                                        console.log("There is no property called bluemix ")
+                                        //console.log("There is no property called bluemix ")
                                         console.log(err);
+                                        console.log("There is no bluemix components. Error ");
+                                        failure_response.description = "There is no bluemix components. Error";
+                                        response.write(JSON.stringify(failure_response));
+                                        response.end();
                                         console.log("*** Request Responded ***");
-                                        var resjson = {
-                                            "status": "failed"
-                                        };
-                                        response.write(JSON.stringify(resjson));
                                     }
                                 }
                                 else {
                                     console.log("There is no property called msp ")
                                     console.log(err);
-                                    console.log("*** Request Responded ***");
-                                    var resjson = {
-                                        "status": "failed"
-                                    };
-                                    response.write(JSON.stringify(resjson));
+                                    console.log("There is no msp components. Error ");
+                                    failure_response.description = "There is no msp components. Error";
+                                    response.write(JSON.stringify(failure_response));
                                     response.end();
+                                    console.log("*** Request Responded ***");
                                 }
                             }
                             else {
-                                console.log("There is no property called service details ")
+                                console.log("There is no such sollution Please check solution name and versions")
                                 console.log(err);
+                                console.log("There is no such sollution Please check solution name and versions");
+                                failure_response.description = "There is no such sollution Please check solution name and versions";
+                                response.write(JSON.stringify(failure_response));
+                                response.end();
                                 console.log("*** Request Responded ***");
-                                var resjson = {
-                                    "status": "failed"
-                                };
-                                response.write(JSON.stringify(resjson));
                             }
                         }
                         else {
                             console.log("There is no document available")
                             console.log(err);
-                            console.log("*** Request Responded ***");
-                            var resjson = {
-                                "status": "failed",
-                                "description":"There is no such solution."
-                            };
-                            response.write(JSON.stringify(resjson));
+                            failure_response.description = "There is no such solution Please check solution name and versions";
+                            response.write(JSON.stringify(failure_response));
                             response.end();
+                            console.log("*** Request Responded ***");
                         }
 
                     } else {
@@ -601,24 +586,22 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                         //response.write(errMessage);
                         console.log(errMessage);
                         // response.end();
-                        console.log(responseMessage);
-                        var resjson = {
-                            "status": "failed",
-                            "description":"There is no such solution. Check you solution name."
-                        };
-                        console.log(JSON.stringify(resjson));
-                        response.write(JSON.stringify(resjson));
+
+                        console.log("There is no such solution. Check you solution name");
+                        failure_response.description = "There is no such solution. Check you solution name";
+                        response.write(JSON.stringify(failure_response));
                         response.end();
+                        console.log("*** Request Responded ***");
                     }
                 });
         } catch (err) {
             console.log("There is some error:")
             console.log(err);
+            console.log("There is no such solution. Check you solution name");
+            failure_response.description = "There is no such solution. Check you solution name";
+            response.write(JSON.stringify(failure_response));
+            response.end();
             console.log("*** Request Responded ***");
-            var resjson = {
-                "status": "failed"
-            };
-            response.write(JSON.stringify(resjson));
         }
     }
 

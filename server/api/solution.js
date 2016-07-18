@@ -99,6 +99,8 @@ var failure_response = {
 // Initiating Database connection function
 initDBConnection();
 
+
+//We are not using
 exports.createSolution=function(request, response) {
 
     console.log(requestMessage);
@@ -588,7 +590,7 @@ exports.creatMpsSolution=function (request, response) {
                             if (result.docs[0].hasOwnProperty("solution_name") !== undefined || result.docs[0].hasOwnProperty("solution_name") !== null) {
                                 if (result.docs[0].solution_name == SolName) {
                                     console.log("already exist solution name");
-                                    failure_response.description = "already exist solution name"
+                                    failure_response.description = "Solution Name already exist. Please change the solution name"
                                     response.write(JSON.stringify(failure_response));
                                     response.end();
                                 }
@@ -601,7 +603,7 @@ exports.creatMpsSolution=function (request, response) {
                                 if (err) {
                                     console.log(err);
 
-                                    failure_response.description = "error while inserting. please try again"
+                                    failure_response.description = "Error occured while creating a solution. Error while insertion"
                                     response.write(JSON.stringify(failure_response));
 
                                     response.end();
@@ -1949,6 +1951,7 @@ exports.acceptdummy=function (request,response) {
 }
 
 exports.v2_placeOrder=function(reqst, resp) {
+
     console.log("*** Request Received ***");
     var soln = reqst.body.soln_name;
     var uname=reqst.body.uname;
@@ -2038,8 +2041,6 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         var msp_properties = resultjson.service_details.msp;
                                         var bluemix_properties = resultjson.service_details.bluemix;
 
-
-
                                         //calling function which sends request to provision bluemix services and runtimes
                                         if(bmusername !== null && bmusername!== undefined && bmusername!== '' && bmpassword !== null && bmpassword!== undefined && bmpassword!== '' ){
                                             //bluemixprovisioning();
@@ -2083,9 +2084,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             req.write(data);
                                             req.end();
                                         }
-
-                                        if(bmusername !== null && bmusername!== undefined && bmusername!== '') {
-                                           //mspprovisioning();
+                                        if(contactname !== null && contactname!== undefined && contactmail !== '' && contactmail !== undefined ) {
+                                            //mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
@@ -2108,14 +2108,23 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             }
 
                                             orderjson = {
-                                                "Order_ID" : randomno,
-                                                "Ordered_Items" : msp_service_names,
-                                                "Data_Center" : "Amsterdam 1",
-                                                "Originating_From" : "mpaas",
-                                                "User_ID" : "superadmin@in.ibm.com",
-                                                "Comments" : "some-comments",
-                                                "Ordered_ItemDetails" : {
-
+                                                "Order_ID": "mpaase210d12f817c41f682217acb22219478",
+                                                "Ordered_Items": "mysql",
+                                                "Data_Center": "Amsterdam 1",
+                                                "Originating_From": "mpaas",
+                                                "User_ID": "superadmin@in.ibm.com",
+                                                "Comments": "some-comments",
+                                                "Ordered_ItemDetails": {
+                                                    "mysql": {
+                                                        "orderedItemFormData": {
+                                                            "Group1": {
+                                                                "count": "1",
+                                                                "size": "small",
+                                                                "flavor": "RedHat",
+                                                                "role": "MYSQL"
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             };
 
@@ -2129,14 +2138,14 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 offering[soln]['orderedItemFormData'][group]=service_properties[i];
                                             }
 
-                                            orderjson.Ordered_ItemDetails=offering;
+                                            //orderjson.Ordered_ItemDetails=offering;
 
                                             final_json_formatted=orderjson;
 
 
                                             console.log("Final JSON:");
                                             console.log(final_json_formatted);
-                                            console.log(JSON.stringify(final_json_formatted));
+                                            //console.log(JSON.stringify(final_json_formatted));
 
                                             dbfinaljson.insert(final_json_formatted,'',function(errors, result2) {
                                                 if(!errors){
@@ -2154,30 +2163,48 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 }
                                             });
                                             // insert msp provisioning code here...
-                                                var options = {
-                                                    path : '/api/acceptdummy',
-                                                    method : 'POST',
-                                                    headers : {
-                                                        'Content-Type' : 'application/json',
-                                                        'Content-Length' : data.length
-                                                    }
-                                                };
+                                            var mpaasusername="mpaasuser";
+                                            var mpaaspassword="Test@123";
+                                            var auth="Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
+                                            var https=require('https');
 
-                                                var req = http.request(options, function(res) {
-                                                    // res.setEncoding('utf8');
-                                                    console.log("Request sent to Bluemix");
+                                            var options = {
+                                                host:'5.10.122.189',
+                                                path : '/fulfillment_engine/mpaas/order/create',
+                                                port:8443,
+                                                method : 'POST',
+                                                headers : {
+                                                    'Content-Type' : 'application/json',
+                                                    'Content-Length' : JSON.stringify(orderjson).length,
+                                                    "Authorization" : auth
+                                                },
+                                                rejectUnauthorized: true,
+                                                requestCert: true,
+                                                agent: false,
+                                                //secureProtocol:
+                                            };
 
-                                                });
-                                                req.on('error',function(err,result) {
+                                            var req = https.request(options, function(err,res) {
+                                                // res.setEncoding('utf8');
+                                                if(!err) {
+                                                    console.log("Request sent to MSP===============>Response here...");
+                                                    console.log(res);
+                                                }
+                                                else{
                                                     console.log(err);
-                                                    console.log("Error while fetching data from IMI Server. Please try later");
-                                                    failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                    response.write(JSON.stringify(failure_response));
-                                                    // response.end();
-                                                });
-                                                req.write(bm_provision_data);
+                                                }
 
-                                                req.end();
+                                            });
+                                            req.on('error',function(err,result) {
+                                                console.log(err);
+                                                console.log("Error while fetching data from IMI Server. Please try later");
+                                                failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                                response.write(JSON.stringify(failure_response));
+                                                // response.end();
+                                            });
+                                            req.write(JSON.stringify(orderjson));
+
+                                            req.end();
                                         }
 
                                         //need to remove once the provisioning incorporated
@@ -2201,6 +2228,7 @@ exports.v2_placeOrder=function(reqst, resp) {
             }
         });
     }
+
 }
 
 

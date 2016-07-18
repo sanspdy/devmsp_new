@@ -116,8 +116,6 @@ function initDBConnection() {
 // Initiating Database connection function
 initDBConnection();
 
-
-
  //sso start
  var cookieParser = require('cookie-parser');
  var session = require('express-session');
@@ -215,7 +213,6 @@ var callback_url = "http://devmsp.mybluemix.net/auth/sso/callback";
  }
  }
 
-
  function ensureAuthenticated(req, res, next) {
  console.log("----------------------------------------------------------------------------");
  console.log(" *** ensureAuthenticated *** ");
@@ -288,9 +285,9 @@ app.get('/success',ensureAuthenticated,function(request,response){
     //response.end();
     });
  //sso end
+
 app.listen(port, host);
 console.log('App started on port ' + port);
-
 
 
 // Start server
