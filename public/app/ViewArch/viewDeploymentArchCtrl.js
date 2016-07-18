@@ -2134,7 +2134,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         sharedProperties.setBMPass($scope.itemData.password);
         $scope.spinsOrgList=true;
         $scope.loading=true;
-        if($scope.itemData.username === undefined && $scope.$scope.itemData.password === undefined){
+        if($scope.itemData.username == undefined && $scope.$scope.itemData.password == undefined){
           alert("uname and pass are undefined");
         }
         else {
