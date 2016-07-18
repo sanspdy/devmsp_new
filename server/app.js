@@ -213,7 +213,6 @@ var callback_url = "http://devmsp.mybluemix.net/auth/sso/callback";
  }
  }
 
-
  function ensureAuthenticated(req, res, next) {
  console.log("----------------------------------------------------------------------------");
  console.log(" *** ensureAuthenticated *** ");

@@ -19,7 +19,7 @@ module.exports = function(app) {
 // ************************************************************************************************************************************************
 // This API creates an empty document in solution database when canvas
 // initiated.
-    app.post('/api/createSolution',solution.createSolution);
+//     app.post('/api/createSolution',solution.createSolution);
 
 //-- newly created- which creates solution of different version.
     app.post('/api/v2/modifysolutionversion',v2_solution.modifysolutionversion);
@@ -40,24 +40,24 @@ module.exports = function(app) {
 
 
 //old one
-    app.put('/api/AddComponentToCanvas', solution.AddComponentToCanvas);
+//     app.put('/api/AddComponentToCanvas', solution.AddComponentToCanvas);
 
 // ************************************************************************************************************************************************
 // This V1 API will update the solution database whenever the user add component
 // in the deployment architecture
-    app.put('/api/v1/AddComponentToCanvas', solution.v1_AddComponentToCanvas);
+//     app.put('/api/v1/AddComponentToCanvas', solution.v1_AddComponentToCanvas);
 
     app.put('/api/v2/AddComponentToCanvas', v2_solution.v2_AddComponentToCanvas);
 
 // ************************************************************************************************************************************************
 // This API will update the solution database whenever the user add bluemix
 // component in the deployment architecture
-    app.put('/api/AddBMComponentToCanvas', bluemixjs.AddBMComponentToCanvas);
+//     app.put('/api/AddBMComponentToCanvas', bluemixjs.AddBMComponentToCanvas);
 
 // ************************************************************************************************************************************************
 // This V1 API will update the solution database whenever the user add bluemix
 // component in the deployment architecture
-    app.put('/api/v1/AddBMComponentToCanvas', bluemixjs.v1_AddBMComponentToCanvas);
+//     app.put('/api/v1/AddBMComponentToCanvas', bluemixjs.v1_AddBMComponentToCanvas);
 
     app.put('/api/v2/AddBMComponentToCanvas', v2_bluemixjs.v2_AddBMComponentToCanvas);
 
@@ -65,73 +65,73 @@ module.exports = function(app) {
 // ************************************************************************************************************************************************
 // This API will update the solution database whenever the user add bluemix
 // component in the deployment architecture
-    app.put('/api/AddBMRuntimeToCanvas',bluemixjs.AddBMRuntimeToCanvas);
+//     app.put('/api/AddBMRuntimeToCanvas',bluemixjs.AddBMRuntimeToCanvas);
 
 // ************************************************************************************************************************************************
 // This v1 API will update the solution database whenever the user add bluemix
 // component in the deployment architecture
-    app.put('/api/v1/AddBMRuntimeToCanvas',bluemixjs.v1_AddBMRuntimeToCanvas);
+//     app.put('/api/v1/AddBMRuntimeToCanvas',bluemixjs.v1_AddBMRuntimeToCanvas);
 
     app.put('/api/v2/AddBMRuntimeToCanvas',v2_bluemixjs.v2_AddBMRuntimeToCanvas);
 
 // ************************************************************************************************************************************************
 // This API will fetch msp service info of component.
-    app.put('/api/getServiceInfo', solution.getServiceInfo);
+//     app.put('/api/getServiceInfo', solution.getServiceInfo);
 
 
 // ************************************************************************************************************************************************
 // This API will fetch msp service info of component.
 
 //currently done, need to check
-    app.put('/api/v1/getServiceInfo',mspjs.getServiceInfo);
+//     app.put('/api/v1/getServiceInfo',mspjs.getServiceInfo);
 
     app.put('/api/v2/getServiceInfo',v2_mspjs.v2_getServiceInfo);
 
 
 // ************************************************************************************************************************************************
 // This API will fetch service info of component.
-    app.put('/api/getBluemixServiceInfo',bluemixjs.getBluemixServiceInfo);
+//     app.put('/api/getBluemixServiceInfo',bluemixjs.getBluemixServiceInfo);
 
 // ************************************************************************************************************************************************
 // This V1 API will fetch service info of component.
 //currently doing...
-    app.put('/api/v1/getBluemixServiceInfo',bluemixjs.v1_getBluemixServiceInfo);
+//     app.put('/api/v1/getBluemixServiceInfo',bluemixjs.v1_getBluemixServiceInfo);
 
 
     app.put('/api/v2/getBluemixServiceInfo',v2_bluemixjs.v2_getBluemixServiceInfo);
 
 // ************************************************************************************************************************************************
 // This API will fetch service info of component.
-    app.put('/api/getBluemixRuntimeInfo',bluemixjs.getBluemixRuntimeInfo);
+//     app.put('/api/getBluemixRuntimeInfo',bluemixjs.getBluemixRuntimeInfo);
 
 // ************************************************************************************************************************************************
 // This V1 API will fetch service info of component.
 //currently doing...
-    app.put('/api/v1/getBluemixRuntimeInfo',bluemixjs.v1_getBluemixRuntimeInfo);
+//     app.put('/api/v1/getBluemixRuntimeInfo',bluemixjs.v1_getBluemixRuntimeInfo);
 
 
     app.put('/api/v2/getBluemixRuntimeInfo',v2_bluemixjs.v2_getBluemixRuntimeInfo);
 
 // ************************************************************************************************************************************************
 // This API will update msp service info of component in solution table.
-    app.put('/api/updateServiceInfo',mspjs.updateServiceInfo);
+//     app.put('/api/updateServiceInfo',mspjs.updateServiceInfo);
 
 // ************************************************************************************************************************************************
 // This V1 API will update service info of component in solution table.
-    app.put('/api/v1/updateServiceInfo',mspjs.v1_updateServiceInfo);
+//     app.put('/api/v1/updateServiceInfo',mspjs.v1_updateServiceInfo);
 
     app.put('/api/v2/updateServiceInfo',v2_mspjs.v2_updateServiceInfo);
 
 // ************************************************************************************************************************************************
 // This API will update service info of component in solution table.
-    app.put('/api/updateBMServiceInfo',bluemixjs.updateBMServiceInfo);
+//     app.put('/api/updateBMServiceInfo',bluemixjs.updateBMServiceInfo);
 
 
     app.put('/api/v2/updateBMServiceInfo',v2_bluemixjs.v2_updateBMServiceInfo);
 
 // ************************************************************************************************************************************************
 // This API will update runtime info of bluemix runtime in solution table.
-    app.put('/api/updateBMRuntimeInfo',bluemixjs.updateBMRuntimeInfo);
+//     app.put('/api/updateBMRuntimeInfo',bluemixjs.updateBMRuntimeInfo);
 
     app.put('/api/v2/updateBMRuntimeInfo',v2_bluemixjs.v2_updateBMRuntimeInfo);
 
@@ -140,51 +140,51 @@ module.exports = function(app) {
 // ************************************************************************************************************************************************
 // This API will update canvas info in solution table. now implemented only for
 // canvas update. connection info we have to think
-    app.put('/api/updateCanvasConnectionInfo',solution.updateCanvasConnectionInfo);
+//     app.put('/api/updateCanvasConnectionInfo',solution.updateCanvasConnectionInfo);
 
 // ************************************************************************************************************************************************
 // This API will update canvas info in solution table. now implemented only for
 // canvas update.
-    app.put('/api/updateCanvasInfo',solution.updateCanvasInfo);
+//     app.put('/api/updateCanvasInfo',solution.updateCanvasInfo);
 
     app.put('/api/v2/updateCanvasInfo',solution.v2_updateCanvasInfo);
 
 
 // ************************************************************************************************************************************************
 // This API will update MSP connection info in solution table.
-    app.put('/api/updateMspConnectionInfo',mspjs.updateMspConnectionInfo);
+//     app.put('/api/updateMspConnectionInfo',mspjs.updateMspConnectionInfo);
 
 // ************************************************************************************************************************************************
 // This API will update Bluemix connection info in solution table.
-    app.put('/api/updateBMConnectionInfo',bluemixjs.updateBMConnectionInfo);
+//     app.put('/api/updateBMConnectionInfo',bluemixjs.updateBMConnectionInfo);
 
 // This v1 API fetches all components added in canvas along with price details
 // to view bill of material
-    app.get('/api/v1/viewBillofMaterial', solution.v1_viewBillOfMaterial);
+//     app.get('/api/v1/viewBillofMaterial', solution.v1_viewBillOfMaterial);
 
 
     app.get('/api/v2/viewBillofMaterial', v2_solution.v2_viewBillOfMaterial);
 
 // This v1 API fetches all components added in canvas along with price details
 // to view bill of material
-    app.get('/api/v1/viewMspBillofMaterial',solution.viewMspBillofMaterial);
+//     app.get('/api/v1/viewMspBillofMaterial',solution.viewMspBillofMaterial);
 
 
     app.get('/api/v2/viewMspBillofMaterial',v2_solution.v2_viewMspBillofMaterial);
 
 // This API fetches all components added in canvas along with price details to
 // view bill of material
-    app.get('/api/viewBillofMaterial',solution.viewBillofMaterial);
+//     app.get('/api/viewBillofMaterial',solution.viewBillofMaterial);
 
 // This API will fetch all the solution which are created by the user.
-    app.get('/api/viewMyDeployArch', solution.viewMyDeployArch);
+//     app.get('/api/viewMyDeployArch', solution.viewMyDeployArch);
 
 //This fetches unique deployment architecture name
     app.get('/api/v2/viewMyDeployArchNames', solution.viewMyDeployArchNames);
 
 
 // This V1 API will fetch all the solution which are created by the user based on version.
-    app.get('/api/v1/viewMyDeployArch', v2_solution.v1_viewMyDeployArch);
+//     app.get('/api/v1/viewMyDeployArch', v2_solution.v1_viewMyDeployArch);
 
 //This v2 API fetches based on solution
     app.get('/api/v2/viewMyDeployArchVersions', v2_solution.v2_viewMyDeployArchVersions);
@@ -193,15 +193,15 @@ module.exports = function(app) {
 // ************************************************************************************************************************************************
 // This API will update the solution database whenever the user remove component
 // in the deployment architecture
-    app.put('/api/removeComponentFromSolutiondb',solution.removeComponentFromSolutiondb);
+//     app.put('/api/removeComponentFromSolutiondb',solution.removeComponentFromSolutiondb);
 
     app.put('/api/v2/removeComponentFromSolutiondb',v2_solution.v2_removeComponentFromSolutiondb);
 
 // ************************************************************************************************************************************************
 // This API will update the solution database whenever the user remove entire the deployment architecture
-    app.post('/api/deleteSolution',solution.deleteSolution);
+//     app.post('/api/deleteSolution',solution.deleteSolution);
 
-//Delete all version
+//Delete all version of the solution.
     app.post('/api/v2/deleteAllSolution',v2_solution.v2_deleteSolution);
 
 //Delete particular Solution
@@ -228,12 +228,9 @@ module.exports = function(app) {
 // This is fetch the data those are hardcoded in our DB
     app.get('/api/getMspComponentlist',mspjs.getMspComponentlist);
 
-
     app.post('/api/getComponentPrice',mspjs.getComponentPrice);
 
-
     app.post('/api/v1/getComponentPrice',mspjs.v1_getComponentPrice);
-
 
     app.get('/api/getMspOfferings', mspjs.getMspOfferings);
 
