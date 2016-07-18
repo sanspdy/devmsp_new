@@ -2017,21 +2017,25 @@ exports.v2_placeOrder=function(reqst, resp) {
                                 resp.write(JSON.stringify(failure_response));
                                 resp.end();
                             } else {
-
                                 resultjson = result.docs[0];
-
-                                delete resultjson._id;
-                                delete resultjson._rev;
                                 resultjson.order_status = "submitted";
                                 resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
                                 resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
+
+                                dbSoln.insert(resultjson, '', function (err, res) {
+
+
+
+
+                                delete resultjson._id;
+                                delete resultjson._rev;
 
                                 dbfinaljson.insert(resultjson, '', function (err1, res1) {
                                     if (err1) {
                                         console.log(err1);
 
                                         console.log("Error while updating status into DB. Please try again");
-                                        failure_response.description = "Error while updating status into DB. Please try again"+err1;
+                                        failure_response.description = "Error while updating status into DB. Please try again" + err1;
                                         resp.write(JSON.stringify(failure_response));
                                         resp.end();
                                     }
@@ -2042,7 +2046,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         var bluemix_properties = resultjson.service_details.bluemix;
 
                                         //calling function which sends request to provision bluemix services and runtimes
-                                        if(bmusername !== null && bmusername!== undefined && bmusername!== '' && bmpassword !== null && bmpassword!== undefined && bmpassword!== '' ){
+                                        if (bmusername !== null && bmusername !== undefined && bmusername !== '' && bmpassword !== null && bmpassword !== undefined && bmpassword !== '') {
                                             //bluemixprovisioning();
 
                                         }
@@ -2084,7 +2088,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             req.write(data);
                                             req.end();
                                         }
-                                        if(contactname !== null && contactname!== undefined && contactmail !== '' && contactmail !== undefined ) {
+
+                                        if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
                                             //mspprovisioning();
                                         }
 
@@ -2097,12 +2102,11 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             msp_len = msp_services.length;
                                             var msp_service_names = [];
 
-                                            var service_properties=[];
+                                            var service_properties = [];
 
-                                            for (i = 0; i < msp_len; i++)
-                                            {
+                                            for (i = 0; i < msp_len; i++) {
                                                 msp_service_names[i] = msp_services[i].catalog_name;
-                                                service_properties[i]=msp_services[i].Pattern;
+                                                service_properties[i] = msp_services[i].Pattern;
                                                 console.log("Properties______________________________");
                                                 console.log(JSON.stringify(service_properties[i]));
                                             }
@@ -2128,27 +2132,26 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 }
                                             };
 
-                                            var offering={};
-                                            offering[soln]={ "orderedItemFormData" : {}};
-                                            console.log('offering === '+JSON.stringify(offering[soln]));
+                                            var offering = {};
+                                            offering[soln] = {"orderedItemFormData": {}};
+                                            console.log('offering === ' + JSON.stringify(offering[soln]));
 
-                                            for (i = 0; i < msp_len; i++)
-                                            {
-                                                var group="Group"+(i+1);
-                                                offering[soln]['orderedItemFormData'][group]=service_properties[i];
+                                            for (i = 0; i < msp_len; i++) {
+                                                var group = "Group" + (i + 1);
+                                                offering[soln]['orderedItemFormData'][group] = service_properties[i];
                                             }
 
                                             //orderjson.Ordered_ItemDetails=offering;
 
-                                            final_json_formatted=orderjson;
+                                            final_json_formatted = orderjson;
 
 
                                             console.log("Final JSON:");
                                             console.log(final_json_formatted);
                                             //console.log(JSON.stringify(final_json_formatted));
 
-                                            dbfinaljson.insert(final_json_formatted,'',function(errors, result2) {
-                                                if(!errors){
+                                            dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
+                                                if (!errors) {
                                                     console.log("Data inserted in Final JSON DB");
                                                     // var resjson = {
                                                     //     "status" : "success"
@@ -2156,27 +2159,27 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     // resp.write(JSON.stringify(success_response));
                                                     // resp.end();
                                                 }
-                                                else{
+                                                else {
                                                     failure_response.description = "Data insertion in Final JSON DB failed";
                                                     resp.write(JSON.stringify(failure_response));
                                                     resp.end();
                                                 }
                                             });
                                             // insert msp provisioning code here...
-                                            var mpaasusername="mpaasuser";
-                                            var mpaaspassword="Test@123";
-                                            var auth="Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
-                                            var https=require('https');
+                                            var mpaasusername = "mpaasuser";
+                                            var mpaaspassword = "Test@123";
+                                            var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
+                                            var https = require('https');
 
                                             var options = {
-                                                host:'5.10.122.189',
-                                                path : '/fulfillment_engine/mpaas/order/create',
-                                                port:8443,
-                                                method : 'POST',
-                                                headers : {
-                                                    'Content-Type' : 'application/json',
-                                                    'Content-Length' : JSON.stringify(orderjson).length,
-                                                    "Authorization" : auth
+                                                host: '5.10.122.189',
+                                                path: '/fulfillment_engine/mpaas/order/create',
+                                                port: 8443,
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'Content-Length': JSON.stringify(orderjson).length,
+                                                    "Authorization": auth
                                                 },
                                                 rejectUnauthorized: true,
                                                 requestCert: true,
@@ -2184,18 +2187,18 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 //secureProtocol:
                                             };
 
-                                            var req = https.request(options, function(err,res) {
+                                            var req = https.request(options, function (err, res) {
                                                 // res.setEncoding('utf8');
-                                                if(!err) {
+                                                if (!err) {
                                                     console.log("Request sent to MSP===============>Response here...");
                                                     console.log(res);
                                                 }
-                                                else{
+                                                else {
                                                     console.log(err);
                                                 }
 
                                             });
-                                            req.on('error',function(err,result) {
+                                            req.on('error', function (err, result) {
                                                 console.log(err);
                                                 console.log("Error while fetching data from IMI Server. Please try later");
                                                 failure_response.description = "Error while fetching data from IMI Server. Please try later"
@@ -2213,7 +2216,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         resp.end();
                                     }
                                 });
-
+                            }
                             }
                         } else {
                             var errMessage = "Error occurred while accessing components : \n" + JSON.stringify(err);
