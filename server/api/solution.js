@@ -2085,7 +2085,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         }
 
                                         if(bmusername !== null && bmusername!== undefined && bmusername!== '') {
-                                           mspprovisioning();
+                                           //mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
