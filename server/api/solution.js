@@ -2041,8 +2041,6 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         var msp_properties = resultjson.service_details.msp;
                                         var bluemix_properties = resultjson.service_details.bluemix;
 
-
-
                                         //calling function which sends request to provision bluemix services and runtimes
                                         if(bmusername !== null && bmusername!== undefined && bmusername!== '' && bmpassword !== null && bmpassword!== undefined && bmpassword!== '' ){
                                             //bluemixprovisioning();
