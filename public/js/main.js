@@ -899,45 +899,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
                 }
             });
-                /*$http({
-                method: 'PUT',
-                url: '/api/v2/updateBMServiceInfo',
-                data: $.param({
-                    uname: $scope.username,
-                    solnName: $scope.solnName,
-                    service_details: 'bluemix',
-                    service_name: $scope.popupDataService.title,
-                    component_cnt: $scope.compServiceAdded,
-                    solnjson: $scope.popupDataService,
-                    "serviceplan_guid":guid,
-                    version:1
 
-                }),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                //forms user object
-            })
-                .success(function (data, status, header, config) {
-
-                    if (data.errors) {
-                        // Showing errors.
-                        $scope.errorName = data.errors.name;
-                    } else {
-                        console.log("inside success function");
-                        $scope.PostDataResponse = data;
-                        console.log(JSON.stringify($scope.PostDataResponse));
-
-
-                    }
-
-                })
-                .error(function (data, status, header, config) {
-                    console.log("header data" + header);
-                    console.log("status data" + status);
-                    console.log("config data" + JSON.stringify(config));
-                        $scope.loading=false;
-
-                });*/
-            //$uibModalInstance.dismiss('cancel');
 
         }
 
@@ -952,7 +914,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
 angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName) {
     $scope.openConfirmBluemixPlan = true;
-
+    $scope.savebluemixPlan = false;
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
@@ -966,6 +928,9 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('$scope.solnName===' +$scope.solnName);
 
     $scope.SavePlan = function(){
+
+        $scope.savebluemixPlan = true;
+        $scope.loading = true;
         $http({
             method: 'PUT',
             url: '/api/v2/updateBMServiceInfo',
@@ -992,6 +957,8 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     console.log("inside success function");
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));
+                    $scope.savebluemixPlan = true;
+                    $scope.loading = true;
                     $uibModalInstance.dismiss('cancel');
 
                 }
