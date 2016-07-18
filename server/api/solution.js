@@ -2216,7 +2216,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         resp.end();
                                     }
                                 });
-                            }
+                            });
+
                             }
                         } else {
                             var errMessage = "Error occurred while accessing components : \n" + JSON.stringify(err);
