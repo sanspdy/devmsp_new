@@ -1686,7 +1686,41 @@ exports.v2_deleteSolution=function(request, response) {
 
 
 exports.updatestatus =  function(request, response) {
-    //var status
-    response.write("success");
-    response.end();
+    ////var status
+    //response.write("success");
+    //response.end();
+    console.log(requestMessage);
+    console.log("*************************************************************************")
+    //var dbSoln = cloudant.use(dbCredentials.dbSolution);
+    var Order_ID = request.body.Order_ID;
+    var Host_Name = request.body.Host_Name;
+    var Time = request.body.Time;
+    var Task = request.body.Task;
+    var Status = request.body.Status;
+
+    var default_parameters={
+        "Order_ID": "unique-order-id",
+        "Host_Name":"hostname_of_vm",
+        "Time":"Time of Task",
+        "Task":"Name of Task",
+        "Status":"status_of_task",
+    };
+
+    if (Order_ID === null || Order_ID === '' || Host_Name === null || Host_Name === '' || Time === null || Time === '' || Task === null || Task === '' || Status === null || Status === ''  ){
+        console.log("There is no correct parameters. Please send in "+JSON.stringify(default_parameters));
+        failure_response.description = "There is no correct parameters. Please send in following format: "+JSON.stringify(default_parameters)
+        response.write(JSON.stringify(failure_response));
+        response.end();
+    } else{
+        if(Task==="ALLTASKS"){
+
+        }
+        else{
+            
+        }
+    }
+
+
+
+
 }
