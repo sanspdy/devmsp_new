@@ -1203,7 +1203,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
 
     $scope.dismissOrderBill = function () {
         $uibModalInstance.dismiss('cancel');
-        $location.path('/deployment');
+        //$location.path('/deployment');
     };
 
 
