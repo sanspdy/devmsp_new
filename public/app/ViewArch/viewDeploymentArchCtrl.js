@@ -2145,7 +2145,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.orgData = data;
             console.log('$scope.orgData===' +$scope.orgData);
-            $scope.orgList = $scope.orgData.entity_list[0];
+            $scope.orgList = $scope.orgData.description.entity_list[0];
             console.log('$scope.orgList===' +JSON.stringify($scope.orgList));
             for(var i=0;i<$scope.orgList.length;i++){
                 console.log('$scope.orgList.length===' +$scope.orgList.length);
@@ -2258,7 +2258,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         });
         //$location.path('/deployment');
     }
-
 });
 
 angular.module('portalControllers').controller('orderSuccessCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
