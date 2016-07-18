@@ -596,8 +596,6 @@ exports.getOrganizations = function(request,response){
         response.end();
     }
     else {
-
-
             var data = JSON.stringify({
                 'grant_type' : 'password'
             });
