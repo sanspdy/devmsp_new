@@ -588,11 +588,13 @@ exports.getOrganizations = function(request,response){
     console.log(username);
     console.log(password);
     if(username === null){
-        response.write("No username provided");
+        failure_response.description="No username provided";
+        response.write(JSON.stringify(failure_response));
         response.end();
     }
     else if(password === null){
-        response.write("No password provided");
+        failure_response.description="No password provided";
+        response.write(JSON.stringify(failure_response));
         response.end();
     }
     else {
@@ -741,11 +743,13 @@ exports.getOrganizations = function(request,response){
                         orgs1 = JSON.parse(orgs1);
                         console.log("print orgs", orgs1);
                         if (orgs1.hasOwnProperty("code") && orgs1.code !== undefined && orgs1.code !== null && orgs1.code === 10002) {
-                            response.write("Wrong credentials");
+                            failure_response.description="Wrong credentials";
+                            response.write(JSON.stringify(failure_response));
                             response.end();
                         }
                         else if (orgs1.hasOwnProperty("code") && orgs1.code !== undefined && orgs1.code !== null && orgs1.code !== 10002) {
-                            response.write("Some issue with bluemix");
+                            failure_response.description="Some issue with bluemix";
+                            response.write(JSON.stringify(failure_response));
                             response.end();
                         }
                         else {
@@ -768,7 +772,8 @@ exports.getOrganizations = function(request,response){
 
                         };
                         console.log("dgvushvsiv;osiv'peopeofepfoepfoepfpefpefoefe", final_json);
-                        response.send(final_json);
+                            success_response.description=final_json;
+                        response.send(success_response);
                         response.end();
                     }
                     });

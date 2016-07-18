@@ -1965,7 +1965,7 @@ exports.v2_placeOrder=function(reqst, resp) {
     var contactmail=reqst.body.contactmail;
 
     var space_guid = reqst.body.space_guid;
-    var service_name = reqst.body.service_name;
+    //var service_name = reqst.body.service_name;
     var service_plan_guid = reqst.body.service_plan_guid;
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;
@@ -2055,7 +2055,6 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 "uname": uname,
                                                 "version": version,
                                                 "space_guid": space_guid,
-                                                "service_name": service_name,
                                                 "service_plan_guid": service_plan_guid,
                                                 "bmusername": bmusername,
                                                 "bmpassword": bmpassword
@@ -2085,9 +2084,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             req.write(data);
                                             req.end();
                                         }
-
                                         if(contactname !== null && contactname!== undefined && contactmail !== '' && contactmail !== undefined ) {
-                                            mspprovisioning();
+                                            //mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
