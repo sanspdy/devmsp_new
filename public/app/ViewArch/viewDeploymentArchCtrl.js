@@ -2,6 +2,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     console.log('inside viewDeploymentArchCtrl');
     $scope.state = false;
     $rootScope.showhideprop=false;
+    $rootScope.showBtnOrder = true;
+    $rootScope.showEditBtn = true;
 
     //pj----->
     $scope.spinsCatalogueList=false;
@@ -2311,6 +2313,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         console.log("cancel------>")
     };
     $scope.confirms = function (textModel) {
+        $rootScope.showBtnOrder = false;
+        $rootScope.showEditBtn = false;
         $scope.distext  = angular.copy(textModel);
         $scope.ver=sharedProperties.getVersion();
         $scope.loguser=sharedProperties.getProperty();

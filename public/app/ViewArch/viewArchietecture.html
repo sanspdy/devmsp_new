@@ -54,7 +54,7 @@
             <a href="javascript:genPdfViewArch()"> Download PDF </a>
         </div>
         <div class="espace">
-            <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" value="Edit"/>
+            <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" ng-show="showEditBtn" value="Edit"/>
            <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
             <!-- <<input class="btn btn-primary" type="button" ng-click="esave()" value="Save"/>-->
          </div>
@@ -232,7 +232,7 @@
                 </form>-->
                 </div>
         </div>
-    <button id="placeBtn" type="button" ng-click="placeServiceOrder()">ORDER</button>
+    <button id="placeBtn" type="button" ng-click="placeServiceOrder()" ng-show="showBtnOrder">ORDER</button>
 </div>
 
 <script type="text/javascript">
