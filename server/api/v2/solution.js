@@ -1691,7 +1691,7 @@ exports.updatestatus =  function(request, response) {
     //response.end();
     console.log(requestMessage);
     console.log("*************************************************************************")
-    //var dbSoln = cloudant.use(dbCredentials.dbSolution);
+    var dbSoln = cloudant.use(dbCredentials.dbSolution);
     var Order_ID = request.body.Order_ID;
     var Host_Name = request.body.Host_Name;
     var Time = request.body.Time;
@@ -1706,21 +1706,104 @@ exports.updatestatus =  function(request, response) {
         "Status":"status_of_task",
     };
 
-    if (Order_ID === null || Order_ID === '' || Host_Name === null || Host_Name === '' || Time === null || Time === '' || Task === null || Task === '' || Status === null || Status === ''  ){
+    if (Order_ID === null || Order_ID === undefined || Task === null || Task === undefined || Status === null || Status === undefined  ){
         console.log("There is no correct parameters. Please send in "+JSON.stringify(default_parameters));
         failure_response.description = "There is no correct parameters. Please send in following format: "+JSON.stringify(default_parameters)
         response.write(JSON.stringify(failure_response));
         response.end();
     } else{
-        if(Task==="ALLTASKS"){
+        dbSoln.find({selector: {_id: Order_ID}}, function (err, result) {
+            if(err){
+                console.log("Unable to find the order. Please check order ID");
+                failure_response.description = "Unable to find the order. Please check order ID"
+                response.write(JSON.stringify(failure_response));
+                response.end();
+            }
+            else {
 
-        }
-        else{
-            
-        }
+                if(result.docs === undefined || result.docs === null || result.docs[0] === undefined || result.docs[0] === null )
+                {
+                    console.log("Unable to find the order. Please check order ID");
+                    failure_response.description = "Unable to find the order. Please check order ID"
+                    response.write(JSON.stringify(failure_response));
+                    response.end();
+                }else {
+
+                    resultjson = result.docs[0];
+
+
+                    if (Task === "ALLTASKS") {
+                        console.log("Updating MSP all tasks status");
+                        if (resultjson !== undefined && resultjson !== null && resultjson.hasOwnProperty("provisioning_status") && resultjson.provisioning_status[0] !== undefined && resultjson.provisioning_status[0] !== null) {
+
+                            resultjson.provisioning_status[0].msp_status = Status;
+
+                            dbSoln.insert(resultjson, function (err2, result2) {
+                                if(err2){
+                                    console.log("Unable update the order. Please try again");
+                                    failure_response.description = "Unable update the order. Please try again"
+                                    response.write(JSON.stringify(failure_response));
+                                    response.end();
+                                }
+                                else{
+                                    console.log("All tasks updation Done !!!");
+                                    response.write(JSON.stringify(success_response));
+                                    response.end();
+                                }
+                            });
+                        }
+                        else {
+                            console.log("Unable to update status in the solution");
+                            failure_response.description = "Unable to update the status. Please try again."
+                            response.write(JSON.stringify(failure_response));
+                            response.end();
+                        }
+                    }
+                    else if (Host_Name !== null && Host_Name !== undefined && Time !== null && Time !== undefined) {
+                        if (resultjson !== undefined && resultjson !== null && resultjson.hasOwnProperty("provisioning_status") && resultjson.provisioning_status[0] !== undefined && resultjson.provisioning_status[0] !== null) {
+                            if (!resultjson.provisioning_status[0].hasOwnProperty("msp_task_status")) {
+                                resultjson.provisioning_status[0]["msp_task_status"] = [];
+                            }
+                            console.log("Updating MSP "+Task+"task status");
+                            var length=resultjson.provisioning_status[0].msp_task_status.length;
+                            console.log("length"+length);
+                            resultjson.provisioning_status[0].msp_task_status[length] = {
+                                "Host_Name": Host_Name,
+                                "Time": Time,
+                                "Task": Task,
+                                "Status": Status
+                            };
+                            dbSoln.insert(resultjson, function (err2, result2) {
+                                if (err2) {
+                                    console.log("Unable update the order. Please try again");
+                                    failure_response.description = "Unable update the order. Please try again"
+                                    response.write(JSON.stringify(failure_response));
+                                    response.end();
+                                }
+                                else {
+                                    console.log("Updation Done !!!");
+                                    response.write(JSON.stringify(success_response));
+                                    response.end();
+                                }
+
+                            });
+
+                        }
+                        else {
+                            console.log("Unable to update status in the solution. Please provide correct parameters.");
+                            failure_response.description = "Unable to update status in the solution. Please provide correct parameters."
+                            response.write(JSON.stringify(failure_response));
+                            response.end();
+                        }
+                    }
+                    else {
+                        console.log("Please send updates with correct parameters.");
+                        failure_response.description = "Please send updates with correct parameters."
+                        response.write(JSON.stringify(failure_response));
+                        response.end();
+                    }
+                }
+            }
+        });
     }
-
-
-
-
 }
