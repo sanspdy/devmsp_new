@@ -269,7 +269,7 @@ module.exports = function(app) {
 //API to place order
     app.post('/api/v2/placeOrder',solution.v2_placeOrder);
 
-    app.post('/api/acceptdummy',solution.acceptdummy);
+    //app.post('/api/acceptdummy',solution.acceptdummy);
 
 //API to fetch canvas connection details.
     app.post('/api/getCanvasInfo',solution.getCanvasInfo);

@@ -1942,13 +1942,13 @@ exports.v1_placeOrder=function(reqst, resp) {
     }
 }
 
-exports.acceptdummy=function (request,response) {
-    console.log("*** Request Received ***");
-    var requestparameter=request.body;
-    console.log(requestparameter);
-    response.send(requestparameter);
-    response.end();
-}
+//exports.acceptdummy=function (request,response) {
+//    console.log("*** Request Received ***");
+//    var requestparameter=request.body;
+//    console.log(requestparameter);
+//    response.send(requestparameter);
+//    response.end();
+//}
 
 exports.v2_placeOrder=function(reqst, resp) {
 
@@ -1960,6 +1960,17 @@ exports.v2_placeOrder=function(reqst, resp) {
     var orderjson;
     var randomno = "";
     var orderstatus=false;
+
+    //These data we require for bluemix provisioning
+
+    //var solnName = request.body.soln_name;
+    //var uname = request.body.uname;
+    //var version = parseInt(request.body.version);
+    //var space_guid = request.body.space_guid;
+    //var service_plan_guid = request.body.service_plan_guid;
+    //var bmusername = request.body.bmusername;
+    //var bmpassword = request.body.bmpassword;
+
 
     var contactname=reqst.body.contactname;
     var contactmail=reqst.body.contactmail;
@@ -2024,9 +2035,6 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                 dbSoln.insert(resultjson, '', function (err, res) {
 
-
-
-
                                 delete resultjson._id;
                                 delete resultjson._rev;
 
@@ -2047,7 +2055,7 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                         //calling function which sends request to provision bluemix services and runtimes
                                         if (bmusername !== null && bmusername !== undefined && bmusername !== '' && bmpassword !== null && bmpassword !== undefined && bmpassword !== '') {
-                                            //bluemixprovisioning();
+                                            bluemixprovisioning();
 
                                         }
 
@@ -2065,7 +2073,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             };
 
                                             var options = {
-                                                host: 'cbicportal.mybluemix.net',
+                                                host: 'devmsp.mybluemix.net',
                                                 path: '/api/acceptdummy',
                                                 method: 'POST',
                                                 headers: {
