@@ -973,6 +973,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                             console.log("$scope.itemData.component_count====" +$scope.Title[$scope.selectedImageIndex]);
                             var user=$scope.userEntered;
                             var serviceName=$scope.catalog_name[$scope.selectedImageIndex];
+
+                            //july19 added
+                            $scope.newVer= sharedProperties.getNewersion();
+                            console.log("current version ----->"+$scope.newVer)
+
                             $scope.spinsCatalogueList=false;
                             $scope.spinsCanvas=true;
                             $scope.spinsRuntimeList=false;
@@ -983,8 +988,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                             $http({
                                 method  : 'PUT',
-                                url     : '/api/AddComponentToCanvas',
-                                data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount}),
+                                url     : '/api/v2/AddComponentToCanvas',
+                                data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': objectCount,'version': $scope.newVer}),
                                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 //forms user object
                             })
