@@ -408,6 +408,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             var mspCount=$scope.openpopupMSPCount;
             $scope.mspCount=mspCount-1;
             console.log('componentCount MSP === '+$scope.mspCount);
+            $scope.newVer= sharedProperties.getNewersion();
+            console.log("current version ----->"+$scope.newVer)
             $scope.spinsCatalogueList=false;
             $scope.spinsCanvas=false;
             $scope.spinsCanvasCatalogue = true;
@@ -416,13 +418,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log('solnEntered===' +JSON.stringify($scope.solnEntered));
             $http({
                 method: 'PUT',
-                url: '/api/getServiceInfo',
+                url: '/api/v2/getServiceInfo',
                 data: $.param({
                     'uname': user,
                     'solnName': $scope.solnEntered,
                     'service_details': 'msp',
                     'service_name': serviceName1,
-                    'component_cnt': $scope.actualMSPComponentIndex
+                    'component_cnt': $scope.actualMSPComponentIndex,
+                    'version': $scope.newVer
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -484,19 +487,22 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     console.log('$scope.actualruntimeComponentIndex === '+$scope.actualruntimeComponentIndex);
                 }
             }
+            $scope.newVer= sharedProperties.getNewersion();
+            console.log("current version ----->"+$scope.newVer)
             $scope.spinsCatalogueList=false;
             $scope.spinsCanvas=false;
             $scope.spinsCanvasCatalogue = true;
             $scope.loading=true;
             $http({
                 method: 'PUT',
-                url: '/api/getBluemixRuntimeInfo',
+                url: '/api/v2/getBluemixServiceInfo',
                 data: $.param({
                     'uname': user,
                     'solnName': $scope.solnEntered,
                     'service_details': 'runtime',
                     'service_name': runtimeServiceName,
-                    'component_cnt': $scope.actualruntimeComponentIndex
+                    'component_cnt': $scope.actualruntimeComponentIndex,
+                    'version': $scope.newVer
                 }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
@@ -1075,15 +1081,18 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 var serviceName=$scope.bluemixRuntimeSelectedImage;
                                 console.log("runtime serviceName====" +serviceName);
                                 console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
+                                $scope.newVer= sharedProperties.getNewersion();
+                                console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
                                 $scope.spinsServicesList = false;
                                 $scope.spinsCanvas=true;
                                 $scope.loading=true;
+
                                 $http({
                                     method  : 'PUT',
-                                    url     : '/api/v1/AddBMRuntimeToCanvas',
-                                    data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount}),
+                                    url     : '/api/v2/AddBMRuntimeToCanvas',
+                                    data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':$scope.newVer}),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 })
 
@@ -1536,15 +1545,18 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     var mspCount = $scope.openpopupMSPCount;
                                     $scope.mspCount = mspCount - 1;
                                     console.log('componentCount MSP === ' + $scope.mspCount);
+                                    $scope.newVer= sharedProperties.getNewersion();
+                                    console.log("current version ----->"+$scope.newVer)
                                     $http({
                                         method: 'PUT',
-                                        url: '/api/removeComponentFromSolutiondb ',
+                                        url: '/api/v2/removeComponentFromSolutiondb',
                                         data: $.param({
                                             'uname': user1,
                                             'solnName': $scope.solnEntered,
                                             'service_details': 'msp',
                                             'service_name': serviceName1,
-                                            'component_cnt': $scope.actualMSPComponentIndex
+                                            'component_cnt': $scope.actualMSPComponentIndex,
+                                            'version':$scope.newVer
                                         }),
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                         //forms user object
@@ -1582,6 +1594,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     var runtimeCount = $scope.openpopupRuntimeCount;
                                     $scope.componentCount = runtimeCount - 1;
                                     console.log('componentCount runtime === ' + $scope.componentCount);
+                                    $scope.newVer= sharedProperties.getNewersion();
+                                    console.log("current version ----->"+$scope.newVer)
 
                                     for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
                                         if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {
@@ -1591,13 +1605,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     }
                                     $http({
                                         method: 'PUT',
-                                        url: '/api/removeComponentFromSolutiondb ',
+                                        url: '/api/v2/removeComponentFromSolutiondb',
                                         data: $.param({
                                             'uname': user,
                                             'solnName': $scope.solnEntered,
                                             'service_details': 'runtime',
                                             'service_name': runtimeServiceName,
-                                            'component_cnt': $scope.actualruntimeComponentIndex
+                                            'component_cnt': $scope.actualruntimeComponentIndex,
+                                            'version':$scope.newVer
                                         }),
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                         //forms user object
@@ -1633,6 +1648,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     var bluemixCount = $scope.openpopupBluemixCount;
                                     $scope.componentServiceCount = bluemixCount - 1;
                                     console.log('componentCount Service === ' + $scope.componentServiceCount);
+                                    $scope.newVer= sharedProperties.getNewersion();
+                                    console.log("current version ----->"+$scope.newVer)
 
                                     for (var serviceIndex = 0; serviceIndex < $scope.choicesServices.length; serviceIndex++) {
                                         if ($scope.choices[index].selectedImageTitle === $scope.choicesServices[serviceIndex].selectedImageTitle) {
@@ -1644,13 +1661,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                                     $http({
                                         method: 'PUT',
-                                        url: '/api/removeComponentFromSolutiondb ',
+                                        url: '/api/v2/removeComponentFromSolutiondb ',
                                         data: $.param({
                                             'uname': user,
                                             'solnName': $scope.solnEntered,
                                             'service_details': 'bluemix',
                                             'service_name': bluemixServiceName,
-                                            'component_cnt': $scope.actualServiceComponentIndex
+                                            'component_cnt': $scope.actualServiceComponentIndex,
+                                            'version': $scope.newVer
                                         }),
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                         //forms user object
