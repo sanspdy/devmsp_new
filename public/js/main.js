@@ -1219,7 +1219,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.spinsViewBoM = true;
     $scope.loading = true;
     var newver = sharedProperties.getNewersion();
-    console.log("new version==========="+$scope.newver);
+    console.log("new version==========="+newver);
     $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
