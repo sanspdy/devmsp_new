@@ -188,7 +188,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
     $http({
         method: 'POST',
-        url: '/api/deleteSolution',
+        url: 'api/v2/deleteAllSolution',
         data: $.param({'user': uid, 'soln_name': $scope.deletedSolnName}),
         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         //forms user object
@@ -767,6 +767,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
             })
 
         $scope.hybridversionObjectsArray.splice(version, 1);
+
         // $location.path('/deployment');
         // $uibModalInstance.close();
     }
