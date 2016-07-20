@@ -1297,7 +1297,9 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.spinsCatalogueList = false;
     $scope.spinsViewBoM = true;
     $scope.loading = true;
-    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+1).success(function(data){
+    var newver = sharedProperties.getNewersion();
+    console.log("version=============="+newver);
+    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
         sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
