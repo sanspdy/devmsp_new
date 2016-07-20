@@ -1168,6 +1168,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 console.log("serviceName============" +serviceName);
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                                 $scope.newVer= sharedProperties.getNewersion();
+                                var compcnt=sharedProperties.getComponentCount();
+                                console.log("Component count ============"+compcnt);
                                 console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
@@ -1181,7 +1183,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                                         'solnName': $scope.solnServiceEntered,
                                                          'service_details': 'bluemix',
                                                           'service_name': serviceName,
-                                                           'component_cnt': bluemixServiceCompCount,
+                                                           'component_cnt': compcnt,
                                                             'version': $scope.newVer }),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }).success(function(data) {
@@ -2139,6 +2141,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         };
         this.getNewersion=function () {
             return newversion;
+        }
+        this.setComponentCount = function(comp_cnt){
+            console.log("comp_cnt ===="+comp_cnt);
+            component_cnt=comp_cnt;
+        }
+        this.getComponentCount = function(){
+            return component_cnt;
         }
     });
 angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
