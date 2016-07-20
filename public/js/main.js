@@ -449,7 +449,61 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 })
             }
 
-        })
+        });
+
+        $scope.changeServerSize = function(index,size,key){
+            console.log('inside changeServerSize');
+            console.log('key===>' +key);
+            console.log('index===>' +index);
+            console.log('size===>' +size);
+            console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
+            var updatedSizeProperties = [
+                {
+                    type:'Small',
+                    cpu :2,
+                    memory:8,
+                    disksize:40
+                },
+                {
+                    type:'Medium',
+                    cpu :4,
+                    memory:16,
+                    disksize:80
+
+                },
+                {
+                    type:'Large',
+                    cpu :8,
+                    memory:32,
+                    disksize:160
+
+                }
+            ]
+            $scope.a = $scope.patternObjectIIB_Server[index];
+            for(var i=0;i<updatedSizeProperties.length;i++){
+                //var serverType = type[i]
+                // ;
+                var namCPU = key+'_vCPU';
+                var namMemory = key+'_Memory';
+                var namDisksize = key+'_DiskSize';
+                console.log('namCPU==' +namCPU);
+                if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
+                    console.log('inside if');
+                    $scope.a['size']= size;
+                    $scope.a[namCPU] = updatedSizeProperties[i].cpu;
+                    $scope.a[namMemory] = updatedSizeProperties[i].memory;
+                    $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
+                    break;
+                }
+            }
+            $scope.patternObjectIIB_Server[index] = $scope.a;
+            console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
+            //console.log('a===' +JSON.stringify(a));
+
+
+        };
+
+
         $scope.changedValueSave = function () {
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/

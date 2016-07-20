@@ -18,14 +18,36 @@
             </div>
             <hr>
         </div>
-        <div class="row" ng-repeat="(key, value) in patternObjectIIB_Server" ng-show="showMSPAttributes">
+       <!-- <div class="row" ng-repeat="(key, value) in patternObjectIIB_Server" ng-show="showMSPAttributes">
             <div class="col-xs-7">
                 <p class="keyStyle"> {{key}} </p>
             </div>
             <div class="col-xs-5">
                 <input class="spss_input" type="text" ng-model="patternObjectIIB_Server[key]" ng-blur="changedValueSave()">
             </div>
+        </div>-->
+        <div ng-repeat="(key,value) in patternObject">
+            <p class="keyStyleHead"> {{key}}</p>
+            <div class="col-xs-12">
+                <p class="col-xs-6">  {{key}}Quantity</p>
+                <input class="spss_input" type="text" ng-model="value[key+'_Quantity']" ng-blur="changedValueSave()">
+                <!--<p  class="col-xs-6" style="color: red;">  {{value[key+'_Quantity']}}</p>-->
+
+            </div>
+            <div class="col-xs-12">
+                <p class="col-xs-6">  {{key}}Size</p>
+                <select  class="col-xs-6 serverSize" ng-model="selectedSize[$index]" ng-init="selectedSize[$index] = serverSize[0] " ng-change="changeServerSize($index,selectedSize[$index].size,key)" ng-options="country.size for country in serverSize track by country.id">
+                </select>
+            </div>
+            <div class="col-xs-12">
+                <p class="col-xs-6">  {{key}}Flavor</p>
+                <!-- <p  class="col-xs-6" style="color: red;">  {{value[key+'_O/S']}}</p>-->
+                <select  class="col-xs-6 serverSize" ng-model="selectedFlavor[$index]" ng-init="selectedFlavor[$index] = Flavor[0]" ng-options="flav.flavorName for flav in Flavor track by flav.id">
+                </select>
+            </div>
         </div>
+
+
         <div class="row" ng-show="showMSPAttributes">
             <div class="col-xs-7">
                 <p class="keyStyle"> Total License Cost </p>
