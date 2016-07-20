@@ -1083,6 +1083,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 var serviceName=$scope.bluemixRuntimeSelectedImage;
                                 console.log("runtime serviceName====" +serviceName);
                                 console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
+                                var count_runtime = sharedProperties.getRuntimeCount() + 1;
+                                console.log("Runtime count is ==="+count_runtime);
+                                sharedProperties.setRuntimeCount(count_runtime);
                                 $scope.newVer= sharedProperties.getNewersion();
                                 console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
@@ -1094,7 +1097,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 $http({
                                     method  : 'PUT',
                                     url     : '/api/v2/AddBMRuntimeToCanvas',
-                                    data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': bluemixRuntimeCompCount,'version':$scope.newVer}),
+                                    data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': count_runtime,'version':$scope.newVer}),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 })
 
@@ -2170,6 +2173,17 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 return $rootScope.mspcount;
             }
             return $rootScope.mspcount;
+        }
+        this.setRuntimeCount = function(count){
+            console.log("Comp Runtime count ====" + count);
+            $rootScope.runtimecount = count;
+        }
+        this.getRuntimeCount = function(){
+            if($rootScope.runtimecount === null || $rootScope.runtimecount === undefined){
+                $rootScope.runtimecount = -1;
+                return $rootScope.runtimecount;
+            }
+            return $rootScope.runtimecount;
         }
     });
 angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {

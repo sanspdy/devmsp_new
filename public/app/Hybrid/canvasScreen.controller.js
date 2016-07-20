@@ -846,6 +846,7 @@ angular.module('portalControllers')
                         console.log('servicelabel===' +serviceLabel);
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
+                        sharedProperties.setRuntimeCount(bluemixRuntimeCompCount);
                         $scope.spinsCatalogueList=false;
                         $scope.spinsRuntimeList = false;
                         $scope.spinsServicesList = false;
