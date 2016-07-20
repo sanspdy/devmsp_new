@@ -2061,7 +2061,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     };
 })
 
-    .service('sharedProperties', function () {
+    .service('sharedProperties', function ($rootScope) {
         var user='';
         var soln='';
         var MSPChoiceIndex;
@@ -2149,14 +2149,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         }
         this.setComponentCount = function(comp_cnt){
             console.log("comp_cnt ===="+comp_cnt);
-            component_cnt=comp_cnt;
+            $rootScope.component_cnt=comp_cnt;
         }
         this.getComponentCount = function(){
-            if(component_cnt === null || component_cnt === undefined){
-               var component_cnt=-1;
-                return component_cnt;
+            if($rootScope.component_cnt === null || $rootScope.component_cnt === undefined){
+                $rootScope.component_cnt=-1;
+                return $rootScope.component_cnt;
             }
-            return component_cnt;
+            return $rootScope.component_cnt;
         }
     });
 angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
