@@ -2215,10 +2215,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
     $scope.spinsViewBoM = true;
     $scope.loading = true;
     var newver = sharedProperties.getNewersion();
-    if(newver === null || newver === undefined){
-        newver = 1;
-        console.log("new version==========="+newver);
-    }
+
     console.log("new version==========="+newver);
     $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
         $scope.ResponseDataViewBillObject = data;
