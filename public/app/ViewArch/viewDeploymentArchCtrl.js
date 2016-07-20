@@ -2156,7 +2156,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         }
         this.getComponentCount = function(){
             if(component_cnt === null || component_cnt === undefined){
-                component_cnt=-1;
+               var component_cnt=-1;
                 return component_cnt;
             }
             return component_cnt;
