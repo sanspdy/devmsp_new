@@ -1168,7 +1168,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 console.log("serviceName============" +serviceName);
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                                 $scope.newVer= sharedProperties.getNewersion();
-                                var compcnt=sharedProperties.getComponentCount();
+                                var compcnt=sharedProperties.getComponentCount() + 1;
+                                sharedProperties.setComponentCount(compcnt);
                                 console.log("Component count ============"+compcnt);
                                 console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
