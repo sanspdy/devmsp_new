@@ -135,7 +135,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/orderBill.html',
             size: 'lg',
-            controller: 'orderBillCtrl',
+            controller: 'orderBillCtrl2',
             windowClass: 'app-modal-window-o',
             backdrop: 'static',
             resolve: {
@@ -1169,12 +1169,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                                 $scope.newVer= sharedProperties.getNewersion();
                                 var compcnt=sharedProperties.getComponentCount() + 1;
-                                if(compcnt === null || compcnt === undefined){
-                                    compcnt = 0;
-                                    console.log("compcnt ====",compcnt);
-                                }
+                                console.log("Component count before ========="+compcnt);
                                 sharedProperties.setComponentCount(compcnt);
-                                console.log("Component count ============"+compcnt);
+                                console.log("Component count after =========="+compcnt);
                                 console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
@@ -2145,10 +2142,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
         };
         this.getNewersion=function () {
-            if(newversion === null || newversion === undefined){
-                var newversion = 1;
-                return newversion;
-            }
 
                 return newversion;
 
@@ -2166,7 +2159,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             return component_cnt;
         }
     });
-/*angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
@@ -2277,8 +2270,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                             Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
                                 $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
                                 console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
-                                /!*$scope.viewBillOfOrder.quantity=$scope.MSPVBPatternObject_Server;
-                                 console.log('$scope.viewBillOfOrder====' +JSON.stringify($scope.viewBillOfOrder));*!/
+                                /*$scope.viewBillOfOrder.quantity=$scope.MSPVBPatternObject_Server;
+                                 console.log('$scope.viewBillOfOrder====' +JSON.stringify($scope.viewBillOfOrder));*/
                                 Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
                                     var isQuantityKey = key1;
                                     console.log('isQuantityKey === '+isQuantityKey);
@@ -2398,9 +2391,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                                 if($scope.propertiesObjectFirstKey === 'entity') {
                                                     $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
                                                     console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
-                                                    /!* $scope.planData = $scope.entity_data.name;
+                                                    /* $scope.planData = $scope.entity_data.name;
                                                      console.log('$scope.planData===' + $scope.planData);
-                                                     $scope.descriptionData = $scope.entity_data.description;*!/
+                                                     $scope.descriptionData = $scope.entity_data.description;*/
                                                     //console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
                                                     $scope.extraData = $scope.entity_data.extra;
                                                     console.log('$scope.extraData===' + JSON.stringify($scope.extraData));
@@ -2424,8 +2417,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                                 if($scope.propertiesObjectFirstKey === 'extra'){
                                                     $scope.extraData = $scope.propertiesObjectFirstKeyValue;
                                                     console.log(' $scope.extraData===' + JSON.stringify($scope.extraData));
-                                                    /!*$scope.bulletData = $scope.extraData.bullets[0];
-                                                     console.log(' $scope.bulletData===' + JSON.stringify($scope.bulletData));*!/
+                                                    /*$scope.bulletData = $scope.extraData.bullets[0];
+                                                     console.log(' $scope.bulletData===' + JSON.stringify($scope.bulletData));*/
                                                     $scope.costData = $scope.extraData.costs;
                                                     console.log('$scope.costdata===' + JSON.stringify($scope.costData));
                                                     //$scope.currencyData = $scope.costData[0].currencies;
@@ -2514,7 +2507,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         })
         $scope.placeOrderSpins = false;
     }
-});*/
+});
 angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;
