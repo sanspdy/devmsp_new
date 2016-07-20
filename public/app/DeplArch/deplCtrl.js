@@ -219,8 +219,8 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
         $http({
             method: 'POST',
-            url: ' /api/v2/deleteAllSolution',
-            data: $.param({'user': uid, 'soln_name': $scope.deletedSolnNameHybrid}),
+            url: '/api/v2/deleteAllSolution',
+            data: $.param({'uname': uid, 'solnName': $scope.deletedSolnNameHybrid}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             //forms user object
         })
