@@ -1169,7 +1169,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                                 $scope.newVer= sharedProperties.getNewersion();
                                 var compcnt=sharedProperties.getComponentCount() + 1;
-                                if(compcnt === null){
+                                if(compcnt === null || compcnt === undefined){
                                     compcnt = 0;
                                     console.log("compcnt ====",compcnt);
                                 }

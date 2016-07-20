@@ -1298,7 +1298,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.spinsViewBoM = true;
     $scope.loading = true;
     var newver = sharedProperties.getNewersion();
-    if(newver === null){
+    if(newver === null || newver === undefined){
         newver = 1;
         console.log("new version==========="+newver);
     }
