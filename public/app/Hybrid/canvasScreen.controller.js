@@ -932,7 +932,9 @@ angular.module('portalControllers')
                         var user=$scope.serviceUsername;
                         var serviceName=$scope.bluemixServiceSelectedImage;
                         console.log("serviceName============" +serviceName);
+
                         console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
+                        sharedProperties.setComponentCount(bluemixServiceCompCount);
                         $scope.spinsCatalogueList=false;
                         $scope.spinsRuntimeList = false;
                         $scope.spinsServicesList = false;
