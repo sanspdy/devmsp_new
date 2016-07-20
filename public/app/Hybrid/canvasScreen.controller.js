@@ -832,7 +832,6 @@ angular.module('portalControllers')
                             'selectedImage': $scope.bluemixRuntimeimageSrcArray[1],
                             'selectedImageTitle': $scope.bluemixRuntimeSelectedImage,
                             'type': type
-
                         };
 
                         $scope.runtimeUsername=sharedProperties.getProperty();
@@ -932,7 +931,9 @@ angular.module('portalControllers')
                         var user=$scope.serviceUsername;
                         var serviceName=$scope.bluemixServiceSelectedImage;
                         console.log("serviceName============" +serviceName);
+
                         console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
+                        sharedProperties.setComponentCount(bluemixServiceCompCount);
                         $scope.spinsCatalogueList=false;
                         $scope.spinsRuntimeList = false;
                         $scope.spinsServicesList = false;

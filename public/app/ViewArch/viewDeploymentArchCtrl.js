@@ -135,7 +135,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/orderBill.html',
             size: 'lg',
-            controller: 'orderBillCtrl',
+            controller: 'orderBillCtrl2',
             windowClass: 'app-modal-window-o',
             backdrop: 'static',
             resolve: {
@@ -1168,6 +1168,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 console.log("serviceName============" +serviceName);
                                 console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                                 $scope.newVer= sharedProperties.getNewersion();
+                                var compcnt=sharedProperties.getComponentCount() + 1;
+                                console.log("Component count before ========="+compcnt);
+                                sharedProperties.setComponentCount(compcnt);
+                                console.log("Component count after =========="+compcnt);
                                 console.log("current version ----->"+$scope.newVer)
                                 $scope.spinsCatalogueList=false;
                                 $scope.spinsRuntimeList = false;
@@ -1181,7 +1185,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                                         'solnName': $scope.solnServiceEntered,
                                                          'service_details': 'bluemix',
                                                           'service_name': serviceName,
-                                                           'component_cnt': bluemixServiceCompCount,
+                                                           'component_cnt': compcnt,
                                                             'version': $scope.newVer }),
                                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }).success(function(data) {
@@ -2057,7 +2061,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     };
 })
 
-    .service('sharedProperties', function () {
+    .service('sharedProperties', function ($rootScope) {
         var user='';
         var soln='';
         var MSPChoiceIndex;
@@ -2138,9 +2142,372 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
         };
         this.getNewersion=function () {
-            return newversion;
+
+                return newversion;
+
+
+        }
+        this.setComponentCount = function(comp_cnt){
+            console.log("comp_cnt ===="+comp_cnt);
+            $rootScope.component_cnt=comp_cnt;
+        }
+        this.getComponentCount = function(){
+            if($rootScope.component_cnt === null || $rootScope.component_cnt === undefined){
+                $rootScope.component_cnt=-1;
+                return $rootScope.component_cnt;
+            }
+            return $rootScope.component_cnt;
         }
     });
+angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+    $scope.propMSP = false;
+    $scope.propRuntime = false;
+    $scope.propServices = false;
+    $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
+    if(isOrderButton==='viewBOM'){
+        $scope.showOrderBtn = true;
+    }else if(isOrderButton==='deplBOM'){
+        $scope.showOrderBtn = false;
+    }
+
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('exportable').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Report.xls");
+    };
+
+    $scope.displaypropDiv = function(index){
+        console.log('inside display prop');
+        if ($scope.followBtnImgUrl === '../../images/btn_panelexpand.png') {
+            $scope.followBtnImgUrl = '../../images/btn_panelhide.png';
+            $scope.propMSP = true;
+            $scope.propRuntime = true;
+            $scope.propServices = true;
+        } else {
+            $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
+            $scope.propMSP = false;
+            $scope.propRuntime = false;
+            $scope.propServices = false;
+        }
+    };
+    $scope.ngShowModal4 = true;
+    $scope.serialNumber=0;
+    $scope.dismissOrder = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+
+    $scope.dismissOrderBill = function () {
+        $uibModalInstance.dismiss('cancel');
+        //$location.path('/deployment');
+    };
+
+
+    $scope.viewBillOfOrderArray=[];
+    $scope.patternObjectIIB_Server={};
+    $scope.solnEntered=sharedProperties.getSoln();
+    $scope.quantityValueArray=[];
+    var userName = sharedProperties.getProperty();
+    console.log('userName===' +JSON.stringify(userName))
+    $scope.spinsCatalogueList=false;
+    $scope.spinsCanvas=false;
+    $scope.spinsCatalogueList = false;
+    $scope.spinsViewBoM = true;
+    $scope.loading = true;
+    var newver = sharedProperties.getNewersion();
+
+    console.log("new version==========="+newver);
+    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
+        $scope.ResponseDataViewBillObject = data;
+        console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
+        sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
+        Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
+            console.log('ResponseDataViewBillObject key values === '+ key);
+            if(key==='msp'){
+                $scope.mspDataViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
+                console.log('$scope.mspDataViewBillObject === '+JSON.stringify($scope.mspDataViewBillObjectsArray));
+
+                for(var mspArrayIndex=0;mspArrayIndex<$scope.mspDataViewBillObjectsArray.length;mspArrayIndex++) {
+                    $scope.viewBillOfOrder={
+                        'productName':'',
+                        'productDesc':'',
+                        'productProvider':'MSP',
+                        'productQuantity':'',
+                        'productPrice':'',
+                        'productLC':'',
+                        'productDisktype':'',
+                        'servermw':'',
+                        'servermemory':'',
+                        'serveros':'',
+                        'serverdisksize':'',
+                        'servercpu':''
+                    };
+                    $scope.mspViewBillObject=$scope.mspDataViewBillObjectsArray[mspArrayIndex];
+                    $.each($scope.mspViewBillObject, function (key, value) {
+                        console.log('key===' + key);
+                        if (key === 'catalog_name') {
+                            $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
+                        }
+                        if (key === 'title') {
+                            $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
+                            $scope.viewBillOfOrder.productName=$scope.MSPVBAttrTitle;
+                            $scope.viewBillOfOrder.productDesc=$scope.MSPVBAttrTitle;
+                        }
+                        if (key === 'priceDetails') {
+                            $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
+                            console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
+                            $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
+                            $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
+                            console.log('$scope.mspLicenseCost == '+$scope.mspLicenseCost);
+                            $scope.viewBillOfOrder.productPrice=$scope.msptotal_Price;
+                            $scope.viewBillOfOrder.productLC=$scope.mspLicenseCost;
+                        }
+                        if (key === 'Pattern') {
+                            $scope.patternObject = {};
+                            $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
+                            console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
+                            Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
+                                $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
+                                console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
+                                /*$scope.viewBillOfOrder.quantity=$scope.MSPVBPatternObject_Server;
+                                 console.log('$scope.viewBillOfOrder====' +JSON.stringify($scope.viewBillOfOrder));*/
+                                Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
+                                    var isQuantityKey = key1;
+                                    console.log('isQuantityKey === '+isQuantityKey);
+                                    if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found quantity key');
+                                        $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
+                                        $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectQuantity);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+                                    if (isQuantityKey.indexOf("Server_DiskType") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found disktype key');
+                                        $scope.MSPVBPatternObjectDisktype = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectDisktype == ' + $scope.MSPVBPatternObjectDisktype);
+                                        $scope.viewBillOfOrder.productDisktype=$scope.MSPVBPatternObjectDisktype;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectDisktype);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+                                    if (isQuantityKey.indexOf("Server_M/W") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found server_m/w key');
+                                        $scope.MSPVBPatternObjectservermw = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectservermw == ' + $scope.MSPVBPatternObjectservermw);
+                                        $scope.viewBillOfOrder.servermw=$scope.MSPVBPatternObjectservermw;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermw);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+
+
+                                    if (isQuantityKey.indexOf("Server_Memory") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found Server_Memory key');
+                                        $scope.MSPVBPatternObjectservermemory = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectservermemory == ' + $scope.MSPVBPatternObjectservermemory);
+                                        $scope.viewBillOfOrder.servermemory=$scope.MSPVBPatternObjectservermemory;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermemory);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+
+                                    if (isQuantityKey.indexOf("Server_O/S") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found Server_O/S key');
+                                        $scope.MSPVBPatternObjectserveros = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserveros);
+                                        $scope.viewBillOfOrder.serveros=$scope.MSPVBPatternObjectserveros;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectserveros);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+
+                                    if (isQuantityKey.indexOf("Server_DiskSize") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found Server_DiskSize key');
+                                        $scope.MSPVBPatternObjectserverdisksize = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserverdisksize);
+                                        $scope.viewBillOfOrder.serverdisksize=$scope.MSPVBPatternObjectserverdisksize;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectserverdisksize);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+                                    if (isQuantityKey.indexOf("Server_vCPU") !== -1) {
+                                        $scope.serialNumber++;
+                                        console.log('found Server_vCPU key');
+                                        $scope.MSPVBPatternObjectservercpu = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectservercpu);
+                                        $scope.viewBillOfOrder.servercpu=$scope.MSPVBPatternObjectservercpu;
+                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservercpu);
+                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
+                                    }
+                                });
+                            });
+                        }
+                    });
+                    console.log('$scope.viewBillOfOrder === '+JSON.stringify($scope.viewBillOfOrder));
+                    $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
+                }
+            }
+
+            if(key==='bluemix'){
+                $scope.bluemixViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
+                console.log('$scope.bluemixViewBillObjectsArray === '+JSON.stringify($scope.bluemixViewBillObjectsArray));
+                for(var bluemixArrayIndex=0;bluemixArrayIndex<$scope.bluemixViewBillObjectsArray.length;bluemixArrayIndex++) {
+                    $scope.bluemixViewBillObject=$scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
+                    Object.keys($scope.bluemixViewBillObject).forEach(function(key){
+                        if(key === 'services'){
+                            $scope.bluemixServiceViewBillObjectArray=$scope.bluemixViewBillObject[key];
+                            console.log('$scope.bluemixServiceViewBillObjectArray === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                            for(var bluemixServiceArrayIndex=0;bluemixServiceArrayIndex<$scope.bluemixServiceViewBillObjectArray.length;bluemixServiceArrayIndex++) {
+                                $scope.bluemixServiceObject=$scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
+                                console.log('$scope.bluemixServiceObject === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                                Object.keys($scope.bluemixServiceObject).forEach(function(key){
+                                    if(key==='title'){
+                                        $scope.serialNumber++;
+                                        $scope.bluemixServicesVBTitle=$scope.bluemixServiceObject[key];
+                                        console.log('$scope.bluemixServicesVBTitle= '+$scope.bluemixServicesVBTitle);
+                                    }
+                                    if (key === 'properties') {
+                                        $scope.propertiesOArray = $scope.bluemixServiceObject[key];
+                                        console.log('propertiesOArray == ' + JSON.stringify($scope.propertiesOArray));
+                                        $scope.propertiesObjectArrayData = $scope.propertiesOArray[0];
+                                        console.log('propertiesObject == ' + JSON.stringify($scope.propertiesObjectArrayData));
+                                        for (var i = 0; i < $scope.propertiesObjectArrayData.length; i++) {
+                                            $scope.propertiesObject=$scope.propertiesObjectArrayData[i];
+                                            Object.keys($scope.propertiesObject).forEach(function (key) {
+                                                $scope.propertiesObjectFirstKey = key;
+                                                console.log("$scope.propertiesObjectFirstKey == " + JSON.stringify($scope.propertiesObjectFirstKey));
+                                                $scope.propertiesObjectFirstKeyValue = $scope.propertiesObject[key];
+                                                console.log("$scope.propertiesObjectFirstKeyValue == " + JSON.stringify($scope.propertiesObjectFirstKeyValue));
+                                                if($scope.propertiesObjectFirstKey === 'metadata'){
+                                                    $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
+                                                    console.log('$scope.guid_data===' +JSON.stringify($scope.guid_data));
+                                                    $scope.service_plan_guid = $scope.guid_data.guid;
+                                                    console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
+                                                }
+
+                                                if($scope.propertiesObjectFirstKey === 'entity') {
+                                                    $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
+                                                    console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
+                                                    /* $scope.planData = $scope.entity_data.name;
+                                                     console.log('$scope.planData===' + $scope.planData);
+                                                     $scope.descriptionData = $scope.entity_data.description;*/
+                                                    //console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
+                                                    $scope.extraData = $scope.entity_data.extra;
+                                                    console.log('$scope.extraData===' + JSON.stringify($scope.extraData));
+                                                    if ($scope.entity_data.free === false) {
+                                                        $scope.bulletdata = $scope.extraData.bullets[0];
+                                                        console.log('$scope.bulletdata===' + JSON.stringify($scope.bulletdata));
+                                                        $scope.costData = $scope.extraData.costs;
+                                                        console.log('$scope.costdata===' + JSON.stringify($scope.costData));
+                                                        console.log('$scope.costdata===' + JSON.stringify($scope.costData[0]));
+                                                        $scope.totalbluemixQuantity = $scope.costData[0].unitQuantity;
+                                                        console.log('$scope.totalbluemixQuantity===' + JSON.stringify($scope.totalbluemixQuantity));
+                                                        $scope.unitID = $scope.costData[0].unitId;
+                                                        console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
+                                                    }
+                                                    else if($scope.entity_data.free === true){
+                                                        $scope.unitID = 'discount';
+                                                        console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
+                                                    }
+                                                }
+
+                                                if($scope.propertiesObjectFirstKey === 'extra'){
+                                                    $scope.extraData = $scope.propertiesObjectFirstKeyValue;
+                                                    console.log(' $scope.extraData===' + JSON.stringify($scope.extraData));
+                                                    /*$scope.bulletData = $scope.extraData.bullets[0];
+                                                     console.log(' $scope.bulletData===' + JSON.stringify($scope.bulletData));*/
+                                                    $scope.costData = $scope.extraData.costs;
+                                                    console.log('$scope.costdata===' + JSON.stringify($scope.costData));
+                                                    //$scope.currencyData = $scope.costData[0].currencies;
+                                                    console.log('$scope.currencyData===' + JSON.stringify($scope.currencyData));
+
+                                                }
+                                            })
+
+
+                                        }
+                                    }
+                                })
+                            }
+                        }
+
+                        if(key === 'runtime'){
+                            $scope.bluemixRuntimeViewBillObjectArray=$scope.bluemixViewBillObject[key];
+                            console.log('$scope.bluemixRuntimeViewBillObjectArray === '+JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
+                            for(var bluemixRuntimeArrayIndex=0;bluemixRuntimeArrayIndex<$scope.bluemixRuntimeViewBillObjectArray.length;bluemixRuntimeArrayIndex++) {
+                                $scope.bluemixRuntimeObject=$scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
+                                Object.keys($scope.bluemixRuntimeObject).forEach(function(key){
+                                    if(key==='title'){
+                                        $scope.serialNumber++;
+                                        $scope.bluemixRuntimeVBTitle=$scope.bluemixRuntimeObject[key];
+                                        console.log('$scope.bluemixRuntimeVBTitle === '+$scope.bluemixRuntimeVBTitle);
+                                    }
+                                    if(key === 'plan'){
+                                        $scope.planRuntime = $scope.bluemixRuntimeObject[key];
+                                        console.log('$scope.planRuntime===' +$scope.planRuntime);
+                                    }
+                                    if(key==='properties'){
+                                        $scope.bluemixRuntimeVBPropertiesObject=$scope.bluemixRuntimeObject[key];
+                                        Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function(key){
+                                            if(key==='price'){
+                                                $scope.bluemixRuntimeVBPrice=$scope.bluemixRuntimeVBPropertiesObject[key];
+                                                console.log('$scope.bluemixRuntimeVBPrice === '+$scope.bluemixRuntimeVBPrice);
+                                            }
+                                            if(key ==='memory'){
+                                                $scope.bluemixRuntimememory=$scope.bluemixRuntimeVBPropertiesObject[key];
+                                                console.log('$scope.bluemixRuntimememory === '+$scope.bluemixRuntimememory);
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+            if(key==='Final_Price'){
+                $scope.viewBillFinalPrice=$scope.ResponseDataViewBillObject[key];
+            }
+        });
+        $scope.loading = false;
+    });
+
+    $scope.pushBOMObjectsMSP=function (BOMObj) {
+        $scope.viewBillOfOrderArray.push(BOMObj);
+        console.log('$scope.viewBillOfOrderArray === '+JSON.stringify($scope.viewBillOfOrderArray));
+    }
+
+    $scope.placeOrder=function () {
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        var user = $scope.currentUser;
+        console.log("inside place order");
+        console.log('$scope.solnEntered === '+$scope.solnEntered);
+        $scope.placeOrderSpins = true;
+        $scope.viewCreatSol = false;
+        $scope.spinsCatalogueList=false;
+        $scope.spinsCanvas=false;
+        $scope.spinsCatalogueList = false;
+        $scope.spinsViewBoM = false;
+        $scope.loading = true;
+        $http({
+            method  : 'POST',
+            url     : '/api/placeOrder',
+            data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
+            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        }).success(function(data,status,header,config) {
+
+            console.log("place order data ==="+JSON.stringify(data));
+            $uibModalInstance.dismiss('cancel');
+            $location.path('/deployment');
+        })
+        $scope.placeOrderSpins = false;
+    }
+});
 angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;

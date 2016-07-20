@@ -361,6 +361,29 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
     $scope.showRuntimeAttributes=false;
     $scope.showServiceAttributes=false;
 
+    $scope.Flavor = [
+        {
+            id:1,
+            flavorName:'Redhat'
+        }
+    ]
+
+    $scope.serverSize = [
+        {
+            id: 1,
+            size: 'Small'
+        },
+        {
+            id:2,
+            size:'Medium'
+        },
+        {
+            id:3,
+            size:'Large'
+        }
+
+    ];
+
     $scope.names = [
         {
         id:1,
@@ -408,7 +431,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.showMSPAttributes=true;
         $scope.showRuntimeAttributes=false;
         $scope.showServiceAttributes=false;
-        $scope.patternObjectIIB_Server = {};
+        $scope.patternObjectIIB_Server = [];
         $scope.popupData1 = {};
         $scope.total_Price;
         $scope.totalLicenseCost;
@@ -435,6 +458,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 $scope.patternObject = $scope.popupData1["Pattern"];
                 console.log('patternObject == ' + JSON.stringify($scope.patternObject));
                 Object.keys($scope.patternObject).forEach(function (key) {
+                    console.log('key===' +key);
                     /*if (key === 'IIB Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["IIB Server"];
 
@@ -444,12 +468,67 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                      } else if (key === 'MYSQL Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["MYSQL Server"];
                      }*/
-                    $scope.patternObjectIIB_Server = $scope.patternObject[key];
+                    $scope.patternObjectIIB_Server.push($scope.patternObject[key]);
+                    console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
                     console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
                 })
             }
 
-        })
+        });
+
+        $scope.changeServerSize = function(index,size,key){
+            console.log('inside changeServerSize');
+            console.log('key===>' +key);
+            console.log('index===>' +index);
+            console.log('size===>' +size);
+            console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
+            var updatedSizeProperties = [
+                {
+                    type:'Small',
+                    cpu :2,
+                    memory:8,
+                    disksize:40
+                },
+                {
+                    type:'Medium',
+                    cpu :4,
+                    memory:16,
+                    disksize:80
+
+                },
+                {
+                    type:'Large',
+                    cpu :8,
+                    memory:32,
+                    disksize:160
+
+                }
+            ]
+            $scope.a = $scope.patternObjectIIB_Server[index];
+            for(var i=0;i<updatedSizeProperties.length;i++){
+                //var serverType = type[i]
+                // ;
+                var namCPU = key+'_vCPU';
+                var namMemory = key+'_Memory';
+                var namDisksize = key+'_DiskSize';
+                console.log('namCPU==' +namCPU);
+                if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
+                    console.log('inside if');
+                    $scope.a['size']= size;
+                    $scope.a[namCPU] = updatedSizeProperties[i].cpu;
+                    $scope.a[namMemory] = updatedSizeProperties[i].memory;
+                    $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
+                    break;
+                }
+            }
+            $scope.patternObjectIIB_Server[index] = $scope.a;
+            console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
+            //console.log('a===' +JSON.stringify(a));
+
+
+        };
+
+
         $scope.changedValueSave = function () {
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
@@ -1218,9 +1297,9 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.spinsCatalogueList = false;
     $scope.spinsViewBoM = true;
     $scope.loading = true;
-    var newver = sharedProperties.getNewersion();
-    console.log("new version==========="+newver);
-    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
+    /*var newver = sharedProperties.getNewersion();
+    console.log("version=============="+newver);*/
+    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+1).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
         sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
