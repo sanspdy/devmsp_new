@@ -514,7 +514,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log('namCPU==' +namCPU);
                 if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
-                    //$scope.a['size']= size;
+                    $scope.a['size']= size;
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
                     $scope.a[namMemory] = updatedSizeProperties[i].memory;
                     $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
