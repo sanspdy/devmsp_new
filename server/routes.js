@@ -294,7 +294,7 @@ module.exports = function(app) {
 
     app.post('/api/updatestatus',v2_solution.updatestatus);
 
-    app.post('/api/updatestatus',v2_solution.updatestatus);
+    //app.post('/api/updatestatus',v2_solution.updatestatus);
 
 
 
