@@ -2145,11 +2145,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
         };
         this.getNewersion=function () {
-            if(newversion === undefined){
+            if(newversion === undefined || newversion === null){
+                console.log("versionnnn", newversion);
                 newversion = 1;
                 return newversion;
             }
             else{
+                console.log("versionnnn", newversion);
                 return newversion;
             }
 
