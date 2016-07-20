@@ -2145,7 +2145,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
         };
         this.getNewersion=function () {
-            return newversion;
+            if(newversion === undefined){
+                newversion = 1;
+                return newversion;
+            }
+            else{
+                return newversion;
+            }
+
         }
         this.setComponentCount = function(comp_cnt){
             console.log("comp_cnt ===="+comp_cnt);
