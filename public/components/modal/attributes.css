@@ -14,6 +14,11 @@
     /* margin-right: 74%; */
     font-size: 25px;
 }
+.keyStyleHead{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: #017eba;
+}
 .spss_input{
     width: 73px;
     padding: 1%;
@@ -121,7 +126,7 @@
     width: 440px;
 }
 .app-modal-window-att .modal-dialog {
-    width: 500px;
+    width: 800px;
     height:500px;
 }
 .app-modal-window-att-prov .modal-dialog{

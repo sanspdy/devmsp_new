@@ -431,7 +431,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.showMSPAttributes=true;
         $scope.showRuntimeAttributes=false;
         $scope.showServiceAttributes=false;
-        $scope.patternObjectIIB_Server = {};
+        $scope.patternObjectIIB_Server = [];
         $scope.popupData1 = {};
         $scope.total_Price;
         $scope.totalLicenseCost;
@@ -458,6 +458,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 $scope.patternObject = $scope.popupData1["Pattern"];
                 console.log('patternObject == ' + JSON.stringify($scope.patternObject));
                 Object.keys($scope.patternObject).forEach(function (key) {
+                    console.log('key===' +key);
                     /*if (key === 'IIB Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["IIB Server"];
 
@@ -467,7 +468,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                      } else if (key === 'MYSQL Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["MYSQL Server"];
                      }*/
-                    $scope.patternObjectIIB_Server = $scope.patternObject[key];
+                    $scope.patternObjectIIB_Server.push($scope.patternObject[key]);
+                    console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
                     console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
                 })
             }
@@ -512,7 +514,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log('namCPU==' +namCPU);
                 if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
-                    $scope.a['size']= size;
+                    //$scope.a['size']= size;
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
                     $scope.a[namMemory] = updatedSizeProperties[i].memory;
                     $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
