@@ -1620,7 +1620,7 @@ exports.v2_deleteSolution=function(request, response) {
     }
     else if (request.body.hasOwnProperty("uname") && request.body.hasOwnProperty("solnName")) {
 
-        dbSoln.find({selector: {solution_name: SolName}}, function (err, result) {
+        dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, result) {
             if (!err) {
                 var length=result.docs.length;
                 if (result != null) {
