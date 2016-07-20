@@ -832,7 +832,6 @@ angular.module('portalControllers')
                             'selectedImage': $scope.bluemixRuntimeimageSrcArray[1],
                             'selectedImageTitle': $scope.bluemixRuntimeSelectedImage,
                             'type': type
-
                         };
 
                         $scope.runtimeUsername=sharedProperties.getProperty();
