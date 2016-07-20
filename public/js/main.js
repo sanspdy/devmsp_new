@@ -361,6 +361,29 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
     $scope.showRuntimeAttributes=false;
     $scope.showServiceAttributes=false;
 
+    $scope.Flavor = [
+        {
+            id:1,
+            flavorName:'Redhat'
+        }
+    ]
+
+    $scope.serverSize = [
+        {
+            id: 1,
+            size: 'Small'
+        },
+        {
+            id:2,
+            size:'Medium'
+        },
+        {
+            id:3,
+            size:'Large'
+        }
+
+    ];
+
     $scope.names = [
         {
         id:1,
