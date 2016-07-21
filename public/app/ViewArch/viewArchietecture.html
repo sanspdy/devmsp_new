@@ -44,7 +44,7 @@
     });
 
 </script>
-<div class="container canvasbody" id="viewArch">
+<div class="container canvasbody" id="viewarch">
 
     <div class="row">
         <div class="canvas_tp">
@@ -243,7 +243,7 @@
          doc.addPage();
          doc.text(20,20,'Test Page2');
          doc.save('Test.pdf');*/
-        html2canvas(document.getElementById("myArch"),{
+        html2canvas(document.getElementById("viewarch"),{
             onrendered:function(canvas){
                 var img = canvas.toDataURL("image/png");
                 var doc = new jsPDF('landscape');
