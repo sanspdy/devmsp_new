@@ -61,7 +61,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     //bill of meterial-->
     $scope.viewBill = function(){
-        console.log("from viewBill------------->")
+        console.log("from viewBill------------->");
         $scope.newVer= sharedProperties.getNewersion();
         console.log("current version ----->"+$scope.newVer);
         /*console.log("created canvas== "+canvas);
@@ -2144,14 +2144,15 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         };
         this.setNewversion = function(newversionId) {
             console.log("VertionId==="+newversionId);
-            newversion=newversionId;
+            $rootScope.newversion=newversionId;
 
         };
         this.getNewersion=function () {
-
-                return newversion;
-
-
+            if($rootScope.newversion === null || $rootScope.newversion === undefined){
+                $rootScope.newversion=-1;
+                return $rootScope.newversion;
+            }
+            return $rootScope.newversion;
         }
         this.setComponentCount = function(comp_cnt){
             console.log("comp_cnt ===="+comp_cnt);
@@ -2237,7 +2238,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
     $scope.solnEntered=sharedProperties.getSoln();
     $scope.quantityValueArray=[];
     var userName = sharedProperties.getProperty();
-    console.log('userName===' +JSON.stringify(userName))
+    console.log('userName===' +JSON.stringify(userName));
     $scope.spinsCatalogueList=false;
     $scope.spinsCanvas=false;
     $scope.spinsCatalogueList = false;
