@@ -1969,12 +1969,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         // Replace with a fallback to a library solution.
                         // alert("This browser doesn't support the HTML5 Drag and Drop API.");
                     }
-
-
-
-
-
-
                 })
 
             }
@@ -2199,6 +2193,87 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.showOrderBtn = false;
     }
 
+
+    //placing order shifted in orderbillCTrl
+    $scope.placeServiceOrder=function (index) {
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        //console.log('user===' +user);
+        console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
+        $scope.currentBMUser=sharedProperties.getBMuname();
+        $scope.currentBMPass=sharedProperties.getBMPass();
+        console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
+        console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
+        console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        $scope.newVer= sharedProperties.getVersion();
+        console.log("current version ----->"+$scope.newVer);
+        //var serviceName1 = $scope.choices[index].selectedCatalogName;
+        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+            console.log('invoke place order for msp prov');
+            //console.log(serviceName1=== +serviceName1);
+            $http({
+                method  : 'POST',
+                url     : '/api/v2/placeOrder',
+                data    : $.param({
+                    'uname': $scope.currentUser,
+                    'soln_name': $scope.solnEntered11,
+                    'version':$scope.newVer,
+                    'contactname':$scope.Contact,
+                    'contactmail':$scope.currentUser,
+                }),
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            }).success(function(data,status,header,config) {
+                console.log("place order data ==="+JSON.stringify(data));
+
+                //alert('Order Placed Successfully');
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/orderSuccess.html',
+                    controller: 'orderSuccessCtrl',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-att-prov',
+                    resolve: {
+
+                    }
+                });
+                /*$uibModalInstance.dismiss('cancel');
+                 $location.path('/deployment');*/
+            })
+        }
+        else{
+            console.log('inside placeorder');
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            var user = $scope.currentUser;
+            console.log("inside place order");
+            console.log('$scope.solnEntered === '+$scope.solnEntered11);
+            $scope.placeOrderSpins = true;
+            $scope.viewCreatSol = false;
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCatalogueList = false;
+            $scope.spinsViewBoM = false;
+            $scope.loading = true;
+
+            $scope.placeOrderSpins = false;
+            //modal opens
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/bluemixprovision.html',
+                controller: 'provisionCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-att-prov',
+                resolve: {
+
+                }
+            });
+        }
+
+    };
+    //ends
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
@@ -2541,8 +2616,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
-
-
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
