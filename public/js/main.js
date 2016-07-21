@@ -937,9 +937,12 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.pricedata = {};
         $scope.showPriceBefore= true;
         $scope.showPriceAfter = false;
+        $scope.guidPlanArray = [];
         $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
             console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
             console.log('guid===' +guid);
+            $scope.guidPlanArray.push(guid);
+            console.log('$scope.guidPlanArray===' +JSON.stringify($scope.guidPlanArray));
             console.log('country===' +country.name );
             console.log('unitID===' +unitID );
             //console.log('isselected===' +isselected);
