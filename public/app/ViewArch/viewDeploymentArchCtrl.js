@@ -2199,6 +2199,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
+        $scope.solnEntered11=sharedProperties.getCurrentCSolName();
         console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
         $scope.Contact = sharedProperties.getContactName();
         console.log('$scope.Contact===' +$scope.Contact);
