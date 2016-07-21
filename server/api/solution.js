@@ -1976,10 +1976,19 @@ exports.v2_placeOrder=function(reqst, resp) {
     var contactmail=reqst.body.contactmail;
 
     var space_guid = reqst.body.space_guid;
-    //var service_name = reqst.body.service_name;
-    var service_plan_guid = reqst.body.service_plan_guid;
+    ////var service_name = reqst.body.service_name;
+    //var service_plan_guid = reqst.body.service_plan_guid;
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;
+
+
+
+   // var space_guid = "cb9e64ba-99a4-43a1-93fd-7bcd903d1865";
+    var service_plan_guid = ["0e4ddce5-c5e0-48e7-825e-359c206aa9aa","151f88eb-aa39-46b6-b3dc-8c0662a66cb1"];
+   // var bmusername = "kvilliva@in.ibm.com";
+   // var bmpassword = "Hope@1993";
+
+
 
     console.log("Placeorder for" + soln);
     var dbSoln = cloudant.use(dbCredentials.dbSolution);
@@ -2078,7 +2087,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/json',
-                                                    'Content-Length': data.length
+                                                    'Content-Length': JSON.stringify(data).length
                                                 }
                                             };
 
@@ -2093,7 +2102,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 response.write(JSON.stringify(failure_response));
                                                 // response.end();
                                             });
-                                            req.write(data);
+                                            req.write(JSON.stringify(data));
                                             req.end();
                                         }
 
