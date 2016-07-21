@@ -2087,7 +2087,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/json',
-                                                    'Content-Length': data.length
+                                                    'Content-Length': JSON.stringify(data).length
                                                 }
                                             };
 
@@ -2102,7 +2102,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 response.write(JSON.stringify(failure_response));
                                                 // response.end();
                                             });
-                                            req.write(data);
+                                            req.write(JSON.stringify(data));
                                             req.end();
                                         }
 
