@@ -2535,7 +2535,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.placeOrderSpins = false;
     }
 });
-angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
+angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,sharedPropertiesCanvas) {
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
@@ -2662,6 +2662,8 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('indexCourseId===' +indexCourseId);
         var spaceUrl = $scope.orgList[indexCourseId].space_url;
         console.log('spaceUrl===' +JSON.stringify(spaceUrl));
+        var PlanGuid = sharedPropertiesCanvas.getGuidPlan();
+        console.log('PlanGuid==' +JSON.stringify(PlanGuid));
         //var spaceUrl = $scope.orgList[indexCourseId].space_url;
         //console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $uibModalInstance.dismiss('cancel');
@@ -2675,7 +2677,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 'contactname':$scope.Contact,
                 'contactmail':$scope.currentUser,
                 'space_guid':spaceUrl,
-                'service_plan_guid':'abc',
+                'service_plan_guid':PlanGuid,
                 'bmusername':$scope.itemData.username,
                 'bmpassword':$scope.itemData.password
 
