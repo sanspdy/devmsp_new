@@ -2731,8 +2731,9 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
         })
     };
-    $scope.proceedForOrder = function(org){
+    $scope.proceedForOrder = function(org,space){
         console.log('org===' +org);
+        console.log('space==' +space);
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         $scope.solnEntered11=sharedProperties.getCurrentCSolName();
@@ -2743,6 +2744,13 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('$scope.Contact===' +$scope.Contact);
         console.log('$scope.itemData.username===' +$scope.itemData.username);
         console.log('$scope.itemData.password===' +$scope.itemData.password);
+        var spaceSelectedID = _.findIndex($scope.spaceList, function(data){
+            console.log('data==' +data);
+            return data.space_name == space;
+        });
+        console.log('spaceSelectedID===>' +spaceSelectedID);
+        var spaceGuid = $scope.spaceList[spaceSelectedID].space_guid;
+        console.log('spaceGuid===' +JSON.stringify(spaceGuid));
         var indexCourseId = _.findIndex($scope.orgList, function (data) {
             console.log('data==' +data);
             return data.name === org;
@@ -2764,7 +2772,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 'version':$scope.newVer,
                 'contactname':$scope.Contact,
                 'contactmail':$scope.currentUser,
-                'space_guid':spaceUrl,
+                'space_guid':spaceGuid,
                 'service_plan_guid':PlanGuid,
                 'bmusername':$scope.itemData.username,
                 'bmpassword':$scope.itemData.password
