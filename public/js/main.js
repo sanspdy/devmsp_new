@@ -1339,6 +1339,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
         $scope.showOrderBtn = false;
     }
     $scope.latestPlans = sharedPropertiesCanvas.getPlans();
+    console.log('$scope.latestPlans===' +JSON.stringify($scope.latestPlans));
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
