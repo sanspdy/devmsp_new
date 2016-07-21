@@ -509,7 +509,58 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 //var serverType = type[i]
                 // ;
                 var namCPU = key+'_vCPU';
-                var namMemory = key+'_Memory';
+                var namMemory = key+'_Memory';//invoke getComponentPrice on ng-change
+                console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
+                /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
+                console.log('updated popupData1 values ==== ' + JSON.stringify($scope.popupData1["Pattern"]));
+                var reqObj = $scope.popupData1["Pattern"];
+                console.log('reqObj === ' + reqObj);
+                console.log('reqObj === ' + JSON.stringify(reqObj));
+                $http({
+                    method: 'POST',
+                    url: 'http://cbicportal.mybluemix.net/api/getComponentPrice',
+                    data: $.param({
+                        "IMI_Managed": "Y",
+                        "Pattern": reqObj
+                    }),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                    //forms user object
+                })
+                    .success(function (data, status, header, config) {
+
+                        if (data.errors) {
+                            // Showing errors.
+                            $scope.errorName = data.errors.name;
+                        } else {
+                            // console.log("inside success function");
+                            $scope.resultPriceDetails = data;
+                            // console.log(JSON.stringify($scope.resultPriceDetails));
+                            $.each($scope.resultPriceDetails, function (key, value) {
+                                console.log('key===' + key);
+                                if (key === 'priceDetails') {
+                                    $scope.priceDetailsObject = $scope.resultPriceDetails["priceDetails"];
+                                    // console.log('total_Price == '+$scope.priceDetailsObject);
+                                    $.each($scope.priceDetailsObject, function (key, value) {
+                                        // console.log('key===' + key);
+                                        if (key === 'TotalPrice') {
+                                            $scope.total_Price = $scope.priceDetailsObject["TotalPrice"];
+                                            $scope.popupData1["priceDetails"]["TotalPrice"] = $scope.total_Price;
+                                            // console.log('total_Price ===' + $scope.total_Price);
+                                        }
+                                    })
+                                }
+                            });
+                        }
+
+                    })
+                    .error(function (data, status, header, config) {
+                        console.log("header data" + header);
+                        console.log("status data" + status);
+                        console.log("config data" + JSON.stringify(config));
+                        $scope.loading=false;
+                    })
+
+                //invokation ends
                 var namDisksize = key+'_DiskSize';
                 console.log('namCPU==' +namCPU);
                 if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
@@ -886,9 +937,12 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.pricedata = {};
         $scope.showPriceBefore= true;
         $scope.showPriceAfter = false;
+        $scope.guidPlanArray = [];
         $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
             console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
             console.log('guid===' +guid);
+            $scope.guidPlanArray.push(guid);
+            console.log('$scope.guidPlanArray===' +JSON.stringify($scope.guidPlanArray));
             console.log('country===' +country.name );
             console.log('unitID===' +unitID );
             //console.log('isselected===' +isselected);

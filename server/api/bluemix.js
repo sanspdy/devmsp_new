@@ -3318,44 +3318,53 @@ exports.getBMServicePrice=function(reqst, resp) {
     console.log("Country:" + country);
     var dbplan = cloudant.use("bluemixserviceplans");
     var dbdiscount = cloudant.use("serviceplan_discount");
-    var final_price=0.0;
-    var price_cal={};
+    var final_price = 0.0;
+    var price_cal = {};
 
-    /*if (instances == null) {
-     failure_response.description = "Please give instance details";
-     resp.write(JSON.stringify(failure_response));
-     resp.end();
-     } else if (memories == null) {
-     failure_response.description = "Please give memory details";
-     resp.write(JSON.stringify(failure_response));
-     resp.end();
-     } else {
-     */
-    dbplan.find({selector:{"title": service_name}},function(err,result){
-        if(!err){
-            if(result.docs[0].properties[0] !== undefined || result.docs[0].properties[0] !== null){
-                for(var i=0;i<result.docs[0].properties[0].length;i++){
+    if (quantity === null) {
+        resp.write("Quantity not provided");
+        resp.end();
+    }
+    else if (country === null) {
+        resp.write("please select a country");
+        resp.end();
+    }
+    else if (service_name === null) {
+        resp.write("Please provide service name");
+        resp.end();
+    }
+
+    else if (unit_id === null) {
+        resp.write("Please provide unit_id");
+        resp.end();
+    }
+    else {
+    dbplan.find({selector: {"title": service_name}}, function (err, result) {
+        if (!err) {
+            if (result.docs !== null || result.docs !== undefined) {
+            if (result.docs[0].properties[0] !== undefined || result.docs[0].properties[0] !== null) {
+                for (var i = 0; i < result.docs[0].properties[0].length; i++) {
                     var properties = result.docs[0].properties[0][i];
-                    if(properties.metadata.guid === serviceplan_guid){
-                        if(properties.hasOwnProperty("entity") && properties.entity !== undefined && properties.entity !== null){
-                            if(properties.entity.hasOwnProperty("extra") && properties.entity.extra !== undefined && properties.entity.extra !== null){
-                                if(properties.entity.extra.hasOwnProperty("costs") && properties.entity.extra.costs !== undefined && properties.entity.extra.costs !== null){
-                                    for(var j=0;j<properties.entity.extra.costs.length;j++){
-                                        if( properties.entity.extra.costs[j].unitId === unit_id)
-                                        price_cal = properties.entity.extra.costs[j].currencies;
+                    if (properties.metadata.guid === serviceplan_guid) {
+                        if (properties.hasOwnProperty("entity") && properties.entity !== undefined && properties.entity !== null) {
+                            if (properties.entity.hasOwnProperty("extra") && properties.entity.extra !== undefined && properties.entity.extra !== null) {
+                                if (properties.entity.extra.hasOwnProperty("costs") && properties.entity.extra.costs !== undefined && properties.entity.extra.costs !== null) {
+                                    for (var j = 0; j < properties.entity.extra.costs.length; j++) {
+                                        if (properties.entity.extra.costs[j].unitId === unit_id)
+                                            price_cal = properties.entity.extra.costs[j].currencies;
                                     }
-                                   // var price_cal = properties.entity.extra.costs[0].currencies;
-                                    dbdiscount.find({selector:{"guid":serviceplan_guid}}, function(err1,result1){
+                                    // var price_cal = properties.entity.extra.costs[0].currencies;
+                                    dbdiscount.find({selector: {"guid": serviceplan_guid}}, function (err1, result1) {
                                         console.log(unit_id);
                                         var discount = result1.docs[0].cost_plan[unit_id];
-                                        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$",discount);
-                                        if(discount === "free"){
+                                        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$", discount);
+                                        if (discount === "free") {
                                             final_price = 0;
                                             resp.send(final_price);
                                             resp.end();
                                         }
                                         else {
-                                           // discount = parseInt(discount);
+                                            // discount = parseInt(discount);
                                             if (country === "IND") {
                                                 console.log(i);
                                                 console.log("***************************", price_cal[14].amount.INR);
@@ -3365,7 +3374,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 final_price = parseFloat(final_price).toFixed(2);
 
                                                 console.log(final_price);
-                                                if(final_price < 0){
+                                                if (final_price < 0) {
                                                     final_price = 0;
                                                     resp.send(final_price);
                                                     resp.end();
@@ -3380,11 +3389,11 @@ exports.getBMServicePrice=function(reqst, resp) {
                                             if (country === "USD") {
                                                 console.log("***************************", price_cal[25].amount.USD);
                                                 var actual_price = price_cal[25].amount.USD;
-                                                console.log("vsfvsf",actual_price);
+                                                console.log("vsfvsf", actual_price);
 
                                                 final_price = (quantity - discount) * actual_price;
-                                                console.log("dhuvhdvadv",final_price);
-                                                if(final_price < 0){
+                                                console.log("dhuvhdvadv", final_price);
+                                                if (final_price < 0) {
                                                     final_price = 0;
                                                     resp.send(final_price);
                                                     resp.end();
@@ -3399,19 +3408,19 @@ exports.getBMServicePrice=function(reqst, resp) {
                                         }
                                     });
                                 }
-                                else{
+                                else {
                                     resp.write("There's no property costs");
                                     resp.end();
                                     console.log("There's no property costs");
                                 }
                             }
-                            else{
+                            else {
                                 resp.write("0.0");
                                 resp.end();
                                 console.log("There's no property extra");
                             }
                         }
-                        else{
+                        else {
                             resp.write("There's no property entity");
                             resp.end();
                             console.log("There's no property entity");
@@ -3419,7 +3428,7 @@ exports.getBMServicePrice=function(reqst, resp) {
 
 
                     }
-                    else{
+                    else {
                         console.log(i);
                         /*if(i === (result.docs[0].properties[0].length -1)){
                          console.log(result.docs[0].properties[0].length - 1);
@@ -3435,22 +3444,28 @@ exports.getBMServicePrice=function(reqst, resp) {
                 /*resp.write("There is no matching guid for this service. Please select another");
                  resp.end();*/
             }
-            else{
+            else {
                 resp.write("There's no properties for this service");
                 resp.end();
                 console.log("There's no properties for this service")
+            }
+        }
+        else{
+                resp.write("No data returned");
+                resp.end();
             }
 
 
         }
 
-        else{
+        else {
             resp.write("There is some error");
             console.log("There is some error");
         }
 
 
     });
+}
 
 
 }

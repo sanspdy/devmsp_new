@@ -744,6 +744,7 @@ angular.module('portalControllers')
                     $scope.solnEntered=sharedProperties.getSoln();
                     console.log("$scope.solnEntered============" +$scope.solnEntered);
                     console.log("$scope.itemData.component_count====" +objectCount);
+                    sharedProperties.setMSPCount(objectCount);
                     console.log("$scope.itemData.component_count====" +$scope.Title[$scope.selectedImageIndex]);
                     var user=$scope.userEntered;
                     var serviceName=$scope.catalog_name[$scope.selectedImageIndex];
@@ -845,6 +846,7 @@ angular.module('portalControllers')
                         console.log('servicelabel===' +serviceLabel);
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
+                        sharedProperties.setRuntimeCount(bluemixRuntimeCompCount);
                         $scope.spinsCatalogueList=false;
                         $scope.spinsRuntimeList = false;
                         $scope.spinsServicesList = false;

@@ -2,6 +2,19 @@
     font-size: 20px;
     text-transform: capitalize;
 }
+.keyHeads{
+    font-size: 17px;
+
+}
+.keyHeads:after {
+    content:" *";
+    color: red;
+}
+.inputQuantity{
+    width: 99px !important;
+    height: 29px;
+    padding: 1% 0% 0% 2%!important;
+}
 
 
 .pop_heading{
@@ -14,10 +27,18 @@
     /* margin-right: 74%; */
     font-size: 25px;
 }
+
+.noteProperty{
+    margin-top: -103%;
+    margin-right: -8%;
+}
+
+
 .keyStyleHead{
-    font-size: 20px;
+    font-size: 22px;
     text-transform: capitalize;
     color: #017eba;
+    margin-left: 4%;
 }
 .spss_input{
     width: 73px;
@@ -69,18 +90,17 @@
     width: 7%;
     height: 34px;
 }
-
 .save_btn_msp{
     float: right;
-    margin-top: 4.5%;
+    margin-top: -6%;
     background-color: #017eba;
     margin-right: -11px;
     /* height: 20% !important; */
     color: white;
     /* max-height: 7%; */
     /* margin-bottom: 4%; */
-    width: 18%;
-    height: 34px;
+    width: 12%;
+    height: 31px;
 }
 
 .btn_div{
