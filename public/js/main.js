@@ -318,6 +318,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
         var soln='';
         var Cn='';
 
+
         this.setProperty = function(userId) {
             console.log("userId==="+userId);
             user=userId;
@@ -345,7 +346,15 @@ angular.module('portalControllers', ['ui.bootstrap'])
     })
 
 .service('sharedPropertiesCanvas', function(){
-    var cinfo='';
+        var cinfo='';
+        var GuidPlanArray = [];
+
+        this.setGuidPlan = function(guid){
+            GuidPlanArray.push(guid);
+        };
+        this.getGuidPlan = function(){
+            return GuidPlanArray;
+        };
 
     this.setviewArchData = function(canInfo){
         console.log("canInfo===" +canInfo);
@@ -937,12 +946,13 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.pricedata = {};
         $scope.showPriceBefore= true;
         $scope.showPriceAfter = false;
-        $scope.guidPlanArray = [];
+
         $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
             console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
             console.log('guid===' +guid);
-            $scope.guidPlanArray.push(guid);
-            console.log('$scope.guidPlanArray===' +JSON.stringify($scope.guidPlanArray));
+           /* $scope.guidPlanArray = [];
+            $scope.guidPlanArray.push(guid);*/
+           // console.log('$scope.guidPlanArray===' +JSON.stringify($scope.guidPlanArray));
             console.log('country===' +country.name );
             console.log('unitID===' +unitID );
             //console.log('isselected===' +isselected);
@@ -1045,7 +1055,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
     $scope.dismissDel = function () {
@@ -1055,12 +1065,15 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('compCount==' +compCount);
     console.log('popupData==' +popupData);
     console.log('guidPlan==' +guidPlan);
+    sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();
     console.log('$scope.username===' +$scope.username);
     $scope.solnName = sharedProperties.getSoln();
     console.log('$scope.solnName===' +$scope.solnName);
 
     $scope.SavePlan = function(){
+        $scope.guidPlanArray = [];
+        //$scope.guidPlanArray.push(guidPlan);
 
         $scope.savebluemixPlan = true;
         $scope.loading = true;

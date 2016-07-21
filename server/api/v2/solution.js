@@ -1730,6 +1730,7 @@ exports.updatestatus =  function(request, response) {
         failure_response.description = "There is no correct parameters. Please send in following format: "+JSON.stringify(default_parameters)
         response.write(JSON.stringify(failure_response));
         response.end();
+        response.end();
     } else{
         dbSoln.find({selector: {_id: Order_ID}}, function (err, result) {
             if(err){

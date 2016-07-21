@@ -297,7 +297,6 @@ exports.v2_AddBMComponentToCanvas = function(request, response) {
 
         var username = request.body.uname;
         var SolName = request.body.solnName;
-        var version=parseInt(request.body.version);
         console.log(request.body);
         var service_det = request.body.service_details;
         var service_name = request.body.service_name;
@@ -347,7 +346,7 @@ exports.v2_AddBMComponentToCanvas = function(request, response) {
             });
 
             options = {
-                host: 'devmsp.mybluemix.net',
+                host: 'cbicportal.mybluemix.net',
                 path: '/api/getbluemixServicesproperties',
                 method: 'POST',
                 headers: {
@@ -376,7 +375,7 @@ exports.v2_AddBMComponentToCanvas = function(request, response) {
                         console.log("*** Request Responded ***");
                         try {
 
-                            dbSoln.find({selector: {solution_name: SolName, user: username, version:version}},
+                            dbSoln.find({selector: {solution_name: SolName}},
                                 function (err,result) {
                                     if (!err) {
 
@@ -392,12 +391,18 @@ exports.v2_AddBMComponentToCanvas = function(request, response) {
                                                     result3.docs[0].properties[0][i].selected="false";
                                                 }
                                                 console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",result3.docs[0].properties);
+                                                var d = new Date();
+                                                var n = d.getTime();
+                                                console.log("Time stamp",n);
+                                                var service_name = result3.docs[0].title + n;
+                                                console.log("Service name",service_name);
                                                 if(result.docs !== null || result.docs !==undefined){
                                                     if(result.docs[0].hasOwnProperty("service_details") !== undefined || result.docs[0].service_details !== null) {
                                                         if (result.docs[0].hasOwnProperty("bluemix") !== undefined || result.docs[0].hasOwnProperty("bluemix") !==null) {
                                                             if (result.docs[0].bluemix !== null || (result.docs[0].bluemix[0].hasOwnProperty("services") !== null || result.docs[0].bluemix[0].hasOwnProperty("services") !== undefined)) {
                                                                 result.docs[0].service_details.bluemix[0].services[compcnt] = {
                                                                     "title": result3.docs[0].title,
+                                                                    "service_name": service_name,
                                                                     "properties": [ result3.docs[0].properties[0] ]
                                                                 };
                                                                 dbSoln.insert(result.docs[0], function (err2, result2) {

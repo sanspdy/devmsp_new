@@ -607,11 +607,8 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
         $location.path('/viewArchietecture');
         console.log('version===  ' +JSON.stringify(version));
         sharedProperties.setVersion(version);
-
         $uibModalInstance.close();
-
-
-    }
+    };
     console.log('$scope.versionData===>>>' +JSON.stringify($scope.versionData));
     Object.keys($scope.versionData).forEach(function (key) {
             console.log('versionData key values === ' + key);

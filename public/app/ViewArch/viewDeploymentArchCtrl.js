@@ -4,7 +4,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $rootScope.showhideprop=false;
     $rootScope.showBtnOrder = true;
     $rootScope.showEditBtn = true;
-
+    $scope.showBill1 = true;
+    $scope.showBill2 = false;
     //pj----->
     $scope.spinsCatalogueList=false;
     $scope.lineAdded=0;
@@ -60,9 +61,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
     //bill of meterial-->
     $scope.viewBill = function(){
-        console.log("from viewBill------------->")
+        console.log("from viewBill------------->");
         $scope.newVer= sharedProperties.getNewersion();
-        console.log("current version ----->"+$scope.newVer)
+        console.log("current version ----->"+$scope.newVer);
         /*console.log("created canvas== "+canvas);
          console.log("Current canvas : " + JSON.stringify(canvas));*/
         $scope.canvasCreated=JSON.stringify(canvas);
@@ -737,6 +738,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
+                sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
                 console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
@@ -1968,12 +1970,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         // Replace with a fallback to a library solution.
                         // alert("This browser doesn't support the HTML5 Drag and Drop API.");
                     }
-
-
-
-
-
-
                 })
 
             }
@@ -2077,6 +2073,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var Cn = '';
         var BMuname = '';
         var BMpass = '';
+        var CanInfo= '';
+        this.setCanvasInfo = function(canvasInfo){
+            console.log('canvasInfo==' +canvasInfo);
+            CanInfo = canvasInfo;
+        }
+        this.getCanvasInfo = function(){
+            return CanInfo;
+        }
         this.setBMuname = function(BMuser) {
             console.log("BMuname==="+BMuser);
             BMuname=BMuser;
@@ -2143,14 +2147,15 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         };
         this.setNewversion = function(newversionId) {
             console.log("VertionId==="+newversionId);
-            newversion=newversionId;
+            $rootScope.newversion=newversionId;
 
         };
         this.getNewersion=function () {
-
-                return newversion;
-
-
+            if($rootScope.newversion === null || $rootScope.newversion === undefined){
+                $rootScope.newversion= 1;
+                return $rootScope.newversion;
+            }
+            return $rootScope.newversion;
         }
         this.setComponentCount = function(comp_cnt){
             console.log("comp_cnt ===="+comp_cnt);
@@ -2186,7 +2191,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             return $rootScope.runtimecount;
         }
     });
-angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas,$rootScope) {
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
@@ -2197,6 +2202,91 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.showOrderBtn = false;
     }
 
+
+    //placing order shifted in orderbillCTrl
+    /*$scope.placeServiceOrder=function (index) {
+        $scope.currentUser = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser);
+        //console.log('user===' +user);
+        $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+        console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
+        $scope.Contact = sharedProperties.getContactName();
+        console.log('$scope.Contact===' +$scope.Contact);
+        $scope.currentBMUser=sharedProperties.getBMuname();
+        $scope.currentBMPass=sharedProperties.getBMPass();
+        $scope.CanvasResultInfo = sharedProperties.getCanvasInfo()
+        console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
+        console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
+        console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
+        //console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        $scope.newVer= sharedProperties.getVersion();
+        console.log("current version ----->"+$scope.newVer);
+        //var serviceName1 = $scope.choices[index].selectedCatalogName;
+        if($scope.CanvasResultInfo.services.bluemix[0].services.length === 0){
+            console.log('invoke place order for msp prov');
+            //console.log(serviceName1=== +serviceName1);
+            $http({
+                method  : 'POST',
+                url     : '/api/v2/placeOrder',
+                data    : $.param({
+                    'uname': $scope.currentUser,
+                    'soln_name': $scope.solnEntered11,
+                    'version':$scope.newVer,
+                    'contactname':$scope.Contact,
+                    'contactmail':$scope.currentUser,
+                }),
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            }).success(function(data,status,header,config) {
+                console.log("place order data ==="+JSON.stringify(data));
+
+                //alert('Order Placed Successfully');
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/orderSuccess.html',
+                    controller: 'orderSuccessCtrl',
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-att-prov',
+                    resolve: {
+
+                    }
+                });
+                /!*$uibModalInstance.dismiss('cancel');
+                 $location.path('/deployment');*!/
+            })
+        }
+        else{
+            console.log('inside placeorder');
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            var user = $scope.currentUser;
+            console.log("inside place order");
+            $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+            console.log('$scope.solnEntered === '+$scope.solnEntered11);
+            $scope.placeOrderSpins = true;
+            $scope.viewCreatSol = false;
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCatalogueList = false;
+            $scope.spinsViewBoM = false;
+            $scope.loading = true;
+
+            $scope.placeOrderSpins = false;
+            //modal opens
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/bluemixprovision.html',
+                controller: 'provisionCtrl',
+                backdrop: 'static',
+                windowClass: 'app-modal-window-att-prov',
+                resolve: {
+
+                }
+            });
+        }
+
+    };*/
+    //ends
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
@@ -2236,7 +2326,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
     $scope.solnEntered=sharedProperties.getSoln();
     $scope.quantityValueArray=[];
     var userName = sharedProperties.getProperty();
-    console.log('userName===' +JSON.stringify(userName))
+    console.log('userName===' +JSON.stringify(userName));
     $scope.spinsCatalogueList=false;
     $scope.spinsCanvas=false;
     $scope.spinsCatalogueList = false;
@@ -2535,12 +2625,10 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.placeOrderSpins = false;
     }
 });
-angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties) {
+angular.module('portalControllers').controller('provisionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,sharedPropertiesCanvas) {
     $scope.ngShowModalprov = true;
     $scope.spinsOrgList = false;
     $scope.spinsSpaceList = false;
-
-
     $scope.dismissModal = function () {
         $uibModalInstance.dismiss('cancel');
     };
@@ -2662,6 +2750,8 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
         console.log('indexCourseId===' +indexCourseId);
         var spaceUrl = $scope.orgList[indexCourseId].space_url;
         console.log('spaceUrl===' +JSON.stringify(spaceUrl));
+        var PlanGuid = sharedPropertiesCanvas.getGuidPlan();
+        console.log('PlanGuid==' +JSON.stringify(PlanGuid));
         //var spaceUrl = $scope.orgList[indexCourseId].space_url;
         //console.log('spaceUrl===' +JSON.stringify(spaceUrl));
         $uibModalInstance.dismiss('cancel');
@@ -2675,7 +2765,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 'contactname':$scope.Contact,
                 'contactmail':$scope.currentUser,
                 'space_guid':spaceUrl,
-                'service_plan_guid':'abc',
+                'service_plan_guid':PlanGuid,
                 'bmusername':$scope.itemData.username,
                 'bmpassword':$scope.itemData.password
 
@@ -2732,13 +2822,13 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
     $scope.confirms = function (textModel) {
         $rootScope.showBtnOrder = false;
         $rootScope.showEditBtn = false;
+        $scope.showBill1 = false;
+        $scope.showBill2 = true;
         $scope.distext  = angular.copy(textModel);
         $scope.ver=sharedProperties.getVersion();
         $scope.loguser=sharedProperties.getProperty();
         $scope.curSolution=sharedProperties.getCurrentCSolName()
         $scope.distext  = angular.copy(textModel);
-
-
         console.log("version from viewarch-- ----------- >"+$scope.ver);
         console.log("user==================>"+ $scope.loguser);
         console.log("solution name--------------->"+$scope.curSolution)
@@ -2858,11 +2948,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                         canvas.renderAll();
                         $scope.canvasCreated=JSON.stringify(canvas);
                         console.log("Current canvasCreated : " + $scope.canvasCreated);
-
-
-
                     })
-
                 }
             })
             .error(function (data, status, header, config) {
