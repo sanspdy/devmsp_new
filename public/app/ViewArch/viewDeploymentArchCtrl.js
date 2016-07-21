@@ -2742,8 +2742,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         $scope.loguser=sharedProperties.getProperty();
         $scope.curSolution=sharedProperties.getCurrentCSolName()
         $scope.distext  = angular.copy(textModel);
-
-
         console.log("version from viewarch-- ----------- >"+$scope.ver);
         console.log("user==================>"+ $scope.loguser);
         console.log("solution name--------------->"+$scope.curSolution)
