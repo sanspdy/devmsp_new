@@ -2055,7 +2055,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                     //    failure_response.description = "Error while updating status into DB. Please try again" + err1;
                                     //    resp.write(JSON.stringify(failure_response));
                                     //    resp.end();
-                                    //}
+                                    }
                                     else {
                                         //insert decomposition code.
 
