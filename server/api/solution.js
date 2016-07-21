@@ -2052,10 +2052,10 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         console.log(err1);
 
                                         console.log("Error while updating status into DB. Please try again");
-                                        failure_response.description = "Error while updating status into DB. Please try again" + err1;
-                                        resp.write(JSON.stringify(failure_response));
-                                        resp.end();
-                                    }
+                                    //    failure_response.description = "Error while updating status into DB. Please try again" + err1;
+                                    //    resp.write(JSON.stringify(failure_response));
+                                    //    resp.end();
+                                    //}
                                     else {
                                         //insert decomposition code.
 
@@ -2098,9 +2098,9 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             });
                                             req.on('error', function (err, result) {
                                                 console.log(err);
-                                                console.log("Error while fetching data from IMI Server. Please try later");
-                                                failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                resp.write(JSON.stringify(failure_response));
+                                                //console.log("Error while fetching data from IMI Server. Please try later");
+                                                //failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                                //resp.write(JSON.stringify(failure_response));
                                                 // response.end();
                                             });
                                             req.write(JSON.stringify(data));
