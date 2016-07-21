@@ -4,7 +4,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $rootScope.showhideprop=false;
     $rootScope.showBtnOrder = true;
     $rootScope.showEditBtn = true;
-
+    $scope.showBill1 = true;
+    $scope.showBill2 = false;
     //pj----->
     $scope.spinsCatalogueList=false;
     $scope.lineAdded=0;
@@ -59,10 +60,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     }
 
     //bill of meterial-->
-    $scope.viewBill = function(){
+    $scope.viewBill2 = function(){
         console.log("from viewBill------------->")
         $scope.newVer= sharedProperties.getNewersion();
-        console.log("current version ----->"+$scope.newVer)
+        console.log("current version ----->"+$scope.newVer);
         /*console.log("created canvas== "+canvas);
          console.log("Current canvas : " + JSON.stringify(canvas));*/
         $scope.canvasCreated=JSON.stringify(canvas);
@@ -2734,6 +2735,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
     $scope.confirms = function (textModel) {
         $rootScope.showBtnOrder = false;
         $rootScope.showEditBtn = false;
+        $scope.showBill1 = false;
+        $scope.showBill2 = true;
         $scope.distext  = angular.copy(textModel);
         $scope.ver=sharedProperties.getVersion();
         $scope.loguser=sharedProperties.getProperty();
