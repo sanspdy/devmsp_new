@@ -738,6 +738,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
+                sharedProperties.setCanvasInfo(resultCanvasDetails);
                 console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
@@ -2072,6 +2073,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         var Cn = '';
         var BMuname = '';
         var BMpass = '';
+        var CanInfo= '';
+        this.setCanvasInfo = function(canvasInfo){
+            console.log('canvasInfo==' +canvasInfo);
+            CanInfo = canvasInfo;
+        }
+        this.getCanvasInfo = function(){
+            return CanInfo;
+        }
         this.setBMuname = function(BMuser) {
             console.log("BMuname==="+BMuser);
             BMuname=BMuser;
@@ -2205,13 +2214,15 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         console.log('$scope.Contact===' +$scope.Contact);
         $scope.currentBMUser=sharedProperties.getBMuname();
         $scope.currentBMPass=sharedProperties.getBMPass();
+        $scope.CanvasResultInfo = sharedProperties.getCanvasInfo()
+        console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
-        console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        //console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         $scope.newVer= sharedProperties.getVersion();
         console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
-        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+        if($scope.CanvasResultInfo.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
             //console.log(serviceName1=== +serviceName1);
             $http({
