@@ -1329,6 +1329,7 @@ angular.module('portalControllers').controller('newsolutionCtrl', function ($sco
 
 });
 angular.module('portalControllers').controller('orderBillCtrl', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+    console.log('inside orderbill');
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
