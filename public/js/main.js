@@ -1080,6 +1080,10 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
         $uibModalInstance.dismiss('cancel');
     };
     console.log('serviceTitle==' +serviceTitle);
+    console.log('quantitySelected==' +quantitySelected);
+    console.log('estimateSelected===' +estimateSelected);
+
+    console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +popupData);
     console.log('guidPlan==' +guidPlan);
