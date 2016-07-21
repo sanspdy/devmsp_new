@@ -2250,6 +2250,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             console.log('userEntered == ' + $scope.currentUser);
             var user = $scope.currentUser;
             console.log("inside place order");
+            $scope.solnEntered11=sharedProperties.getCurrentCSolName();
             console.log('$scope.solnEntered === '+$scope.solnEntered11);
             $scope.placeOrderSpins = true;
             $scope.viewCreatSol = false;
