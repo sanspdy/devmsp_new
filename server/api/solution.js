@@ -2082,7 +2082,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             };
 
                                             var options = {
-                                                host: 'devmsp.mybluemix.net',
+                                                host: 'cbicportal.mybluemix.net',
                                                 path: '/api/acceptdummy',
                                                 method: 'POST',
                                                 headers: {
