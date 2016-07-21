@@ -28,6 +28,12 @@
     font-size: 25px;
 }
 
+.noteProperty{
+    margin-top: -103%;
+    margin-right: -8%;
+}
+
+
 .keyStyleHead{
     font-size: 22px;
     text-transform: capitalize;
