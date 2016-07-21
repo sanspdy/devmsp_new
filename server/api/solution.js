@@ -2169,7 +2169,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 }
                                                 else {
                                                     failure_response.description = "Data insertion in Final JSON DB failed";
-                                                    resp.write(JSON.stringify(failure_response));
+                                                     resp.write(JSON.stringify(failure_response));
                                                     resp.end();
                                                 }
                                             });
