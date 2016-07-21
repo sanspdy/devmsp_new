@@ -348,6 +348,14 @@ angular.module('portalControllers', ['ui.bootstrap'])
 .service('sharedPropertiesCanvas', function(){
         var cinfo='';
         var GuidPlanArray = [];
+        var setPlansArray = [];
+
+        this.setPlans = function (plan) {
+            setPlansArray.push(plan);
+        }
+        this.getPlans = function(){
+            return setPlansArray;
+        };
 
         this.setGuidPlan = function(guid){
             GuidPlanArray.push(guid);
@@ -1007,7 +1015,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected) {
+        $scope.saveDataService = function (radioselected,quantity,price,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
@@ -1016,6 +1024,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('indexCourseId==' +indexCourseId);
             var guid = $scope.propertiesObjectArrayData[indexCourseId].metadata.guid;
             console.log('guid===' +JSON.stringify(guid));
+
 
             $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -1038,6 +1047,15 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     },
                     planName : function(){
                         return radioselected;
+                    },
+                    quantitySelected : function(){
+                        return quantity;
+                    },
+                    estimateSelected : function(){
+                        return price;
+                    },
+                    latestTitle : function(){
+                        return title;
                     }
 
                 }
@@ -1055,7 +1073,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
     $scope.dismissDel = function () {
@@ -1101,6 +1119,8 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     $scope.errorName = data.errors.name;
                 } else {
                     console.log("inside success function");
+                    var plans = { serviceName : latestTitle, guid : guidPlan,plan : planName , quantity : quantitySelected , estimate : estimateSelected};
+                    sharedPropertiesCanvas.setPlans(plans);
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));
                     $scope.savebluemixPlan = true;
@@ -1318,7 +1338,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     }else if(isOrderButton==='deplBOM'){
         $scope.showOrderBtn = false;
     }
-
+    $scope.latestPlans = sharedPropertiesCanvas.getPlans();
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"

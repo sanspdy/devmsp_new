@@ -81,10 +81,10 @@
                 <td class="col-xs-1">{{dataRuntime.properties.price}}</td>
                 <td class="col-xs-1"> --</td>
             </tr>
-            <tr class="col-xs-12 tble_data" ng-repeat="dataServices in bluemixServiceViewBillObjectArray">
-                <!--<td class="col-xs-2">{{serialNumber}}</td>-->
+            <!--<tr class="col-xs-12 tble_data" ng-repeat="dataServices in bluemixServiceViewBillObjectArray">
+                &lt;!&ndash;<td class="col-xs-2">{{serialNumber}}</td>&ndash;&gt;
                 <td class="col-xs-3">{{dataServices.title}}</td>
-                <!--<td class="col-xs-3"><img  class="img-circle" src="../../images/btn_panelexpand.png"></td>-->
+                &lt;!&ndash;<td class="col-xs-3"><img  class="img-circle" src="../../images/btn_panelexpand.png"></td>&ndash;&gt;
                 <td class="col-xs-3 ">
                     <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv()"></span>
                     <div  class="row"   ng-show="propServices">
@@ -102,6 +102,32 @@
                 <td class="col-xs-2">Bluemix </td>
                 <td class="col-xs-1">1</td>
                 <td class="col-xs-1"><a href="https://console.ng.bluemix.net/pricing/" style="color: #0e90d2" target="_blank">Pricing</a></td>
+                <td class="col-xs-1"> &#45;&#45;</td>
+            </tr>-->
+
+            <tr class="col-xs-12 tble_data" ng-repeat="dataServices in latestPlans">
+                <!--<td class="col-xs-2">{{serialNumber}}</td>-->
+                <td class="col-xs-3">{{dataServices.serviceName}}</td>
+                <!--<td class="col-xs-3"><img  class="img-circle" src="../../images/btn_panelexpand.png"></td>-->
+                <td class="col-xs-3 ">
+                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv()"></span>
+                    <div  class="row"   ng-show="propServices">
+                        <div class="col-xs-3">
+                            <p> Plan:</p>
+                        </div>
+                        <div class="col-xs-1">
+
+                        </div>
+                        <div class="col-xs-3">
+                            <p>  {{plan}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="col-xs-2">Bluemix </td>
+                <td class="col-xs-1">{{quantity}}</td>
+                <td class="col-xs-1"><!--<a href="https://console.ng.bluemix.net/pricing/" style="color: #0e90d2" target="_blank">Pricing</a>-->
+                    {{ estimate}}
+                </td>
                 <td class="col-xs-1"> --</td>
             </tr>
             </tbody>
