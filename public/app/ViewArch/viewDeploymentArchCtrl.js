@@ -736,9 +736,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 $scope.errorName = data.errors.name;
             } else {
                 // console.log("inside success function");
-                $scope.resultCanvasDetails = data;
-                console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
-                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
+                $rootScope.resultCanvasDetails = data;
+                console.log('resultCanvasDetails === '+JSON.stringify($rootScope.resultCanvasDetails));
+                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($rootScope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
                     // window.newAnimation = function () {
@@ -880,7 +880,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                     // }
 
-                    var canvasRenderObject=$scope.resultCanvasDetails.canvas[0];
+                    var canvasRenderObject=$rootScope.resultCanvasDetails.canvas[0];
                     console.log('canvasRenderObject===' +canvasRenderObject);
                     canvas.loadFromDatalessJSON(canvasRenderObject);
                     canvas.renderAll();
@@ -1981,7 +1981,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
 
-    $scope.placeServiceOrder=function (index) {
+    /*$scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
@@ -1992,11 +1992,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.currentBMPass=sharedProperties.getBMPass();
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
-      console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+      console.log('resultCanvasDetails===' +JSON.stringify($rootScope.resultCanvasDetails));
         $scope.newVer= sharedProperties.getVersion();
         console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
-        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+        if($rootScope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
             //console.log(serviceName1=== +serviceName1);
              $http({
@@ -2025,8 +2025,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                      }
                  });
-             /*$uibModalInstance.dismiss('cancel');
-             $location.path('/deployment');*/
+             /!*$uibModalInstance.dismiss('cancel');
+             $location.path('/deployment');*!/
              })
         }
         else{
@@ -2058,7 +2058,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             });
         }
 
-    };
+    };*/
 })
 
     .service('sharedProperties', function ($rootScope) {
@@ -2182,7 +2182,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             return $rootScope.runtimecount;
         }
     });
-angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+angular.module('portalControllers').controller('orderBillCtrl2', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas,$rootScope) {
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
@@ -2195,7 +2195,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
 
 
     //placing order shifted in orderbillCTrl
-   /* $scope.placeServiceOrder=function (index) {
+    $scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
@@ -2206,11 +2206,11 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         $scope.currentBMPass=sharedProperties.getBMPass();
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
-        console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
+        console.log('resultCanvasDetails===' +JSON.stringify($rootScope.resultCanvasDetails));
         $scope.newVer= sharedProperties.getVersion();
         console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
-        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+        if($rootScope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
             //console.log(serviceName1=== +serviceName1);
             $http({
@@ -2239,8 +2239,8 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
 
                     }
                 });
-                /!*$uibModalInstance.dismiss('cancel');
-                 $location.path('/deployment');*!/
+                /*$uibModalInstance.dismiss('cancel');
+                 $location.path('/deployment');*/
             })
         }
         else{
@@ -2272,7 +2272,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             });
         }
 
-    };*/
+    };
     //ends
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
