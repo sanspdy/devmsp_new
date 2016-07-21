@@ -27,10 +27,12 @@
     /* margin-right: 74%; */
     font-size: 25px;
 }
+
 .keyStyleHead{
-    font-size: 20px;
+    font-size: 22px;
     text-transform: capitalize;
     color: #017eba;
+    margin-left: 4%;
 }
 .spss_input{
     width: 73px;
@@ -82,18 +84,17 @@
     width: 7%;
     height: 34px;
 }
-
 .save_btn_msp{
     float: right;
-    margin-top: 4.5%;
+    margin-top: -6%;
     background-color: #017eba;
     margin-right: -11px;
     /* height: 20% !important; */
     color: white;
     /* max-height: 7%; */
     /* margin-bottom: 4%; */
-    width: 18%;
-    height: 34px;
+    width: 12%;
+    height: 31px;
 }
 
 .btn_div{
