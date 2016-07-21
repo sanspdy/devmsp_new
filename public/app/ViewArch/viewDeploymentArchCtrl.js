@@ -60,7 +60,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     }
 
     //bill of meterial-->
-    $scope.viewBill2 = function(){
+    $scope.viewBill = function(){
         console.log("from viewBill------------->")
         $scope.newVer= sharedProperties.getNewersion();
         console.log("current version ----->"+$scope.newVer);
