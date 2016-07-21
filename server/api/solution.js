@@ -1977,7 +1977,7 @@ exports.v2_placeOrder=function(reqst, resp) {
 
     var space_guid = reqst.body.space_guid;
     ////var service_name = reqst.body.service_name;
-    //var service_plan_guid = reqst.body.service_plan_guid;
+    var service_plan_guid11 = reqst.body.service_plan_guid;
     //console.log(service_plan_guid);
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;
@@ -1989,6 +1989,8 @@ exports.v2_placeOrder=function(reqst, resp) {
    // var bmusername = "kvilliva@in.ibm.com";
    // var bmpassword = "Hope@1993";
 
+    console.log("space guid:"+ space_guid);
+    console.log("service_plan_guid:"+service_plan_guid11);
 
 
     console.log("Placeorder for" + soln);
