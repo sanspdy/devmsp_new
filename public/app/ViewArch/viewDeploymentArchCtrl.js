@@ -2149,7 +2149,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         };
         this.getNewersion=function () {
             if($rootScope.newversion === null || $rootScope.newversion === undefined){
-                $rootScope.newversion=-1;
+                $rootScope.newversion= 1;
                 return $rootScope.newversion;
             }
             return $rootScope.newversion;
