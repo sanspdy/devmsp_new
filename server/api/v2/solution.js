@@ -1620,48 +1620,56 @@ exports.v2_deleteSolution=function(request, response) {
     }
     else if (request.body.hasOwnProperty("uname") && request.body.hasOwnProperty("solnName")) {
 
-        dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, result) {
+        var bulkupdatedata={docs:[]};
+        dbSoln.find({selector: {solution_name: SolName,  user: username}}, function (err, result) {
             if (!err) {
                 var length=result.docs.length;
+                console.log("Length of the docs: "+length);
                 if (result != null) {
                     if (result.hasOwnProperty("docs")) {
-                        if (result.docs != null) {
+                        if (result.docs != null && result.docs !== undefined && result.docs !== []) {
 
                             for(i=0;i<length;i++){
-                                console.log("ID:"+result.docs[i]._id);
-                                console.log("REV ID:"+result.docs[i]._rev);
-                                if (result.docs[i].hasOwnProperty("_id") != null) {
-                                    if (result.docs[i].hasOwnProperty("_rev") != null) {
-                                        setTimeout(function () {
-                                        dbSoln.destroy(result.docs[i]._id, result.docs[i]._rev, function (err2, body, header) {
-                                            if(err2){
-                                                console.log(err2);
-                                                failure_response.description = "error while deleting data"
-                                                response.write(JSON.stringify(failure_response));
-                                                response.end();
-                                            }
-                                            else{
-                                                rec_deleted++;
-                                            }
-                                        });
-                                        },1000);
-                                    }
+
+                                var item={
+                                    "_id":result.docs[i]._id,
+                                    "_rev":result.docs[i]._rev,
+                                    "_deleted":true
                                 }
+
+                                bulkupdatedata.docs[i]=item;
+
                             }
-                            if(rec_deleted==length) {
-                                console.log("Rec deleted..");
-                                console.log("*** Request Responded ***");
-                                response.write(JSON.stringify(success_response));
-                                response.end();
-                            }
-                            else{
-                                // console.log(err2);
-                                failure_response.description = "error while deleting data"
-                                response.write(JSON.stringify(failure_response));
-                                response.end();
-                            }
+
+                            dbSoln.bulk(bulkupdatedata,function(err,data){
+                                if(!err) {
+                                    console.log("Records deleted");
+                                    response.write(JSON.stringify(success_response));
+                                    response.end();
+                                }
+                                else{
+                                    console.log(err);
+                                    failure_response.description = "error while fetching. please try again"
+                                    response.write(JSON.stringify(failure_response));
+                                    response.end();
+                                }
+                            });
                         }
+                        else {
+                            console.log(err);
+                            failure_response.description = "There is no such solution exist"
+                            response.write(JSON.stringify(failure_response));
+                            response.end();
+                        }
+
                     }
+                    else {
+                        console.log(err);
+                        failure_response.description = "There is no such solution exist"
+                        response.write(JSON.stringify(failure_response));
+                        response.end();
+                    }
+
                 }
 
             }
@@ -1672,7 +1680,16 @@ exports.v2_deleteSolution=function(request, response) {
                 response.end();
             }
         });
-
+        //
+        //dbSoln.destroy({selector: {solution_name: SolName,  user: username}}, function (err, result) {
+        //    if(err){
+        //        console.log(err);
+        //    }
+        //    console.log(result);
+        //    response.write(JSON.stringify(success_response));
+        //
+        //    response.end();
+        //});
 
     }
     else {
@@ -1682,6 +1699,8 @@ exports.v2_deleteSolution=function(request, response) {
         response.write(JSON.stringify(failure_response));
         response.end();
     }
+
+
 }
 
 
