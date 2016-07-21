@@ -1993,11 +1993,11 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.currentBMPass=sharedProperties.getBMPass();
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
-      console.log('resultCanvasDetails===' +JSON.stringify($rootScope.resultCanvasDetails));
+      console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
         $scope.newVer= sharedProperties.getVersion();
         console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
-        if($rootScope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
             console.log('invoke place order for msp prov');
             //console.log(serviceName1=== +serviceName1);
              $http({
