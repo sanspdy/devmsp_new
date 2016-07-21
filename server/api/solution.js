@@ -2082,8 +2082,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             };
 
                                             var options = {
-                                                host: 'cbicportal.mybluemix.net',
-                                                port:80,
+                                                //host: 'cbicportal.mybluemix.net',
+                                                //port:80,
                                                 path: '/api/acceptdummy',
                                                 method: 'POST',
                                                 headers: {
