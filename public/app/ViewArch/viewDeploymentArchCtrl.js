@@ -738,7 +738,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
-                sharedProperties.setCanvasInfo(resultCanvasDetails);
+                sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
                 console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
