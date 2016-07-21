@@ -2100,7 +2100,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 console.log(err);
                                                 console.log("Error while fetching data from IMI Server. Please try later");
                                                 failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                response.write(JSON.stringify(failure_response));
+                                                resp.write(JSON.stringify(failure_response));
                                                 // response.end();
                                             });
                                             req.write(JSON.stringify(data));
@@ -2220,7 +2220,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 console.log(err);
                                                 console.log("Error while fetching data from IMI Server. Please try later");
                                                 failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                response.write(JSON.stringify(failure_response));
+                                                resp.write(JSON.stringify(failure_response));
                                                 // response.end();
                                             });
                                             req.write(JSON.stringify(orderjson));
