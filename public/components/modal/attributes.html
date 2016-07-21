@@ -3,6 +3,9 @@
         <div class="row header" ng-show="showMSPAttributes">
             <p class="pop_heading">{{attrTitle}} </p>
             <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <div class=" btn_div row" ng-show="showMSPAttributes">
+                <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
+            </div>
             <hr>
         </div>
         <div class="row header" ng-show="showRuntimeAttributes">
@@ -26,12 +29,12 @@
                 <input class="spss_input" type="text" ng-model="patternObjectIIB_Server[key]" ng-blur="changedValueSave()">
             </div>
         </div>-->
-        <div ng-repeat="(key,value) in patternObject">
+        <!--<div ng-repeat="(key,value) in patternObject">
             <p class="keyStyleHead"> {{key}}</p>
             <div class="col-xs-12">
                 <p class="col-xs-6">  {{key}}Quantity</p>
                 <input class="spss_input" type="text" ng-model="value[key+'_Quantity']" ng-blur="changedValueSave()">
-                <!--<p  class="col-xs-6" style="color: red;">  {{value[key+'_Quantity']}}</p>-->
+                &lt;!&ndash;<p  class="col-xs-6" style="color: red;">  {{value[key+'_Quantity']}}</p>&ndash;&gt;
 
             </div>
             <div class="col-xs-12">
@@ -41,10 +44,50 @@
             </div>
             <div class="col-xs-12">
                 <p class="col-xs-6">  {{key}}Flavor</p>
-                <!-- <p  class="col-xs-6" style="color: red;">  {{value[key+'_O/S']}}</p>-->
+                &lt;!&ndash; <p  class="col-xs-6" style="color: red;">  {{value[key+'_O/S']}}</p>&ndash;&gt;
                 <select  class="col-xs-6 serverSize" ng-model="selectedFlavor[$index]" ng-init="selectedFlavor[$index] = Flavor[0]" ng-options="flav.flavorName for flav in Flavor track by flav.id">
                 </select>
             </div>
+        </div>-->
+        <div ng-repeat="(key,value) in patternObject">
+            <p class="keyStyleHead"> {{key}}</p>
+            <div class="col-xs-12">
+                <p class="col-xs-5 keyHeads">  <b>{{key}}Quantity</b></p>
+                <input class="col-xs-3 inputQuantity" type="text" ng-model="value[key+'_Quantity']" ng-blur="changedValueSave()">
+                <p class="col-xs-4"></p>
+                <!--<p  class="col-xs-6" style="color: red;">  {{value[key+'_Quantity']}}</p>-->
+            </div>
+            <div class="col-xs-12">
+                <p class="col-xs-5 keyHeads">  <b>{{key}}Size</b></p>
+                <select  class="col-xs-3 serverSize" ng-model="selectedSize[$index]" ng-init="selectedSize[$index] = serverSize[0] " ng-change="changeServerSize($index,selectedSize[$index].size,key)" ng-options="country.size for country in serverSize track by country.id">
+                </select>
+                <p class="col-xs-4">
+
+                </p>
+                <!--<div>
+                    <p>
+                        <b>Small</b>: CPU:2,Memory:8,DiskSize:40
+                        <b>Medium</b>: CPU:2,Memory:8,DiskSize:40
+                        <b>Large</b>: CPU:2,Memory:8,DiskSize:40
+                    </p>
+                </div>-->
+            </div>
+            <div class="col-xs-12">
+                <p class="col-xs-5 keyHeads">  <b>{{key}}Flavor</b></p>
+                <!-- <p  class="col-xs-6" style="color: red;">  {{value[key+'_O/S']}}</p>-->
+                <select  class="col-xs-3 serverSize" ng-model="selectedFlavor[$index]" ng-init="selectedFlavor[$index] = Flavor[0]" ng-options="flav.flavorName for flav in Flavor track by flav.id">
+                </select>
+                <p class="col-xs-4">
+
+                </p>
+            </div>
+            <!--<div  ng-show="showMSPAttributes" ng-repeat="patternObjectIIB_Server1 in patternObjectIIB_Server">
+                <div class="row" ng-repeat="(key,value) in patternObjectIIB_Server1 ">
+                    <div class="col-xs-7">
+                    <p class="keyStyle"> {{key}}</p>
+                    </div>
+                </div>
+            </div>-->
         </div>
 
 
@@ -145,9 +188,9 @@
             </ul>
         </div>
     </div>
-    <div class=" btn_div row" ng-show="showMSPAttributes">
+    <!--<div class=" btn_div row" ng-show="showMSPAttributes">
         <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
-    </div>
+    </div>-->
     <div class=" btn_div row" ng-show="showRuntimeAttributes">
         <p ng-show="showRuntimeAttributes" class="runtimeNote"><b>Note:</b></p>
         <p ng-show="showRuntimeAttributes" class="runtimePrice">Click <a href ="https://console.ng.bluemix.net/pricing/" target="_blank">here</a> for Pricing Details</p>

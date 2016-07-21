@@ -2,6 +2,19 @@
     font-size: 20px;
     text-transform: capitalize;
 }
+.keyHeads{
+    font-size: 17px;
+
+}
+.keyHeads:after {
+    content:" *";
+    color: red;
+}
+.inputQuantity{
+    width: 99px !important;
+    height: 29px;
+    padding: 1% 0% 0% 2%!important;
+}
 
 
 .pop_heading{
