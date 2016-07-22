@@ -966,7 +966,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             //console.log('isselected===' +isselected);
             console.log('price===' +price);
             $scope.latestPrice = price;
-            $scope.latestQuantity = quantity;
+           /* $scope.latestQuantity = quantity;*/
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
@@ -990,8 +990,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         $scope.errorName = data.errors.name;
                     } else {
                         // console.log("inside success function");
+                        //$scope.latestQuantity = data;
                         $scope.pricedata[price] = data;
                         console.log(JSON.stringify($scope.pricedata));
+                        console.log(JSON.stringify($scope.pricedata[price]));
                         $scope.showPriceBefore= false;
                         $scope.showPriceAfter = true;
                     }
@@ -1018,8 +1020,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
-            console.log('$scope.latestPrice==' +$scope.latestPrice);
-            console.log('$scope.latestQuantity===' +$scope.latestQuantity);
+            console.log('$scope.latestPrice==' +$scope.pricedata[price]);
+            console.log('$scope.latestQuantity===' +$scope.pricedata[price]);
             //console.log('quantity==' +quantity);
             //console.log('price===' +price);
             console.log('title===' +title);
@@ -1055,7 +1057,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         return radioselected;
                     },
                     quantitySelected : function(){
-                        return $scope.latestQuantity;
+                        return $scope.pricedata[price];
                     },
                     estimateSelected : function(){
                         return $scope.latestPrice;
