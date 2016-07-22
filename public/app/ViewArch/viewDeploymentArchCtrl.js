@@ -3415,7 +3415,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                         canvas = new fabric.Canvas('canvas',{
                             selection: true,
                         });
-                        $scope.canvasCreated=JSON.stringify(canvas);
+                        $scope.canvasCreated =  sharedProperties.getCanvasInform();
+                        //$scope.canvasCreated=JSON.stringify(canvas);
                         console.log("Current canvasCreated : " + $scope.canvasCreated);
 
                         canvas.on("object:selected", function(options) {

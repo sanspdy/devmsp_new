@@ -526,7 +526,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 //var serverType = type[i]
                 // ;
                 var namCPU = key+'_vCPU';
-                var namMemory = key+'_Memory';//invoke getComponentPrice on ng-change
+                var namMemory = key+'_Memory';
+                //invoke getComponentPrice on ng-change
                 console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
                 /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
                 console.log('updated popupData1 values ==== ' + JSON.stringify($scope.popupData1["Pattern"]));
@@ -582,7 +583,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log('namCPU==' +namCPU);
                 if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
-                    $scope.a['size']= size;
+                    $scope.a['size']= size;  //adding size key and value to existing json
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
                     $scope.a[namMemory] = updatedSizeProperties[i].memory;
                     $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
@@ -592,8 +593,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             $scope.patternObjectIIB_Server[index] = $scope.a;
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             //console.log('a===' +JSON.stringify(a));
-
-
         };
 
 
