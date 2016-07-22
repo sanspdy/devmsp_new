@@ -4386,11 +4386,11 @@ function status_update(uname,solnName,version){
                                             result.docs[0].provisioning_status[0].bluemix_status = "not provisioned";
                                         }
                                         dbsoln.insert(result.docs[0],function (err2,result2){
-                                            if(!err){
+                                            if(!err2){
                                                 console.log("Inserted into db");
                                             }
                                             else{
-                                                console.log(err);
+                                                console.log(err2);
                                             }
                                         });
                                     },20000);
