@@ -1977,7 +1977,7 @@ exports.v2_placeOrder=function(reqst, resp) {
 
     var space_guid = reqst.body.space_guid;
     ////var service_name = reqst.body.service_name;
-    var service_plan_guid = reqst.body.service_plan_guid;
+    var service_plan_guid = JSON.parse(reqst.body.service_plan_guid);
     //console.log(service_plan_guid);
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;

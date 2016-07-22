@@ -2500,8 +2500,8 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
                                                 if($scope.propertiesObjectFirstKey === 'metadata'){
                                                     $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
                                                     console.log('$scope.guid_data===' +JSON.stringify($scope.guid_data));
-                                                    $scope.service_plan_guid = $scope.guid_data.guid;
-                                                    console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
+                                                    //$scope.service_plan_guid = $scope.guid_data.guid;
+                                                    //console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
                                                 }
 
                                                 if($scope.propertiesObjectFirstKey === 'entity') {
@@ -2772,7 +2772,7 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 'contactname':$scope.Contact,
                 'contactmail':$scope.currentUser,
                 'space_guid':spaceGuid,
-                'service_plan_guid':PlanGuid,
+                'service_plan_guid':JSON.stringify(PlanGuid),
                 'bmusername':$scope.itemData.username,
                 'bmpassword':$scope.itemData.password
 
