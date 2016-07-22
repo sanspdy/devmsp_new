@@ -13,7 +13,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.spinsGetServiceInfo=false;
     $scope.spinsUpdateServiceInfo=false;
     $scope.spinsBOM=false;
-    $scope.objCount=0;
+    $rootScope.objCount=0;
     $scope.MSPComponentCount=0;
     $scope.bluemixRuntimeComponentCount=0;
     $scope.bluemixServiceComponentCount=0;
@@ -1400,7 +1400,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                             $( "#canvas-container").draggable("disable");
                         }
                         if($scope.MSP===true) {
-                            $scope.objCount++;
+                            $rootScope.objCount++;
                             $scope.MSPComponentCount++;
 
                             var indexCount=$scope.MSPComponentCount;
@@ -1521,7 +1521,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         if($scope.Bluemix===true) {
 
                             if($scope.runtimeCatalogue === true){
-                                $scope.objCount++;
+                                $rootScope.objCount++;
                                 $scope.bluemixRuntimeComponentCount++;
                                 var indexRuntimeCompCount=$scope.bluemixRuntimeComponentCount;
                                 var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
@@ -1615,7 +1615,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 });
                             }
                             if($scope.servicesCatalogue === true){
-                                $scope.objCount++;
+                                $rootScope.objCount++;
                                 $scope.bluemixServiceComponentCount++;
                                 var indexServiceCompCount=$scope.bluemixServiceComponentCount;
                                 var bluemixServiceCompCount=indexServiceCompCount-1;
@@ -1963,8 +1963,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $scope.addChild = function () {
                         console.log('inside addchild');
                         $scope.lineAdded++;
-                        // $scope.objCount++;
-                        // console.log('inside addchild'+$scope.objCount);
+                        // $rootScope.objCount++;
+                        // console.log('inside addchild'+$rootScope.objCount);
                         canvas.addChild = {
                             start: canvas.getActiveObject()
                         }
@@ -2254,7 +2254,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         imgInstance3.lockMovementX = true;
 
                         $scope.choices = [];
-                        $scope.objCount = 0;
+                        $rootScope.objCount = 0;
 
                         /*$uibModal.open({
                          animation: $scope.animationsEnabled,
@@ -2394,7 +2394,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                             $scope.choices.push(obj);
                         }
-                        // $scope.objCount++;
+                        // $rootScope.objCount++;
                         $scope.count++;
 
 
@@ -2409,7 +2409,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     $scope.removeChoice = function(index) {
                         var lastItem = index;
                         $scope.choices.splice(lastItem,1);
-                        $scope.objCount--;
+                        $rootScope.objCount--;
                         // $scope.deleteObject();
                     };
 
