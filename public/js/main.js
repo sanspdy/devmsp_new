@@ -1062,7 +1062,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         return $scope.latestQuantity ;
                     },
                     estimateSelected : function(){
-                        return $scope.pricedata[price];
+                        return $scope.latestPrice;
                     },
                     latestTitle : function(){
                         return title;
