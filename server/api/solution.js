@@ -4076,7 +4076,7 @@ function db_insert_app(appnames, solnName, full_token_new,uname,version){
                     };
                     console.log("Optionssssssssss for app",options);
                     var data="";
-                    var reqq = https.request(options, function(res) {
+                    var reqq = http.request(options, function(res) {
                         console.log("inside req");
                         res.on('data', function(chunk) {
                             data += chunk;
@@ -4203,7 +4203,7 @@ function db_insert(service_name,solnName,full_token_new,uname,version){
                     };
                     console.log("Optionssssssssss",options);
                     var data="";
-                    var reqq = https.request(options, function(res) {
+                    var reqq = http.request(options, function(res) {
                         console.log("inside req");
                         res.on('data', function(chunk) {
                             data += chunk;
