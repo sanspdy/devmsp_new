@@ -4345,76 +4345,78 @@ function status_update(uname,solnName,version){
     var dbsoln = cloudant.use("solutions");
     console.log("I am in status update")
     try{
+        setTimeout(function(){
+            dbsoln.find({selector:{user: uname, solution_name: solnName, version: version}},function(err,result){
+                if(!err){
 
-        dbsoln.find({selector:{user: uname, solution_name: solnName, version: version}},function(err,result){
-            if(!err){
+                    var service_status_details=result.docs[0].service_details.bluemix[0].services;
+                    var runtime_status_details=result.docs[0].service_details.bluemix[0].runtime;
+                    if(result.docs !== null || result.docs !== undefined){
+                        if(result.docs[0].hasOwnProperty("provisioning_status") && result.docs[0].provisioning_status !== null && result.docs[0].provisioning_status !== undefined){
+                            if(result.docs[0].provisioning_status[0].hasOwnProperty("bluemix_status") && result.docs[0].provisioning_status !== null && result.docs[0].provisioning_status !== undefined){
+                                for(var i=0;i<service_status_details.length;i++){
+                                    console.log("total count",total_count);
+                                    total_count++;
+                                    if(service_status_details[i].status === "provisioned"){
+                                        count++;
+                                    }
 
-                var service_status_details=result.docs[0].service_details.bluemix[0].services;
-                var runtime_status_details=result.docs[0].service_details.bluemix[0].runtime;
-                if(result.docs !== null || result.docs !== undefined){
-                    if(result.docs[0].hasOwnProperty("provisioning_status") && result.docs[0].provisioning_status !== null && result.docs[0].provisioning_status !== undefined){
-                        if(result.docs[0].provisioning_status[0].hasOwnProperty("bluemix_status") && result.docs[0].provisioning_status !== null && result.docs[0].provisioning_status !== undefined){
-                            for(var i=0;i<service_status_details.length;i++){
-                                console.log("total count",total_count);
-                                total_count++;
-                                if(service_status_details[i].status === "provisioned"){
-                                    count++;
                                 }
+                                for(var j=0;j<runtime_status_details.length;j++){
+                                    total_count++;
+                                    if(runtime_status_details[j].status === "provisioned"){
 
-                            }
-                            for(var j=0;j<runtime_status_details.length;j++){
-                                total_count++;
-                                if(runtime_status_details[j].status === "provisioned"){
-
-                                    count++;
+                                        count++;
+                                    }
                                 }
-                            }
-                            console.log("total count" + total_count);
-                            console.log("Count is"+count);
-                            try{
-                                setTimeout(function(){
-                                    if(count > 1 && count < total_count){
-                                        console.log("Partialy provisioned");
-                                        result.docs[0].provisioning_status[0].bluemix_status = "partially provisioned";
-                                    }
-                                    else if(count === total_count){
-                                        console.log("provisioned");
-                                        result.docs[0].provisioning_status[0].bluemix_status = "provisioned";
-                                    }
-                                    else{
-                                        console.log("not provisioned");
-                                        result.docs[0].provisioning_status[0].bluemix_status = "not provisioned";
-                                    }
-                                    dbsoln.insert(result.docs[0],function (err2,result2){
-                                        if(!err){
-                                            console.log("Inserted into db");
+                                console.log("total count" + total_count);
+                                console.log("Count is"+count);
+                                try{
+                                    setTimeout(function(){
+                                        if(count > 1 && count < total_count){
+                                            console.log("Partialy provisioned");
+                                            result.docs[0].provisioning_status[0].bluemix_status = "partially provisioned";
+                                        }
+                                        else if(count === total_count){
+                                            console.log("provisioned");
+                                            result.docs[0].provisioning_status[0].bluemix_status = "provisioned";
                                         }
                                         else{
-                                            console.log(err);
+                                            console.log("not provisioned");
+                                            result.docs[0].provisioning_status[0].bluemix_status = "not provisioned";
                                         }
-                                    });
-                                },20000);
+                                        dbsoln.insert(result.docs[0],function (err2,result2){
+                                            if(!err){
+                                                console.log("Inserted into db");
+                                            }
+                                            else{
+                                                console.log(err);
+                                            }
+                                        });
+                                    },20000);
+                                }
+                                catch(err){
+                                    console.log(err);
+                                }
                             }
-                            catch(err){
-                                console.log(err);
+                            else{
+                                console.log("No property bluemix_status");
                             }
                         }
                         else{
-                            console.log("No property bluemix_status");
+                            console.log("No such property");
                         }
                     }
                     else{
-                        console.log("No such property");
+                        console.log("No docs found");
                     }
                 }
                 else{
-                    console.log("No docs found");
+                    console.log(err);
                 }
-            }
-            else{
-                console.log(err);
-            }
-        })
+            })
+        },10000);
+
     }
     catch(err){
         console.log(err);
