@@ -2138,7 +2138,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                             if (result.docs[0].service_details.bluemix[0].runtime !== null || result.docs[0].service_details.bluemix[0].runtime !== undefined) {
 
                                                                 console.log("I am here3");
-                                                                setTimeout(function(){
+
                                                                     setTimeout(function(){
                                                                         bluemixappprovisioning();
                                                                         setTimeout(function(){
@@ -2146,7 +2146,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                                         },20000)
                                                                     },20000);
                                                                     //bluemixappprovisioning();
-                                                                },20000);
+                                                                
 
                                                             }
                                                             else {
@@ -4386,11 +4386,11 @@ function status_update(uname,solnName,version){
                                             result.docs[0].provisioning_status[0].bluemix_status = "not provisioned";
                                         }
                                         dbsoln.insert(result.docs[0],function (err2,result2){
-                                            if(!err){
+                                            if(!err2){
                                                 console.log("Inserted into db");
                                             }
                                             else{
-                                                console.log(err);
+                                                console.log(err2);
                                             }
                                         });
                                     },20000);
