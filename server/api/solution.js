@@ -2189,6 +2189,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     //console.log(service_plan_guid[0]);
 
                                                     try {
+                                                        console.log("service_plan_guid ==============="+service_plan_guid);
+
                                                         console.log("inside service guid loop");
                                                         // console.log(service_plan_guid[k]);
                                                         var dbsoln = cloudant.use("solutions");
@@ -2197,6 +2199,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                                 //console.log(k);
                                                                 if (result.docs !== null || result.docs !== undefined) {
                                                                     var ser_details = result.docs[0].service_details.bluemix[0].services;
+                                                                    console.log("Ser details =============",ser_details);
                                                                     for (var k = 0; k < service_plan_guid.length; k++) {
                                                                         l1: for (var i = 0; i < ser_details.length; i++) {
                                                                             var properties = ser_details[i].properties[0];
