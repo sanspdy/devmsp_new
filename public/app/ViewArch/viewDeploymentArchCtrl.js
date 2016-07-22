@@ -726,8 +726,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
-               // sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
-                //console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
+                sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
+                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
                     // window.newAnimation = function () {
@@ -2202,7 +2202,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         console.log('$scope.Contact===' +$scope.Contact);
         $scope.currentBMUser=sharedProperties.getBMuname();
         $scope.currentBMPass=sharedProperties.getBMPass();
-        $scope.CanvasResultInfo = sharedProperties.getCanvasInform()
+        $scope.CanvasResultInfo = sharedProperties.getCanvasInform();
         console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
@@ -2943,7 +2943,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                         canvas.renderAll();
                         $scope.canvasCreated=JSON.stringify(canvas);
                         console.log("Current canvasCreated : " + $scope.canvasCreated)
-                        sharedProperties.setCanvasInfo($scope.canvasCreated);
+                       // sharedProperties.setCanvasInfo($scope.canvasCreated);
                     })
                 }
             })
