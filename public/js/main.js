@@ -965,7 +965,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('unitID===' +unitID );
             //console.log('isselected===' +isselected);
             console.log('price===' +price);
-
+            $scope.latestPrice = price;
+            $scope.latestQuantity = quantity;
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
@@ -1015,10 +1016,12 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected,quantity,price,title) {
+        $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
-            console.log('quantity==' +quantity);
-            console.log('price===' +price);
+            console.log('$scope.latestPrice==' +$scope.latestPrice);
+            console.log('$scope.latestQuantity===' +$scope.latestQuantity);
+            //console.log('quantity==' +quantity);
+            //console.log('price===' +price);
             console.log('title===' +title);
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
@@ -1052,10 +1055,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         return radioselected;
                     },
                     quantitySelected : function(){
-                        return quantity;
+                        return $scope.latestQuantity;
                     },
                     estimateSelected : function(){
-                        return price;
+                        return $scope.latestPrice;
                     },
                     latestTitle : function(){
                         return title;
