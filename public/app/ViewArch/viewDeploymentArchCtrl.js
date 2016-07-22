@@ -66,8 +66,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         console.log("current version ----->"+$scope.newVer);
         /*console.log("created canvas== "+canvas);
          console.log("Current canvas : " + JSON.stringify(canvas));*/
-
-
         $scope.canvasCreated=JSON.stringify(canvas);
         console.log("Current canvasCreated : " + $scope.canvasCreated);
         var s1=canvas;
@@ -2204,8 +2202,8 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         console.log('$scope.Contact===' +$scope.Contact);
         $scope.currentBMUser=sharedProperties.getBMuname();
         $scope.currentBMPass=sharedProperties.getBMPass();
-       // $scope.CanvasResultInfo = sharedProperties.getCanvasInform()
-        //console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
+        $scope.CanvasResultInfo = sharedProperties.getCanvasInform()
+        console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
         //console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
