@@ -1982,7 +1982,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
 
-    $scope.placeServiceOrder=function (index) {
+    /*$scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
@@ -2026,8 +2026,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                      }
                  });
-             /*$uibModalInstance.dismiss('cancel');
-             $location.path('/deployment');*/
+             /!*$uibModalInstance.dismiss('cancel');
+             $location.path('/deployment');*!/
              })
         }
         else{
@@ -2059,7 +2059,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             });
         }
 
-    };
+    };*/
 })
 
     .service('sharedProperties', function ($rootScope) {
@@ -2204,7 +2204,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
 
 
     //placing order shifted in orderbillCTrl
-    /*$scope.placeServiceOrder=function (index) {
+    $scope.placeServiceOrder=function (index) {
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
@@ -2251,8 +2251,8 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
 
                     }
                 });
-                /!*$uibModalInstance.dismiss('cancel');
-                 $location.path('/deployment');*!/
+                /*$uibModalInstance.dismiss('cancel');
+                 $location.path('/deployment');*/
             })
         }
         else{
@@ -2284,8 +2284,7 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
                 }
             });
         }
-
-    };*/
+    };
     //ends
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
