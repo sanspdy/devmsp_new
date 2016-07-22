@@ -2138,7 +2138,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                             if (result.docs[0].service_details.bluemix[0].runtime !== null || result.docs[0].service_details.bluemix[0].runtime !== undefined) {
 
                                                                 console.log("I am here3");
-                                                                setTimeout(function(){
+
                                                                     setTimeout(function(){
                                                                         bluemixappprovisioning();
                                                                         setTimeout(function(){
@@ -2146,7 +2146,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                                         },20000)
                                                                     },20000);
                                                                     //bluemixappprovisioning();
-                                                                },20000);
+                                                                
 
                                                             }
                                                             else {
