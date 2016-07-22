@@ -1017,6 +1017,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,quantity,price,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
+            console.log('quantity==' +quantity);
+            console.log('price===' +price);
+            console.log('title===' +title);
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
                 return data.entity.extra.displayName === radioselected;
@@ -1123,7 +1126,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     $scope.errorName = data.errors.name;
                 } else {
                     console.log("inside success function");
-                    var plans = { serviceName : latestTitle, guid : guidPlan,plan : planName , quantity : quantitySelected , estimate : estimateSelected};
+                    var plans = { serviceName : serviceTitle, guid : guidPlan,plan : planName , quantity : quantitySelected , estimate : estimateSelected};
                     sharedPropertiesCanvas.setPlans(plans);
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));
