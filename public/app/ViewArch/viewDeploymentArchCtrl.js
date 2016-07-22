@@ -606,7 +606,489 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         }
 
     };
+    $scope.openpopupold = function (index) {
+        console.log('index in openpopup ===='+index);
 
+        if ($rootScope.mservicetype[index] === 'msp'){
+            console.log("msp")
+            $scope.openpopupMSPCount++;
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            // $scope.solnEntered = sharedProperties.getSoln();
+            $scope.solnEntered=sharedProperties.getCurrentCSolName();
+            console.log("$scope.solnEntered"+$scope.solnEntered)
+            var user = $scope.currentUser;
+            var serviceName1 = $rootScope.ServiceName[index];
+            console.log("serviceName ============" + serviceName1);
+            console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
+            var mspCount=$scope.openpopupMSPCount;
+            $scope.mspCount=mspCount-1;
+            console.log('componentCount MSP === '+$scope.mspCount);
+            $scope.newVer= sharedProperties.getNewersion();
+            console.log("current version ----->"+$scope.newVer)
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCanvasCatalogue = true;
+            $scope.loading=true;
+            for(var MSPIndex=0;MSPIndex<$rootScope.mservicetype.length;MSPIndex++){
+
+                $scope.actualMSPComponentIndex=MSPIndex;
+                console.log('$scope.actualMSPComponentIndex === '+$scope.actualMSPComponentIndex);
+
+            }
+
+            $http({
+                method: 'PUT',
+                url: '/api/v2/getServiceInfo',
+                data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'msp',
+                    'service_name': serviceName1,
+                    'component_cnt': $scope.actualMSPComponentIndex,
+                    'version': $scope.newVer
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            })
+                .success(function (data) {
+                    console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                    $scope.popupData = data;
+                    // console.log("MSP attr data == "+$scope.popupData);
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/attributes.html',
+                        controller: 'AttrCtrl',
+                        backdrop: 'static',
+                        windowClass: 'app-modal-window-att',
+                        resolve: {
+                            parentDivCall: function () {
+                                return $scope.popupData;
+                            },
+                            countComp:function () {
+                                return $scope.actualMSPComponentIndex;
+                            },
+                            serviceType:function(){
+                                return 'msp';
+                            }
+                        }
+                    });
+
+                    $scope.loading=false;
+                }
+            ).error(function (data, status, header, config) {
+                    console.log("header data" + header);
+                    console.log("status data" + status);
+                    console.log("config data" + config);
+                    console.log("Data:" + data);
+
+
+                })
+        }
+        if($rootScope.mservicetype[index] === 'bluemix'){
+            console.log("bluemix")
+            $scope.openpopupBluemixCount++;
+
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            //$scope.solnEntered = sharedProperties.getSoln();
+            $scope.solnEntered =sharedProperties.getCurrentCSolName();
+            console.log("$scope.solnEntered"+$scope.solnEntered)
+            var user = $scope.currentUser;
+            var bluemixServiceName =   $rootScope.ServiceName[index];;
+            console.log("serviceName ============" + bluemixServiceName);
+            console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
+            var bluemixCount=$scope.openpopupBluemixCount;
+            $scope.componentServiceCount=bluemixCount-1;
+            console.log('componentCount Service === '+$scope.componentServiceCount);
+
+            for(var serviceIndex=0;serviceIndex<$rootScope.mservicetype.length;serviceIndex++){
+
+                $scope.actualServiceComponentIndex=serviceIndex;
+                console.log('$scope.actualServiceComponentIndex === '+$scope.actualServiceComponentIndex);
+
+            }
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCanvasCatalogue = true;
+            $scope.loading=true;
+            $scope.newVer= sharedProperties.getNewersion();
+            console.log("current version ----->"+$scope.newVer)
+            $http({
+                method: 'PUT',
+                url: '/api/v1/getBluemixServiceInfo',
+                data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'bluemix',
+                    'service_name': bluemixServiceName,
+                    'component_cnt': $scope.actualServiceComponentIndex,
+                    'version': $scope.newVer
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            })
+                .success(function (data) {
+                    console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                    $scope.servicePopupData = data;
+                    console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/attributes.html',
+                        controller: 'AttrCtrl',
+                        windowClass: 'app-modal-window-att3',
+                        backdrop: 'static',
+                        resolve: {
+                            parentDivCall: function () {
+                                return $scope.servicePopupData;
+                            },
+                            countComp:function () {
+                                return $scope.actualServiceComponentIndex;
+                            },
+                            serviceType:function(){
+                                return 'bluemix';
+                            }
+
+                        }
+                    });
+                    $scope.loading=false;
+
+                }
+            ).error(function (data, status, header, config) {
+                    console.log("header data" + header);
+                    console.log("status data" + status);
+                    console.log("config data" + config);
+                    console.log("Data:" + data);
+                })
+        }
+
+        if($rootScope.mservicetype[index] === 'runtime'){
+            console.log("runtime")
+            $scope.openpopupRuntimeCount++;
+
+            $scope.currentUser = sharedProperties.getProperty();
+            console.log('userEntered == ' + $scope.currentUser);
+            // $scope.solnEntered = sharedProperties.getSoln();
+            $scope.solnEntered =sharedProperties.getCurrentCSolName();
+            console.log("$scope.solnEntered"+$scope.solnEntered)
+            var user = $scope.currentUser;
+            var runtimeServiceName =  $rootScope.ServiceName[index];
+            console.log("serviceName ============" + runtimeServiceName);
+            console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
+            var runtimeCount=$scope.openpopupRuntimeCount;
+            $scope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$scope.componentCount);
+            for(var runtimeIndex=0;runtimeIndex<$rootScope.mservicetype.length;runtimeIndex++){
+
+                $scope.actualruntimeComponentIndex=runtimeIndex;
+                console.log('$scope.actualruntimeComponentIndex === '+$scope.actualruntimeComponentIndex);
+
+            }
+            $scope.newVer= sharedProperties.getNewersion();
+            console.log("current version ----->"+$scope.newVer)
+            $scope.spinsCatalogueList=false;
+            $scope.spinsCanvas=false;
+            $scope.spinsCanvasCatalogue = true;
+            $scope.loading=true;
+            $http({
+                method: 'PUT',
+                url: '/api/v2/getBluemixServiceInfo',
+                data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'runtime',
+                    'service_name': runtimeServiceName,
+                    'component_cnt': $scope.actualruntimeComponentIndex,
+                    'version': $scope.newVer
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+            })
+                .success(function (data) {
+                    console.log("inside runtime function === " + JSON.stringify(data));
+                    $scope.runtimePopupData = data;
+                    // console.log("MSP attr data == "+$scope.popupData);
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/attributes.html',
+                        controller: 'AttrCtrl',
+                        windowClass: 'app-modal-window-att2',
+                        backdrop: 'static',
+                        resolve: {
+                            parentDivCall: function () {
+                                return $scope.runtimePopupData;
+                            },
+                            countComp:function () {
+                                return $scope.actualruntimeComponentIndex;
+                            },
+                            serviceType:function(){
+                                return 'runtime';
+                            }
+
+                        }
+                    });
+
+                    $scope.loading=false;
+                }
+            ).error(function (data, status, header, config) {
+                    console.log("header data" + header);
+                    console.log("status data" + status);
+                    console.log("config data" + config);
+                    console.log("Data:" + data);
+
+
+                })
+        }
+
+
+
+    };
+
+    $scope.deleteObjectold = function (index) {
+
+        console.log('deleted object index == '+index);
+        /*var object = canvas.getActiveObject();
+         if(object === null || object === undefined){
+         /!*alert("Please Select the service from canvas to be deleted");*!/
+         $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: '../components/modal/DeleteCanvasService.html',
+         size: 'sm',
+         controller: 'DeleteCanvasServiceCtrl',
+         windowClass: 'app-modal-window-dc',
+         backdrop: 'static',
+         resolve: {
+
+         }
+         });
+         }else {
+         console.log('deleted group object === ' + object);
+
+         console.log('index in openpopup ====' + index);
+         console.log('choices in delete click == ' + JSON.stringify($rootScope.choices));
+
+         var nameInCanvas = '';
+         var nameInList = '';
+         nameInCanvas = $rootScope.choices[index].selectedImageTitle;
+         nameInList = object.objects[1].text;
+         console.log('nameInCanvas===' + nameInCanvas);
+         console.log('nameInList====' + nameInList);
+
+         if (nameInCanvas == nameInList) {
+         if ($rootScope.mservicetype[index] === 'msp') {
+         // $scope.openpopupMSPCount++;
+         console.log('inside MSP');
+
+         // console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+         $scope.currentUser = sharedProperties.getProperty();
+         console.log('userEntered == ' + $scope.currentUser);
+         // $scope.solnEntered = sharedProperties.getSoln();
+         $scope.solnEntered=sharedProperties.getCurrentCSolName();
+         for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
+
+         $scope.actualMSPComponentIndex = MSPIndex;
+         console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
+
+         }
+         var user1 = $scope.currentUser;
+         var serviceName1 = $rootScope.choices[index].selectedCatalogName;
+         console.log("serviceName ============" + serviceName1);
+         var mspCount = $scope.openpopupMSPCount;
+         $scope.mspCount = mspCount - 1;
+         console.log('componentCount MSP === ' + $scope.mspCount);
+         $scope.newVer= sharedProperties.getNewersion();
+         console.log("current version ----->"+$scope.newVer)
+         $http({
+         method: 'PUT',
+         url: '/api/v2/removeComponentFromSolutiondb',
+         data: $.param({
+         'uname': user1,
+         'solnName': $scope.solnEntered,
+         'service_details': 'msp',
+         'service_name': serviceName1,
+         'component_cnt': $scope.actualMSPComponentIndex,
+         'version':$scope.newVer
+         }),
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         //forms user object
+         })
+         .success(function (data) {
+         console.log("inside getServiceInfo function === " + JSON.stringify(data));
+         $scope.popupData = data;
+         // console.log("MSP attr data == "+$scope.popupData);
+
+
+         /!*$scope.loading=false;*!/
+         }
+         ).error(function (data, status, header, config) {
+         console.log("header data" + header);
+         console.log("status data" + status);
+         console.log("config data" + config);
+         console.log("Data:" + data);
+
+
+         })
+         }
+
+         if ($rootScope.mservicetype[index]=== 'runtime') {
+
+         console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+         // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
+         $scope.currentUser = sharedProperties.getProperty();
+         console.log('userEntered == ' + $scope.currentUser);
+         //$scope.solnEntered = sharedProperties.getSoln();
+         $scope.solnEntered=sharedProperties.getCurrentCSolName()
+         var user = $scope.currentUser;
+         var runtimeServiceName = $rootScope.choices[index].selectedImageTitle;
+         console.log("serviceName ============" + runtimeServiceName);
+         console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+         var runtimeCount = $scope.openpopupRuntimeCount;
+         $scope.componentCount = runtimeCount - 1;
+         console.log('componentCount runtime === ' + $scope.componentCount);
+         $scope.newVer= sharedProperties.getNewersion();
+         console.log("current version ----->"+$scope.newVer)
+
+         for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
+         if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+         $scope.actualruntimeComponentIndex = runtimeIndex;
+         console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
+         }
+         }
+         $http({
+         method: 'PUT',
+         url: '/api/v2/removeComponentFromSolutiondb',
+         data: $.param({
+         'uname': user,
+         'solnName': $scope.solnEntered,
+         'service_details': 'runtime',
+         'service_name': runtimeServiceName,
+         'component_cnt': $scope.actualruntimeComponentIndex,
+         'version':$scope.newVer
+         }),
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         //forms user object
+         })
+         .success(function (data) {
+         console.log("inside runtime function === " + JSON.stringify(data));
+         $scope.runtimePopupData = data;
+         // console.log("MSP attr data == "+$scope.popupData);
+
+         /!*$scope.loading=false;*!/
+         }
+         ).error(function (data, status, header, config) {
+         console.log("header data" + header);
+         console.log("status data" + status);
+         console.log("config data" + config);
+         console.log("Data:" + data);
+
+
+         })
+         }
+
+         if ($rootScope.mservicetype[index]=== 'bluemix') {
+
+         console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+         // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
+         $scope.currentUser = sharedProperties.getProperty();
+         console.log('userEntered == ' + $scope.currentUser);
+         //$scope.solnEntered = sharedProperties.getSoln();
+         $scope.solnEntered=sharedProperties.getCurrentCSolName();
+         var user = $scope.currentUser;
+         var bluemixServiceName = $rootScope.choices[index].selectedImageTitle;
+         console.log("serviceName ============" + bluemixServiceName);
+         var bluemixCount = $scope.openpopupBluemixCount;
+         $scope.componentServiceCount = bluemixCount - 1;
+         console.log('componentCount Service === ' + $scope.componentServiceCount);
+         $scope.newVer= sharedProperties.getNewersion();
+         console.log("current version ----->"+$scope.newVer)
+
+         for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
+         if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
+         $scope.actualServiceComponentIndex = serviceIndex;
+         console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
+         }
+         }
+
+
+         $http({
+         method: 'PUT',
+         url: '/api/v2/removeComponentFromSolutiondb ',
+         data: $.param({
+         'uname': user,
+         'solnName': $scope.solnEntered,
+         'service_details': 'bluemix',
+         'service_name': bluemixServiceName,
+         'component_cnt': $scope.actualServiceComponentIndex,
+         'version': $scope.newVer
+         }),
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         //forms user object
+         })
+         .success(function (data) {
+         console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+         $scope.servicePopupData = data;
+         console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+         /!*$scope.loading=false;*!/
+
+         }
+         ).error(function (data, status, header, config) {
+         console.log("header data" + header);
+         console.log("status data" + status);
+         console.log("config data" + config);
+         console.log("Data:" + data);
+
+
+         })
+         }
+
+
+         if (canvas.getActiveGroup()) {
+         canvas.getActiveGroup().forEachObject(function (o) {
+         canvas.remove(o)
+         });
+         canvas.discardActiveGroup().renderAll();
+         } else {
+         canvas.remove(canvas.getActiveObject());
+         }
+
+         // console.log('deleted object'+JSON.stringify(object));
+         // remove lines (if any)
+         if (object.addChild) {
+         if (object.addChild.from)
+         // step backwards since we are deleting
+         for (var i = object.addChild.from.length - 1; i >= 0; i--) {
+         var line = object.addChild.from[i];
+         line.addChildRemove();
+         line.remove();
+         }
+         if (object.addChild.to)
+         for (var i = object.addChild.to.length - 1; i >= 0; i--) {
+         var line = object.addChild.to[i];
+         line.addChildRemove();
+         line.remove();
+         }
+         }
+         // object.remove();
+         // tbText.remove();
+         $scope.removeChoice(index);
+
+         }
+         else {
+         /!*alert("this service has not been selected for delete.Please delete service which is selected");*!/
+         $uibModal.open({
+         animation: $scope.animationsEnabled,
+         templateUrl: '../components/modal/SelectProperService.html',
+         size: 'sm',
+         controller: 'SelectProperServiceCtrl',
+         windowClass: 'app-modal-window-selectpro',
+         backdrop: 'static',
+         resolve: {
+
+         }
+         });
+         }
+         }*/
+    }
 
     //////////////////////////////end edit canvas*/
 
@@ -2868,6 +3350,63 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     console.log("type------------->"+$scope.Vertype)
 
                     $rootScope.showhideprop=true;
+                    //code for service display
+                    $scope.serviceDetailData = $scope.editCanvasDetails.service_details;
+                    console.log('$scope.serviceDetailData===' +JSON.stringify($scope.serviceDetailData));
+                    console.log('$scope.serviceDetailData===' +JSON.stringify($scope.serviceDetailData.msp));
+                    //  console.log("test------"  +JSON.stringify($scope.serviceDetailData.msp[0].title))
+                    //console.log("test------"  +JSON.stringify($scope.serviceDetailData.bluemix[0].services[0].title))
+
+                    $rootScope.choices1=[];
+                    $rootScope.mservicetype=[]
+
+                    $rootScope.ServiceName=[]
+
+                    $scope.mdat=$scope.serviceDetailData.msp;
+                    //console.log('$scope.mdat===' +JSON.stringify($scope.mdat));
+
+                    for (var i = 0; i < $scope.mdat.length; i++) {
+                        $scope.imageTitles = $scope.mdat[i].title;
+
+                        console.log("$scope.imageSelected==="  +JSON.stringify($scope.imagnodeeTitles));
+
+                        $rootScope.choices1.push($scope.imageTitles)
+                        $rootScope.mservicetype.push("msp")
+                        console.log(" $rootScope.servicetype"+ $rootScope.mservicetype)
+
+                        $rootScope.ServiceName.push($scope.imageTitles)
+                        $rootScope.objCount++;
+                    }
+
+
+                    console.log("from choice array---->"+JSON.stringify($rootScope.choices))
+
+                    $scope.stil=$scope.serviceDetailData.bluemix[0].services
+                    for (var k = 0; k < $scope.stil.length; k++) {
+
+
+                        console.log('serviceData===' + JSON.stringify($scope.stil[k].title));
+                        $scope.serviceTitles = $scope.stil[k].title;
+                        $rootScope.choices1.push($scope.serviceTitles)
+                        $rootScope.objCount++;
+                        $rootScope.mservicetype.push("bluemix");
+                        console.log(" $rootScope.servicetype"+ $rootScope.bservicetype)
+                        $rootScope.ServiceName.push($scope.serviceTitles);
+
+                    }
+
+                    $scope.rtil=$scope.serviceDetailData.bluemix[0].runtime
+                    for (var j = 0; j < $scope.rtil.length; j++) {
+                        $scope.runtimeTitles = $scope.rtil[j].title;
+                        console.log('runtimeData===' + JSON.stringify($scope.rtil[j].title));
+                        $rootScope.choices1.push($scope.runtimeTitles)
+                        $rootScope.objCount++;
+                        $rootScope.mservicetype.push("runtime");
+                        console.log(" $rootScope.servicetype"+ $rootScope.mservicetype)
+                        $rootScope.ServiceName.push($scope.runtimeTitles);
+                    }
+
+                    //----end--
 
                     $timeout(function () {
                         var canvas;
