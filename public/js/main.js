@@ -992,8 +992,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         // console.log("inside success function");
                         //$scope.latestQuantity = data;
                         $scope.pricedata[price] = data;
+                        $scope.latestPrice = $scope.pricedata[price]
                         console.log(JSON.stringify($scope.pricedata));
-                        console.log(JSON.stringify($scope.pricedata[price]));
+                        console.log(JSON.stringify($scope.latestPrice));
                         $scope.showPriceBefore= false;
                         $scope.showPriceAfter = true;
                     }
@@ -1020,7 +1021,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
-            console.log('$scope.latestPrice==' +$scope.pricedata[price]);
+            console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
             //console.log('quantity==' +quantity);
