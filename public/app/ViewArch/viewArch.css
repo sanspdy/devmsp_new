@@ -16,10 +16,12 @@
 }
 
 #downloadBtn{
-    background-color: #017eba;
+    border-radius: 8%;
+    height: 36px;
+    width: 19%;
+    color: white;
+    background-color: #017eba
 }
-
-
 #placeBtn {
     position: absolute;
     z-index: 2;
@@ -209,4 +211,9 @@
     -moz-border-radius: 0;
     border-radius: 0;
 
+}
+
+
+#pdfDownload{
+    color: white;
 }
