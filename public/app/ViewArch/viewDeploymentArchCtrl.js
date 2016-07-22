@@ -66,6 +66,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         console.log("current version ----->"+$scope.newVer);
         /*console.log("created canvas== "+canvas);
          console.log("Current canvas : " + JSON.stringify(canvas));*/
+
+
         $scope.canvasCreated=JSON.stringify(canvas);
         console.log("Current canvasCreated : " + $scope.canvasCreated);
         var s1=canvas;
@@ -76,19 +78,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.solnEntered1=sharedProperties.getCurrentCSolName();
         console.log('solnEntered1 == ' + $scope.solnEntered1);
 
-        /* /!*console.log("created canvas== "+canvas);
-         console.log("Current canvas : " + JSON.stringify(canvas));*!/
-         $scope.canvasCreated=JSON.stringify(canvas);
-         console.log("Current canvasCreated : " + $scope.canvasCreated);
-         var s1=canvas;
-         console.log('s1 type === '+typeof s1);
-         $scope.currentUser1 = sharedProperties.getProperty();
-         console.log('userEntered == ' + $scope.currentUser1);
-         $scope.solnEntered1=sharedProperties.getCurrentCSolName();
-         console.log('solnEntered1 == ' + $scope.solnEntered1);
 
-         $scope.newVer= sharedProperties.getVersion();
-         console.log("current version ----->"+$scope.newVer)*/
 
 
 
@@ -738,8 +728,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 // console.log("inside success function");
                 $scope.resultCanvasDetails = data;
                 console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
-                sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
-                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
+               // sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
+                //console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
                 $timeout(function () {
                     var canvas;
                     // window.newAnimation = function () {
@@ -2078,7 +2068,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log('canvasInfo==' +canvasInfo);
             CanInfo = canvasInfo;
         }
-        this.getCanvasInfo = function(){
+        this.getCanvasInform = function(){
             return CanInfo;
         }
         this.setBMuname = function(BMuser) {
@@ -2214,8 +2204,8 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
         console.log('$scope.Contact===' +$scope.Contact);
         $scope.currentBMUser=sharedProperties.getBMuname();
         $scope.currentBMPass=sharedProperties.getBMPass();
-        $scope.CanvasResultInfo = sharedProperties.getCanvasInfo()
-        console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
+       // $scope.CanvasResultInfo = sharedProperties.getCanvasInform()
+        //console.log('$scope.CanvasResultInfo===' +JSON.stringify($scope.CanvasResultInfo));
         console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
         console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
         //console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
@@ -2954,7 +2944,8 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                         canvas.loadFromDatalessJSON(canvasRenderObject);
                         canvas.renderAll();
                         $scope.canvasCreated=JSON.stringify(canvas);
-                        console.log("Current canvasCreated : " + $scope.canvasCreated);
+                        console.log("Current canvasCreated : " + $scope.canvasCreated)
+                        sharedProperties.setCanvasInfo($scope.canvasCreated);
                     })
                 }
             })
