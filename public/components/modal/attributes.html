@@ -17,7 +17,7 @@
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
             <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
             <div class=" btn_div row" ng-show="showServiceAttributes">
-                <button  class="save_btn" type="button" ng-click="saveDataService(planData,unitQuantity,pricedata[$index],attrTitle)">SAVE</button>
+                <button  class="save_btn" type="button" ng-click="saveDataService(planData,$scope.unitQuantity,$scope.pricedata[$index],attrTitle)">SAVE</button>
             </div>
             <hr>
         </div>
