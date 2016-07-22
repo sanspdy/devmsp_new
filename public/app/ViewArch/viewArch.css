@@ -15,6 +15,11 @@
     clear:left;
 }
 
+#downloadBtn{
+    background-color: #017eba;
+}
+
+
 #placeBtn {
     position: absolute;
     z-index: 2;
