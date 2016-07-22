@@ -2186,7 +2186,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     response.end();
                                                 }
                                                 else {
-                                                    //console.log(service_plan_guid[0]);
+                                                    console.log(service_plan_guid[0]);
 
                                                     try {
                                                         console.log("service_plan_guid ==============="+service_plan_guid);
