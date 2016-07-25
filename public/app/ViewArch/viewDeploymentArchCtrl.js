@@ -3557,37 +3557,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.state = !$scope.state;
     };
 
-    $scope.redirectToPrev = function(){
 
-        alert("inside redirect to Prev");
-        //$scope.redirectToHome = function(){
-
-        $scope.canvasCreated=JSON.stringify(canvas);
-        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/homePageConfirm.html',
-            windowClass: 'app-modal-window-homeConfirm',
-            controller: 'confirmHomeCtrl',
-            backdrop: 'static',
-            resolve: {
-                canvasInformation: function () {
-                    console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-                    return $scope.canvasCreated;
-                },
-                /*countComp:function () {
-                 return $scope.actualServiceComponentIndex;
-                 },
-                 serviceType:function(){
-                 return 'bluemix';
-                 }
-                 */                    }
-        });
-        /*console.log("inside redirect");
-         $location.path('/home');*/
-        //$state.go('/home');
-        //};
-    }
 
     $scope.navMsp = function(){
         console.log('inside nav msp');
@@ -5902,6 +5872,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         });
                     };
 
+
+
                     $scope.esave = function(){
                         console.log("from save----->")
                         $scope.newVer= sharedProperties.getNewersion();
@@ -5964,6 +5936,38 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
                     };
+
+                    $scope.redirectToPrev = function(){
+
+                        alert("inside redirect to Prev");
+                        //$scope.redirectToHome = function(){
+
+                        $scope.canvasCreated=JSON.stringify(canvas);
+                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                        $uibModal.open({
+                            animation: $scope.animationsEnabled,
+                            templateUrl: '../components/modal/homePageConfirm.html',
+                            windowClass: 'app-modal-window-homeConfirm',
+                            controller: 'confirmHomeCtrlViewMode',
+                            backdrop: 'static',
+                            resolve: {
+                                canvasInformation: function () {
+                                    console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                                    return $scope.canvasCreated;
+                                },
+                                /*countComp:function () {
+                                 return $scope.actualServiceComponentIndex;
+                                 },
+                                 serviceType:function(){
+                                 return 'bluemix';
+                                 }
+                                 */                    }
+                        });
+                        /*console.log("inside redirect");
+                         $location.path('/home');*/
+                        //$state.go('/home');
+                        //};
+                    }
 
                     $scope.choices = [];
                     $scope.choicesMSP = [];
@@ -7121,3 +7125,66 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
 
 
 });
+
+
+
+//added ctrl on Jul 25
+angular.module('portalControllers').controller('confirmHomeCtrlViewMode', function ($scope,$uibModal,$uibModalInstance,$location,canvasInformation,$http,sharedProperties) {
+    //alert("inside confirmHome  ctrl");
+    $scope.openConfirmHomePage = true;
+    console.log('canvasInformation===' +canvasInformation);
+    /*$scope.canvasData = canvasInformation;
+     console.log('$scope.canvasData===' +JSON.stringify($scope.canvasData));*/
+    $scope.currentUser2 = sharedProperties.getProperty();
+    console.log('userEntered2 == ' + $scope.currentUser2);
+    $scope.solnEntered2 = sharedProperties.getSoln();
+    console.log('solnEntered2 == ' + $scope.solnEntered2);
+    $scope.dismissDel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.ProceedToHome = function(){
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/home');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+
+
+    };
+
+    $scope.cancelProceed = function(){
+        //alert('inside cancel Proceed');
+        $uibModalInstance.dismiss('cancel');
+        //$location.path('/canvas');
+    };
+});
+
+//ends
