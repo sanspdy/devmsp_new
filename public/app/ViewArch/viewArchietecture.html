@@ -34,13 +34,6 @@
             $(".ans").not($ans).slideUp();
         });
 
-        /*$(".qtn1").on('click', function () {
-         var $ans1 =   $(this).parent().next('.ans1');
-         console.log("$ans1===" +JSON.stringify($(this)));
-         $ans1.slideToggle();
-         $(".ans1").not($ans1).slideUp();
-         })
-         */
     });
 
 </script>
@@ -48,22 +41,17 @@
 
     <div class="row">
         <div class="canvas_tp">
+            <a href="" ng-click="redirectToHome()">
+                <span id="home">Home</span>
+            </a> ><span id="catal"> Bluemix-MSP Portal</span>
             <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-
-            <!--<button id="download">download</button>-->
             <button id="downloadBtn" type="button">
                 <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
             </button>
-            <!--<a href="javascript:genPdfViewArch()"> Download PDF </a>-->
         </div>
         <div class="espace">
             <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" ng-show="showEditBtn" value="Edit"/>
-           <!-- <input class="btn btn-primary" type="button" ng-click="hideDiv()" value="Close"/>-->
-            <!-- <<input class="btn btn-primary" type="button" ng-click="esave()" value="Save"/>-->
          </div>
-      <!--  <span id="solutionName"> My Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-        <a href="javascript:genPdfViewArch()"> Download PDF </a>-->
-
             <loading ng-show="spinsCanvas"></loading>
             <div id="canvas-container">
             <canvas id="canvas" width="1350" height="745">
@@ -87,11 +75,11 @@
 
             </div>
                 <div class="service_d" >
-                    <p id="heading">
+                    <!--<p id="heading">
                         <a href="" ng-click="redirectToHome()">
                             <span id="home">Home</span>
                         </a> ><span id="catal"> Bluemix-MSP Portal</span>
-                    </p>
+                    </p>-->
 
                     <div class="canvasMain">
                         <span id="canvasHeading">Services </span>
