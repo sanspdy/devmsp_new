@@ -603,9 +603,10 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
     $scope.solutionname=sharedProperties.getCurrentCSolName();
 
 
-    $scope.do_some_action = function(version) {
+    $scope.do_some_action = function(version,status) {
         $location.path('/viewArchietecture');
         console.log('version===  ' +JSON.stringify(version));
+        console.log('status===' +JSON.stringify(status));
         sharedProperties.setVersion(version);
         $uibModalInstance.close();
     };
