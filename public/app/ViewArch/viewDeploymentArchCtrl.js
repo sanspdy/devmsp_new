@@ -3519,6 +3519,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     $scope.showBill1 = true;
     $scope.showBill2 = false;
     //pj----->
+    $rootScope.editmode=false;
     $scope.spinsCatalogueList=false;
     $scope.lineAdded=0;
     $scope.spinsCanvas=false;
@@ -4565,41 +4566,39 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                             console.log('deleted group object === ' + object);
 
                             console.log('index in openpopup ====' + index);
-                            //  console.log('choices in delete click == ' + JSON.stringify($rootScope.choices1));
 
-                            var nameInCanvas = '';
-                            var nameInList = '';
-                            nameInCanvas = $rootScope.choices1[index];
-                            console.log("nameInCanvas"+JSON.stringify(nameInCanvas))
-                            nameInList = object.objects[1].text;
-                            console.log('nameInCanvas===' + nameInCanvas);
-                            console.log('nameInList====' + nameInList);
 
-                            if (nameInCanvas == nameInList) {
-                                if ($rootScope.choices[index].type === 'msp') {
-                                    // $scope.openpopupMSPCount++;
-                                    console.log('inside MSP');
 
-                                    console.log("componentName======" + $rootScope.choices1[index]);
+                            if ($rootScope.editmode){
+                                if ($rootScope.mservicetype[index] === 'msp'){
+                                    console.log("msp");
+                                    $scope.openpopupMSPCount++;
+                                    for(var MIndex=0;MIndex<$rootScope.mdat.length;MIndex++){
+                                        $scope.actualMSPComponentIndex=MIndex;
+                                        console.log("$scope.actualMSPComponentIndex"+$scope.actualMSPComponentIndex)
+                                    }
+
+                                    //user--
                                     $scope.currentUser = sharedProperties.getProperty();
                                     console.log('userEntered == ' + $scope.currentUser);
-                                    // $scope.solnEntered = sharedProperties.getSoln();
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
-                                        if ($rootScope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
-                                            $scope.actualMSPComponentIndex = MSPIndex;
-                                            console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
-                                        }
-                                    }
                                     var user1 = $scope.currentUser;
-                                    var serviceName1 = $rootScope.choices[index].selectedCatalogName;
+
+                                    //solution name--
+                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                                    console.log("$scope.solnEntered"+$scope.solnEntered)
+
+                                    //service name--
+                                    var serviceName1 =  $rootScope.mdat[index].catalog_name
                                     console.log("serviceName ============" + serviceName1);
-                                    console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
-                                    var mspCount = $scope.openpopupMSPCount;
-                                    $scope.mspCount = mspCount - 1;
-                                    console.log('componentCount MSP === ' + $scope.mspCount);
+
+
+
+                                    //version details--
                                     $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
+                                    console.log("current version ----->"+$scope.newVer);
+
+
+
                                     $http({
                                         method: 'PUT',
                                         url: '/api/v2/removeComponentFromSolutiondb',
@@ -4615,7 +4614,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         //forms user object
                                     })
                                         .success(function (data) {
-                                            console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                                            console.log("inside removeComponent function === " + JSON.stringify(data));
                                             $scope.popupData = data;
                                             // console.log("MSP attr data == "+$scope.popupData);
 
@@ -4630,86 +4629,37 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
                                         })
+
+
                                 }
+                                if($rootScope.mservicetype[index] === 'bluemix'){
+                                    console.log("bluemix")
+                                    $scope.openpopupBluemixCount++;
 
-                                if ($rootScope.choices[index].type === 'runtime') {
+                                    for(var MSPIndex=0;MSPIndex<$rootScope.serdtat.length;MSPIndex++){
 
-                                    console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
-                                    // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    //$scope.solnEntered = sharedProperties.getSoln();
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName()
-                                    var user = $scope.currentUser;
-                                    var runtimeServiceName = $rootScope.choices[index].selectedImageTitle;
-                                    console.log("serviceName ============" + runtimeServiceName);
-                                    console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
-                                    var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $scope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $scope.componentCount);
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
+                                        $scope.actualMSPComponentIndex=MSPIndex;
+                                        console.log('$scope.actualMSPComponentIndex === '+$scope.actualMSPComponentInde);
 
-                                    for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
-                                        if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
-                                            $scope.actualruntimeComponentIndex = runtimeIndex;
-                                            console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
-                                        }
                                     }
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb',
-                                        data: $.param({
-                                            'uname': user,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'runtime',
-                                            'service_name': runtimeServiceName,
-                                            'component_cnt': $scope.actualruntimeComponentIndex,
-                                            'version':$scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside runtime function === " + JSON.stringify(data));
-                                            $scope.runtimePopupData = data;
-                                            // console.log("MSP attr data == "+$scope.popupData);
-
-                                            /*$scope.loading=false;*/
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-                                }
-
-                                if ($rootScope.choices[index].type === 'bluemix') {
-
-                                    console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
-                                    // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
+                                    //user--
                                     $scope.currentUser = sharedProperties.getProperty();
                                     console.log('userEntered == ' + $scope.currentUser);
-                                    //$scope.solnEntered = sharedProperties.getSoln();
+                                    var user = $scope.currentUser;
+
+                                    //solution name--
                                     $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    var user = $scope.currentUser;
-                                    var bluemixServiceName = $rootScope.choices[index].selectedImageTitle;
-                                    console.log("serviceName ============" + bluemixServiceName);
-                                    var bluemixCount = $scope.openpopupBluemixCount;
-                                    $scope.componentServiceCount = bluemixCount - 1;
-                                    console.log('componentCount Service === ' + $scope.componentServiceCount);
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
+                                    console.log("$scope.solnEntered"+$scope.solnEntered)
 
-                                    for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
-                                        if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
-                                            $scope.actualServiceComponentIndex = serviceIndex;
-                                            console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
-                                        }
-                                    }
+                                    //service name--
+                                    var bluemixServiceName =  $rootScope.serdtat[$scope.actualrunComponentIndex].title
+                                    console.log("serviceName ============" + bluemixServiceName);
+
+
+
+                                    //version details--
+                                    $scope.newVer= sharedProperties.getNewersion();
+                                    console.log("current version ----->"+$scope.newVer);
 
 
                                     $http({
@@ -4743,6 +4693,234 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         })
                                 }
 
+                                if($rootScope.mservicetype[index] === 'runtime'){
+                                    console.log("runtime")
+
+                                    for(var runIndex=0;runIndex<$rootScope.rundat.length;runIndex++){
+
+                                        $scope.actualrunComponentIndex=runIndex;
+                                        console.log('$scope.actualrunComponentIndex === '+$scope.actualrunComponentIndex);
+
+                                    }
+                                    //user--
+                                    $scope.currentUser = sharedProperties.getProperty();
+                                    console.log('userEntered == ' + $scope.currentUser);
+                                    var user = $scope.currentUser;
+
+                                    //solution name--
+                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                                    console.log("$scope.solnEntered"+$scope.solnEntered)
+
+                                    //service name--
+                                    var runtimeServiceName =  $rootScope.rundat[$scope.actualrunComponentIndex].label
+                                    console.log("serviceName ============" + runtimeServiceName);
+
+
+
+                                    //version details--
+                                    $scope.newVer= sharedProperties.getNewersion();
+                                    console.log("current version ----->"+$scope.newVer);
+
+                                    $http({
+                                        method: 'PUT',
+                                        url: '/api/v2/removeComponentFromSolutiondb',
+                                        data: $.param({
+                                            'uname': user,
+                                            'solnName': $scope.solnEntered,
+                                            'service_details': 'runtime',
+                                            'service_name': runtimeServiceName,
+                                            'component_cnt': $scope.actualruntimeComponentIndex,
+                                            'version':$scope.newVer
+                                        }),
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        //forms user object
+                                    })
+                                        .success(function (data) {
+                                            console.log("inside runtime function === " + JSON.stringify(data));
+                                            $scope.runtimePopupData = data;
+                                            // console.log("MSP attr data == "+$scope.popupData);
+
+                                            /*$scope.loading=false;*/
+                                        }
+                                    ).error(function (data, status, header, config) {
+                                            console.log("header data" + header);
+                                            console.log("status data" + status);
+                                            console.log("config data" + config);
+                                            console.log("Data:" + data);
+
+
+                                        })
+
+                                }
+
+
+                                /* if ($rootScope.choices[index].type === 'msp') {
+                                 // $scope.openpopupMSPCount++;
+                                 console.log('inside MSP');
+
+                                 console.log("componentName======" + $rootScope.choices1[index]);
+                                 $scope.currentUser = sharedProperties.getProperty();
+                                 console.log('userEntered == ' + $scope.currentUser);
+                                 // $scope.solnEntered = sharedProperties.getSoln();
+                                 $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                                 for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
+                                 if ($rootScope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
+                                 $scope.actualMSPComponentIndex = MSPIndex;
+                                 console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
+                                 }
+                                 }
+                                 var user1 = $scope.currentUser;
+                                 var serviceName1 = $rootScope.choices[index].selectedCatalogName;
+                                 console.log("serviceName ============" + serviceName1);
+                                 console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+                                 var mspCount = $scope.openpopupMSPCount;
+                                 $scope.mspCount = mspCount - 1;
+                                 console.log('componentCount MSP === ' + $scope.mspCount);
+                                 $scope.newVer= sharedProperties.getNewersion();
+                                 console.log("current version ----->"+$scope.newVer)
+                                 $http({
+                                 method: 'PUT',
+                                 url: '/api/v2/removeComponentFromSolutiondb',
+                                 data: $.param({
+                                 'uname': user1,
+                                 'solnName': $scope.solnEntered,
+                                 'service_details': 'msp',
+                                 'service_name': serviceName1,
+                                 'component_cnt': $scope.actualMSPComponentIndex,
+                                 'version':$scope.newVer
+                                 }),
+                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                 //forms user object
+                                 })
+                                 .success(function (data) {
+                                 console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                                 $scope.popupData = data;
+                                 // console.log("MSP attr data == "+$scope.popupData);
+
+
+                                 /!*$scope.loading=false;*!/
+                                 }
+                                 ).error(function (data, status, header, config) {
+                                 console.log("header data" + header);
+                                 console.log("status data" + status);
+                                 console.log("config data" + config);
+                                 console.log("Data:" + data);
+
+
+                                 })
+                                 }
+
+                                 if ($rootScope.choices[index].type === 'runtime') {
+
+                                 console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+                                 // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
+                                 $scope.currentUser = sharedProperties.getProperty();
+                                 console.log('userEntered == ' + $scope.currentUser);
+                                 //$scope.solnEntered = sharedProperties.getSoln();
+                                 $scope.solnEntered=sharedProperties.getCurrentCSolName()
+                                 var user = $scope.currentUser;
+                                 var runtimeServiceName = $rootScope.choices[index].selectedImageTitle;
+                                 console.log("serviceName ============" + runtimeServiceName);
+                                 console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+                                 var runtimeCount = $scope.openpopupRuntimeCount;
+                                 $scope.componentCount = runtimeCount - 1;
+                                 console.log('componentCount runtime === ' + $scope.componentCount);
+                                 $scope.newVer= sharedProperties.getNewersion();
+                                 console.log("current version ----->"+$scope.newVer)
+
+                                 for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
+                                 if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+                                 $scope.actualruntimeComponentIndex = runtimeIndex;
+                                 console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
+                                 }
+                                 }
+                                 $http({
+                                 method: 'PUT',
+                                 url: '/api/v2/removeComponentFromSolutiondb',
+                                 data: $.param({
+                                 'uname': user,
+                                 'solnName': $scope.solnEntered,
+                                 'service_details': 'runtime',
+                                 'service_name': runtimeServiceName,
+                                 'component_cnt': $scope.actualruntimeComponentIndex,
+                                 'version':$scope.newVer
+                                 }),
+                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                 //forms user object
+                                 })
+                                 .success(function (data) {
+                                 console.log("inside runtime function === " + JSON.stringify(data));
+                                 $scope.runtimePopupData = data;
+                                 // console.log("MSP attr data == "+$scope.popupData);
+
+                                 /!*$scope.loading=false;*!/
+                                 }
+                                 ).error(function (data, status, header, config) {
+                                 console.log("header data" + header);
+                                 console.log("status data" + status);
+                                 console.log("config data" + config);
+                                 console.log("Data:" + data);
+
+
+                                 })
+                                 }
+
+                                 if ($rootScope.choices[index].type === 'bluemix') {
+
+                                 console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+                                 // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
+                                 $scope.currentUser = sharedProperties.getProperty();
+                                 console.log('userEntered == ' + $scope.currentUser);
+                                 //$scope.solnEntered = sharedProperties.getSoln();
+                                 $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                                 var user = $scope.currentUser;
+                                 var bluemixServiceName = $rootScope.choices[index].selectedImageTitle;
+                                 console.log("serviceName ============" + bluemixServiceName);
+                                 var bluemixCount = $scope.openpopupBluemixCount;
+                                 $scope.componentServiceCount = bluemixCount - 1;
+                                 console.log('componentCount Service === ' + $scope.componentServiceCount);
+                                 $scope.newVer= sharedProperties.getNewersion();
+                                 console.log("current version ----->"+$scope.newVer)
+
+                                 for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
+                                 if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
+                                 $scope.actualServiceComponentIndex = serviceIndex;
+                                 console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
+                                 }
+                                 }
+
+
+                                 $http({
+                                 method: 'PUT',
+                                 url: '/api/v2/removeComponentFromSolutiondb ',
+                                 data: $.param({
+                                 'uname': user,
+                                 'solnName': $scope.solnEntered,
+                                 'service_details': 'bluemix',
+                                 'service_name': bluemixServiceName,
+                                 'component_cnt': $scope.actualServiceComponentIndex,
+                                 'version': $scope.newVer
+                                 }),
+                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                 //forms user object
+                                 })
+                                 .success(function (data) {
+                                 console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                                 $scope.servicePopupData = data;
+                                 console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+                                 /!*$scope.loading=false;*!/
+
+                                 }
+                                 ).error(function (data, status, header, config) {
+                                 console.log("header data" + header);
+                                 console.log("status data" + status);
+                                 console.log("config data" + config);
+                                 console.log("Data:" + data);
+
+
+                                 })
+                                 }
+                                 */
 
                                 if (canvas.getActiveGroup()) {
                                     canvas.getActiveGroup().forEachObject(function (o) {
@@ -4772,7 +4950,9 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 }
                                 // object.remove();
                                 // tbText.remove();
-                                $scope.removeChoice(index);
+                                $scope.removeChoice1(index);
+
+
 
                             }
                             else {
@@ -4791,6 +4971,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                             }
                         }
                     }
+
+                    $scope.removeChoice1 = function(index) {
+                        var lastItem = index;
+                        $rootScope.choices1.splice(lastItem,1);
+                        $rootScope.objCount--;
+                        // $scope.deleteObject();
+                    };
 
                     $scope.handleDragStart=function (e) {
 
@@ -6792,7 +6979,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     console.log('$scope.serviceDetailData===' +JSON.stringify($scope.serviceDetailData.msp));
                     //  console.log("test------"  +JSON.stringify($scope.serviceDetailData.msp[0].title))
                     //console.log("test------"  +JSON.stringify($scope.serviceDetailData.bluemix[0].services[0].title))
-
+                    $rootScope.editmode=true;
                     $rootScope.choices1=[];
                     $rootScope.mservicetype=[]
                     $rootScope.ServiceName=[];
@@ -6834,7 +7021,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     for (var j = 0; j < $scope.rtil.length; j++) {
                         $rootScope.rundat.push($scope.serviceDetailData.bluemix[0].runtime[j]);
                         console.log("rundat=======>"+JSON.stringify($scope.serviceDetailData.bluemix[0].runtime[j]))
-                        $scope.runtimeTitles = $scope.rtil[j].title;
+                        $scope.runtimeTitles = $scope.rtil[j].label;
                         console.log('runtimeData===' + JSON.stringify($scope.rtil[j]));
                         $rootScope.choices1.push($scope.runtimeTitles)
                         $rootScope.objCount++;
@@ -6844,7 +7031,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     }
 
                     //----end--
-
                     $timeout(function () {
                         var canvas;
                         // window.newAnimation = function () {
