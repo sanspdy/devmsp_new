@@ -2311,7 +2311,6 @@ exports.getBluemixServicesList = function(request, response) {
     console.log("*** Request Received ***");
     initDBConnection();
     db = cloudant.use(dbCredentials.dbBluemix_services);
-    //db = cloudant.use('bluemixdbs');
     var docList = [];
     var componenttitle = [];
     var i = 1;
@@ -2329,10 +2328,15 @@ exports.getBluemixServicesList = function(request, response) {
                 }
                 result.rows.forEach(function(document) {
 
-                    db.get(document.id,function(err1,doc) {
+                    db.get(document.id,function(err,doc) {
 
                         if (!err) {
+
+
                             docList.push(doc);
+
+
+
                             if (i >= len) {
 
                                 docListJson = JSON.stringify(docList);
@@ -2349,8 +2353,8 @@ exports.getBluemixServicesList = function(request, response) {
                                 console.log(docListJson1);
                                 for (i = 0; i < doc_count; i++) {
                                     if(docListJson1[i]!=null) {
-                                        if(docListJson1[i].hasOwnProperty("entity")!=null) {
-                                            if(docListJson1[i].entity!=null && docListJson1[i].entity!="") {
+                                        if(docListJson1[i].hasOwnProperty("entity")) {
+                                            if(docListJson1[i].entity!=null && docListJson1[i].entity!=undefined) {
                                                 if(docListJson1[i].entity.hasOwnProperty("display_name") && docListJson1[i].entity.hasOwnProperty("label")) {
                                                     if (!docListJson1[i].language) {
                                                         titles[i] = docListJson1[i].entity.display_name;
@@ -2362,11 +2366,13 @@ exports.getBluemixServicesList = function(request, response) {
                                     }
                                 }
                                 for (i = 0; i < doc_count; i++) {
-                                    output[i] = {
-                                        "title" : titles[i],
-                                        "label": label[i],
-                                        "icon" : "/images/MSP_Logos/IBM.png"
-                                    };
+                                    if(titles[i] !== undefined && label[i] !== undefined ) {
+                                        output[i] = {
+                                            "title": titles[i],
+                                            "label": label[i],
+                                            "icon": "/images/MSP_Logos/IBM.png"
+                                        };
+                                    }
                                 }
                                 console.log(output);
 
@@ -2376,15 +2382,8 @@ exports.getBluemixServicesList = function(request, response) {
                                 console.log(responseMessage);
                             }
                         } else {
-                            err1.id = document.id;
-                            docList.push(err1);
-                            console.log("Error while fetching services list from server");
-                            failure_response.description = "Unable to reach Servers"
-                            response.write(JSON.stringify(failure_response));
-                            console.log(errMessage);
-                            response.end();
-                            console.log(responseMessage);
-
+                            err.id = document.id;
+                            docList.push(err);
                             var errMessage = "Error occurred while accessing components : \n"+ JSON.stringify(err);
                             console.log(errMessage);
                         }
@@ -2394,9 +2393,9 @@ exports.getBluemixServicesList = function(request, response) {
                 });
             } else {
                 console.log("Error while fetching services list from server");
-                failure_response.description = "Unable to reach Servers"
+                failure_response.description = "Error while fetching services list from server"
                 response.write(JSON.stringify(failure_response));
-                console.log(err);
+                console.log(errMessage);
                 response.end();
                 console.log(responseMessage);
             }
@@ -2410,6 +2409,7 @@ exports.getBluemixServicesList = function(request, response) {
         };
         response.write(JSON.stringify(resjson));
     }
+
 
 }
 

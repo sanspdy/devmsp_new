@@ -1250,6 +1250,7 @@ exports.removeComponentFromSolutiondb=function(request, response) {
 
     var username = request.body.uname;
     var SolName = request.body.solnName;
+    var version=parseInt(request.body.version);
     console.log(request.body);
     var service_det = request.body.service_details;
     var service_name = request.body.service_name;
@@ -1266,7 +1267,7 @@ exports.removeComponentFromSolutiondb=function(request, response) {
     // console.log(JSON.stringify(solutionJson));
     // response.write(JSON.stringify(solutionJson));
 
-    try {dbSoln.find({selector : {solution_name : SolName}},
+    try {dbSoln.find({selector : {solution_name: SolName, user: username, version:version}},
         function(err, result) {
             if (!err) {
                 if (service_det == "msp") {
@@ -1340,49 +1341,49 @@ exports.removeComponentFromSolutiondb=function(request, response) {
 
                     console
                         .log("bluemix_runtime_list_deleted"
-                            + bluemix_runtime_list_deleted);
+                        + bluemix_runtime_list_deleted);
 
                     result.docs[0].service_details.bluemix[0].runtime = bluemix_runtime_list;
 
                     console
                         .log("bluemix_runtime_list"
-                            + bluemix_runtime_list);
+                        + bluemix_runtime_list);
 
                     console
                         .log("result.docs[0].service_details.bluemix[0].runtime"
-                            + result.docs[0].service_details.bluemix[0].runtime);
+                        + result.docs[0].service_details.bluemix[0].runtime);
 
                     dbSoln
                         .insert(
-                            result.docs[0],
-                            function(
-                                err2,
-                                result2) {
+                        result.docs[0],
+                        function(
+                            err2,
+                            result2) {
+                            console
+                                .log("response from insert");
+                            // console.log("response
+                            // from
+                            // insert
+                            // " +
+                            // JSON.stringify(solutionJson));
+                            if (err2) {
                                 console
-                                    .log("response from insert");
-                                // console.log("response
-                                // from
-                                // insert
-                                // " +
-                                // JSON.stringify(solutionJson));
-                                if (err2) {
-                                    console
-                                        .log(err2);
-                                } else {
-                                    console
-                                        .log("New doc created ..");
-                                    var resjson = {
-                                        "status" : "success"
-                                    };
-                                    response
-                                        .write(JSON
-                                            .stringify(resjson));
-                                    response
-                                        .end();
+                                    .log(err2);
+                            } else {
+                                console
+                                    .log("New doc created ..");
+                                var resjson = {
+                                    "status" : "success"
+                                };
+                                response
+                                    .write(JSON
+                                        .stringify(resjson));
+                                response
+                                    .end();
 
-                                }
+                            }
 
-                            });
+                        });
                 } else {
                     var errMessage = "Error in Service Details";
                     response.write(errMessage);
@@ -1419,6 +1420,7 @@ exports.removeComponentFromSolutiondb=function(request, response) {
         };
         response.write(JSON.stringify(resjson));
     }
+
 
 }
 
