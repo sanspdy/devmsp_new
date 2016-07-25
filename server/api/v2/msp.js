@@ -233,7 +233,6 @@ exports.v2_updateServiceInfo=function(request, response) {
 
     function updateserviceinfo(){
         try {
-
             dbSoln.find({selector : {solution_name: SolName, user: username, version:version}},function(err, result) {
                 console.log("updateServiceInfo : fetch exact record from dB "+ JSON.stringify(result));
                 if (!err) {

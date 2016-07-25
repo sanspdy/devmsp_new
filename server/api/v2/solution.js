@@ -952,7 +952,14 @@ exports.v2_AddComponentToCanvas = function(request, response) {
 
                                                 if (result.docs[0].hasOwnProperty("msp") !== undefined) {
                                                     //Assigning the properties into MSP array in solution DB
-                                                    result.docs[0].service_details.msp[compcnt] = JSON.parse(properties);
+
+                                                    propertiesvalue=JSON.parse(properties);
+
+                                                    propertiesvalue.Pattern['size']="small";
+
+                                                    result.docs[0].service_details.msp[compcnt] = propertiesvalue;
+
+                                                    //result.docs[0].service_details.msp[compcnt] = JSON.parse(properties);
 
                                                     //Inserting the updated JSON in solution DB
                                                     dbSoln.insert(result.docs[0],function(err2,result2) {
