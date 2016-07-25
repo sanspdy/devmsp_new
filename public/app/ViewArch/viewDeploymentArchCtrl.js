@@ -5882,6 +5882,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
      console.log("place order data ==="+JSON.stringify(data));
 
      //alert('Order Placed Successfully');
+         $rootScope.showEditBtn = false;
      $uibModal.open({
      animation: $scope.animationsEnabled,
      templateUrl: '../components/modal/orderSuccess.html',
