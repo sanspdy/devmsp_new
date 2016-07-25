@@ -597,7 +597,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     }
 
 });
-angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties) {
+angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties,$rootScope) {
     $scope.varray=[];
     $scope.versionData = indexVersion;
     $scope.solutionname=sharedProperties.getCurrentCSolName();
