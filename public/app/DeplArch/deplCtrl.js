@@ -717,6 +717,19 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
        $uibModalInstance.close();
    }
 */
+
+    $scope.checkForDelete = function(status){
+        console.log('status==' +JSON.stringify(status));
+        if(status === 'saved'){
+            console.log('inside if');
+            return false;
+        }else{
+            console.log('inside else');
+            return true;
+        }
+
+    }
+
     $scope.viewdelete=function(version,index) {
         console.log("geting data--->"+ $scope.varray[0]);
         console.log("index------>"+version)
