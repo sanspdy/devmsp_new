@@ -45,9 +45,9 @@
         </a> ><span id="catal"> Bluemix-MSP Portal</span>
             </span>
         <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-        <button id="downloadBtn" type="button">
+        <!--<button id="downloadBtn" type="button">
             <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
-        </button>
+        </button>-->
     </div>
     <div class="row">
         <div class="espace">
@@ -225,6 +225,9 @@
         </div>
    <!-- <button class="button1 " ng-click="viewBill()">BILL OF MATERIAL</button>-->
     <button id="placeBtn" type="button" ng-click="placeServiceOrder()" ng-show="showBtnOrder">ORDER</button>
+    <button id="downloadBtn" type="button">
+        <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
+    </button>
 </div>
 
 <script type="text/javascript">
