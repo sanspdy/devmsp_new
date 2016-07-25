@@ -4,7 +4,7 @@
     /*left:250px;
     top: 8px;*/
     z-index: 6;
-    width: 600px;
+   /* width: 600px;*/
     left: 30%;
     top: 5%;
 }
@@ -14,7 +14,16 @@
     margin-right:0px;
     clear:left;
 }
-
+#hyperlinkView{
+    margin-left: 3%;
+}
+#downloadBtn{
+    border-radius: 8%;
+    height: 36px;
+    width: 19%;
+    color: white;
+    background-color: #017eba
+}
 #placeBtn {
     position: absolute;
     z-index: 2;
@@ -100,7 +109,6 @@
 }
 #canvas-container {
     /*position: relative;*/
-
     width: 1350px;
     height: 750px;
     /*box-shadow: 0 0 5px 1px black;*/
@@ -176,7 +184,7 @@
 }
 #solName1{
     font-size: 1.3em;
-    margin-left: 24%;
+   /* margin-left: 24%;*/
     color:  grey;
 }
 
@@ -204,4 +212,9 @@
     -moz-border-radius: 0;
     border-radius: 0;
 
+}
+
+
+#pdfDownload{
+    color: white;
 }

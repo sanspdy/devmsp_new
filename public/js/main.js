@@ -348,6 +348,14 @@ angular.module('portalControllers', ['ui.bootstrap'])
 .service('sharedPropertiesCanvas', function(){
         var cinfo='';
         var GuidPlanArray = [];
+        var setPlansArray = [];
+
+        this.setPlans = function (plan) {
+            setPlansArray.push(plan);
+        }
+        this.getPlans = function(){
+            return setPlansArray;
+        };
 
         this.setGuidPlan = function(guid){
             GuidPlanArray.push(guid);
@@ -518,7 +526,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 //var serverType = type[i]
                 // ;
                 var namCPU = key+'_vCPU';
-                var namMemory = key+'_Memory';//invoke getComponentPrice on ng-change
+                var namMemory = key+'_Memory';
+                //invoke getComponentPrice on ng-change
                 console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
                 /*$scope.popupData1["Pattern"]=$scope.patternObjectIIB_Server;*/
                 console.log('updated popupData1 values ==== ' + JSON.stringify($scope.popupData1["Pattern"]));
@@ -574,7 +583,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log('namCPU==' +namCPU);
                 if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
-                    $scope.a['size']= size;
+                    $scope.a['size']= size;  //adding size key and value to existing json
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
                     $scope.a[namMemory] = updatedSizeProperties[i].memory;
                     $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
@@ -584,8 +593,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             $scope.patternObjectIIB_Server[index] = $scope.a;
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             //console.log('a===' +JSON.stringify(a));
-
-
         };
 
 
@@ -957,7 +964,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('unitID===' +unitID );
             //console.log('isselected===' +isselected);
             console.log('price===' +price);
-
+            //$scope.latestPrice = price;
+            $scope.latestQuantity = quantity;
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
@@ -981,8 +989,11 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         $scope.errorName = data.errors.name;
                     } else {
                         // console.log("inside success function");
+                        //$scope.latestQuantity = data;
                         $scope.pricedata[price] = data;
+                        $scope.latestPrice = $scope.pricedata[price]
                         console.log(JSON.stringify($scope.pricedata));
+                        console.log(JSON.stringify($scope.latestPrice));
                         $scope.showPriceBefore= false;
                         $scope.showPriceAfter = true;
                     }
@@ -1007,8 +1018,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected) {
+        $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
+            console.log('$scope.latestPrice==' +$scope.latestPrice);
+            console.log('$scope.latestPrice==' +$scope.pricedata);
+            console.log('$scope.latestQuantity===' +$scope.latestQuantity);
+            //console.log('quantity==' +quantity);
+            //console.log('price===' +price);
+            console.log('title===' +title);
             console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
                 return data.entity.extra.displayName === radioselected;
@@ -1016,6 +1033,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('indexCourseId==' +indexCourseId);
             var guid = $scope.propertiesObjectArrayData[indexCourseId].metadata.guid;
             console.log('guid===' +JSON.stringify(guid));
+
 
             $uibModal.open({
                 animation: $scope.animationsEnabled,
@@ -1038,6 +1056,15 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     },
                     planName : function(){
                         return radioselected;
+                    },
+                quantitySelected : function(){
+                        return $scope.latestQuantity ;
+                    },
+                    estimateSelected : function(){
+                        return $scope.latestPrice;
+                    },
+                    latestTitle : function(){
+                        return title;
                     }
 
                 }
@@ -1055,13 +1082,17 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
     console.log('serviceTitle==' +serviceTitle);
+    console.log('quantitySelected==' +quantitySelected);
+    console.log('estimateSelected===' +estimateSelected);
+
+    console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +popupData);
     console.log('guidPlan==' +guidPlan);
@@ -1101,6 +1132,8 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     $scope.errorName = data.errors.name;
                 } else {
                     console.log("inside success function");
+                    var plans = { serviceName : serviceTitle, guid : guidPlan,plan : planName , quantity : quantitySelected , estimate : estimateSelected};
+                    sharedPropertiesCanvas.setPlans(plans);
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));
                     $scope.savebluemixPlan = true;
@@ -1309,6 +1342,7 @@ angular.module('portalControllers').controller('newsolutionCtrl', function ($sco
 
 });
 angular.module('portalControllers').controller('orderBillCtrl', function ($scope,$uibModal,$uibModalInstance,isOrderButton,sharedProperties,$http,$location,sharedPropertiesCanvas) {
+    console.log('inside orderbill');
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
@@ -1318,7 +1352,8 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     }else if(isOrderButton==='deplBOM'){
         $scope.showOrderBtn = false;
     }
-
+    $scope.latestPlans = sharedPropertiesCanvas.getPlans();
+    console.log('$scope.latestPlans===' +JSON.stringify($scope.latestPlans));
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
