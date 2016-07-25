@@ -38,39 +38,32 @@
 
 </script>
 <div class="container canvasbody" id="viewarch">
-
+    <div class="canvas_tp">
+        <a href="" ng-click="redirectToHome()">
+            <span id="home">Home</span>
+        </a> ><span id="catal"> Bluemix-MSP Portal</span>
+        <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
+        <button id="downloadBtn" type="button">
+            <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
+        </button>
+    </div>
     <div class="row">
-        <div class="canvas_tp">
-            <a href="" ng-click="redirectToHome()">
-                <span id="home">Home</span>
-            </a> ><span id="catal"> Bluemix-MSP Portal</span>
-            <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-            <button id="downloadBtn" type="button">
-                <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
-            </button>
-        </div>
+
         <div class="espace">
             <input class="btn btn-primary" type="button" ng-click="viewArchEdit()" ng-show="showEditBtn" value="Edit"/>
          </div>
             <loading ng-show="spinsCanvas"></loading>
             <div id="canvas-container">
             <canvas id="canvas" width="1350" height="745">
-               <!-- <img id="device_img" class="edge_icon2"  src="images/edge_device_orange.png">
-                <img id="devider_img" class="imgLength" src="images/canvas_devider.png">
-                <img id="edge_device" class="edge_icon"  src="images/edge Device.png">-->
                 </canvas>
             </div>
             <span class=" msp">MSP</span>
             <span class="blue">Bluemix</span>
         <div ng-show='showhideprop'>
             <div class="canvas_title_hybrid">
-                <!--<span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-                <button id="download">download</button>-->
                 <div class="canvas_btns">
                     <button ng-click="addChild()" class="btnStyle">Connectors</button>
                     <button ng-click="printCanvas()" class="btnStyle">New Architecture</button>
-                    <!--<button type="button" ng-click="addChild()" class="btn btn-primary btn-circle btn-lg"></button>
-                    <button type="button" ng-click="printCanvas()" class="btn btn-primary btn-circle2 btn-lg"></button>-->
                 </div>
 
             </div>
