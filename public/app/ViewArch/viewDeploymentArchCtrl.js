@@ -3556,6 +3556,38 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.state = !$scope.state;
     };
 
+    $scope.redirectToPrev = function(){
+
+        alert("inside redirect to Prev");
+        //$scope.redirectToHome = function(){
+
+        $scope.canvasCreated=JSON.stringify(canvas);
+        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/homePageConfirm.html',
+            windowClass: 'app-modal-window-homeConfirm',
+            controller: 'confirmHomeCtrl',
+            backdrop: 'static',
+            resolve: {
+                canvasInformation: function () {
+                    console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                    return $scope.canvasCreated;
+                },
+                /*countComp:function () {
+                 return $scope.actualServiceComponentIndex;
+                 },
+                 serviceType:function(){
+                 return 'bluemix';
+                 }
+                 */                    }
+        });
+        /*console.log("inside redirect");
+         $location.path('/home');*/
+        //$state.go('/home');
+        //};
+    }
+
     $scope.navMsp = function(){
         console.log('inside nav msp');
         /*$location.path('/MSP');*/

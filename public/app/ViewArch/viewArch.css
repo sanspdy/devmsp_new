@@ -23,18 +23,15 @@
     /*margin-left: 3%;*/
 }
 #downloadBtn{
-   /* border-radius: 8%;
-    height: 36px;
-    width: 19%;
-    color: white;
-    background-color: #017eba*/
-margin-top: -4%;
-    margin-right: 13%;
+    position: absolute;
+    margin-top: -4%;
+    /* margin-right: 13%; */
+    left: 75%;
     /* margin-left: 22%; */
-    float: right;
+    /* float: right; */
     /* border-radius: 8%; */
     height: 36px;
-    width: 10%;
+    width: 9%;
     color: white;
     background-color: #017eba;
 }
