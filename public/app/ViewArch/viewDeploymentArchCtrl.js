@@ -6947,7 +6947,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     console.log('$scope.serviceDetailData===' +JSON.stringify($scope.serviceDetailData.msp));
                     //  console.log("test------"  +JSON.stringify($scope.serviceDetailData.msp[0].title))
                     //console.log("test------"  +JSON.stringify($scope.serviceDetailData.bluemix[0].services[0].title))
-
+                    $rootScope.editmode=true;
                     $rootScope.choices1=[];
                     $rootScope.mservicetype=[]
                     $rootScope.ServiceName=[];
@@ -6989,7 +6989,7 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     for (var j = 0; j < $scope.rtil.length; j++) {
                         $rootScope.rundat.push($scope.serviceDetailData.bluemix[0].runtime[j]);
                         console.log("rundat=======>"+JSON.stringify($scope.serviceDetailData.bluemix[0].runtime[j]))
-                        $scope.runtimeTitles = $scope.rtil[j].title;
+                        $scope.runtimeTitles = $scope.rtil[j].label;
                         console.log('runtimeData===' + JSON.stringify($scope.rtil[j]));
                         $rootScope.choices1.push($scope.runtimeTitles)
                         $rootScope.objCount++;
@@ -6999,7 +6999,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     }
 
                     //----end--
-
                     $timeout(function () {
                         var canvas;
                         // window.newAnimation = function () {
