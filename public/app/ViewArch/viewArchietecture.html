@@ -40,14 +40,15 @@
 <div class="container canvasbody" id="viewarch">
     <div class="canvas_tp">
         <span id="hyperlinkView">
-        <a href="" ng-click="redirectToHome()">
-            <span id="home">Home</span>
-        </a> ><span id="catal"> Bluemix-MSP Portal</span>
+        <!--<a href="" ng-click="redirectToHome()">-->
+            <a href="" ng-click="redirectToPrev()">
+            <span id="home">My Deployment Architectures</span>
+        </a> ><span id="catal">View Architecture</span>
             </span>
         <span id="solName1"> Architecture Name:{{solnEntered11}} V.{{versionnum}} </span>
-        <button id="downloadBtn" type="button">
+        <!--<button id="downloadBtn" type="button">
             <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
-        </button>
+        </button>-->
     </div>
     <div class="row">
         <div class="espace">
@@ -62,7 +63,7 @@
             <span class="blue">Bluemix</span>
         <div ng-show='showhideprop'>
             <div class="canvas_title_hybrid">
-                <div class="canvas_btns">
+                <div class="canvas_btnsViewMode">
                     <button ng-click="addChild()" class="btnStyle">Connectors</button>
                     <button ng-click="printCanvas()" class="btnStyle">New Architecture</button>
                 </div>
@@ -73,7 +74,7 @@
                             <span id="home">Home</span>
                         </a> ><span id="catal"> Bluemix-MSP Portal</span>
                     </p>-->
-                    <div class="canvasMain">
+                    <div class="canvasMainViewArch">
                         <span id="canvasHeading">Services </span>
                         <span id="col-xs-2 btn_exp"> <img ng-class="{'tickSelColor': !isActive2, 'tickSelColor activeColor': isActive2}" ng-init="isActive2 = false" class="expandDiv111"  ng-click="edit2()"></span>
                     <p id="totalObjects"><span id="blueprints">{{objCount}} objects</span>
@@ -225,6 +226,9 @@
         </div>
    <!-- <button class="button1 " ng-click="viewBill()">BILL OF MATERIAL</button>-->
     <button id="placeBtn" type="button" ng-click="placeServiceOrder()" ng-show="showBtnOrder">ORDER</button>
+    <button id="downloadBtn" type="button">
+        <a href="javascript:genPdfViewArch()"> <span id="pdfDownload">Download PDF</span> </a>
+    </button>
 </div>
 
 <script type="text/javascript">

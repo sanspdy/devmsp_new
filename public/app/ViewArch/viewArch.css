@@ -1,12 +1,18 @@
 /*july16*/
 .canvas_tp {
-    position: absolute;
-    /*left:250px;
-    top: 8px;*/
+   /* position: absolute;
+    /!*left:250px;
+    top: 8px;*!/
     z-index: 6;
-   /* width: 600px;*/
+   /!* width: 600px;*!/
     left: 30%;
-    top: 5%;
+    top: 5%;*/
+    position: absolute;
+    z-index: 6;
+    /* width: 600px; */
+    /* left: 29%; */
+    top: 7%;
+    width: 820px;
 }
 .espace{
     float:right;
@@ -15,14 +21,20 @@
     clear:left;
 }
 #hyperlinkView{
-    margin-left: 3%;
+    /*margin-left: 3%;*/
 }
 #downloadBtn{
-    border-radius: 8%;
+    position: absolute;
+    margin-top: -4%;
+    /* margin-right: 13%; */
+    left: 75%;
+    /* margin-left: 22%; */
+    /* float: right; */
+    /* border-radius: 8%; */
     height: 36px;
-    width: 19%;
+    width: 9%;
     color: white;
-    background-color: #017eba
+    background-color: #017eba;
 }
 #placeBtn {
     position: absolute;
@@ -68,6 +80,16 @@
     width: 226px !important;
 }
 .canvasMain{
+    padding:11px;
+    background-color: white;
+    border:1px solid grey;
+    width: 245px;
+    padding-bottom: 0%;
+    margin-left: 18px;
+}
+
+.canvasMainViewArch{
+    margin-top: 28%;
     padding:11px;
     background-color: white;
     border:1px solid grey;
@@ -121,6 +143,12 @@
     margin-top: 2%;
     width: 300px;
 }
+.canvas_btnsViewMode{
+    margin-top: 6%;
+    margin-left: 24%;
+    width: 300px;
+}
+
 .canvasScreenSpin{
     margin-left: 381px !important;
     margin-bottom: 0px !important;
@@ -183,10 +211,19 @@
     position:relative; /* important (all position that's not `static`) */
 }
 #solName1{
+    /*font-size: 1.3em;
+   /!* margin-left: 24%;*!/
+    color:  grey;*/
+
+    /*font-size: 1.3em;
+    margin-left: 34%;
+    color: grey;*/
+
     font-size: 1.3em;
-   /* margin-left: 24%;*/
-    color:  grey;
+    margin-left: 20%;
+    color: grey;
 }
+
 
 #navigation-toggle {
     position: absolute;

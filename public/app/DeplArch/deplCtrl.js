@@ -597,15 +597,18 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     }
 
 });
-angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties) {
+angular.module('portalControllers').controller('versionCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,$filter,indexVersion,sharedProperties,$rootScope) {
     $scope.varray=[];
     $scope.versionData = indexVersion;
     $scope.solutionname=sharedProperties.getCurrentCSolName();
 
 
-    $scope.do_some_action = function(version) {
+    $scope.do_some_action = function(version,status) {
         $location.path('/viewArchietecture');
         console.log('version===  ' +JSON.stringify(version));
+        console.log('status===' +JSON.stringify(status));
+        $rootScope.currentSubmissionStatus = status;
+        //$rootScope.currentStatus = status;
         sharedProperties.setVersion(version);
         $uibModalInstance.close();
     };
@@ -714,6 +717,19 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
        $uibModalInstance.close();
    }
 */
+
+    $scope.checkForDelete = function(status){
+        console.log('status==' +JSON.stringify(status));
+        if(status === 'saved'){
+            console.log('inside if');
+            return false;
+        }else{
+            console.log('inside else');
+            return true;
+        }
+
+    }
+
     $scope.viewdelete=function(version,index) {
         console.log("geting data--->"+ $scope.varray[0]);
         console.log("index------>"+version)
