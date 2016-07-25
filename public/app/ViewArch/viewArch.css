@@ -86,6 +86,16 @@
     padding-bottom: 0%;
     margin-left: 18px;
 }
+
+.canvasMainViewArch{
+    margin-top: 28%;
+    padding:11px;
+    background-color: white;
+    border:1px solid grey;
+    width: 245px;
+    padding-bottom: 0%;
+    margin-left: 18px;
+}
 #canvasHeading{
     color: #017eba;
     font-size: 18px;
@@ -132,6 +142,12 @@
     margin-top: 2%;
     width: 300px;
 }
+.canvas_btnsViewMode{
+    margin-top: 6%;
+    margin-left: 24%;
+    width: 300px;
+}
+
 .canvasScreenSpin{
     margin-left: 381px !important;
     margin-bottom: 0px !important;
@@ -198,8 +214,12 @@
    /!* margin-left: 24%;*!/
     color:  grey;*/
 
-    font-size: 1.3em;
+    /*font-size: 1.3em;
     margin-left: 34%;
+    color: grey;*/
+
+    font-size: 1.3em;
+    margin-left: 20%;
     color: grey;
 }
 
