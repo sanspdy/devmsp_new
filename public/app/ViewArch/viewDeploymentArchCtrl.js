@@ -3504,10 +3504,18 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
 
 angular.module('portalControllers').controller('viewDeploymentArchCtrl', function ($scope,$timeout,$window,$uibModal,$rootScope,sharedProperties,$location,$http,sharedPropertiesCanvas) {
     console.log('inside viewDeploymentArchCtrl');
+    if($rootScope.currentSubmissionStatus === 'saved'){
+        console.log('inside if');
+        $rootScope.showEditBtn = true;
+    }
+    else{
+        console.log('inside else');
+        $rootScope.showEditBtn = false;
+    };
     $scope.state = false;
     $rootScope.showhideprop=false;
     $rootScope.showBtnOrder = true;
-    $rootScope.showEditBtn = true;
+    //$rootScope.showEditBtn = true;
     $scope.showBill1 = true;
     $scope.showBill2 = false;
     //pj----->

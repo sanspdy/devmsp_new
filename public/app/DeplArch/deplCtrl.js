@@ -607,6 +607,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
         $location.path('/viewArchietecture');
         console.log('version===  ' +JSON.stringify(version));
         console.log('status===' +JSON.stringify(status));
+        $rootScope.currentSubmissionStatus = status;
         //$rootScope.currentStatus = status;
         sharedProperties.setVersion(version);
         $uibModalInstance.close();
