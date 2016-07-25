@@ -196,7 +196,7 @@ module.exports = function(app) {
 // This API will update the solution database whenever the user remove component
 // in the deployment architecture
 //     app.put('/api/removeComponentFromSolutiondb',solution.removeComponentFromSolutiondb);
-
+    app.put('/api/removeComponentFromSolutiondb',solution.removeComponentFromSolutiondb);
     app.put('/api/v2/removeComponentFromSolutiondb',v2_solution.v2_removeComponentFromSolutiondb);
 
 // ************************************************************************************************************************************************
@@ -299,7 +299,6 @@ module.exports = function(app) {
 
 
 //end--->
-
 
     // All undefined asset or api routes should return a 404
     app.route('/:url(api|auth|components|app|bower_components|assets)/*')

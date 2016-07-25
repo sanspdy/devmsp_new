@@ -192,153 +192,164 @@ exports.v2_removeComponentFromSolutiondb=function(request, response) {
             if (!err) {
                 if (service_det == "msp") {
 
-                    console.log("result.docs[0].service_details.msp"+ result.docs[0].service_details.msp);
-                    msp_comp_list = result.docs[0].service_details.msp;
+                    if(result.docs !== undefined && result.docs !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details") && result.docs[0].service_details.hasOwnProperty("msp") ) {
 
-                    console.log("msp_comp_list"+ msp_comp_list);
-                    msp_comp_list_deleted = msp_comp_list.splice(compcnt, 1);
+                        console.log("result.docs[0].service_details.msp" + result.docs[0].service_details.msp);
+                        msp_comp_list = result.docs[0].service_details.msp;
 
-                    console.log("msp_comp_list_deleted"+ msp_comp_list_deleted);
+                        console.log("msp_comp_list" + msp_comp_list);
+                        msp_comp_list_deleted = msp_comp_list.splice(compcnt, 1);
 
-                    result.docs[0].service_details.msp = msp_comp_list;
+                        console.log("msp_comp_list_deleted" + msp_comp_list_deleted);
 
-                    console.log("msp_comp_list"+ msp_comp_list);
+                        result.docs[0].service_details.msp = msp_comp_list;
 
-                    console.log("result.docs[0].service_details.msp"+ result.docs[0].service_details.msp);
-                    dbSoln.insert(result.docs[0],function(err2,result2) {
-                        console.log("response from insert");
-                        if (err2) {
-                            console.log(err2);
-                        } else {
-                            console.log("New doc created ..");
-                            var resjson = {
-                                "status" : "success"
-                            };
-                            response.write(JSON.stringify(resjson));
-                        }
+                        console.log("msp_comp_list" + msp_comp_list);
+
+                        console.log("result.docs[0].service_details.msp" + result.docs[0].service_details.msp);
+                        dbSoln.insert(result.docs[0], function (err2, result2) {
+                            console.log("response from insert");
+                            if (err2) {
+                                console.log(err2);
+                                //console.log(err2);
+                                console.log("There is in database operation. ");
+                                console.log("*** Request Responded ***");
+                                failure_response.description = "There is in database operation. ";
+                                response.write(JSON.stringify(failure_response));
+                                response.end();
+                            } else {
+                                console.log("New doc created ..");
+                                response.write(JSON.stringify(success_response));
+                                response.end();
+                            }
+                            //response.end();
+                        });
+                    }
+                    else{
+                        console.log("There is in database operation. Please check the parameters at your end.");
+                        console.log("*** Request Responded ***");
+                        failure_response.description = "There is in database operation. Please check the parameters at your end.";
+                        response.write(JSON.stringify(failure_response));
                         response.end();
-                    });
+                    }
                 } else if (service_det == "bluemix") {
                     // result.docs[0].service_details.bluemix[compcnt]=null;
+                    if(result.docs !== undefined && result.docs !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details") && result.docs[0].service_details.hasOwnProperty("bluemix") && result.docs[0].service_details.bluemix !== undefined && result.docs[0].service_details.bluemix[0] !== undefined && result.docs[0].service_details.bluemix[0].hasOwnProperty("services")) {
 
-                    console.log("result.docs[0].service_details.bluemix[0].services"+ result.docs[0].service_details.bluemix[0].services);
-                    bluemix_comp_list = result.docs[0].service_details.bluemix[0].services;
+                        console.log("result.docs[0].service_details.bluemix[0].services" + result.docs[0].service_details.bluemix[0].services);
+                        bluemix_comp_list = result.docs[0].service_details.bluemix[0].services;
 
-                    console.log("bluemix_comp_list"+ bluemix_comp_list);
-                    bluemix_comp_list_deleted = bluemix_comp_list.splice(compcnt, 1);
+                        console.log("bluemix_comp_list" + bluemix_comp_list);
+                        bluemix_comp_list_deleted = bluemix_comp_list.splice(compcnt, 1);
 
-                    console.log("bluemix_comp_list_deleted"+ bluemix_comp_list_deleted);
+                        console.log("bluemix_comp_list_deleted" + bluemix_comp_list_deleted);
 
-                    result.docs[0].service_details.bluemix[0].services = bluemix_comp_list;
+                        result.docs[0].service_details.bluemix[0].services = bluemix_comp_list;
 
-                    console.log("bluemix_comp_list"+ bluemix_comp_list);
+                        console.log("bluemix_comp_list" + bluemix_comp_list);
 
-                    console.log("result.docs[0].service_details.bluemix[0].services"+ result.docs[0].service_details.bluemix[0].services);
+                        console.log("result.docs[0].service_details.bluemix[0].services" + result.docs[0].service_details.bluemix[0].services);
 
-                    dbSoln.insert(result.docs[0],function(err2,result2) {
-                        console.log("response from insert");
-                        if (err2) {
-                            console.log(err2);
-                        } else {
-                            console.log("New doc created ..");
-                            var resjson = {
-                                "status" : "success"
-                            };
-                            response.write(JSON.stringify(resjson));
-                            response.end();
+                        dbSoln.insert(result.docs[0], function (err2, result2) {
+                            console.log("response from insert");
+                            if (err2) {
+                                console.log(err2);
+                                console.log("There is in database operation. ");
+                                console.log("*** Request Responded ***");
+                                failure_response.description = "There is in database operation. ";
+                                response.write(JSON.stringify(failure_response));
+                                response.end();
 
-                        }
+                            } else {
+                                console.log("New doc created ..");
+                                response.write(JSON.stringify(success_response));
+                                response.end();
 
-                    });
+                            }
+
+                        });
+                    }
+                    else{
+                        console.log("There is in database operation. Please check the parameters at your end.");
+                        console.log("*** Request Responded ***");
+                        failure_response.description = "There is in database operation. Please check the parameters at your end.";
+                        response.write(JSON.stringify(failure_response));
+                        response.end();
+                    }
                 } else if (service_det == "runtime") {
 
-                    console.log("result.docs[0].service_details.bluemix[0].runtime[compcnt]"+ result.docs[0].service_details.bluemix[0].runtime);
-                    bluemix_runtime_list = result.docs[0].service_details.bluemix[0].runtime;
+                    if(result.docs !== undefined && result.docs !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details") && result.docs[0].service_details.hasOwnProperty("bluemix") && result.docs[0].service_details.bluemix !== undefined && result.docs[0].service_details.bluemix[0] !== undefined && result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime")) {
+                        console.log("result.docs[0].service_details.bluemix[0].runtime[compcnt]" + result.docs[0].service_details.bluemix[0].runtime);
+                        bluemix_runtime_list = result.docs[0].service_details.bluemix[0].runtime;
 
-                    console.log("bluemix_runtime_list"+ bluemix_runtime_list);
-                    bluemix_runtime_list_deleted = bluemix_runtime_list
-                        .splice(compcnt, 1);
+                        console.log("bluemix_runtime_list" + bluemix_runtime_list);
+                        bluemix_runtime_list_deleted = bluemix_runtime_list.splice(compcnt, 1);
 
-                    console
-                        .log("bluemix_runtime_list_deleted"
-                            + bluemix_runtime_list_deleted);
+                        console.log("bluemix_runtime_list_deleted"+ bluemix_runtime_list_deleted);
 
-                    result.docs[0].service_details.bluemix[0].runtime = bluemix_runtime_list;
+                        result.docs[0].service_details.bluemix[0].runtime = bluemix_runtime_list;
 
-                    console
-                        .log("bluemix_runtime_list"
-                            + bluemix_runtime_list);
+                        console.log("bluemix_runtime_list"+ bluemix_runtime_list);
 
-                    console
-                        .log("result.docs[0].service_details.bluemix[0].runtime"
-                            + result.docs[0].service_details.bluemix[0].runtime);
+                        console.log("result.docs[0].service_details.bluemix[0].runtime"+ result.docs[0].service_details.bluemix[0].runtime);
 
-                    dbSoln
-                        .insert(
-                            result.docs[0],
-                            function(
-                                err2,
-                                result2) {
-                                console
-                                    .log("response from insert");
-                                // console.log("response
-                                // from
-                                // insert
-                                // " +
-                                // JSON.stringify(solutionJson));
+                        dbSoln.insert(result.docs[0],function (err2,result2) {
+                                console.log("response from insert");
                                 if (err2) {
-                                    console
-                                        .log(err2);
-                                } else {
-                                    console
-                                        .log("New doc created ..");
-                                    var resjson = {
-                                        "status" : "success"
-                                    };
-                                    response
-                                        .write(JSON
-                                            .stringify(resjson));
-                                    response
-                                        .end();
+                                    console.log(err2);
+                                    console.log("There is in database operation. ");
+                                    console.log("*** Request Responded ***");
+                                    failure_response.description = "There is in database operation. ";
+                                    response.write(JSON.stringify(failure_response));
+                                    response.end();
 
+                                } else {
+                                    console.log("New doc created ..");
+                                    response.write(JSON.stringify(resjson));
+                                    response.end();
                                 }
 
                             });
-                } else {
-                    var errMessage = "Error in Service Details";
-                    response.write(errMessage);
-                    var resjson = {
-                        "status" : "failed"
-                    };
-                    response
-                        .write(JSON
-                            .stringify(resjson));
+                    }
+
+                    else{
+                        console.log("There is in database operation. Please check the parameters at your end.");
+                        console.log("*** Request Responded ***");
+                        failure_response.description = "There is in database operation. Please check the parameters at your end.";
+                        response.write(JSON.stringify(failure_response));
+                        response.end();
+                    }
                 }
-            } else {
-                var errMessage = "Error occurred while accessing components : \n"
-                    + JSON.stringify(err);
-                // response.write(errMessage);
-                console.log(errMessage);
-                // response.end();
-                var resjson = {
-                    "status" : "failed"
-                };
-                response.write(JSON
-                    .stringify(resjson));
+
+                else{
+                    console.log("There is in database operation. Please check the parameters at your end.");
+                    console.log("*** Request Responded ***");
+                    failure_response.description = "There is in database operation. Please check the parameters at your end.";
+                    response.write(JSON.stringify(failure_response));
+                    response.end();
+                }
+            }
+
+            else{
+                console.log("There is in database operation. Please check the parameters at your end.");
+                console.log("*** Request Responded ***");
+                failure_response.description = "There is in database operation. Please check the parameters at your end.";
+                response.write(JSON.stringify(failure_response));
                 response.end();
-                console.log(responseMessage);
             }
         });
 
-        console.log(responseMessage);
     } catch (err) {
-        console.log("There is some error:")
-        console.log(err.stack);
+
+        console.log(err);
+
+
+        console.log("There is in database operation. Please check the parameters at your end.");
         console.log("*** Request Responded ***");
-        var resjson = {
-            "status" : "failed"
-        };
-        response.write(JSON.stringify(resjson));
+        failure_response.description = "There is in database operation. Please check the parameters at your end.";
+        response.write(JSON.stringify(failure_response));
+        response.end();
+
     }
 
 }
@@ -510,13 +521,13 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                 console.log(final_msp_totalprice);
                                                 console.log(final_msp_licenseprice);
                                                 priceJson = JSON.stringify({
-                                                        "msp": msp_services,
-                                                        "bluemix": blumix_services,
-                                                        "Final_MSP_Price": final_msp_totalprice,
-                                                        "Final_MSP_License_Price": final_msp_licenseprice,
-                                                        "Final_Runtime_Price": final_runtime_price,
-                                                        "Final_Price": final_price
-                                                    });
+                                                    "msp": msp_services,
+                                                    "bluemix": blumix_services,
+                                                    "Final_MSP_Price": final_msp_totalprice,
+                                                    "Final_MSP_License_Price": final_msp_licenseprice,
+                                                    "Final_Runtime_Price": final_runtime_price,
+                                                    "Final_Price": final_price
+                                                });
                                                 console.log(priceJson);
                                                 response.write(priceJson);
                                                 response.end();
@@ -1103,7 +1114,7 @@ exports.modifysolutionversion=function (request, response) {
                 console.log(abc);
                 dbSoln.find({selector: {solution_name: SolName, user: username}}, function (err, resultofall) {
                     if (!err) {
-                        
+
                         if (resultofall.docs[0] !== null && resultofall.docs[0] !== undefined) {
                             if (resultofall.docs[0].hasOwnProperty("solution_name") !== undefined && resultofall.docs[0].hasOwnProperty("solution_name") !== null) {
 
@@ -1167,7 +1178,7 @@ exports.modifysolutionversion=function (request, response) {
                                                 "type": doc.docs[0].type,
                                                 "version": doc.docs[0].version,
                                                 "canvas_details":doc.docs[0].canvas_details,
-                                            "service_details":doc.docs[0].service_details};
+                                                "service_details":doc.docs[0].service_details};
                                             response.write(JSON.stringify(responsejson));
                                             console.log(responseMessage);
                                             response.end();
