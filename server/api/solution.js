@@ -2579,7 +2579,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         }
 
                                         if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
-                                           // mspprovisioning();
+                                           mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
@@ -2645,24 +2645,62 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             };
 
                                             var offering = {};
+                                            var group;
+                                            var comp_name_array=[];
+                                            var compname;
+                                            var qtyname;
+                                            var sizeofvm;
+                                            var flavourname;
+
                                             offering[soln] = {"orderedItemFormData": {}};
                                             console.log('offering === ' + JSON.stringify(offering[soln]));
 
                                             for (i = 0; i < msp_len; i++) {
-                                                var group = "Group" + (i + 1);
-                                                var comp_name_array=Object.keys(service_properties[i]);
-                                                var compname=comp_name_array[0];
-                                                var qtyname=compname+"_Quantity";
-                                                var sizeofvm = service_properties[i].size;
-                                                var flavourname=compname+"_O/S";
 
-                                                //offering[soln]['orderedItemFormData'][group] = service_properties[i];
-                                                offering[soln]['orderedItemFormData'][group] = {
-                                                    "count":service_properties[i][compname][qtyname],
-                                                    "size":sizeofvm,
-                                                    "flavor":service_properties[i][compname][flavourname],
-                                                    "role":msp_service_names[i]
-                                                };
+                                                comp_name_array=Object.keys(service_properties[i]);
+
+                                                if(comp_name_array.length===1){
+                                                    var keyscnt = [];
+                                                    //datalen = offering[soln]['orderedItemFormData'].length;
+                                                    keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                                    var datalen = keyscnt.length;
+                                                    group = "Group" + (datalen + 1);
+                                                    compname = comp_name_array[0];
+                                                    qtyname = compname + "_Quantity";
+                                                    sizeofvm = compname.size;
+                                                    flavourname = compname + "_O/S";
+
+                                                    //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                                    offering[soln]['orderedItemFormData'][group] = {
+                                                        "count": service_properties[i][compname][qtyname],
+                                                        "size": sizeofvm,
+                                                        "flavor": service_properties[i][compname][flavourname],
+                                                        "role": msp_service_names[i]
+                                                    };
+                                                }
+                                                else {
+
+                                                    for (j = 0; j < comp_name_array.length; j++) {
+
+                                                        var keyscnt = [];
+                                                        //datalen = offering[soln]['orderedItemFormData'].length;
+                                                        keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                                        var datalen = keyscnt.length;
+                                                        group = "Group" + (datalen + 1);
+                                                        compname = comp_name_array[j];
+                                                        qtyname = compname + "_Quantity";
+                                                        sizeofvm = compname.size;
+                                                        flavourname = compname + "_O/S";
+
+                                                        //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                                        offering[soln]['orderedItemFormData'][group] = {
+                                                            "count": service_properties[i][compname][qtyname],
+                                                            "size": sizeofvm,
+                                                            "flavor": service_properties[i][compname][flavourname],
+                                                            "role": compname.split(" ")[0]
+                                                        };
+                                                    }
+                                                }
 
                                             }
 
@@ -2685,9 +2723,10 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     // resp.end();
                                                 }
                                                 else {
-                                                    failure_response.description = "Data insertion in Final JSON DB failed";
-                                                    resp.write(JSON.stringify(failure_response));
-                                                    resp.end();
+                                                    //failure_response.description = "Data insertion in Final JSON DB failed";
+                                                    //resp.write(JSON.stringify(failure_response));
+                                                    //resp.end();
+                                                    console.log("Failed.");
                                                 }
                                             });
                                             //// insert msp provisioning code here...
@@ -2716,10 +2755,10 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 // res.setEncoding('utf8');
                                                 if (!err) {
                                                     console.log("Request sent to MSP===============>Response here...");
-                                                    console.log(res);
+                                                    //console.log(res);
                                                 }
                                                 else {
-                                                    console.log(err);
+                                                    //console.log(err);
                                                 }
 
                                             });
