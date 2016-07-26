@@ -1111,6 +1111,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('$scope.solnName===' +$scope.solnName);
 
     $scope.SavePlan = function(){
+        console.log('updatedPopupData==' +JSON.stringify(popupData));
        /* console.log('index==' +index);
         $scope.p = $scope.popupData[index];
          $scope.p['price']= estimateSelected;
