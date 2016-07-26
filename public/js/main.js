@@ -1099,9 +1099,10 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +JSON.stringify(popupData));
-    $scope.popupData['price']= estimateSelected;
-    $scope.popupData['quantity']= quantitySelected;
-    console.log('updatedPopupData==' +JSON.stringify(popupData));
+    /*$scope.p = $scope.popupData[index];
+    $scope.p['price']= estimateSelected;
+    $scope.p['quantity']= quantitySelected*/;
+
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();
@@ -1109,7 +1110,12 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     $scope.solnName = sharedProperties.getSoln();
     console.log('$scope.solnName===' +$scope.solnName);
 
-    $scope.SavePlan = function(){
+    $scope.SavePlan = function(index){
+        console.log('index==' +index);
+        $scope.p = $scope.popupData[index];
+         $scope.p['price']= estimateSelected;
+         $scope.p['quantity']= quantitySelected;
+        console.log('updatedPopupData==' +JSON.stringify(popupData));
         $scope.guidPlanArray = [];
         //$scope.guidPlanArray.push(guidPlan);
 
