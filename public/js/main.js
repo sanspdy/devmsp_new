@@ -1023,7 +1023,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
-            console.log('index===' +index);
+            //console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
@@ -1046,6 +1046,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 controller: 'BluemixPlanCtrl',
                 backdrop: 'static',
                 keyboard: false,
+                scope:$scope,
                 resolve: {
                     serviceTitle: function () {
                         return $scope.popupDataService.title;
@@ -1151,6 +1152,8 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     $scope.savebluemixPlan = true;
                     $scope.loading = true;
                     $uibModalInstance.dismiss('cancel');
+
+                    //$scope.modal1.dismiss('cancel');
 
                 }
 
