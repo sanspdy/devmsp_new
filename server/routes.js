@@ -248,6 +248,8 @@ module.exports = function(app) {
 // a static icon.
     app.get('/api/getBluemixServicesList', bluemixjs.getBluemixServicesList);
 
+    app.get('/api/v2/getBluemixServicesList', v2_bluemixjs.v2_getBluemixServicesList);
+
 // This API provides to UI with list of services provided by bluemix along with
 // a static icon.
     app.get('/api/old/getBluemixBuildpackList', bluemixjs.old_getBluemixBuildpackList);

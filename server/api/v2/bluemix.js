@@ -101,7 +101,157 @@ var failure_response = {
 };
 
 
+exports.v2_getBluemixServicesList = function(request, response) {
+    console.log("*** Request Received ***");
+    initDBConnection();
+    db = cloudant.use(dbCredentials.dbBluemix_services);
+    var docList = [];
+    var componenttitle = [];
+    var i = 1;
+    var output = [];
+    try {
+        //db.list(function(err, result) {
+        //    if (!err) {
+        //        var len = result.rows.length;
+        //        console.log("*** Total number of records *** "+len);
+        //        if (len == 0) {
+        //            response.write("Sorry for inconvenience! We are feeding data at this moment!");
+        //            console.log("Sorry for inconvenience! We are feeding data at this moment!");
+        //            response.end();
+        //            console.log(responseMessage);
+        //        }
+        //        result.rows.forEach(function(document) {
+        //
+        //            db.get(document.id,function(err,doc) {
+        //
+        //                if (!err) {
+        //
+        //
+        //                    docList.push(doc);
+        //
+        //
+        //
+        //                    if (i >= len) {
+        //
+        //                        docListJson = JSON.stringify(docList);
+        //                        // console.log(docListJson);
+        //
+        //                        var docListJson1 = JSON.parse(docListJson);
+        //                        // console.log(docListJson1);
+        //
+        //                        doc_count = docListJson1.length;
+        //                        console.log("Total Records:"+ doc_count);
+        //                        var titles = [];
+        //                        var label = [];
+        //
+        //                        console.log(docListJson1);
+        //
+        //                        for (i = 0; i < doc_count; i++) {
+        //                            if(docListJson1[i]!=null) {
+        //                                if(docListJson1[i].hasOwnProperty("entity")) {
+        //                                    if(docListJson1[i].entity!=null && docListJson1[i].entity!=undefined) {
+        //                                        if(docListJson1[i].entity.hasOwnProperty("display_name") && docListJson1[i].entity.hasOwnProperty("label")) {
+        //                                            if (!docListJson1[i].language) {
+        //                                                titles[i] = docListJson1[i].entity.display_name;
+        //                                                label[i] = docListJson1[i].entity.label;
+        //                                            }
+        //                                        }
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //
+        //                        for (i = 0; i < doc_count; i++) {
+        //                            if(titles[i] !== undefined && label[i] !== undefined ) {
+        //                                output[i] = {
+        //                                    "title": titles[i],
+        //                                    "label": label[i],
+        //                                    "icon": "/images/MSP_Logos/IBM.png"
+        //                                };
+        //                            }
+        //                        }
+        //                        console.log(output);
+        //
+        //                        response.write(JSON.stringify(output));
+        //                        console.log('Components are successfully fetched');
+        //                        response.end();
+        //                        console.log(responseMessage);
+        //                    }
+        //                } else {
+        //                    err.id = document.id;
+        //                    docList.push(err);
+        //                    var errMessage = "Error occurred while accessing components : \n"+ JSON.stringify(err);
+        //                    console.log(errMessage);
+        //                }
+        //                i++;
+        //            });
+        //
+        //        });
+        //    } else {
+        //        console.log("Error while fetching services list from server");
+        //        failure_response.description = "Error while fetching services list from server"
+        //        response.write(JSON.stringify(failure_response));
+        //        console.log(errMessage);
+        //        response.end();
+        //        console.log(responseMessage);
+        //    }
+        //});
+        db.find({selector: {type:"bluemix"}},function (err, result) {
 
+            if(!err) {
+                console.log("Received data");
+
+                var doc_count = result.docs.length;
+                console.log("Lenght="+doc_count);
+                var titles = [];
+                var label = [];
+                var output=[];
+
+                var docListJson1 = result.docs;
+                console.log(result.docs);
+
+                for (i = 0; i < doc_count; i++) {
+                    if(docListJson1[i] !== undefined && docListJson1[i] !== null &&docListJson1[i].hasOwnProperty("entity") && docListJson1[i].entity.hasOwnProperty("display_name")&& docListJson1[i].entity.hasOwnProperty("label")) {
+                        titles[i] = docListJson1[i].entity.display_name;
+                        label[i] = docListJson1[i].entity.label;
+                    }
+                }
+                for (i = 0; i < doc_count; i++) {
+                    //if(titles[i] !== undefined && label[i] !== undefined )
+                    output[i] = {
+                        "title": titles[i],
+                        "label": label[i],
+                        "icon": "/images/MSP_Logos/IBM.png"
+                    };
+                    //}
+                }
+
+                console.log(output);
+
+                response.write(JSON.stringify(output));
+                console.log('Components are successfully fetched');
+                response.end();
+                console.log(responseMessage);
+            }
+            else{
+                console.log("There is some error while fetching data");
+                failure_response.description = "There is some error while fetching data"
+                response.write(JSON.stringify(failure_response));
+                response.end();
+            }
+
+        });
+    } catch (err) {
+        console.log("There is some error:")
+        console.log(err.stack);
+        console.log("*** Request Responded ***");
+        console.log("There is some error while fetching data");
+        failure_response.description = "There is some error while fetching data"
+        response.write(JSON.stringify(failure_response));
+        response.end();
+    }
+
+}
 
 exports.v2_AddBMRuntimeToCanvas = function(request, response) {
     console.log(requestMessage);
