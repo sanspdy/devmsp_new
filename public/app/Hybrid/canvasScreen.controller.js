@@ -770,6 +770,15 @@ angular.module('portalControllers')
                             $scope.loading=false;
                             angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                            console.log('serviceName==' +serviceName);
+                            var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                console.log('selectedImageTitle===' +data.selectedCatalogName);
+                                return data.selectedCatalogName === serviceName;
+                            });
+                            console.log('indexCourseId==' +indexCourseId);
+                            $scope.openpopup(indexCourseId);
+                           // $scope.openpopup(objectCount);
                         })
 
                         .error(function(data,status,header,config){
@@ -867,6 +876,15 @@ angular.module('portalControllers')
                                 $scope.loading=false;
                                 angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                                 angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                                console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                                console.log('serviceName==' +serviceName);
+                                var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                    console.log('selectedImageTitle===' +data.selectedImageTitle);
+                                    return data.selectedImageTitle === serviceName;
+                                });
+                                console.log('indexCourseId==' +indexCourseId);
+                                $scope.openpopup(indexCourseId);
+                               // $scope.openpopup(bluemixRuntimeCompCount);
                             }).error(function(data,status,header,config){
                             $timeout(function() {
                                 console.log("header data" +header);
@@ -955,6 +973,15 @@ angular.module('portalControllers')
                             $scope.loading=false;
                             angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                            console.log('serviceName==' +serviceName);
+                            var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                console.log('selectedImageTitle===' +data.selectedImageTitle);
+                                return data.selectedImageTitle === serviceName;
+                            });
+                            console.log('indexCourseId==' +indexCourseId);
+                            $scope.openpopup(indexCourseId);
+                            //$scope.openpopup(bluemixServiceCompCount);
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
                             console.log("header data" +header);
