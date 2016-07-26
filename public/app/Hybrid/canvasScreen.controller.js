@@ -266,7 +266,7 @@ angular.module('portalControllers')
                         $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
                         $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                         var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                        var label_bluemixService = $scope.bluemixServiceObjects.title;
+                        var label_bluemixService = $scope.bluemixServiceObjects.label;
                         $scope.bluemixServiceIcon.push(icon_bluemixService);
                         $scope.bluemixServiceLabel.push(label_bluemixService);
                     }
@@ -409,7 +409,7 @@ angular.module('portalControllers')
                             console.log("inside runtime function === " + JSON.stringify(data));
                             $scope.runtimePopupData = data;
                             // console.log("MSP attr data == "+$scope.popupData);
-                            $uibModal.open({
+                        $scope.modal1 = $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
@@ -483,7 +483,7 @@ angular.module('portalControllers')
                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                             $scope.servicePopupData = data;
                             console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
-                             $scope.modal1 = $uibModal.open({
+                            $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
