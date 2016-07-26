@@ -1115,14 +1115,13 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
     $scope.SavePlan = function(){
         console.log('updatedPopupData==' +JSON.stringify(popupData));
-       /* console.log('index==' +index);
-        $scope.p = $scope.popupData[index];
+        console.log('index==' +indexBluemix);
+        $scope.p = $scope.popupData[indexBluemix];
          $scope.p['price']= estimateSelected;
          $scope.p['quantity']= quantitySelected;
-        console.log('updatedPopupData==' +JSON.stringify(popupData));*/
+        console.log('updatedPopupData==' +JSON.stringify(popupData));
         $scope.guidPlanArray = [];
         //$scope.guidPlanArray.push(guidPlan);
-
         $scope.savebluemixPlan = true;
         $scope.loading = true;
         $http({
