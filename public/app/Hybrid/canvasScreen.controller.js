@@ -409,7 +409,8 @@ angular.module('portalControllers')
                             console.log("inside runtime function === " + JSON.stringify(data));
                             $scope.runtimePopupData = data;
                             // console.log("MSP attr data == "+$scope.popupData);
-                        $scope.modal1 = $uibModal.open({
+                        //$scope.modal1 =
+                            $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
