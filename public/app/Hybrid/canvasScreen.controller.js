@@ -260,6 +260,7 @@ angular.module('portalControllers')
                     $scope.bluemixServiceIcon = [];
                     $scope.bluemixServiceComponentLists = [];
                     $scope.arrayOfBluemixService = data;
+                    console.log("arrayOfBluemixService" + $scope.arrayOfBluemixService);
                     console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
                     for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
                         $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
@@ -489,6 +490,7 @@ angular.module('portalControllers')
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
                                 keyboard: false,
+                                scope:$scope,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;
