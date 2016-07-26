@@ -66,6 +66,7 @@ angular.module('portalControllers')
                 controller: 'solCtrl',
                 windowClass: 'app-modal-window-sa',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
 
                 }
@@ -245,6 +246,7 @@ angular.module('portalControllers')
                         windowClass: 'app-modal-window-sam-Plan',
                         controller: 'ErrorWarningCtrl',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                             ErrorMsg: function () {
                                 return data.description;
@@ -335,6 +337,7 @@ angular.module('portalControllers')
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
                                 backdrop: 'static',
+                                keyboard: false,
                                 windowClass: 'app-modal-window-att',
                                 resolve: {
                                     parentDivCall: function () {
@@ -411,6 +414,7 @@ angular.module('portalControllers')
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att2',
                                 backdrop: 'static',
+                                keyboard: false,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.runtimePopupData;
@@ -484,6 +488,7 @@ angular.module('portalControllers')
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
+                                keyboard: false,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;
@@ -1299,6 +1304,7 @@ angular.module('portalControllers')
                         controller: 'DeleteCanvasServiceCtrl',
                         windowClass: 'app-modal-window-dc',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                         }
                     });
@@ -1516,6 +1522,7 @@ angular.module('portalControllers')
                             controller: 'SelectProperServiceCtrl',
                             windowClass: 'app-modal-window-selectpro',
                             backdrop: 'static',
+                            keyboard: false,
                             resolve: {
 
                             }
@@ -1536,6 +1543,7 @@ angular.module('portalControllers')
                     controller: 'newArchConfirmCtrl',
                     windowClass: 'app-modal-window-newArch',
                     backdrop: 'static',
+                     keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1611,6 +1619,7 @@ angular.module('portalControllers')
                     controller: 'orderBillCtrl',
                     windowClass: 'app-modal-window-o',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         isOrderButton:function(){
                             return 'viewBOM';
@@ -1727,6 +1736,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmHomeCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1755,6 +1765,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmMspCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1774,6 +1785,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmDeplCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1947,6 +1959,7 @@ angular.module('portalControllers').controller('confirmMspCtrl', function ($scop
                         windowClass: 'app-modal-window-sam',
                         controller: 'solCtrlMsp',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                         }
                     });
@@ -2068,6 +2081,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
             controller: 'newsolCtrl',
             windowClass: 'app-modal-window-nns',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
 
             }
