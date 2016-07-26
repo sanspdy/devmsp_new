@@ -135,7 +135,10 @@
     </div>
     <hr>
     <div class="row">
-        <span id="totl_price">Total Price-</span> <span id="price">${{viewBillFinalPrice}}</span>
+        <span class="totl_price">Final MSP Price-</span> <span class="price">${{viewBillFinalMSPPrice}}</span>
+        <!--<span class="totl_price">Final Bluemix Price-</span> <span class="price">${{viewBillFinalBluemixPrice}}</span>-->
+        <span class="totl_price">Total Price-</span> <span class="price">${{viewBillFinalPrice}}</span>
+
         <loading ng-show="placeOrderSpins" class="placeOrderSpin"></loading>
         <button  id="pdfbtn" ng-click="exportData()">Download</button>
        <!-- <button id="orderBtn" type="button" ng-click="placeOrder()" ng-show="showOrderBtn">ORDER</button>-->
