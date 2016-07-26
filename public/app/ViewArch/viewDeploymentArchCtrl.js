@@ -7119,7 +7119,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                          imgInstance3.lockMovementY = true;
                          imgInstance3.lockMovementX = true;
                          imgInstance3.hasControls=false;*/
-
                         // we need this here because this is when the canvas gets initialized
                         // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                         // }
