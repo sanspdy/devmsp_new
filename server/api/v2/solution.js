@@ -955,7 +955,7 @@ exports.v2_AddComponentToCanvas = function(request, response) {
 
                                                     propertiesvalue=JSON.parse(properties);
 
-                                                    propertiesvalue.Pattern['size']="small";
+                                                    //propertiesvalue.Pattern['size']="small";
 
                                                     result.docs[0].service_details.msp[compcnt] = propertiesvalue;
 

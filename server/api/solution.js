@@ -2043,6 +2043,9 @@ exports.v2_placeOrder=function(reqst, resp) {
                                 resp.end();
                             } else {
                                 resultjson = result.docs[0];
+
+                                var orderidgenerated=resultjson._id;
+
                                 resultjson.order_status = "submitted";
                                 resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
                                 resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
@@ -2576,12 +2579,12 @@ exports.v2_placeOrder=function(reqst, resp) {
                                         }
 
                                         if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
-                                            //mspprovisioning();
+                                           // mspprovisioning();
                                         }
 
                                         function mspprovisioning() {
-                                            randomno = resultjson._id;
-                                            console.log(randomno);
+                                            randomno = orderidgenerated;
+                                            console.log("OrderID: "+ randomno);
 
                                             var msp_services = [];
                                             msp_services = resultjson.service_details.msp;
@@ -2597,25 +2600,48 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 console.log(JSON.stringify(service_properties[i]));
                                             }
 
+                                            //orderjson = {
+                                            //    "Order_ID": "mpaase210d12f817c41f682217acb22219478",
+                                            //    "Ordered_Items": "mysql",
+                                            //    "Data_Center": "Amsterdam 1",
+                                            //    "Originating_From": "mpaas",
+                                            //    "User_ID": "superadmin@in.ibm.com",
+                                            //    "Comments": "some-comments",
+                                            //    "Ordered_ItemDetails": {
+                                            //        "mysql": {
+                                            //            "orderedItemFormData": {
+                                            //                "Group1": {
+                                            //                    "count": "1",
+                                            //                    "size": "small",
+                                            //                    "flavor": "RedHat",
+                                            //                    "role": "MYSQL"
+                                            //                }
+                                            //            }
+                                            //        }
+                                            //    }
+                                            //};
+
+
                                             orderjson = {
-                                                "Order_ID": "mpaase210d12f817c41f682217acb22219478",
-                                                "Ordered_Items": "mysql",
+                                                "Order_ID": randomno,
+                                                "Ordered_Items": soln,
                                                 "Data_Center": "Amsterdam 1",
-                                                "Originating_From": "mpaas",
-                                                "User_ID": "superadmin@in.ibm.com",
+                                                "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
+                                                "User_ID": contactmail,
                                                 "Comments": "some-comments",
-                                                "Ordered_ItemDetails": {
-                                                    "mysql": {
-                                                        "orderedItemFormData": {
-                                                            "Group1": {
-                                                                "count": "1",
-                                                                "size": "small",
-                                                                "flavor": "RedHat",
-                                                                "role": "MYSQL"
-                                                            }
-                                                        }
-                                                    }
-                                                }
+                                                "Ordered_ItemDetails": ""
+                                                //    "mysql": {
+                                                //        "orderedItemFormData": {
+                                                //            "Group1": {
+                                                //                "count": "1",
+                                                //                "size": "small",
+                                                //                "flavor": "RedHat",
+                                                //                "role": "MYSQL"
+                                                //            }
+                                                //        }
+                                                //    }
+                                                //}
+
                                             };
 
                                             var offering = {};
@@ -2624,16 +2650,29 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                             for (i = 0; i < msp_len; i++) {
                                                 var group = "Group" + (i + 1);
-                                                offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                                var comp_name_array=Object.keys(service_properties[i]);
+                                                var compname=comp_name_array[0];
+                                                var qtyname=compname+"_Quantity";
+                                                var sizeofvm = service_properties[i].size;
+                                                var flavourname=compname+"_O/S";
+
+                                                //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                                offering[soln]['orderedItemFormData'][group] = {
+                                                    "count":service_properties[i][compname][qtyname],
+                                                    "size":sizeofvm,
+                                                    "flavor":service_properties[i][compname][flavourname],
+                                                    "role":msp_service_names[i]
+                                                };
+
                                             }
 
-                                            //orderjson.Ordered_ItemDetails=offering;
+                                            orderjson.Ordered_ItemDetails=offering;
 
                                             final_json_formatted = orderjson;
 
 
-                                            console.log("Final JSON:");
-                                            console.log(final_json_formatted);
+                                            console.log("Final JSON:----------------");
+                                            console.log(JSON.stringify(final_json_formatted));
                                             //console.log(JSON.stringify(final_json_formatted));
 
                                             dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
@@ -2647,11 +2686,11 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 }
                                                 else {
                                                     failure_response.description = "Data insertion in Final JSON DB failed";
-                                                     resp.write(JSON.stringify(failure_response));
+                                                    resp.write(JSON.stringify(failure_response));
                                                     resp.end();
                                                 }
                                             });
-                                            // insert msp provisioning code here...
+                                            //// insert msp provisioning code here...
                                             var mpaasusername = "mpaasuser";
                                             var mpaaspassword = "Test@123";
                                             var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
@@ -2667,7 +2706,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     'Content-Length': JSON.stringify(orderjson).length,
                                                     "Authorization": auth
                                                 },
-                                                rejectUnauthorized: true,
+                                                rejectUnauthorized: false,
                                                 requestCert: true,
                                                 agent: false,
                                                 //secureProtocol:
@@ -2692,6 +2731,8 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 // response.end();
                                             });
                                             req.write(JSON.stringify(orderjson));
+
+                                            console.log("MSP Provisioning request initiated...");
 
                                             req.end();
                                         }
