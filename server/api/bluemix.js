@@ -2366,13 +2366,13 @@ exports.getBluemixServicesList = function(request, response) {
                                     }
                                 }
                                 for (i = 0; i < doc_count; i++) {
-                                    if(titles[i] !== undefined && label[i] !== undefined ) {
+                                    //if(titles[i] !== undefined && label[i] !== undefined ) {
                                         output[i] = {
                                             "title": titles[i],
                                             "label": label[i],
                                             "icon": "/images/MSP_Logos/IBM.png"
                                         };
-                                    }
+                                    //}
                                 }
                                 console.log(output);
 
