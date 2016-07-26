@@ -1023,7 +1023,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
-            console.log('index===' +index);
+            //console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
