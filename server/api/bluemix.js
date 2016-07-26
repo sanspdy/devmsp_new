@@ -3359,8 +3359,9 @@ exports.getBMServicePrice=function(reqst, resp) {
                                         var discount = result1.docs[0].cost_plan[unit_id];
                                         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$", discount);
                                         if (discount === "free") {
-                                            final_price = 0;
-                                            resp.send(final_price);
+                                            final_price = 0.0;
+                                            resp.status(200).send(final_price.toString());
+                                            //resp.send(final_price);
                                             resp.end();
                                         }
                                         else {
@@ -3375,7 +3376,7 @@ exports.getBMServicePrice=function(reqst, resp) {
 
                                                 console.log(final_price);
                                                 if (final_price < 0) {
-                                                    final_price = 0;
+                                                    final_price = 0.0;
                                                     resp.status(200).send(final_price.toString());
                                                     //resp.send(final_price);
                                                     resp.end();
@@ -3395,7 +3396,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 final_price = (quantity - discount) * actual_price;
                                                 console.log("dhuvhdvadv", final_price);
                                                 if (final_price < 0) {
-                                                    final_price = 0;
+                                                    final_price = 0.0;
                                                     resp.status(200).send(final_price.toString());
                                                     //resp.send(final_price);
                                                     resp.end();
@@ -3411,8 +3412,9 @@ exports.getBMServicePrice=function(reqst, resp) {
                                     });
                                 }
                                 else {
-                                    final_price = 0;
+                                    final_price = 0.0;
                                     resp.status(200).send(final_price.toString());
+                                    //resp.send(final_price);
                                     resp.end();
                                     console.log("There's no property costs");
                                 }
