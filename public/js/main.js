@@ -1094,7 +1094,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
-    console.log('popupData==' +popupData);
+    console.log('popupData==' +JSON.stringify(popupData));
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();

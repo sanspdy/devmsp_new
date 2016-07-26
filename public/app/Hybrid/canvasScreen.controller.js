@@ -234,7 +234,7 @@ angular.module('portalControllers')
             $scope.spinsCanvasCatalogue = false;
             $scope.spinsCanvas=false;
             $scope.loading=true;
-            $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
+            $http.get("/api/v2/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
                 if(data.status == 'failed'){
                     //alert(data.description);
