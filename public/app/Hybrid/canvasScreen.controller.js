@@ -266,7 +266,7 @@ angular.module('portalControllers')
                         $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
                         $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
                         var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                        var label_bluemixService = $scope.bluemixServiceObjects.label;
+                        var label_bluemixService = $scope.bluemixServiceObjects.title;
                         $scope.bluemixServiceIcon.push(icon_bluemixService);
                         $scope.bluemixServiceLabel.push(label_bluemixService);
                     }
