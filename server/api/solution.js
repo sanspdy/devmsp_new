@@ -2566,7 +2566,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     setTimeout(function () {
                                                         db_insert_app(appnames, solnName, full_token_new,uname,version)
 
-                                                    }, 10000);
+                                                    }, 20000);
 
                                                 }
                                                 catch(err){
