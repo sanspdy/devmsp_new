@@ -1021,8 +1021,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected,title) {
+        $scope.saveDataService = function (radioselected,title,index) {
             console.log('radioselected===' +JSON.stringify(radioselected));
+            console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
@@ -1061,7 +1062,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     planName : function(){
                         return radioselected;
                     },
-                quantitySelected : function(){
+                   quantitySelected : function(){
                         return $scope.latestQuantity ;
                     },
                     estimateSelected : function(){
@@ -1069,12 +1070,13 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     },
                     latestTitle : function(){
                         return title;
+                    },
+                    indexBluemix : function(){
+                        return index;
                     }
 
                 }
             });
-
-
         }
 
 
@@ -1086,9 +1088,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle,indexBluemix) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
+    console.log('indexBluemix===' +indexBluemix);
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
