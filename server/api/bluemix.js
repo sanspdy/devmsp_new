@@ -3376,7 +3376,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log(final_price);
                                                 if (final_price < 0) {
                                                     final_price = 0;
-                                                    res.status(200).send(final_price.toString());
+                                                    resp.status(200).send(final_price.toString());
                                                     //resp.send(final_price);
                                                     resp.end();
                                                 }
@@ -3396,7 +3396,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 console.log("dhuvhdvadv", final_price);
                                                 if (final_price < 0) {
                                                     final_price = 0;
-                                                    res.status(200).send(final_price.toString());
+                                                    resp.status(200).send(final_price.toString());
                                                     //resp.send(final_price);
                                                     resp.end();
                                                 }
@@ -3412,7 +3412,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                 }
                                 else {
                                     final_price = 0;
-                                    res.status(200).send(final_price.toString());
+                                    resp.status(200).send(final_price.toString());
                                     resp.end();
                                     console.log("There's no property costs");
                                 }
