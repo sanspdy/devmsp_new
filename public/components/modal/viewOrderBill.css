@@ -28,12 +28,12 @@
     font-size: 1em;
     float: none !important;
 }
-#totl_price{
+.totl_price{
     color: grey;
     font-size: 1.6em;
 }
 
-#price{
+.price{
     color: red;
     font-size: 1.6em;
 }
