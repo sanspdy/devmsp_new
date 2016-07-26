@@ -2148,7 +2148,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                                         bluemixappprovisioning();
                                                                         setTimeout(function(){
                                                                             status_update(uname,solnName,version);
-                                                                        },20000)
+                                                                        },30000)
                                                                     },20000);
                                                                     //bluemixappprovisioning();
                                                                 
