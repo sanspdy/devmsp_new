@@ -1152,6 +1152,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     $scope.savebluemixPlan = true;
                     $scope.loading = true;
                     $uibModalInstance.dismiss('cancel');
+                    $scope.modal1.dismiss('cancel');
 
                 }
 
