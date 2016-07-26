@@ -1046,6 +1046,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 controller: 'BluemixPlanCtrl',
                 backdrop: 'static',
                 keyboard: false,
+                scope:$scope,
                 resolve: {
                     serviceTitle: function () {
                         return $scope.popupDataService.title;
