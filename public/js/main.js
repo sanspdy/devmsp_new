@@ -1021,7 +1021,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected,title,index) {
+        $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
             console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
@@ -1071,10 +1071,6 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     latestTitle : function(){
                         return title;
                     },
-                    indexBluemix : function(){
-                        return index;
-                    }
-
                 }
             });
         }
@@ -1088,10 +1084,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle,indexBluemix) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
-    console.log('indexBluemix===' +indexBluemix);
+    //console.log('indexBluemix===' +indexBluemix);
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
@@ -1115,11 +1111,11 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
     $scope.SavePlan = function(){
         console.log('updatedPopupData==' +JSON.stringify(popupData));
-        console.log('index==' +indexBluemix);
+        /*console.log('index==' +indexBluemix);
         $scope.p = $scope.popupData[indexBluemix];
          $scope.p['price']= estimateSelected;
          $scope.p['quantity']= quantitySelected;
-        console.log('updatedPopupData==' +JSON.stringify(popupData));
+        console.log('updatedPopupData==' +JSON.stringify(popupData));*/
         $scope.guidPlanArray = [];
         //$scope.guidPlanArray.push(guidPlan);
         $scope.savebluemixPlan = true;
