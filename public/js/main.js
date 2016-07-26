@@ -130,6 +130,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 controller: 'solCtrl',
                 windowClass: 'app-modal-window-sa',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
                 }
             });
@@ -160,6 +161,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 windowClass: 'app-modal-window-sam',
                 controller: 'solCtrlMsp',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
 
                 }
@@ -209,6 +211,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 windowClass: 'app-modal-window-sam',
                 controller: 'solCtrlMsp',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
 
                 }
@@ -1041,6 +1044,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 windowClass: 'app-modal-window-sam-Plan',
                 controller: 'BluemixPlanCtrl',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
                     serviceTitle: function () {
                         return $scope.popupDataService.title;
@@ -1094,7 +1098,11 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
-    console.log('popupData==' +popupData);
+    console.log('popupData==' +JSON.stringify(popupData));
+    /*$scope.p = $scope.popupData[index];
+    $scope.p['price']= estimateSelected;
+    $scope.p['quantity']= quantitySelected*/;
+
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();
@@ -1103,6 +1111,12 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('$scope.solnName===' +$scope.solnName);
 
     $scope.SavePlan = function(){
+        console.log('updatedPopupData==' +JSON.stringify(popupData));
+       /* console.log('index==' +index);
+        $scope.p = $scope.popupData[index];
+         $scope.p['price']= estimateSelected;
+         $scope.p['quantity']= quantitySelected;
+        console.log('updatedPopupData==' +JSON.stringify(popupData));*/
         $scope.guidPlanArray = [];
         //$scope.guidPlanArray.push(guidPlan);
 
@@ -1176,6 +1190,7 @@ angular.module('portalControllers').controller('solCtrl', function ($scope,$uibM
             controller: 'solutionCtrl',
             windowClass: 'app-modal-window-solpop',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
 
             }
@@ -1201,6 +1216,7 @@ angular.module('portalControllers').controller('newsolCtrl', function ($scope,$u
             controller: 'newsolutionCtrl',
             windowClass: 'app-modal-window-nspop',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
 
             }

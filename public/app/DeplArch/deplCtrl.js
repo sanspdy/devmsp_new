@@ -16,6 +16,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             windowClass: 'app-modal-window-sam',
             controller: 'solCtrlMsp',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
             }
         });
@@ -28,6 +29,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             controller: 'solCtrl',
             windowClass: 'app-modal-window-sa',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
             }
         });
@@ -118,6 +120,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                 /* windowClass: 'app-modal-window-sam',*/
                 controller: 'versionCtrl',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
                     indexVersion:function () {
                         return $scope.ResponseDataViewBillObject;
@@ -140,6 +143,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             size: 'lg',
             controller: 'orderViewBillCtrl',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
                 isOrderButton:function () {
                     return 'deplBOM';
@@ -164,6 +168,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             size: 'lg',
             controller: 'orderViewBillCtrlMsp',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
                 isOrderButton:function () {
                     return 'deplBOM';

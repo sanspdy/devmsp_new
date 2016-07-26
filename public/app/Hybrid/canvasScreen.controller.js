@@ -66,6 +66,7 @@ angular.module('portalControllers')
                 controller: 'solCtrl',
                 windowClass: 'app-modal-window-sa',
                 backdrop: 'static',
+                keyboard: false,
                 resolve: {
 
                 }
@@ -234,7 +235,7 @@ angular.module('portalControllers')
             $scope.spinsCanvasCatalogue = false;
             $scope.spinsCanvas=false;
             $scope.loading=true;
-            $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
+            $http.get("/api/v2/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
                 if(data.status == 'failed'){
                     //alert(data.description);
@@ -245,6 +246,7 @@ angular.module('portalControllers')
                         windowClass: 'app-modal-window-sam-Plan',
                         controller: 'ErrorWarningCtrl',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                             ErrorMsg: function () {
                                 return data.description;
@@ -335,6 +337,7 @@ angular.module('portalControllers')
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
                                 backdrop: 'static',
+                                keyboard: false,
                                 windowClass: 'app-modal-window-att',
                                 resolve: {
                                     parentDivCall: function () {
@@ -411,6 +414,7 @@ angular.module('portalControllers')
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att2',
                                 backdrop: 'static',
+                                keyboard: false,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.runtimePopupData;
@@ -484,6 +488,7 @@ angular.module('portalControllers')
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
+                                keyboard: false,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;
@@ -770,6 +775,15 @@ angular.module('portalControllers')
                             $scope.loading=false;
                             angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                            console.log('serviceName==' +serviceName);
+                            var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                console.log('selectedImageTitle===' +data.selectedCatalogName);
+                                return data.selectedCatalogName === serviceName;
+                            });
+                            console.log('indexCourseId==' +indexCourseId);
+                            $scope.openpopup(indexCourseId);
+                           // $scope.openpopup(objectCount);
                         })
 
                         .error(function(data,status,header,config){
@@ -867,6 +881,15 @@ angular.module('portalControllers')
                                 $scope.loading=false;
                                 angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                                 angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                                console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                                console.log('serviceName==' +serviceName);
+                                var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                    console.log('selectedImageTitle===' +data.selectedImageTitle);
+                                    return data.selectedImageTitle === serviceName;
+                                });
+                                console.log('indexCourseId==' +indexCourseId);
+                                $scope.openpopup(indexCourseId);
+                               // $scope.openpopup(bluemixRuntimeCompCount);
                             }).error(function(data,status,header,config){
                             $timeout(function() {
                                 console.log("header data" +header);
@@ -955,6 +978,15 @@ angular.module('portalControllers')
                             $scope.loading=false;
                             angular.element('#showDisabledSettings' +($scope.choices.length -1)).addClass('hideDisabled');
                             angular.element('#showEnabledSettings' +($scope.choices.length -1)).removeClass('hideDisabled');
+                            console.log('$scope.choices===' +JSON.stringify($scope.choices));
+                            console.log('serviceName==' +serviceName);
+                            var indexCourseId = _.findIndex($scope.choices, function (data) {
+                                console.log('selectedImageTitle===' +data.selectedImageTitle);
+                                return data.selectedImageTitle === serviceName;
+                            });
+                            console.log('indexCourseId==' +indexCourseId);
+                            $scope.openpopup(indexCourseId);
+                            //$scope.openpopup(bluemixServiceCompCount);
                         }).error(function(data,status,header,config){
                             // $timeout(function() {
                             console.log("header data" +header);
@@ -1272,6 +1304,7 @@ angular.module('portalControllers')
                         controller: 'DeleteCanvasServiceCtrl',
                         windowClass: 'app-modal-window-dc',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                         }
                     });
@@ -1489,6 +1522,7 @@ angular.module('portalControllers')
                             controller: 'SelectProperServiceCtrl',
                             windowClass: 'app-modal-window-selectpro',
                             backdrop: 'static',
+                            keyboard: false,
                             resolve: {
 
                             }
@@ -1509,6 +1543,7 @@ angular.module('portalControllers')
                     controller: 'newArchConfirmCtrl',
                     windowClass: 'app-modal-window-newArch',
                     backdrop: 'static',
+                     keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1584,6 +1619,7 @@ angular.module('portalControllers')
                     controller: 'orderBillCtrl',
                     windowClass: 'app-modal-window-o',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         isOrderButton:function(){
                             return 'viewBOM';
@@ -1700,6 +1736,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmHomeCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1728,6 +1765,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmMspCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1747,6 +1785,7 @@ angular.module('portalControllers')
                     windowClass: 'app-modal-window-homeConfirm',
                     controller: 'confirmDeplCtrl',
                     backdrop: 'static',
+                    keyboard: false,
                     resolve: {
                         canvasInformation: function () {
                             console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
@@ -1920,6 +1959,7 @@ angular.module('portalControllers').controller('confirmMspCtrl', function ($scop
                         windowClass: 'app-modal-window-sam',
                         controller: 'solCtrlMsp',
                         backdrop: 'static',
+                        keyboard: false,
                         resolve: {
                         }
                     });
@@ -2041,6 +2081,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
             controller: 'newsolCtrl',
             windowClass: 'app-modal-window-nns',
             backdrop: 'static',
+            keyboard: false,
             resolve: {
 
             }
