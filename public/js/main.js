@@ -1108,7 +1108,12 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +JSON.stringify(popupData));
-    $scope.p = $scope.popupData[serviceTitle];
+    var indexB = _.findIndex(popupData, function (data) {
+        return data.title === serviceTitle;
+    });
+    console.log('indeB===' +indexB);
+    $scope.p = $scope.popupData[indexB];
+    console.log('$scope.p===' +JSON.stringify($scope.p));
     $scope.p['price']= estimateSelected;
     $scope.p['quantity']= quantitySelected;
     console.log('UpdatedpopupData==' +JSON.stringify(popupData))
