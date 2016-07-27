@@ -260,6 +260,7 @@ angular.module('portalControllers')
                     $scope.bluemixServiceIcon = [];
                     $scope.bluemixServiceComponentLists = [];
                     $scope.arrayOfBluemixService = data;
+                    console.log("arrayOfBluemixService" + $scope.arrayOfBluemixService);
                     console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
                     for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
                         $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
@@ -408,6 +409,7 @@ angular.module('portalControllers')
                             console.log("inside runtime function === " + JSON.stringify(data));
                             $scope.runtimePopupData = data;
                             // console.log("MSP attr data == "+$scope.popupData);
+                        //$scope.modal1 =
                             $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
@@ -482,13 +484,14 @@ angular.module('portalControllers')
                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                             $scope.servicePopupData = data;
                             console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
-                            $uibModal.open({
+                            $rootScope.bluemixAttrModal = $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
                                 keyboard: false,
+                                scope:$rootScope,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;

@@ -354,7 +354,16 @@ angular.module('portalControllers', ['ui.bootstrap'])
         var setPlansArray = [];
 
         this.setPlans = function (plan) {
+            var index = _.findIndex(setPlansArray, function (data) {
+                return data.serviceName === plan.serviceName;
+            });
+            if(index< 0 ){
             setPlansArray.push(plan);
+            }
+            else{
+                setPlansArray[index] = plan;
+            }
+
         }
         this.getPlans = function(){
             return setPlansArray;
@@ -376,7 +385,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
     }
 });
 
-angular.module('portalControllers').controller('AttrCtrl', function ($scope,parentDivCall,countComp,serviceType,$uibModal,$uibModalInstance,sharedProperties,$http) {
+angular.module('portalControllers').controller('AttrCtrl', function ($scope,parentDivCall,countComp,serviceType,$uibModal,$uibModalInstance,sharedProperties,$http,$rootScope) {
     $scope.showMSPAttributes=false;
     $scope.showRuntimeAttributes=false;
     $scope.showServiceAttributes=false;
@@ -1023,13 +1032,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         };
         $scope.saveDataService = function (radioselected,title) {
             console.log('radioselected===' +JSON.stringify(radioselected));
+            //console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
             //console.log('quantity==' +quantity);
             //console.log('price===' +price);
             console.log('title===' +title);
-            console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
+            console.log("BluemixTitle" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
                 return data.entity.extra.displayName === radioselected;
             });
@@ -1038,13 +1048,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('guid===' +JSON.stringify(guid));
 
 
-            $uibModal.open({
+             $rootScope.bluemixPlanModal = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/BluemixPlanSave.html',
                 windowClass: 'app-modal-window-sam-Plan',
                 controller: 'BluemixPlanCtrl',
                 backdrop: 'static',
                 keyboard: false,
+                scope:$rootScope,
                 resolve: {
                     serviceTitle: function () {
                         return $scope.popupDataService.title;
@@ -1061,7 +1072,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     planName : function(){
                         return radioselected;
                     },
-                quantitySelected : function(){
+                   quantitySelected : function(){
                         return $scope.latestQuantity ;
                     },
                     estimateSelected : function(){
@@ -1069,12 +1080,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     },
                     latestTitle : function(){
                         return title;
-                    }
-
+                    },
                 }
             });
-
-
         }
 
 
@@ -1086,9 +1094,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle,$rootScope) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
+    //console.log('indexBluemix===' +indexBluemix);
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
@@ -1099,10 +1108,16 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +JSON.stringify(popupData));
-    /*$scope.p = $scope.popupData[index];
-    $scope.p['price']= estimateSelected;
-    $scope.p['quantity']= quantitySelected*/;
-
+    /*var indexB = ob(popupData, function (data) {
+        return data.title === serviceTitle;
+    });*/
+    //console.log('indeB===' +indexB);
+   // $scope.p = $scope.popupData;
+    //console.log('$scope.p===' +JSON.stringify($scope.p));
+   popupData['price']= estimateSelected;
+    popupData['quantity']= quantitySelected;
+     //$scope.popupData[indexB] = $scope.p;
+    console.log('UpdatedpopupData==' +JSON.stringify(popupData));
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();
@@ -1112,14 +1127,13 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
     $scope.SavePlan = function(){
         console.log('updatedPopupData==' +JSON.stringify(popupData));
-       /* console.log('index==' +index);
-        $scope.p = $scope.popupData[index];
+        /*console.log('index==' +indexBluemix);
+        $scope.p = $scope.popupData[indexBluemix];
          $scope.p['price']= estimateSelected;
          $scope.p['quantity']= quantitySelected;
         console.log('updatedPopupData==' +JSON.stringify(popupData));*/
         $scope.guidPlanArray = [];
         //$scope.guidPlanArray.push(guidPlan);
-
         $scope.savebluemixPlan = true;
         $scope.loading = true;
         $http({
@@ -1134,7 +1148,6 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 solnjson: JSON.stringify(popupData),
                 "serviceplan_guid":guidPlan,
                 version:1
-
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
@@ -1152,7 +1165,11 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     console.log(JSON.stringify($scope.PostDataResponse));
                     $scope.savebluemixPlan = true;
                     $scope.loading = true;
-                    $uibModalInstance.dismiss('cancel');
+                    $rootScope.bluemixPlanModal.dismiss('cancel');
+                    $rootScope.bluemixAttrModal.dismiss('cancel');
+                   // $uibModalInstance.dismiss('cancel');
+
+                    //$scope.modal1.dismiss('cancel');
 
                 }
 
@@ -1669,6 +1686,12 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
             }
             if(key==='Final_Price'){
                 $scope.viewBillFinalPrice=$scope.ResponseDataViewBillObject[key];
+            }
+            if(key === 'Final_MSP_Price'){
+                $scope.viewBillFinalMSPPrice=$scope.ResponseDataViewBillObject[key];
+            }
+            if(key === 'Final_Bluemix_Price'){
+                $scope.viewBillFinalBluemixPrice=$scope.ResponseDataViewBillObject[key];
             }
         });
         $scope.loading = false;
