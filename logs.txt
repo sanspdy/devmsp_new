@@ -1,0 +1,976 @@
+Connected, tailing logs for app devmsp in org prajjava@in.ibm.com / space Msp as santhoshmuniswami@in.ibm.com...
+
+2016-07-27T19:27:26.14+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.originalUrl ***/api/v2/placeOrder
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:26.14+0530 [App/0]      OUT  *** req.path ***/api/v2/placeOrder
+2016-07-27T19:27:26.14+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:26.15+0530 [App/0]      OUT *** Request Received ***
+2016-07-27T19:27:26.15+0530 [App/0]      OUT [90mPOST /api/v2/placeOrder [31m500 [90m7ms - 22b[0m
+2016-07-27T19:27:26.16+0530 [App/0]      ERR SyntaxError: Unexpected token u
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at Object.parse (native)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at exports.v2_placeOrder (/home/vcap/app/server/api/solution.js:1982:34)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at Layer.handle [as handle_request] (/home/vcap/app/node_modules/express/lib/router/layer.js:82:5)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at next (/home/vcap/app/node_modules/express/lib/router/route.js:110:13)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at Route.dispatch (/home/vcap/app/node_modules/express/lib/router/route.js:91:3)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at Layer.handle [as handle_request] (/home/vcap/app/node_modules/express/lib/router/layer.js:82:5)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at /home/vcap/app/node_modules/express/lib/router/index.js:267:22
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at Function.proto.process_params (/home/vcap/app/node_modules/express/lib/router/index.js:321:12)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at next (/home/vcap/app/node_modules/express/lib/router/index.js:261:10)
+2016-07-27T19:27:26.16+0530 [App/0]      ERR     at logger (/home/vcap/app/node_modules/morgan/index.js:103:5)
+2016-07-27T19:27:26.16+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:26.073 +0000] "POST /api/v2/placeOrder HTTP/1.1" 500 137 22 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:57001 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:53873795-4d95-42f6-507e-bee9a4c8299a response_time:0.089428029 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1322672063"
+2016-07-27T19:27:29.58+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.originalUrl ***/api/v2/viewMyDeployArchNames?uname=santhoshmuniswami@in.ibm.com&version=1
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:29.58+0530 [App/0]      OUT  *** req.path ***/api/v2/viewMyDeployArchNames
+2016-07-27T19:27:29.58+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:29.58+0530 [App/0]      OUT *** Message Received ***
+2016-07-27T19:27:29.58+0530 [App/0]      OUT *************************************************************************
+2016-07-27T19:27:29.67+0530 [App/0]      OUT {"docs":[{"_id":"2a4a175f491f366f9d359a64445d8b7e","_rev":"2-7c74699ca567e840b7ef48cc1ef5d865","user":"santhoshmuniswami@in.ibm.com","solution_name":"dstst","type":"hybrid","date_created":"2016-07-27T12:08:21.476Z","solution_desc":"gdgfd","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[{"title":"SecureGateway","service_name":"SecureGateway1469621311586","properties":[[{"metadata":{"guid":"b1e18f65-e2a8-4715-9f65-9ebb3863d7ea","url":"/v2/service_plans/b1e18f65-e2a8-4715-9f65-9ebb3863d7ea","created_at":"2015-02-16T01:48:40Z","updated_at":"2016-06-02T14:13:19Z"},"entity":{"name":"securegatewayplan","free":false,"description":"Pay only for outbound data transmissions per Gigabyte. The first Gigabyte each month is free.","service_guid":"a132a5a9-4eb3-4b8d-bb43-3248b4badf5e","extra":{"displayName":"Standard","bullets":["One Gigabyte transmitted outbound each month is free."],"costs":[{"unitId":"GIGABYTE_OUTBOUND_PER_MONTH","unit":"GIGABYTE","partNumber":"D1FW5LL","unitQuantity":"100","tierModel":"Granular Tier","quantityTier":"1","currencies":[{"country":"ARG","amount":{"USD":"11.5"}},{"country":"ASEAN","amount":{"USD":"10.5"}},{"country":"AUS","amount":{"AUD":"11.34"}},{"country":"BOL","amount":{"USD":"11.5"}},{"country":"BRA","amount":{"BRL":"23"}},{"country":"CAN","amount":{"CAD":"10.57"}},{"country":"CHE","amount":{"CHF":"9.48"}},{"country":"CHL","amount":{"USD":"11.5"}},{"country":"COL","amount":{"USD":"11.5"}},{"country":"DNK","amount":{"DKK":"55.35"}},{"country":"ECU","amount":{"USD":"11.5"}},{"country":"EURO","amount":{"EUR":"7.52"}},{"country":"GBR","amount":{"GBP":"6.04"}},{"country":"HKG","amount":{"USD":"10.5"}},{"country":"IND","amount":{"INR":"603.75"}},{"country":"ISA","amount":{"USD":"10.5"}},{"country":"JPN","amount":{"JPY":"1050"}},{"country":"KOR","amount":{"KRW":"11650"}},{"country":"MEX","amount":{"USD":"11.5"}},{"country":"NOR","amount":{"NOK":"57.75"}},{"country":"NZL","amount":{"NZD":"13.05"}},{"country":"PER","amount":{"USD":"11.5"}},{"country":"SWE","amount":{"SEK":"65.36"}},{"country":"TWN","amount":{"USD":"10.5"}},{"country":"USA","amount":{"USD":"10"}},{"country":"USD","amount":{"USD":"10.7"}},{"country":"VEN","amount":{"USD":"11.5"}},{"country":"ZAF","amount":{"ZAR":"103"}}]}]},"unique_id":"4abc68d9-601e-454c-865b-207d1e6a252c","public":true,"active":true,"service_url":"/v2/services/a132a5a9-4eb3-4b8d-bb43-3248b4badf5e","service_instances_url":"/v2/service_plans/b1e18f65-e2a8-4715-9f65-9ebb3863d7ea/service_instances"},"selected":"false"}]]}],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"9961256b65c9d2091bbbdd7a97c7cc8a","_rev":"3-b218a61882e5e19286e27e41484f5cb3","user":"santhoshmuniswami@in.ibm.com","solution_name":"ddw1","type":"hybrid","date_created":"2016-07-27T09:42:39.263Z","solution_desc":"e","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[{"title":"imfpush","service_name":"imfpush1469612579915","properties":[[{"metadata":{"guid":"0e4ddce5-c5e0-48e7-825e-359c206aa9aa","url":"/v2/service_plans/0e4ddce5-c5e0-48e7-825e-359c206aa9aa","created_at":"2015-03-27T12:48:08Z","updated_at":"2016-06-02T11:49:16Z"},"entity":{"name":"Basic","free":false,"description":"IBM Push Android iOS  for Bluemix per Million Digital Messages Pay Per Use","service_guid":"aa206aa9-1c49-499b-86ad-add09f73fabd","extra":{"displayName":"Basic","bullets":["One million free digital messages (push notifications) per month"],"costs":[{"unit":"Million Digital Message","unitId":"PUSH_NOTIFICATIONS_PER_MONTH","partNumber":"D1GCZLL","unitQuantity":"1","tierModel":"Granular Tier","quantityTier":"1.000","currencies":[{"country":"ARG","amount":{"USD":"1.15"}},{"country":"ASEAN","amount":{"USD":"1.05"}},{"country":"AUS","amount":{"AUD":"1.13"}},{"country":"BOL","amount":{"USD":"1.15"}},{"country":"BRA","amount":{"BRL":"2.16"}},{"country":"CAN","amount":{"CAD":"1.05"}},{"country":"CHE","amount":{"CHF":"0.94"}},{"country":"CHL","amount":{"USD":"1.15"}},{"country":"COL","amount":{"USD":"1.15"}},{"country":"DNK","amount":{"DKK":"5.53"}},{"country":"ECU","amount":{"USD":"1.15"}},{"country":"EURO","amount":{"EUR":"0.75"}},{"country":"GBR","amount":{"GBP":"0.60"}},{"country":"HKG","amount":{"USD":"1.05"}},{"country":"IND","amount":{"INR":"60.38"}},{"country":"ISA","amount":{"USD":"1.05"}},{"country":"JPN","amount":{"JPY":"105"}},{"country":"KOR","amount":{"KRW":"1170.00"}},{"country":"MEX","amount":{"USD":"1.15"}},{"country":"NOR","amount":{"NOK":"5.77"}},{"country":"NZL","amount":{"NZD":"1.31"}},{"country":"PER","amount":{"USD":"1.15"}},{"country":"SWE","amount":{"SEK":"6.54"}},{"country":"TWN","amount":{"USD":"1.05"}},{"country":"USA","amount":{"USD":"1.00"}},{"country":"USD","amount":{"USD":"1.07"}},{"country":"VEN","amount":{"USD":"1.15"}},{"country":"ZAF","amount":{"ZAR":"10.35"}}]}]},"unique_id":"03272015.ibm.imfpushservice.default","public":true,"active":true,"service_url":"/v2/services/aa206aa9-1c49-499b-86ad-add09f73fabd","service_instances_url":"/v2/service_plans/0e4ddce5-c5e0-48e7-825e-359c206aa9aa/service_instances"},"selected":"false"}]]}],"runtime":[{"title":"SDK for Node.js","label":"sdk-for-nodejs","plan":"default","properties":{"instance":"1","memory":"1024MB","price":"0.0"},"appname":"SDK for Node.js 1469612569402"}]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"dfc727bcb195adebbfc39ed5eb71d5af","_rev":"6-f746ee0f1afde51a22048adc963882d0","user":"santhoshmuniswami@in.ibm.com","solution_name":"r2","type":"hybrid","date_created":"2016-07-27T13:56:24.369Z","solution_desc":"r2","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"saved","service_details":{"msp":[{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":"40","IIB Server_vCPU":"2","IIB Server_Quantity":"1","IIB Server_Memory":"8","IIB Server_M/W":"IIB"}}}],"bluemix":[{"services":[],"runtime":[{"title":"SDK for Node.js","label":"sdk-for-nodejs","plan":"default","properties":{"instance":"1","memory":"1024MB","price":"0.0"},"appname":"SDK for Node.js 1469627795296"}]}]},"canvas_details":["{\"objects\":[{\"type\":\"group\",\"originX\":\"center\",\"originY\":\"center\",\"left\":632,\"top\":338,\"width\":127,\"height\":94.75,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":true,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"objects\":[{\"type\":\"image\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":-7.38,\"width\":80,\"height\":80,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"src\":\"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png\",\"filters\":[]},{\"type\":\"text\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":37.63,\"width\":127,\"height\":19.5,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"text\":\"IBM Integration Bus\",\"fontSize\":15,\"fontWeight\":\"normal\",\"fontFamily\":\"Times New Roman\",\"fontStyle\":\"\",\"lineHeight\":1.3,\"textDecoration\":\"\",\"textShadow\":\"\",\"textAlign\":\"left\",\"path\":null,\"strokeStyle\":\"\",\"backgroundColor\":\"\",\"textBackgroundColor\":\"\",\"useNative\":true}]},{\"type\":\"group\",\"originX\":\"center\",\"originY\":\"center\",\"left\":910,\"top\":429,\"width\":105,\"height\":94.75,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":true,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"objects\":[{\"type\":\"image\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":-7.38,\"width\":80,\"height\":80,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"src\":\"http://devmsp.mybluemix.net/images/MSP_Logos/IBM.png\",\"filters\":[]},{\"type\":\"text\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":37.63,\"width\":105,\"height\":19.5,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"text\":\"SDK for Node.js\",\"fontSize\":15,\"fontWeight\":\"normal\",\"fontFamily\":\"Times New Roman\",\"fontStyle\":\"\",\"lineHeight\":1.3,\"textDecoration\":\"\",\"textShadow\":\"\",\"textAlign\":\"left\",\"path\":null,\"strokeStyle\":\"\",\"backgroundColor\":\"\",\"textBackgroundColor\":\"\",\"useNative\":true}]}],\"background\":\"\"}"],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"e019f6f78cc3d54e41da20a869867406","_rev":"5-f45468a265ef903947cd72e1b565b876","user":"santhoshmuniswami@in.ibm.com","solution_name":"sansstest","type":"hybrid","date_created":"2016-07-26T09:37:10.653Z","solution_desc":"dfasdf","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[null,{"catalog_name":"ibm_datapower","result":"success","title":"Data Power","priceDetails":{"TotalPrice":2561,"Total License Cost":0},"Pattern":{"DATAPOWER Server":{"DATAPOWER Server_vCPU":4,"DATAPOWER Server_O/S":"RedHat","DATAPOWER Server_Memory":16,"DATAPOWER Server_Quantity":"3","DATAPOWER Server_DiskSize":80,"DATAPOWER Server_DiskType":"SSD","DATAPOWER Server_M/W":"DATAPOWER Server","size":"Medium"}}},{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":80,"IIB Server_vCPU":4,"IIB Server_Quantity":"1","IIB Server_Memory":16,"IIB Server_M/W":"IIB","size":"Medium"}}}],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"7f1af2a6a5f62e8db8e4bbd53b28da6d","_rev":"5-c1e123729566be2b30467f10b00e8b1b","user":"santhoshmuniswami@in.ibm.com","solution_name":"santhoshtest1","type":"hybrid","date_created":"2016-07-26T09:32:24.780Z","solution_desc":"dfasdf","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":"40","IIB Server_vCPU":"2","IIB Server_Quantity":"1","IIB Server_Memory":"8","IIB Server_M/W":"IIB"}}},{"catalog_name":"ibm_datapower","result":"success","title":"Data Power","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"DATAPOWER Server":{"DATAPOWER Server_vCPU":"2","DATAPOWER Server_O/S":"RedHat","DATAPOWER Server_Memory":"8","DATAPOWER Server_Quantity":"1","DATAPOWER Server_DiskSize":"40","DATAPOWER Server_DiskType":"SSD","DATAPOWER Server_M/W":"DATAPOWER Server"}}}],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"7f1af2a6a5f62e8db8e4bbd53b364412","_rev":"3-0f97f7179b1c11700ccb0dbce29c5895","user":"santhoshmuniswami@in.ibm.com","solution_name":"uytutut","type":"hybrid","date_created":"2016-07-26T09:33:03.522Z","solution_desc":"yiyiu","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[null],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"759e55cb954a7d78e8ec4970eaf1afe9","_rev":"7-15c47baabfac2f269e61c8acb8a376db","user":"santhoshmuniswami@in.ibm.com","solution_name":"sampletest","type":"hybrid","date_created":"2016-07-26T09:42:33.628Z","solution_desc":"asdfasdf","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":40,"IIB Server_vCPU":2,"IIB Server_Quantity":"1","IIB Server_Memory":8,"IIB Server_M/W":"IIB","size":"Small"}}},{"catalog_name":"ibm_datapower","result":"success","title":"Data Power","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"DATAPOWER Server":{"DATAPOWER Server_vCPU":"2","DATAPOWER Server_O/S":"RedHat","DATAPOWER Server_Memory":"8","DATAPOWER Server_Quantity":"1","DATAPOWER Server_DiskSize":"40","DATAPOWER Server_DiskType":"SSD","DATAPOWER Server_M/W":"DATAPOWER Server","size":"Small"}}}],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"9337112df3f540a334452347cf1d5863","_rev":"6-9430e6fea0283c3a72b3129f30a477b8","user":"santhoshmuniswami@in.ibm.com","solution_name":"santhoshtesting","type":"hybrid","date_created":"2016-07-27T11:38:18.786Z","solution_desc":"sdfaslkdkjf","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":160,"IIB Server_vCPU":8,"IIB Server_Quantity":"1","IIB Server_Memory":32,"IIB Server_M/W":"IIB","size":"Large"}}},{"catalog_name":"ibm_datapower","result":"success","title":"Data Power","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"DATAPOWER Server":{"DATAPOWER Server_vCPU":4,"DATAPOWER Server_O/S":"RedHat","DATAPOWER Server_Memory":16,"DATAPOWER Server_Quantity":"1","DATAPOWER Server_DiskSize":80,"DATAPOWER Server_DiskType":"SSD","DATAPOWER Server_M/W":"DATAPOWER Server","size":"Medium"}}},{"catalog_name":"ibm_cognos","result":"success","title":"Cognos","priceDetails":{"TotalPrice":2106,"Total License Cost":0},"Pattern":{"COGNOS Server":{"COGNOS Server_Memory":"8","COGNOS Server_vCPU":"2","COGNOS Server_M/W":"IHS Server","COGNOS Server_O/S":"RedHat","COGNOS Server_Quantity":"1","COGNOS Server_DiskSize":"40","COGNOS Server_DiskType":"SSD"},"DB2 Server":{"DB2 Server_M/W":"DB2","DB2 Server_O/S":"RedHat","DB2 Server_DiskSize":"40","DB2 Server_Memory":"8","DB2 Server_DiskType":"SSD","DB2 Server_vCPU":"2","DB2 Server_Quantity":"1"}}}],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"52851e5eb8de7fa47c1afeb7611633b7","_rev":"1-ef14ea147576139c0c35b6b33b7ae519","user":"santhoshmuniswami@in.ibm.com","solution_name":"sdfasdf","type":"hybrid","date_created":"2016-07-26T08:50:25.609Z","solution_desc":"asdfasdfdas","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"fb945aeeca8821c0185155aacd5d0da0","_rev":"4-e26841533e3da7024946a260b02850dc","user":"santhoshmuniswami@in.ibm.com","solution_name":"rtrttw","type":"hybrid","date_created":"2016-07-26T08:53:23.340Z","solution_desc":"rerwrw","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[{"title":"imfpush","service_name":"imfpush1469523250405","properties":[[{"metadata":{"guid":"0e4ddce5-c5e0-48e7-825e-359c206aa9aa","url":"/v2/service_plans/0e4ddce5-c5e0-48e7-825e-359c206aa9aa","created_at":"2015-03-27T12:48:08Z","updated_at":"2016-06-02T11:49:16Z"},"entity":{"name":"Basic","free":false,"description":"IBM Push Android iOS  for Bluemix per Million Digital Messages Pay Per Use","service_guid":"aa206aa9-1c49-499b-86ad-add09f73fabd","extra":{"displayName":"Basic","bullets":["One million free digital messages (push notifications) per month"],"costs":[{"unit":"Million Digital Message","unitId":"PUSH_NOTIFICATIONS_PER_MONTH","partNumber":"D1GCZLL","unitQuantity":"1","tierModel":"Granular Tier","quantityTier":"1.000"}]},"unique_id":"03272015.ibm.imfpushservice.default","public":true,"active":true,"service_url":"/v2/services/aa206aa9-1c49-499b-86ad-add09f73fabd","service_instances_url":"/v2/service_plans/0e4ddce5-c5e0-48e7-825e-359c206aa9aa/service_instances"},"selected":"false","$$hashKey":"object:89"}]]},{"title":"businessrules","service_name":"businessrules1469523381431","properties":[[{"metadata":{"guid":"03bca501-3d97-4660-ae63-5ff41c23787c","url":"/v2/service_plans/03bca501-3d97-4660-ae63-5ff41c23787c","created_at":"2014-09-11T18:21:22Z","updated_at":"2016-06-01T01:48:25Z"},"entity":{"name":"standard","free":false,"description":"API calls are calls made by the rule execution engine to get a decision.","service_guid":"b13b9cf8-fff8-4e3a-b794-acf3558b91f9","extra":{"plan":"standard","bullets":["1,000 API calls free per month"],"costs":[{"unitId":"API_CALLS_PER_MONTH","unit":"1,000 API calls","partNumber":"D1AWULL","unitQuantity":"1000","tierModel":"Granular Tier","quantityTier":"1.000","currencies":[{"country":"ARG","amount":{"USD":"1150.00"}},{"country":"ASEAN","amount":{"USD":"1050.00"}},{"country":"AUS","amount":{"AUD":"1134.00"}},{"country":"BOL","amount":{"USD":"1150.00"}},{"country":"BRA","amount":{"BRL":"2299.94"}},{"country":"CAN","amount":{"CAD":"1057.00"}},{"country":"CHE","amount":{"CHF":"948.00"}},{"country":"CHL","amount":{"USD":"1150.00"}},{"country":"COL","amount":{"USD":"1150.00"}},{"country":"DNK","amount":{"DKK":"5535.00"}},{"country":"ECU","amount":{"USD":"1150.00"}},{"country":"EURO","amount":{"EUR":"752.00"}},{"country":"GBR","amount":{"GBP":"605.00"}},{"country":"HKG","amount":{"USD":"1050.00"}},{"country":"IND","amount":{"INR":"60375.00"}},{"country":"ISA","amount":{"USD":"1050.00"}},{"country":"JPN","amount":{"JPY":"105000"}},{"country":"KOR","amount":{"KRW":"1165000.00"}},{"country":"MEX","amount":{"USD":"1150.00"}},{"country":"NOR","amount":{"NOK":"5775.00"}},{"country":"NZL","amount":{"NZD":"1305.01"}},{"country":"PER","amount":{"USD":"1150.00"}},{"country":"SWE","amount":{"SEK":"6537.00"}},{"country":"TWN","amount":{"USD":"1050.00"}},{"country":"USA","amount":{"USD":"1000.00"}},{"country":"USD","amount":{"USD":"1070.00"}},{"country":"VEN","amount":{"USD":"1150.00"}},{"country":"ZAF","amount":{"ZAR":"10345.00"}}]}],"displayName":"Standard"},"unique_id":"free_cf3438d3-48f0-4d80-87c0-98055fdbbdaeBusinessRules","public":true,"active":true,"service_url":"/v2/services/b13b9cf8-fff8-4e3a-b794-acf3558b91f9","service_instances_url":"/v2/service_plans/03bca501-3d97-4660-ae63-5ff41c23787c/service_instances"},"selected":"false"}]]}],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"a4655001878d274cd871749159a879d1","_rev":"1-b33b4fe2501cf187f1fc640cb816e193","user":"santhoshmuniswami@in.ibm.com","solution_name":"sanspuducherry","type":"hybrid","date_created":"2016-07-26T09:41:45.539Z","solution_desc":"sdfasdf","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"drafted","service_details":{"msp":[],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":[],"connection_info":{"msp":{},"bluemix":{}}},{"_id":"dfc727bcb195adebbfc39ed5eb6f7d9c","_rev":"9-bb026900e76b92eac1c3ccc624bf9259","user":"santhoshmuniswami@in.ibm.com","solution_name":"sdfasd","type":"hybrid","date_created":"2016-07-27T13:56:17.204Z","solution_desc":"dsafsd","version":1,"provisioning_status":[{"msp_status":"Not submitted","bluemix_status":"Not Submitted"}],"order_status":"saved","service_details":{"msp":[{"catalog_name":"ibm_integration_bus","result":"success","title":"IBM Integration Bus","priceDetails":{"TotalPrice":1826,"Total License Cost":0},"Pattern":{"IIB Server":{"IIB Server_DiskType":"SSD","IIB Server_O/S":"RedHat","IIB Server_DiskSize":"40","IIB Server_vCPU":"2","IIB Server_Quantity":"1","IIB Server_Memory":"8","IIB Server_M/W":"IIB"}}},{"catalog_name":"mysql","result":"success","title":"MYSQL","priceDetails":{"TotalPrice":1743,"Total License Cost":0},"Pattern":{"MYSQL Server":{"MYSQL Server_Memory":"8","MYSQL Server_O/S":"RedHat","MYSQL Server_Quantity":"1","MYSQL Server_DiskSize":"40","MYSQL Server_vCPU":"2","MYSQL Server_DiskType":"SSD","MYSQL Server_M/W":"MYSQL Server"}}},{"catalog_name":"ibm_cognos","result":"success","title":"Cognos","priceDetails":{"TotalPrice":2106,"Total License Cost":0},"Pattern":{"COGNOS Server":{"COGNOS Server_Memory":"8","COGNOS Server_vCPU":"2","COGNOS Server_M/W":"IHS Server","COGNOS Server_O/S":"RedHat","COGNOS Server_Quantity":"1","COGNOS Server_DiskSize":"40","COGNOS Server_DiskType":"SSD"},"DB2 Server":{"DB2 Server_M/W":"DB2","DB2 Server_O/S":"RedHat","DB2 Server_DiskSize":"40","DB2 Server_Memory":"8","DB2 Server_DiskType":"SSD","DB2 Server_vCPU":"2","DB2 Server_Quantity":"1"}}}],"bluemix":[{"services":[],"runtime":[]}]},"canvas_details":["{\"objects\":[{\"type\":\"group\",\"originX\":\"center\",\"originY\":\"center\",\"left\":678,\"top\":375,\"width\":128,\"height\":94.75,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":true,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"objects\":[{\"type\":\"image\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":-7.38,\"width\":80,\"height\":80,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"src\":\"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png\",\"filters\":[]},{\"type\":\"text\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":37.63,\"width\":128,\"height\":19.5,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"text\":\"IBM Integration Bus\",\"fontSize\":15,\"fontWeight\":\"normal\",\"fontFamily\":\"Times New Roman\",\"fontStyle\":\"\",\"lineHeight\":1.3,\"textDecoration\":\"\",\"textShadow\":\"\",\"textAlign\":\"left\",\"path\":null,\"strokeStyle\":\"\",\"backgroundColor\":\"\",\"textBackgroundColor\":\"\",\"useNative\":true}]},{\"type\":\"group\",\"originX\":\"center\",\"originY\":\"center\",\"left\":762,\"top\":282,\"width\":80,\"height\":94.75,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":true,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"objects\":[{\"type\":\"image\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":-7.38,\"width\":80,\"height\":80,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"src\":\"http://devmsp.mybluemix.net/images/newimage/Mysql.png\",\"filters\":[]},{\"type\":\"text\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":37.63,\"width\":52,\"height\":19.5,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"text\":\"MYSQL\",\"fontSize\":15,\"fontWeight\":\"normal\",\"fontFamily\":\"Times New Roman\",\"fontStyle\":\"\",\"lineHeight\":1.3,\"textDecoration\":\"\",\"textShadow\":\"\",\"textAlign\":\"left\",\"path\":null,\"strokeStyle\":\"\",\"backgroundColor\":\"\",\"textBackgroundColor\":\"\",\"useNative\":true}]},{\"type\":\"group\",\"originX\":\"center\",\"originY\":\"center\",\"left\":572,\"top\":280,\"width\":80,\"height\":94.75,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":true,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"objects\":[{\"type\":\"image\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":-7.38,\"width\":80,\"height\":80,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"src\":\"http://devmsp.mybluemix.net/images/newimage/Cognos.png\",\"filters\":[]},{\"type\":\"text\",\"originX\":\"center\",\"originY\":\"center\",\"left\":0,\"top\":37.63,\"width\":48,\"height\":19.5,\"fill\":\"rgb(0,0,0)\",\"overlayFill\":null,\"stroke\":null,\"strokeWidth\":1,\"strokeDashArray\":null,\"scaleX\":1,\"scaleY\":1,\"angle\":0,\"flipX\":false,\"flipY\":false,\"opacity\":1,\"selectable\":true,\"hasControls\":false,\"hasBorders\":true,\"hasRotatingPoint\":true,\"transparentCorners\":true,\"perPixelTargetFind\":false,\"shadow\":null,\"visible\":true,\"text\":\"Cognos\",\"fontSize\":15,\"fontWeight\":\"normal\",\"fontFamily\":\"Times New Roman\",\"fontStyle\":\"\",\"lineHeight\":1.3,\"textDecoration\":\"\",\"textShadow\":\"\",\"textAlign\":\"left\",\"path\":null,\"strokeStyle\":\"\",\"backgroundColor\":\"\",\"textBackgroundColor\":\"\",\"useNative\":true}]}],\"background\":\"\"}"],"connection_info":{"msp":{},"bluemix":{}}}],"bookmark":"g1AAAAIZeJzLYWBgYM9gTmHQSElKzi9KdUhJMtZLytVNSczRLS5JzEtJLEox0kvOyS9NScwr0ctLLckB6mBKZEiS____f1YGk5sDS1SOAlAskQHVGEMijEkCaUyyh5nEJfAMbBI3qkmmxJiUADKpHmYSc4MiSCCRl3Sv5bEASYYGIAU0bD7YNI4zfQ0g03hI9yHEtAUQ0_aDTWPjEAS7jYtctx2AmHYfbBqrV6kDFrcRE2YQ0x5ATEOLgSwAEHmnhQ"}
+2016-07-27T19:27:29.67+0530 [App/0]      OUT Length of result:undefined
+2016-07-27T19:27:29.68+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:29.579 +0000] "GET /api/v2/viewMyDeployArchNames?uname=santhoshmuniswami@in.ibm.com&version=1 HTTP/1.1" 200 0 35 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 169.54.202.27:40620 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:0284294a-943a-4c9f-550b-16122a466ed2 response_time:0.104691205 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2036308079"
+2016-07-27T19:27:29.68+0530 [App/0]      OUT [ { _id: '2a4a175f491f366f9d359a64445d8b7e',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '2-7c74699ca567e840b7ef48cc1ef5d865',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'dstst',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-27T12:08:21.476Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'gdgfd',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '9961256b65c9d2091bbbdd7a97c7cc8a',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '3-b218a61882e5e19286e27e41484f5cb3',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'ddw1',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-27T09:42:39.263Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'e',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: 'dfc727bcb195adebbfc39ed5eb71d5af',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '6-f746ee0f1afde51a22048adc963882d0',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'r2',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-27T13:56:24.369Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'r2',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'saved',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [ '{"objects":[{"type":"group","originX":"center","originY":"center","left":632,"top":338,"width":127,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":127,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"IBM Integration Bus","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]},{"type":"group","originX":"center","originY":"center","left":910,"top":429,"width":105,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/MSP_Logos/IBM.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":105,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"SDK for Node.js","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]}],"background":""}' ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: 'e019f6f78cc3d54e41da20a869867406',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '5-f45468a265ef903947cd72e1b565b876',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'sansstest',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T09:37:10.653Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'dfasdf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '7f1af2a6a5f62e8db8e4bbd53b28da6d',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '5-c1e123729566be2b30467f10b00e8b1b',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'santhoshtest1',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T09:32:24.780Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'dfasdf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '7f1af2a6a5f62e8db8e4bbd53b364412',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '3-0f97f7179b1c11700ccb0dbce29c5895',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'uytutut',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T09:33:03.522Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'yiyiu',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '759e55cb954a7d78e8ec4970eaf1afe9',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '7-15c47baabfac2f269e61c8acb8a376db',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'sampletest',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T09:42:33.628Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'asdfasdf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '9337112df3f540a334452347cf1d5863',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '6-9430e6fea0283c3a72b3129f30a477b8',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'santhoshtesting',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-27T11:38:18.786Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'sdfaslkdkjf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: '52851e5eb8de7fa47c1afeb7611633b7',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '1-ef14ea147576139c0c35b6b33b7ae519',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'sdfasdf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T08:50:25.609Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'asdfasdfdas',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: 'fb945aeeca8821c0185155aacd5d0da0',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '4-e26841533e3da7024946a260b02850dc',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'rtrttw',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T08:53:23.340Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'rerwrw',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: 'a4655001878d274cd871749159a879d1',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '1-b33b4fe2501cf187f1fc640cb816e193',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'sanspuducherry',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-26T09:41:45.539Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'sdfasdf',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'drafted',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT   { _id: 'dfc727bcb195adebbfc39ed5eb6f7d9c',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     _rev: '9-bb026900e76b92eac1c3ccc624bf9259',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_name: 'sdfasd',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     date_created: '2016-07-27T13:56:17.204Z',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     solution_desc: 'dsafsd',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     order_status: 'saved',
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     canvas_details: [ '{"objects":[{"type":"group","originX":"center","originY":"center","left":678,"top":375,"width":128,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":128,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"IBM Integration Bus","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]},{"type":"group","originX":"center","originY":"center","left":762,"top":282,"width":80,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/Mysql.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":52,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"MYSQL","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]},{"type":"group","originX":"center","originY":"center","left":572,"top":280,"width":80,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/Cognos.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":48,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"Cognos","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]}],"background":""}' ],
+2016-07-27T19:27:29.68+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } } ]
+2016-07-27T19:27:29.68+0530 [App/0]      OUT Length of docs:12
+2016-07-27T19:27:29.68+0530 [App/0]      OUT { msp: [], hybrid: [ 'r2', 'sdfasd' ] }
+2016-07-27T19:27:29.68+0530 [App/0]      OUT [90mGET /api/v2/viewMyDeployArchNames?uname=santhoshmuniswami@in.ibm.com&version=1 [32m200 [90m101ms[0m
+2016-07-27T19:27:36.51+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.originalUrl ***/app/Home/about.css
+2016-07-27T19:27:36.51+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.513 +0000] "GET /app/Home/about.css HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:59235 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:9b75f1e8-994e-4057-5e1b-b16be778ea3f response_time:0.005342942 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1918601463"
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.51+0530 [App/0]      OUT  *** req.path ***/app/Home/about.css
+2016-07-27T19:27:36.51+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.78+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.originalUrl ***/stylesheets/common.css
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.path ***/stylesheets/common.css
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:36.78+0530 [App/0]      OUT  *** req.session.originalUr *** /stylesheets/common.css
+2016-07-27T19:27:36.78+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:36.79+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.784 +0000] "GET /stylesheets/common.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.118:41968 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:83800fd2-9be7-4779-6591-d69b0b3271ab response_time:0.006400992 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061660573"
+2016-07-27T19:27:36.80+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/viewOrderBill.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path ***/components/modal/viewOrderBill.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.80+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl ***/app/MSP/MSP.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path ***/app/MSP/MSP.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.session.originalUr *** /app/MSP/MSP.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:36.80+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** 10
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.originalUrl ***/app/Login/login.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.path ***/app/Login/login.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:36.80+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Login/login.css
+2016-07-27T19:27:36.80+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:36.81+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.801 +0000] "GET /app/Login/login.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.119:55395 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:596bba3b-6668-4539-763b-122924d8e855 response_time:0.008761364 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061660605"
+2016-07-27T19:27:36.81+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.798 +0000] "GET /components/modal/viewOrderBill.css HTTP/1.1" 200 0 530 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:33359 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:58607a71-1412-4389-4b02-22f73df5aaec response_time:0.013039057 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140146703"
+2016-07-27T19:27:36.81+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/attributes.css
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path ***/components/modal/attributes.css
+2016-07-27T19:27:36.81+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.81+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/solArchitecture.css
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.81+0530 [App/0]      OUT  *** req.path ***/components/modal/solArchitecture.css
+2016-07-27T19:27:36.81+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.82+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.809 +0000] "GET /components/modal/solArchitecture.css HTTP/1.1" 200 0 876 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.119:53997 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:e33a74a5-3b7b-453d-6841-d07efe05dc40 response_time:0.013436456 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061660621"
+2016-07-27T19:27:36.82+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl ***/app/DeplArch/deplArchitecture.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path ***/app/DeplArch/deplArchitecture.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.82+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/solutionPopup.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path ***/components/modal/solutionPopup.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.82+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/canvasScreen.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.path ***/app/Hybrid/canvasScreen.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:36.82+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Hybrid/canvasScreen.css
+2016-07-27T19:27:36.82+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:36.83+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.821 +0000] "GET /components/modal/solutionPopup.css HTTP/1.1" 200 0 562 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.114:58635 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:689c7288-a1f3-4b4f-63fb-330374512834 response_time:0.009879121 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"15441685"
+2016-07-27T19:27:36.83+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.823 +0000] "GET /app/Hybrid/canvasScreen.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.114:46874 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:a2997cd6-a1f9-4d67-61a0-096b7daf3f9e response_time:0.009234128 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"15441669"
+2016-07-27T19:27:36.83+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.819 +0000] "GET /app/DeplArch/deplArchitecture.css HTTP/1.1" 200 0 951 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:22420 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:9d6c8ff0-a08b-42c1-4d53-b74e2648e38a response_time:0.016007131 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140146735"
+2016-07-27T19:27:36.85+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.originalUrl ***/app/ViewArch/viewArch.css
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:36.85+0530 [App/0]      OUT  *** req.path ***/app/ViewArch/viewArch.css
+2016-07-27T19:27:36.85+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:36.86+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:36.856 +0000] "GET /app/ViewArch/viewArch.css HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:57307 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:097678af-c1dc-4cb3-4724-7bc65ca3c58f response_time:0.007000864 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1323251231"
+2016-07-27T19:27:37.08+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/bluemixprovision.css
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:37.08+0530 [App/0]      OUT  *** req.path ***/components/modal/bluemixprovision.css
+2016-07-27T19:27:37.08+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:37.09+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:37.083 +0000] "GET /components/modal/bluemixprovision.css HTTP/1.1" 200 0 534 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.118:43106 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:c61ec179-aa8f-4149-7135-4bbaa4655d96 response_time:0.007556352 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061660653"
+2016-07-27T19:27:37.10+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.originalUrl ***/components/JssorCss/bootstrap.min.css
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path ***/components/JssorCss/bootstrap.min.css
+2016-07-27T19:27:37.10+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:37.10+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.originalUrl ***/components/JssorCss/animate.css
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:37.10+0530 [App/0]      OUT  *** req.path ***/components/JssorCss/animate.css
+2016-07-27T19:27:37.10+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:37.11+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:37.097 +0000] "GET /components/JssorCss/bootstrap.min.css HTTP/1.1" 200 0 18711 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.115:18646 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:1601f1fb-f8e2-4055-5082-db3793d65333 response_time:0.016169281 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"928180307"
+2016-07-27T19:27:37.11+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:37.108 +0000] "GET /components/JssorCss/animate.css HTTP/1.1" 200 0 4167 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.116:47025 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:13d7bc25-d1e8-472f-4ef6-072f78dc0cf2 response_time:0.008922748 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2445464817"
+2016-07-27T19:27:40.71+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.originalUrl ***/api/v2/deleteAllSolution
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:40.71+0530 [App/0]      OUT  *** req.path ***/api/v2/deleteAllSolution
+2016-07-27T19:27:40.71+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:40.71+0530 [App/0]      OUT *** Message Received ***
+2016-07-27T19:27:40.71+0530 [App/0]      OUT *************************************************************************
+2016-07-27T19:27:40.77+0530 [App/0]      OUT Length of the docs: 1
+2016-07-27T19:27:40.80+0530 [App/0]      OUT Records deleted
+2016-07-27T19:27:40.80+0530 [App/0]      OUT [90mPOST /api/v2/deleteAllSolution [32m200 [90m86ms[0m
+2016-07-27T19:27:40.81+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:40.715 +0000] "POST /api/v2/deleteAllSolution HTTP/1.1" 200 52 20 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 169.54.202.27:25156 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:9c15f322-0e95-44e9-4461-3776fa095c1f response_time:0.094903404 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2437247233"
+2016-07-27T19:27:45.63+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.originalUrl ***/api/v2/viewMyDeployArchVersions?uname=santhoshmuniswami@in.ibm.com&solname=r2
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:45.63+0530 [App/0]      OUT  *** req.path ***/api/v2/viewMyDeployArchVersions
+2016-07-27T19:27:45.63+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:45.63+0530 [App/0]      OUT *** Message Received ***
+2016-07-27T19:27:45.63+0530 [App/0]      OUT *************************************************************************
+2016-07-27T19:27:45.72+0530 [App/0]      OUT [ { _id: 'dfc727bcb195adebbfc39ed5eb71d5af',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     _rev: '6-f746ee0f1afde51a22048adc963882d0',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     user: 'santhoshmuniswami@in.ibm.com',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     solution_name: 'r2',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     type: 'hybrid',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     date_created: '2016-07-27T13:56:24.369Z',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     solution_desc: 'r2',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     version: 1,
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     provisioning_status: [ [Object] ],
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     order_status: 'saved',
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     service_details: { msp: [Object], bluemix: [Object] },
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     canvas_details: [ '{"objects":[{"type":"group","originX":"center","originY":"center","left":632,"top":338,"width":127,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":127,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"IBM Integration Bus","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]},{"type":"group","originX":"center","originY":"center","left":910,"top":429,"width":105,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/MSP_Logos/IBM.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":105,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"SDK for Node.js","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]}],"background":""}' ],
+2016-07-27T19:27:45.72+0530 [App/0]      OUT     connection_info: { msp: {}, bluemix: {} } } ]
+2016-07-27T19:27:45.72+0530 [App/0]      OUT Length of docs:1
+2016-07-27T19:27:45.72+0530 [App/0]      OUT { msp: [],
+2016-07-27T19:27:45.72+0530 [App/0]      OUT   hybrid: [ { version: 1, Status: 'saved' } ],
+2016-07-27T19:27:45.72+0530 [App/0]      OUT   provisioning_status: [ { msp_status: 'Not submitted', bluemix_status: 'Not Submitted' } ] }
+2016-07-27T19:27:45.73+0530 [App/0]      OUT [90mGET /api/v2/viewMyDeployArchVersions?uname=santhoshmuniswami@in.ibm.com&solname=r2 [32m200 [90m99ms[0m
+2016-07-27T19:27:45.73+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:45.629 +0000] "GET /api/v2/viewMyDeployArchVersions?uname=santhoshmuniswami@in.ibm.com&solname=r2 HTTP/1.1" 200 0 140 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 169.54.202.27:24280 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:3563b69b-0a29-4bb7-7467-9651dce7c0f8 response_time:0.106208936 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2157261405"
+2016-07-27T19:27:46.03+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.originalUrl ***/images/btn_popup_cross.png
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:46.03+0530 [App/0]      OUT  *** req.path ***/images/btn_popup_cross.png
+2016-07-27T19:27:46.03+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:46.04+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:46.034 +0000] "GET /images/btn_popup_cross.png HTTP/1.1" 200 0 1249 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 169.54.202.28:11274 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:a3559f2a-720b-4d0b-7053-ee26a391b308 response_time:0.011868059 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2437263041"
+2016-07-27T19:27:51.33+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.originalUrl ***/
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.33+0530 [App/0]      OUT  *** req.path ***/
+2016-07-27T19:27:51.33+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.34+0530 [RTR/3]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.335 +0000] "GET / HTTP/1.1" 304 0 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:36632 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:b1a6b9ac-5006-495b-7a4a-dc12b4f4ad4c response_time:0.005386289 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1590456633"
+2016-07-27T19:27:51.83+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl ***/stylesheets/common.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path ***/stylesheets/common.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.83+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** 10
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl ***/app/Login/login.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path ***/app/Login/login.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.83+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/canvasScreen.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.83+0530 [App/0]      OUT  *** req.path ***/app/Hybrid/canvasScreen.css
+2016-07-27T19:27:51.83+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.84+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.827 +0000] "GET /stylesheets/common.css HTTP/1.1" 200 0 803 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.115:19539 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:95019a4f-ecf2-4d6a-769d-d00456e07a3e response_time:0.013635985 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2195816605"
+2016-07-27T19:27:51.84+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.originalUrl ***/app/MSP/MSP.css
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.84+0530 [App/0]      OUT  *** req.path ***/app/MSP/MSP.css
+2016-07-27T19:27:51.84+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.84+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.828 +0000] "GET /app/Login/login.css HTTP/1.1" 200 0 636 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:33846 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:9641f145-520d-4c5b-6f73-f2a8ac4d0967 response_time:0.016533984 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2445464801"
+2016-07-27T19:27:51.84+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.832 +0000] "GET /app/MSP/MSP.css HTTP/1.1" 200 0 3165 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.119:32161 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:73d062e0-53b3-4cb8-506d-84b98787c72e response_time:0.013542574 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191088607"
+2016-07-27T19:27:51.84+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.829 +0000] "GET /app/Hybrid/canvasScreen.css HTTP/1.1" 200 0 3578 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:33847 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:ed8ca94a-ad81-40da-45da-247917d15eec response_time:0.01693815 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1083150969"
+2016-07-27T19:27:51.88+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.originalUrl ***/app/ViewArch/viewArch.css
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:51.88+0530 [App/0]      OUT  *** req.path ***/app/ViewArch/viewArch.css
+2016-07-27T19:27:51.88+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:51.88+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.880 +0000] "GET /app/ViewArch/viewArch.css HTTP/1.1" 200 0 1301 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.116:46169 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:f3da2f60-cb2a-43a6-6185-38ed573a57ef response_time:0.007107084 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2445464785"
+2016-07-27T19:27:52.07+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/attributes.css
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.path ***/components/modal/attributes.css
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.07+0530 [App/0]      OUT  *** req.session.originalUr *** /components/modal/attributes.css
+2016-07-27T19:27:52.07+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.08+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.073 +0000] "GET /components/modal/attributes.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.114:47416 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:a669df80-908c-4f49-7b50-21a3f14125f3 response_time:0.008085817 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"928183475"
+2016-07-27T19:27:52.09+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.09+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.094 +0000] "GET /components/modal/solArchitecture.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.119:32161 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:b485f8cf-c581-4922-7f87-493215b8e62a response_time:0.003767418 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191144751"
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/solArchitecture.css
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.path ***/components/modal/solArchitecture.css
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.09+0530 [App/0]      OUT  *** req.session.originalUr *** /components/modal/solArchitecture.css
+2016-07-27T19:27:52.09+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.10+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.originalUrl ***/app/DeplArch/deplArchitecture.css
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.path ***/app/DeplArch/deplArchitecture.css
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.10+0530 [App/0]      OUT  *** req.session.originalUr *** /app/DeplArch/deplArchitecture.css
+2016-07-27T19:27:52.10+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.11+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.106 +0000] "GET /app/DeplArch/deplArchitecture.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.115:17715 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:08a2ca67-1478-44bf-4389-725352f5900a response_time:0.005564144 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2400784369"
+2016-07-27T19:27:52.11+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/solutionPopup.css
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.path ***/components/modal/solutionPopup.css
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.11+0530 [App/0]      OUT  *** req.session.originalUr *** /components/modal/solutionPopup.css
+2016-07-27T19:27:52.11+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.12+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.115 +0000] "GET /components/modal/solutionPopup.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.116:46735 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:53008f7b-9c89-4d32-5769-e6381359e474 response_time:0.005085068 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2097372157"
+2016-07-27T19:27:52.12+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/viewOrderBill.css
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.path ***/components/modal/viewOrderBill.css
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.12+0530 [App/0]      OUT  *** req.session.originalUr *** /components/modal/viewOrderBill.css
+2016-07-27T19:27:52.12+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.13+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.125 +0000] "GET /components/modal/viewOrderBill.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.118:42183 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:8e3d5ed8-9d7f-4682-54c9-ffb1f6987bb9 response_time:0.005126924 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191144847"
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.37+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.365 +0000] "GET /components/modal/bluemixprovision.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.115:33750 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:892390aa-b4e4-4c1e-45ad-84a84fc0f37a response_time:0.006035184 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011486383"
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl ***/components/modal/bluemixprovision.css
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path ***/components/modal/bluemixprovision.css
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.session.originalUr *** /components/modal/bluemixprovision.css
+2016-07-27T19:27:52.37+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.37+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl ***/app/app.js
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path ***/app/app.js
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.session.originalUr *** /app/app.js
+2016-07-27T19:27:52.37+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.37+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.37+0530 [App/0]      OUT  *** req.originalUrl ***/components/JssorCss/animate.css
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.path ***/components/JssorCss/animate.css
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.session.originalUr *** /components/JssorCss/animate.css
+2016-07-27T19:27:52.38+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.38+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.originalUrl ***/components/JssorCss/bootstrap.min.css
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.path ***/components/JssorCss/bootstrap.min.css
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.38+0530 [App/0]      OUT  *** req.session.originalUr *** /components/JssorCss/bootstrap.min.css
+2016-07-27T19:27:52.38+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.376 +0000] "GET /app/app.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.114:46390 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:6469584d-0791-4094-7f7a-0a310ec72e2a response_time:0.005269516 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011486431"
+2016-07-27T19:27:52.38+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.374 +0000] "GET /components/JssorCss/animate.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.119:55387 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:f9d23482-5edf-46f1-6ec4-f132867069ff response_time:0.007213643 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191145231"
+2016-07-27T19:27:52.38+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.41+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.41+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.379 +0000] "GET /components/JssorCss/bootstrap.min.css HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.116:46794 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:9c1e65f4-56ab-4769-6104-c65200aed493 response_time:0.039222495 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2097377069"
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.originalUrl ***/app/DeplArch/deplCtrl.js
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.path ***/app/DeplArch/deplCtrl.js
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.41+0530 [App/0]      OUT  *** req.session.originalUr *** /app/DeplArch/deplCtrl.js
+2016-07-27T19:27:52.41+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl ***/js/dirPagination.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path ***/js/dirPagination.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.session.originalUr *** /js/dirPagination.js
+2016-07-27T19:27:52.42+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.383 +0000] "GET /app/DeplArch/deplCtrl.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.117:34140 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:8b7b5edb-33e4-42a1-6077-49a05cc9b960 response_time:0.037457934 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2097377101"
+2016-07-27T19:27:52.42+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl ***/js/main.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path ***/js/main.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.session.originalUr *** /js/main.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/canvasScreen.controller.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path ***/app/Hybrid/canvasScreen.controller.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Hybrid/canvasScreen.controller.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.400 +0000] "GET /js/dirPagination.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.114:46372 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:41b933f9-3b26-4fd7-67f2-1b8adc78943c response_time:0.024937486 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011486463"
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/html2canvas.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path ***/app/Hybrid/html2canvas.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Hybrid/html2canvas.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.402 +0000] "GET /js/main.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.118:43062 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:860ad2af-96fd-4bdb-7b63-d9ed23a1d711 response_time:0.024275597 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191145295"
+2016-07-27T19:27:52.42+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.421 +0000] "GET /app/MSP/MspController.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.119:32161 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:c64c121c-a329-4457-4078-3c04d94ce7cd response_time:0.006672858 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191145311"
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.originalUrl ***/app/MSP/MspController.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.path ***/app/MSP/MspController.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** req.session.originalUr *** /app/MSP/MspController.js
+2016-07-27T19:27:52.42+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.42+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.407 +0000] "GET /app/Hybrid/canvasScreen.controller.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.114:46390 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:d3cbf7e7-1e83-4abe-6539-6e5dfca051c7 response_time:0.021820099 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011486511"
+2016-07-27T19:27:52.42+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.42+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl ***/app/ViewArch/viewDeploymentArchCtrl.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path ***/app/ViewArch/viewDeploymentArchCtrl.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.session.originalUr *** /app/ViewArch/viewDeploymentArchCtrl.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.43+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.413 +0000] "GET /app/Hybrid/html2canvas.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.116:46027 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:3e81ed46-588e-4255-6bc5-c197d5865a01 response_time:0.016652401 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140153807"
+2016-07-27T19:27:52.43+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/canvas2image.min.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path ***/app/Hybrid/canvas2image.min.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Hybrid/canvas2image.min.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.43+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.424 +0000] "GET /app/Hybrid/canvas2image.min.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.115:19975 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:cbfdcf6c-ad4f-4f71-60b4-638132368de7 response_time:0.008925034 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011486543"
+2016-07-27T19:27:52.43+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.425 +0000] "GET /app/ViewArch/viewDeploymentArchCtrl.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.118:43113 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:11a772f3-3b06-4b1a-64fc-7b789818fdd5 response_time:0.008410767 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2191145343"
+2016-07-27T19:27:52.43+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.originalUrl ***/app/Hybrid/jspdf.min.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:52.43+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Hybrid/jspdf.min.js
+2016-07-27T19:27:52.43+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:52.44+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:52.435 +0000] "GET /app/Hybrid/jspdf.min.js HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.116:29401 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:4c922512-9def-455f-66dd-409d4c2a0fce response_time:0.00658463 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2097377165"
+2016-07-27T19:27:52.82+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.originalUrl ***/app/Home/about.css
+2016-07-27T19:27:52.82+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:52.82+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:52.82+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:51.821 +0000] "GET /app/Home/about.css HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:58530 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:8c7ae231-b46a-4566-416e-95bc21a8ff7f response_time:1.006819085 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"3599507965"
+2016-07-27T19:27:53.83+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.originalUrl ***/includes/footer.html
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:53.83+0530 [App/0]      OUT  *** req.path ***/includes/footer.html
+2016-07-27T19:27:53.83+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.83+0530 [RTR/2]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.831 +0000] "GET /includes/footer.html HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.153:24136 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:fb54577c-c9e5-4678-7358-4646447ce059 response_time:0.00465118 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1918763767"
+2016-07-27T19:27:53.89+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.originalUrl ***/images/how_it_works.png
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path ***/images/how_it_works.png
+2016-07-27T19:27:53.89+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.89+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.89+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.889 +0000] "GET /images/how_it_works.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.116:46728 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:3cd35060-eef9-46d0-487b-e802e125fda7 response_time:0.006400516 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140153487"
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.originalUrl ***/images/video.jpg
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path ***/images/video.jpg
+2016-07-27T19:27:53.89+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.89+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.890 +0000] "GET /images/video.jpg HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.119:55350 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:50ee3774-40b0-484a-4b98-09adf890e049 response_time:0.008529101 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2398592337"
+2016-07-27T19:27:53.89+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.89+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.89+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.892 +0000] "GET /images/bluemix.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:43819 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:89b996cc-21b2-48db-79ed-2dce582b0692 response_time:0.007265111 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2097365181"
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.originalUrl ***/images/bluemix.png
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.path ***/images/bluemix.png
+2016-07-27T19:27:53.90+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.90+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.originalUrl ***/images/MSP_logo.png
+2016-07-27T19:27:53.90+0530 [App/0]      OUT  *** req.path ***/images/MSP_logo.png
+2016-07-27T19:27:53.90+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.90+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.899 +0000] "GET /images/MSP_logo.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.116:46728 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:5cc6c555-50bd-4146-5f19-5aa882cd8fe1 response_time:0.007434523 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"4285582215"
+2016-07-27T19:27:53.95+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.originalUrl ***/images/Bluemix_MSP_logo.png
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:53.95+0530 [App/0]      OUT  *** req.path ***/images/Bluemix_MSP_logo.png
+2016-07-27T19:27:53.95+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:53.95+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:53.954 +0000] "GET /images/Bluemix_MSP_logo.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.114:47300 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:16925249-a5a7-4cb9-6b6f-b1731cc83566 response_time:0.005528179 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2400784161"
+2016-07-27T19:27:54.08+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.originalUrl ***/app/Home/home.html
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.path ***/app/Home/home.html
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:54.08+0530 [App/0]      OUT  *** req.session.originalUr *** /app/Home/home.html
+2016-07-27T19:27:54.08+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:54.09+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.09+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.086 +0000] "GET /api/things HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 108.168.250.154:60496 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:7ced0c3c-bf7a-404e-606d-f390766ad8ea response_time:0.005712079 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"3599525869"
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.originalUrl ***/api/things
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.09+0530 [App/0]      OUT  *** req.path ***/api/things
+2016-07-27T19:27:54.09+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:54.09+0530 [App/0]      OUT Inside Things--> Session Data-->{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"originalUrl":"/","passport":{"user":{"id":"msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/https://w3id.tap.ibm.com/auth/sps/samlidp/saml20/santhoshmuniswami@in.ibm.com","uid":"00534S744","blueGroups":["cn=BSO-IN_AMS_IGS_INDIA,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=BSO_GIN,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=India_WECM,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=ITSAS General Access 3,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=patch - perf,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=threat - perf,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=user - perf,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=WPPL India Non-Lenovo Employees,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=com.ibm.tap.bravo.user.division,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=com.ibm.tap.bravo.user,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=com.ibm.tap.am.bravo,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=w3hrlodes1,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=BSORCH_STG_DEV,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=HRMS_employees_ap,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=w3km-QualityManagers-users-dynamic,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=IDC_Brno_Lab_users,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=k-TiedTonguesView,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Some-AP-NonLenovo,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Singapore_Group,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=GBS_Asean,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=w3km-ALL-I-N,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Radical-Wiki-Capilano-users,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Radical-Wiki-SDP-users,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Non-Rational,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Radical-Wiki-cdi-users,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Radical-Wiki-Common-users,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Radical-Wiki-Capilano-users-dynamic,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=ibm-eus-ag.knowlagentondemand.com-in,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=Rational Strategy & Roadmap Readers,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=BT IT Games Event II,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=rptHRMS_in,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=HW Alerts DivDept,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=ITM_TEMS,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=LIS Regular India,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=legalibm,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=MSGv4,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=com.ibm.v8.all.i-n,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=SL322890,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=DST SoftLayer Internal subAccts,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=SL348074,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=SL537825_vpnonly,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=bcm.prod.gbsindia,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=BI_PG_BACC_PROD_V10,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=SL636545,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=cognosprodpacom,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=SC_PROXY_00_GROUP,ou=memberlist,ou=ibmgroups,o=ibm.com","cn=ibm.assetagent.installation.group,ou=memberlist,ou=ibmgroups,o=ibm.com"],"tenantId":"msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com","emailaddress":"santhoshmuniswami@in.ibm.com","cn":"Santhosh Muniswami","_json":{"iss":"msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com","ext":"{\"uid\":\"00534S744\",\"blueGroups\":[\"cn=BSO-IN_AMS_IGS_INDIA,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=BSO_GIN,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=India_WECM,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=ITSAS General Access 3,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=patch - perf,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=threat - perf,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=user - perf,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=WPPL India Non-Lenovo Employees,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=com.ibm.tap.bravo.user.division,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=com.ibm.tap.bravo.user,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=com.ibm.tap.am.bravo,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=w3hrlodes1,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=BSORCH_STG_DEV,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=HRMS_employees_ap,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=w3km-QualityManagers-users-dynamic,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=IDC_Brno_Lab_users,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=k-TiedTonguesView,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Some-AP-NonLenovo,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Singapore_Group,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=GBS_Asean,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=w3km-ALL-I-N,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Radical-Wiki-Capilano-users,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Radical-Wiki-SDP-users,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Non-Rational,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Radical-Wiki-cdi-users,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Radical-Wiki-Common-users,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Radical-Wiki-Capilano-users-dynamic,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=ibm-eus-ag.knowlagentondemand.com-in,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=Rational Strategy & Roadmap Readers,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=BT IT Games Event II,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=rptHRMS_in,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=HW Alerts DivDept,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=ITM_TEMS,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=LIS Regular India,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=legalibm,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=MSGv4,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=com.ibm.v8.all.i-n,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=SL322890,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=DST SoftLayer Internal subAccts,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=SL348074,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=SL537825_vpnonly,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=bcm.prod.gbsindia,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=BI_PG_BACC_PROD_V10,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=SL636545,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=cognosprodpacom,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=SC_PROXY_00_GROUP,ou=memberlist,ou=ibmgroups,o=ibm.com\",\"cn=ibm.assetagent.installation.group,ou=memberlist,ou=ibmgroups,o=ibm.com\"],\"tenantId\":\"msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com\",\"emailaddress\":\"santhoshmuniswami@in.ibm.com\",\"cn\":\"Santhosh Muniswami\"}","at_hash":"lngg1_RskoyDi1H9ITdn2g","sub":"msp_sso-yjc6372p9t-cs19.iam.ibmcloud.com/https://w3id.tap.ibm.com/auth/sps/samlidp/saml20/santhoshmuniswami@in.ibm.com","aud":"xJqUpbqxXH","lastName":"Muniswami","firstName":"Santhosh","realmName":"https://w3id.tap.ibm.com/auth/sps/samlidp/saml20","exp":1469627941,"iat":1469627641},"accessToken":"FhP0KfZSJ7QvBHjFA3iEi7uflBVGXzM0cN7R1JeY","refreshToken":"q2I9OezLIMLQHchJijSQEHxDPNoWApGe90m2oNcU4RxATQVtDA"}}}
+2016-07-27T19:27:54.09+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.087 +0000] "GET /app/Home/home.html HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.118:43575 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:42722cde-4ac1-45b8-4d57-a6c42c6d93f0 response_time:0.005706052 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061880301"
+2016-07-27T19:27:54.16+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.originalUrl ***/images/ibm-logo-top.png
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path ***/images/ibm-logo-top.png
+2016-07-27T19:27:54.16+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:54.16+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.161 +0000] "GET /images/ibm-logo-top.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.119:53372 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:00ebe1c6-4308-4626-5a45-00ab222ad53c response_time:0.007124656 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"927112595"
+2016-07-27T19:27:54.16+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.originalUrl ***/images/menuico.png
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.16+0530 [App/0]      OUT  *** req.path ***/images/menuico.png
+2016-07-27T19:27:54.16+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:54.17+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.163 +0000] "GET /images/menuico.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:33695 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:5a5cb059-5100-4adb-742f-7f3782082ed2 response_time:0.008078727 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140154527"
+2016-07-27T19:27:54.17+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.originalUrl ***/images/ico_profile.png
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.17+0530 [App/0]      OUT  *** req.path ***/images/ico_profile.png
+2016-07-27T19:27:54.17+0530 [App/0]      OUT Authenticated
+2016-07-27T19:27:54.18+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.175 +0000] "GET /images/ico_profile.png HTTP/1.1" 304 0 0 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" 192.155.237.117:33695 x_forwarded_for:"125.16.167.56" x_forwarded_proto:"http" vcap_request_id:ad9c2de0-7cac-4cc9-5a29-c10ec1b41b20 response_time:0.005574849 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2140154511"
+2016-07-27T19:27:54.38+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.originalUrl ***/includes/header.html
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.path ***/includes/header.html
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:27:54.38+0530 [App/0]      OUT  *** req.session.originalUr *** /includes/header.html
+2016-07-27T19:27:54.38+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:27:54.39+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:57:54.383 +0000] "GET /includes/header.html HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 192.155.237.117:33695 x_forwarded_for:"125.16.167.155" x_forwarded_proto:"http" vcap_request_id:0d465f74-b905-4e49-4eea-732f12bbe201 response_time:0.007580464 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"942951571"
+2016-07-27T19:28:03.05+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.originalUrl ***/api/v2/getCanvasInfo
+2016-07-27T19:28:03.05+0530 [App/0]      OUT  *** req.path ***/api/v2/getCanvasInfo
+2016-07-27T19:28:03.05+0530 [App/0]      OUT Authenticated
+2016-07-27T19:28:03.05+0530 [App/0]      OUT *** Request Received ***
+2016-07-27T19:28:03.05+0530 [App/0]      OUT Get canvas info forr2
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.originalUrl ***/%7B%7Bdata.Icon%7D%7D
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:28:03.06+0530 [App/0]      OUT  *** req.path ***/%7B%7Bdata.Icon%7D%7D
+2016-07-27T19:28:03.06+0530 [App/0]      OUT Authenticated
+2016-07-27T19:28:03.07+0530 [App/0]      OUT [90mGET /%7B%7Bdata.Icon%7D%7D [32m200 [90m5ms[0m
+2016-07-27T19:28:03.07+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.originalUrl ***/%7B%7BdataBluemixService.icon%7D%7D
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:28:03.07+0530 [App/0]      OUT  *** req.path ***/%7B%7BdataBluemixService.icon%7D%7D
+2016-07-27T19:28:03.07+0530 [App/0]      OUT Authenticated
+2016-07-27T19:28:03.07+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:58:03.062 +0000] "GET /%7B%7Bdata.Icon%7D%7D HTTP/1.1" 200 0 897 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 192.155.237.115:33750 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:1d084adc-2602-46b0-6b5a-bbc4817c8280 response_time:0.016917634 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2011696159"
+2016-07-27T19:28:03.08+0530 [App/0]      OUT [90mGET /%7B%7BdataBluemixService.icon%7D%7D [32m200 [90m4ms[0m
+2016-07-27T19:28:03.08+0530 [RTR/1]      OUT devmsp.mybluemix.net - [27/07/2016:13:58:03.074 +0000] "GET /%7B%7BdataBluemixService.icon%7D%7D HTTP/1.1" 200 0 897 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 192.155.237.119:55609 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:f1eee988-61c4-42dd-7c4f-658be0d672ff response_time:0.011475117 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061895933"
+2016-07-27T19:28:03.12+0530 [App/0]      OUT Canvas Details 
+2016-07-27T19:28:03.12+0530 [App/0]      OUT {"objects":[{"type":"group","originX":"center","originY":"center","left":632,"top":338,"width":127,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/newimage/IBM_integration_bus.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":127,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"IBM Integration Bus","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]},{"type":"group","originX":"center","originY":"center","left":910,"top":429,"width":105,"height":94.75,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"objects":[{"type":"image","originX":"center","originY":"center","left":0,"top":-7.38,"width":80,"height":80,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"src":"http://devmsp.mybluemix.net/images/MSP_Logos/IBM.png","filters":[]},{"type":"text","originX":"center","originY":"center","left":0,"top":37.63,"width":105,"height":19.5,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":false,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"text":"SDK for Node.js","fontSize":15,"fontWeight":"normal","fontFamily":"Times New Roman","fontStyle":"","lineHeight":1.3,"textDecoration":"","textShadow":"","textAlign":"left","path":null,"strokeStyle":"","backgroundColor":"","textBackgroundColor":"","useNative":true}]}],"background":""}
+2016-07-27T19:28:03.12+0530 [App/0]      OUT [90mPOST /api/v2/getCanvasInfo [32m200 [90m72ms[0m
+2016-07-27T19:28:03.12+0530 [RTR/0]      OUT devmsp.mybluemix.net - [27/07/2016:13:58:03.048 +0000] "POST /api/v2/getCanvasInfo HTTP/1.1" 200 59 4399 "http://devmsp.mybluemix.net/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36" 192.155.237.118:43795 x_forwarded_for:"125.16.236.130" x_forwarded_proto:"http" vcap_request_id:78434352-06df-4f1f-5cd8-03c7d8edcb7a response_time:0.079928684 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"2061895901"
+2016-07-27T19:28:04.07+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.isAuthenticated() *** true
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.originalUrl ***/%7B%7BdataBluemix.icon%7D%7D
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:28:04.07+0530 [App/0]      OUT  *** req.path ***/%7B%7BdataBluemix.icon%7D%7D
+2016-07-27T19:28:04.07+0530 [App/0]      OUT Authenticated
+2016-07-27T19:28:04.07+0530 [App/0]      OUT [90mGET /%7B%7BdataBluemix.icon%7D%7D [32m200 [90m3ms[0m
+2016-07-27T19:29:59.43+0530 [App/0]      OUT ----------------------------------------------------------------------------
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** ensureAuthenticated *** 
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.isAuthenticated() *** false
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.path.indexOf('/login') *** -1
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.path.indexOf('/auth') *** -1
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.originalUrl *** [object Object]
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.path.indexOf('/') *** 0
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.originalUrl ***/assets/img/IBM.png
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.baseUrl ***
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.path ***/assets/img/IBM.png
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  redirecting for authentication *** 
+2016-07-27T19:29:59.43+0530 [App/0]      OUT  *** req.session.originalUr *** /assets/img/IBM.png
+2016-07-27T19:29:59.43+0530 [App/0]      OUT @@@@@@@@@@@@@@@@@@@@@@@@@@@outside redirect
+2016-07-27T19:29:59.44+0530 [RTR/2]      OUT devmsp.mybluemix.net - [27/07/2016:13:59:59.432 +0000] "GET /assets/img/IBM.png HTTP/1.1" 302 0 56 "-" "Mozilla/4.0 (compatible;)" 108.168.250.153:18719 x_forwarded_for:"125.16.236.132" x_forwarded_proto:"http" vcap_request_id:9b2d33e9-f0c9-4b99-6dbc-76eed60e8a48 response_time:0.010689082 app_id:62e902e2-2536-4992-85bb-c0fbbb5fadb3 x_global_transaction_id:"1919654903"

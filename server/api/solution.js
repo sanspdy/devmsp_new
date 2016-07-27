@@ -1979,11 +1979,15 @@ exports.v2_placeOrder=function(reqst, resp) {
 
     var space_guid = reqst.body.space_guid;
     ////var service_name = reqst.body.service_name;
-    var service_plan_guid = JSON.parse(reqst.body.service_plan_guid);
+    var service_plan_guid;
+    if(reqst.body.service_plan_guid !== undefined) {
+        service_plan_guid = JSON.parse(reqst.body.service_plan_guid);
+    }
     //console.log(service_plan_guid);
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;
 
+   // if(reqst.body.space_guid === undefined && reqst.body.service_plan_guid === undefined  && reqst.body.bmusername === undefined  && reqst.body.bmusername === undefined && !reqst.body.bmpassword && !reqst.body.contactname && !reqst.body.contactmail && !)
 
 
    // var space_guid = "cb9e64ba-99a4-43a1-93fd-7bcd903d1865";
