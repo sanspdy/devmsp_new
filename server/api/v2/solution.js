@@ -489,7 +489,6 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                                 final_runtime_price = (runtime_price) + (final_runtime_price);
                                                             }
                                                         }
-
                                                         else {
                                                             console.log("There is no price details for some components. Error ")
                                                             console.log(err);
