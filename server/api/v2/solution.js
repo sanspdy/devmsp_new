@@ -747,8 +747,7 @@ exports.v2_viewBillOfMaterial =function(request, response) {
 
                                                     if (blumix_services[i].hasOwnProperty("price") !== undefined) {
                                                         if ( blumix_services[i].properties=== null ||blumix_services[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
-                                                            console
-                                                                .log("Requested service is returning null");
+                                                            console.log("Requested service is returning null");
                                                             console.log("*** Request Responded ***");
                                                             console.log("There is no property called runtime ");
                                                             failure_response.description = "There is no property called runtime "
