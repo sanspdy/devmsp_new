@@ -617,7 +617,313 @@ exports.v2_removeComponentFromSolutiondb=function(request, response) {
 //
 //}
 
-exports.v2_viewBillOfMaterial =function(request, response) {
+//exports.v2_viewBillOfMaterial =function(request, response) {
+//
+//    console.log(requestMessage);
+//    console.log("*************************************************************************")
+//
+//    var dbSoln = cloudant.use(dbCredentials.dbSolution);
+//
+//    // var username=request.body.uname;
+//    var SolName = request.query.solnName;
+//    var version=parseInt(request.query.version);
+//    var username = request.query.uname;
+//
+//    console.log("Solution Name: " + JSON.stringify(SolName));
+//
+//    if (SolName === null && SolName === undefined && SolName === "" && version === null && version === undefined && version === "" && username === null && username === undefined && username === "" ) {
+//        console
+//            .log("no sufficient details. returning false info");
+//        console.log("*** Request Responded ***");
+//        console.log("Please check the parameters");
+//        failure_response.description = "Please check the parameters"
+//        response.write(JSON.stringify(failure_response));
+//        response.end();
+//    }
+//    else{
+//        try {
+//            dbSoln.find({selector: {solution_name: SolName, user: username, version:version}},
+//                function (err, result) {
+//                    if (!err) {
+//                        if (result.docs !== undefined && result.docs !== []  && result.docs[0] !== undefined && result.docs[0]) {
+//                            if (result.docs[0].hasOwnProperty("service_details")) {
+//                                if (result.docs[0].service_details.hasOwnProperty("msp")) {
+//                                    if (result.docs[0].service_details.hasOwnProperty("bluemix") && result.docs[0].service_details.bluemix !== undefined && result.docs[0].service_details.bluemix !== []) {
+//                                        if (result.docs[0].service_details.bluemix[0] !== undefined && result.docs[0].service_details.bluemix[0] !== null){
+//                                            if (result.docs[0].service_details.bluemix[0].hasOwnProperty("runtime") && result.docs[0].service_details.bluemix[0].hasOwnProperty("services")) {
+//
+//                                                // var
+//                                                // services=
+//                                                // result.docs[0].service_details.msp[compcnt];
+//
+//                                                // result.docs[0].canvas_details[0]=canvas_info;
+//                                                // result.docs[0].connection_info.msp.middleware_comp[0]=connection_info;
+//                                                // console.log(result.docs[0].canvas_details[0]);
+//                                                var msp_services = [];
+//                                                var blumix_services = [];
+//                                                var blumix_runtime = [];
+//                                                var final_msp_totalprice = 0;
+//                                                var final_msp_licenseprice = 0;
+//                                                var final_runtime_price = 0;
+//                                                var final_bluemix_price=0;
+//                                                var final_price = 0;
+//                                                var priceJson = [];
+//
+//                                                msp_services = result.docs[0].service_details.msp;
+//                                                console.log("MSP Service:" + msp_services);
+//
+//                                                blumix_services = result.docs[0].service_details.bluemix[0];
+//                                                console.log("Bluemix Service:" + blumix_services);
+//
+//                                                blumix_runtime = result.docs[0].service_details.bluemix[0].runtime;
+//                                                console.log("Bluemix Runtime:" + blumix_runtime);
+//
+//                                                var msp_len = msp_services.length;
+//                                                console.log("MSP Length:" + msp_len);
+//
+//                                                var bm_len = blumix_services.length;
+//                                                console.log("Bluemix services Length:" + bm_len);
+//
+//                                                var blumix_len = blumix_runtime.length;
+//                                                console.log("Bluemix Runtime Length:" + blumix_len);
+//
+//                                                /*
+//                                                 * msp_services=JSON.parse(msp_services);
+//                                                 * console.log("MSP
+//                                                 * Json:"+msp_services);
+//                                                 *
+//                                                 * blumix_services=JSON.parse(blumix_services);
+//                                                 * console.log("Bluemix
+//                                                 * Json:"+blumix_services);
+//                                                 */
+//
+//                                                for (i = 0; i < msp_len; i++) {
+//                                                    if (msp_services[i] !== undefined) {
+//                                                        if (msp_services[i].hasOwnProperty("priceDetails") !== undefined) {
+//                                                            if (msp_services[i].priceDetails === undefined) {
+//                                                                console.log("Requested service is returning null");
+//                                                                console.log("*** Request Responded ***");
+//                                                                console.log("There is no property called runtime ");
+//                                                                failure_response.description = "There is no property called runtime "
+//                                                                response.write(JSON.stringify(failure_response));
+//                                                                response.end();
+//                                                            } else {
+//                                                                tot_price = parseInt(msp_services[i].priceDetails.TotalPrice);
+//                                                                lic_price_var = msp_services[i].priceDetails["Total License Cost"];
+//                                                                tot_lic_price = parseInt(lic_price_var);
+//                                                                console.log("Total Price " + i + ":" + tot_price);
+//                                                                final_msp_totalprice = (tot_price) + (final_msp_totalprice);
+//
+//                                                                console.log("Total License Cost" + i + ":" + tot_lic_price);
+//                                                                final_msp_licenseprice = (tot_lic_price) + (final_msp_licenseprice);
+//                                                            }
+//                                                        }
+//                                                        else {
+//                                                            console.log("There is no price details for some components. Error ")
+//                                                            console.log(err);
+//                                                            console.log("*** Request Responded ***");
+//                                                            console.log("There is no property called runtime ");
+//                                                            failure_response.description = "There is no property called runtime "
+//                                                            response.write(JSON.stringify(failure_response));
+//                                                            response.end();
+//
+//                                                        }
+//                                                    }
+//                                                    else {
+//                                                        console.log("There is no price details for some components. Error ")
+//                                                        console.log(err);
+//                                                        console.log("*** Request Responded ***");
+//                                                        console.log("There is no property called runtime ");
+//                                                        failure_response.description = "There is no property called runtime "
+//                                                        response.write(JSON.stringify(failure_response));
+//                                                        response.end();
+//
+//
+//                                                    }
+//
+//                                                }
+//
+//                                                for(i = 0; i < bm_len; i++){
+//
+//                                                    if (blumix_services[i].hasOwnProperty("price") !== undefined) {
+//                                                        if ( blumix_services[i].properties=== null ||blumix_services[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
+//                                                            console.log("Requested service is returning null");
+//                                                            console.log("*** Request Responded ***");
+//                                                            console.log("There is no property called runtime ");
+//                                                            failure_response.description = "There is no property called runtime "
+//                                                            response.write(JSON.stringify(failure_response));
+//                                                            response.end();
+//
+//                                                        } else {
+//                                                            var blumix_services_price = parseInt(blumix_services[i].price);
+//                                                            console.log("Bluemix Service price:" + blumix_services_price);
+//                                                            final_bluemix_price = (blumix_services_price) + (final_runtime_price);
+//                                                        }
+//                                                    }
+//                                                    else {
+//                                                        console.log("There is property for that component ")
+//                                                        console.log(err);
+//                                                        console.log("*** Request Responded ***");
+//                                                        console.log("*** Request Responded ***");
+//                                                        console.log("There is no property called runtime ");
+//                                                        failure_response.description = "There is no property called runtime "
+//                                                        response.write(JSON.stringify(failure_response));
+//                                                        response.end();
+//                                                    }
+//                                                }
+//
+//
+//
+//                                                for (i = 0; i < blumix_len; i++) {
+//                                                    if (blumix_runtime[i].hasOwnProperty("properties") !== undefined) {
+//                                                        if (blumix_runtime[i].properties.hasOwnProperty("price") !== undefined) {
+//                                                            if ( blumix_runtime[i].properties=== null ||blumix_runtime[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
+//                                                                console.log("Requested service is returning null");
+//                                                                console.log("*** Request Responded ***");
+//                                                                console.log("There is no property called runtime ");
+//                                                                failure_response.description = "There is no property called runtime "
+//                                                                response.write(JSON.stringify(failure_response));
+//                                                                response.end();
+//
+//                                                            } else {
+//                                                                runtime_price = parseInt(blumix_runtime[i].properties.price);
+//                                                                console.log("Runtime price:" + runtime_price);
+//                                                                final_runtime_price = (runtime_price) + (final_runtime_price);
+//                                                            }
+//                                                        }
+//
+//                                                        else {
+//                                                            console.log("There is no price details for some components. Error ")
+//                                                            console.log(err);
+//                                                            console.log("*** Request Responded ***");
+//                                                            console.log("There is no property called runtime ");
+//                                                            failure_response.description = "There is no property called runtime "
+//                                                            response.write(JSON.stringify(failure_response));
+//                                                            response.end();
+//
+//                                                        }
+//                                                    }
+//                                                    else {
+//                                                        console.log("There is property for that component ")
+//                                                        console.log(err);
+//                                                        console.log("*** Request Responded ***");
+//                                                        console.log("There is no property called runtime ");
+//                                                        failure_response.description = "There is no property called runtime "
+//                                                        response.write(JSON.stringify(failure_response));
+//                                                        response.end();
+//
+//                                                    }
+//                                                }
+//
+//                                                final_price = (final_runtime_price)
+//                                                    + (final_msp_licenseprice)
+//                                                    + (final_msp_totalprice) + (final_bluemix_price);
+//
+//                                                console.log("Final Total Price:");
+//                                                console.log(final_msp_totalprice);
+//                                                console.log(final_msp_licenseprice);
+//                                                priceJson = JSON.stringify(
+//                                                    {"msp": msp_services,
+//                                                        "bluemix": blumix_services,
+//                                                        "Final_MSP_Price": final_msp_totalprice,
+//                                                        "Final_MSP_License_Price": final_msp_licenseprice,
+//                                                        "Final Bluemix service Price":final_bluemix_price,
+//                                                        "Final_Runtime_Price": final_runtime_price,
+//                                                        "Final_Price": final_price
+//                                                    });
+//                                                console.log(priceJson);
+//                                                response.write(priceJson);
+//                                                response.end();
+//                                            }
+//                                            else {
+//                                                console.log("There is no property called runtime ")
+//                                                console.log(err);
+//                                                console.log("*** Request Responded ***");
+//                                                console.log("There is no property called runtime ");
+//                                                failure_response.description = "There is no property called runtime "
+//                                                response.write(JSON.stringify(failure_response));
+//                                                response.end();
+//                                            }
+//                                        }else {
+//                                            console.log("There is no data in bluemix ")
+//                                            console.log(err);
+//                                            console.log("*** Request Responded ***");
+//                                            console.log("There is no property called bluemix ");
+//                                            failure_response.description = "There is no property called bluemix "
+//                                            response.write(JSON.stringify(failure_response));
+//                                            response.end();
+//                                        }
+//                                    }
+//                                    else {
+//                                        console.log("There is no property called bluemix ")
+//                                        console.log(err);
+//                                        console.log("*** Request Responded ***");
+//                                        console.log("There is no property called msp ");
+//                                        failure_response.description = "There is no property called msp "
+//                                        response.write(JSON.stringify(failure_response));
+//                                        response.end();
+//
+//                                    }
+//                                }
+//                                else {
+//                                    console.log("There is no property called msp ")
+//                                    console.log(err);
+//                                    console.log("*** Request Responded ***");
+//                                    console.log("There is no property called msp ");
+//                                    failure_response.description = "There is no property called msp "
+//                                    response.write(JSON.stringify(failure_response));
+//                                    response.end();
+//                                }
+//                            }
+//                            else {
+//                                console.log("There is no property called service details ")
+//                                console.log(err);
+//                                console.log("*** Request Responded ***");
+//                                failure_response.description = "There is no property called service details "
+//                                response.write(JSON.stringify(failure_response));
+//                                response.end();
+//                            }
+//                        }
+//                        else {
+//                            console.log("There is no document available")
+//                            console.log(err);
+//                            console.log("*** Request Responded ***");
+//                            console.log("There is no such solution available in database");
+//                            failure_response.description = "There is no such solution available in database"
+//                            response.write(JSON.stringify(failure_response));
+//                            response.end();
+//                        }
+//
+//                    } else {
+//                        var errMessage = "Error occurred while accessing components : \n"
+//                            + JSON.stringify(err);
+//                        //response.write(errMessage);
+//                        console.log(errMessage);
+//                        // response.end();
+//                        console.log(responseMessage);
+//                        console.log("There is no document available")
+//                        console.log(err);
+//                        console.log("*** Request Responded ***");
+//                        console.log("There is some error. Please try again later with correct paramters");
+//                        failure_response.description = "There is some error. Please try again later with correct paramters"
+//                        response.write(JSON.stringify(failure_response));
+//                        response.end();
+//                    }
+//                });
+//        } catch (err) {
+//            console.log("There is some error:")
+//            console.log(err);
+//            console.log("*** Request Responded ***");
+//            console.log("There is no such solution available in database");
+//            failure_response.description = "There is no such solution available in database"
+//            response.write(JSON.stringify(failure_response));
+//            response.end();
+//        }
+//    }
+//
+//}
+
+exports.v2_viewBillOfMaterial = function(request, response) {
 
     console.log(requestMessage);
     console.log("*************************************************************************")
@@ -672,16 +978,18 @@ exports.v2_viewBillOfMaterial =function(request, response) {
                                                 msp_services = result.docs[0].service_details.msp;
                                                 console.log("MSP Service:" + msp_services);
 
-                                                blumix_services = result.docs[0].service_details.bluemix[0];
+                                                blumix_services = result.docs[0].service_details.bluemix;
                                                 console.log("Bluemix Service:" + blumix_services);
 
                                                 blumix_runtime = result.docs[0].service_details.bluemix[0].runtime;
                                                 console.log("Bluemix Runtime:" + blumix_runtime);
 
+                                                bluemix_services_list=result.docs[0].service_details.bluemix[0].services;
+
                                                 var msp_len = msp_services.length;
                                                 console.log("MSP Length:" + msp_len);
 
-                                                var bm_len = blumix_services.length;
+                                                var bm_len = bluemix_services_list.length;
                                                 console.log("Bluemix services Length:" + bm_len);
 
                                                 var blumix_len = blumix_runtime.length;
@@ -745,20 +1053,12 @@ exports.v2_viewBillOfMaterial =function(request, response) {
 
                                                 for(i = 0; i < bm_len; i++){
 
-                                                    if (blumix_services[i].hasOwnProperty("price") !== undefined) {
-                                                        if ( blumix_services[i].properties=== null ||blumix_services[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
-                                                            console.log("Requested service is returning null");
-                                                            console.log("*** Request Responded ***");
-                                                            console.log("There is no property called runtime ");
-                                                            failure_response.description = "There is no property called runtime "
-                                                            response.write(JSON.stringify(failure_response));
-                                                            response.end();
+                                                    if (bluemix_services_list[i].hasOwnProperty("price") && bluemix_services_list[i].price !== undefined) {
 
-                                                        } else {
-                                                            var blumix_services_price = parseInt(blumix_services[i].price);
-                                                            console.log("Bluemix Service price:" + blumix_services_price);
-                                                            final_bluemix_price = (blumix_services_price) + (final_runtime_price);
-                                                        }
+                                                        var blumix_services_price = parseInt(bluemix_services_list[i].price);
+                                                        console.log("Bluemix Service price:" + blumix_services_price);
+                                                        final_bluemix_price = (blumix_services_price) + (final_runtime_price);
+
                                                     }
                                                     else {
                                                         console.log("There is property for that component ")
@@ -922,8 +1222,6 @@ exports.v2_viewBillOfMaterial =function(request, response) {
     }
 
 }
-
-
 
 exports.v2_viewMspBillofMaterial = function(request, response) {
     console.log(requestMessage);
