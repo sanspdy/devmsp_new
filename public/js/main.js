@@ -1108,15 +1108,15 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +JSON.stringify(popupData));
-    var indexB = _.findIndex(popupData, function (data) {
+    /*var indexB = ob(popupData, function (data) {
         return data.title === serviceTitle;
-    });
-    console.log('indeB===' +indexB);
-    $scope.p = $scope.popupData[indexB];
-    console.log('$scope.p===' +JSON.stringify($scope.p));
-    $scope.p['price']= estimateSelected;
-    $scope.p['quantity']= quantitySelected;
-     $scope.popupData[indexB] = $scope.p;
+    });*/
+    //console.log('indeB===' +indexB);
+   // $scope.p = $scope.popupData;
+    //console.log('$scope.p===' +JSON.stringify($scope.p));
+    $scope.popupData['price']= estimateSelected;
+    $scope.popupData['quantity']= quantitySelected;
+     //$scope.popupData[indexB] = $scope.p;
     console.log('UpdatedpopupData==' +JSON.stringify(popupData));
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
