@@ -491,7 +491,7 @@ angular.module('portalControllers')
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
                                 keyboard: false,
-                                scope:$scope,
+                                scope:$rootScope,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;
