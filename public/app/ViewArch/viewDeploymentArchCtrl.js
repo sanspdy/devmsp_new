@@ -4184,8 +4184,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             }
 
             $scope.servicePopupData =  $rootScope.serdtat[$scope.actualMSPComponentIndex]
-            console.log("serdata=-ss-->"+JSON.stringify( $scope.servicePopupData ))
-            console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/attributes.html',
