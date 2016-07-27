@@ -1039,7 +1039,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             //console.log('quantity==' +quantity);
             //console.log('price===' +price);
             console.log('title===' +title);
-            console.log("inside save function" + JSON.stringify($scope.popupDataService.title));
+            console.log("BluemixTitle" + JSON.stringify($scope.popupDataService.title));
             var indexCourseId = _.findIndex($scope.propertiesObjectArrayData, function (data) {
                 return data.entity.extra.displayName === radioselected;
             });
@@ -1108,10 +1108,10 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
     console.log('latestTitle==' +latestTitle);
     console.log('compCount==' +compCount);
     console.log('popupData==' +JSON.stringify(popupData));
-    /*$scope.p = $scope.popupData[index];
+    $scope.p = $scope.popupData[serviceTitle];
     $scope.p['price']= estimateSelected;
-    $scope.p['quantity']= quantitySelected*/;
-
+    $scope.p['quantity']= quantitySelected;
+    console.log('UpdatedpopupData==' +JSON.stringify(popupData))
     console.log('guidPlan==' +guidPlan);
     sharedPropertiesCanvas.setGuidPlan(guidPlan);
     $scope.username = sharedProperties.getProperty();
