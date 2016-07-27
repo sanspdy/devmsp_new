@@ -354,7 +354,16 @@ angular.module('portalControllers', ['ui.bootstrap'])
         var setPlansArray = [];
 
         this.setPlans = function (plan) {
+            var index = _.findIndex(setPlansArray, function (data) {
+                return data.serviceName === plan.serviceName;
+            });
+            if(index< 0 ){
             setPlansArray.push(plan);
+            }
+            else{
+                setPlansArray[index] = plan;
+            }
+
         }
         this.getPlans = function(){
             return setPlansArray;
@@ -1133,7 +1142,6 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 solnjson: JSON.stringify(popupData),
                 "serviceplan_guid":guidPlan,
                 version:1
-
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
