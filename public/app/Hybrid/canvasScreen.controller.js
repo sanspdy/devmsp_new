@@ -484,14 +484,14 @@ angular.module('portalControllers')
                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                             $scope.servicePopupData = data;
                             console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
-                            $uibModal.open({
+                            $rootScope.bluemixAttrModal = $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',
                                 controller: 'AttrCtrl',
                                 windowClass: 'app-modal-window-att3',
                                 backdrop: 'static',
                                 keyboard: false,
-                                scope:$scope,
+                                scope:$rootScope,
                                 resolve: {
                                     parentDivCall: function () {
                                         return $scope.servicePopupData;
