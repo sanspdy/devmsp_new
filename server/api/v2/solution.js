@@ -672,7 +672,7 @@ exports.v2_viewBillOfMaterial =function(request, response) {
                                                 msp_services = result.docs[0].service_details.msp;
                                                 console.log("MSP Service:" + msp_services);
 
-                                                blumix_services = result.docs[0].service_details.bluemix[0].services;
+                                                blumix_services = result.docs[0].service_details.bluemix;
                                                 console.log("Bluemix Service:" + blumix_services);
 
                                                 blumix_runtime = result.docs[0].service_details.bluemix[0].runtime;
