@@ -376,7 +376,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
     }
 });
 
-angular.module('portalControllers').controller('AttrCtrl', function ($scope,parentDivCall,countComp,serviceType,$uibModal,$uibModalInstance,sharedProperties,$http) {
+angular.module('portalControllers').controller('AttrCtrl', function ($scope,parentDivCall,countComp,serviceType,$uibModal,$uibModalInstance,sharedProperties,$http,$rootScope) {
     $scope.showMSPAttributes=false;
     $scope.showRuntimeAttributes=false;
     $scope.showServiceAttributes=false;
@@ -1039,7 +1039,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('guid===' +JSON.stringify(guid));
 
 
-            $uibModal.open({
+             $rootScope.bluemixPlanModal = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: '../components/modal/BluemixPlanSave.html',
                 windowClass: 'app-modal-window-sam-Plan',
@@ -1085,7 +1085,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 });
 
 
-angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle) {
+angular.module('portalControllers').controller('BluemixPlanCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$http,sharedProperties,serviceTitle,compCount,popupData,guidPlan,planName,sharedPropertiesCanvas,quantitySelected,estimateSelected,latestTitle,$rootScope) {
     $scope.openConfirmBluemixPlan = true;
     $scope.savebluemixPlan = false;
     //console.log('indexBluemix===' +indexBluemix);
@@ -1151,6 +1151,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                     console.log(JSON.stringify($scope.PostDataResponse));
                     $scope.savebluemixPlan = true;
                     $scope.loading = true;
+                    $rootScope.bluemixPlanModal.dismiss('cancel');
                     $uibModalInstance.dismiss('cancel');
 
                     //$scope.modal1.dismiss('cancel');
