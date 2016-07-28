@@ -499,7 +499,20 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                      }*/
                     $scope.patternObjectIIB_Server.push($scope.patternObject[key]);
                     console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
+                    $scope.sizing = $scope.patternObject[key];
+                    console.log("sizing ==="+JSON.stringify($scope.sizing));
                     console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
+                    if($scope.sizing.hasOwnProperty("size") && $scope.sizing.size !== null && $scope.sizing.size !== undefined){
+                        console.log("size property ====" +JSON.stringify($scope.sizing.size));
+                        $scope.sizevalue = $scope.sizing.size;
+                    }
+                    else{
+                        console.log("no key size");
+                       $scope.sizing.size={"id":1,"size":"Small"};
+                        console.log("printing sizing.size ===="+JSON.stringify($scope.sizing.size));
+                        $scope.sizevalue = $scope.sizing.size;
+                    }
+
                 })
             }
 
@@ -593,7 +606,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 //invokation ends
                 var namDisksize = key+'_DiskSize';
                 console.log('namCPU==' +namCPU);
-                if(size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
+                console.log("sizee ==="+JSON.stringify(size));
+                console.log("size22 ====="+updatedSizeProperties[i].type);
+                if(size.size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
                     $scope.a['size']= size;  //adding size key and value to existing json
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
