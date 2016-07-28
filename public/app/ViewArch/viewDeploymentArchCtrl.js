@@ -3507,14 +3507,16 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     if($rootScope.currentSubmissionStatus === 'saved'){
         console.log('inside if');
         $rootScope.showEditBtn = true;
+        $rootScope.showBtnOrder = true;
     }
     else{
         console.log('inside else');
         $rootScope.showEditBtn = false;
+        $rootScope.showBtnOrder = false;
     };
     $scope.state = false;
     $rootScope.showhideprop=false;
-    $rootScope.showBtnOrder = true;
+   // $rootScope.showBtnOrder = true;
     //$rootScope.showEditBtn = true;
     $scope.showBill1 = true;
     $scope.showBill2 = false;

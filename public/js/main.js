@@ -1705,7 +1705,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
             if(key === 'Final_MSP_Price'){
                 $scope.viewBillFinalMSPPrice=$scope.ResponseDataViewBillObject[key];
             }
-            if(key === 'Final_Bluemix_Price'){
+            if(key === 'Final Bluemix service Price'){
                 $scope.viewBillFinalBluemixPrice=$scope.ResponseDataViewBillObject[key];
             }
         });
