@@ -2618,7 +2618,202 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             console.log("MSP Provisioning failed due to insufficient details");
                                         }
 
-                                        function mspprovisioning() {
+                                        //function mspprovisioning() {
+                                        //    randomno = orderidgenerated;
+                                        //    console.log("OrderID: "+ randomno);
+                                        //
+                                        //    var msp_services = [];
+                                        //    msp_services = resultjson.service_details.msp;
+                                        //    msp_len = msp_services.length;
+                                        //    var msp_service_names = [];
+                                        //
+                                        //    var service_properties = [];
+                                        //
+                                        //    for (i = 0; i < msp_len; i++) {
+                                        //        msp_service_names[i] = msp_services[i].catalog_name;
+                                        //        service_properties[i] = msp_services[i].Pattern;
+                                        //        console.log("Properties______________________________");
+                                        //        console.log(JSON.stringify(service_properties[i]));
+                                        //    }
+                                        //
+                                        //    //orderjson = {
+                                        //    //    "Order_ID": "mpaase210d12f817c41f682217acb22219478",
+                                        //    //    "Ordered_Items": "mysql",
+                                        //    //    "Data_Center": "Amsterdam 1",
+                                        //    //    "Originating_From": "mpaas",
+                                        //    //    "User_ID": "superadmin@in.ibm.com",
+                                        //    //    "Comments": "some-comments",
+                                        //    //    "Ordered_ItemDetails": {
+                                        //    //        "mysql": {
+                                        //    //            "orderedItemFormData": {
+                                        //    //                "Group1": {
+                                        //    //                    "count": "1",
+                                        //    //                    "size": "small",
+                                        //    //                    "flavor": "RedHat",
+                                        //    //                    "role": "MYSQL"
+                                        //    //                }
+                                        //    //            }
+                                        //    //        }
+                                        //    //    }
+                                        //    //};
+                                        //
+                                        //
+                                        //    orderjson = {
+                                        //        "Order_ID": randomno,
+                                        //        "Ordered_Items": soln,
+                                        //        "Data_Center": "Amsterdam 1",
+                                        //        "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
+                                        //        "User_ID": contactmail,
+                                        //        "Comments": "some-comments",
+                                        //        "Ordered_ItemDetails": ""
+                                        //        //    "mysql": {
+                                        //        //        "orderedItemFormData": {
+                                        //        //            "Group1": {
+                                        //        //                "count": "1",
+                                        //        //                "size": "small",
+                                        //        //                "flavor": "RedHat",
+                                        //        //                "role": "MYSQL"
+                                        //        //            }
+                                        //        //        }
+                                        //        //    }
+                                        //        //}
+                                        //
+                                        //    };
+                                        //
+                                        //    var offering = {};
+                                        //    var group;
+                                        //    var comp_name_array=[];
+                                        //    var compname;
+                                        //    var qtyname;
+                                        //    var sizeofvm;
+                                        //    var flavourname;
+                                        //
+                                        //    offering[soln] = {"orderedItemFormData": {}};
+                                        //    console.log('offering === ' + JSON.stringify(offering[soln]));
+                                        //
+                                        //    for (i = 0; i < msp_len; i++) {
+                                        //
+                                        //        comp_name_array=Object.keys(service_properties[i]);
+                                        //
+                                        //        if(comp_name_array.length===1){
+                                        //            var keyscnt = [];
+                                        //            //datalen = offering[soln]['orderedItemFormData'].length;
+                                        //            keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                        //            var datalen = keyscnt.length;
+                                        //            group = "Group" + (datalen + 1);
+                                        //            compname = comp_name_array[0];
+                                        //            qtyname = compname + "_Quantity";
+                                        //            sizeofvm = compname.size;
+                                        //            flavourname = compname + "_O/S";
+                                        //
+                                        //            //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                        //            offering[soln]['orderedItemFormData'][group] = {
+                                        //                "count": service_properties[i][compname][qtyname],
+                                        //                "size": sizeofvm,
+                                        //                "flavor": service_properties[i][compname][flavourname],
+                                        //                "role": msp_service_names[i]
+                                        //            };
+                                        //        }
+                                        //        else {
+                                        //
+                                        //            for (j = 0; j < comp_name_array.length; j++) {
+                                        //
+                                        //                var keyscnt = [];
+                                        //                //datalen = offering[soln]['orderedItemFormData'].length;
+                                        //                keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                        //                var datalen = keyscnt.length;
+                                        //                group = "Group" + (datalen + 1);
+                                        //                compname = comp_name_array[j];
+                                        //                qtyname = compname + "_Quantity";
+                                        //                sizeofvm = compname.size;
+                                        //                flavourname = compname + "_O/S";
+                                        //
+                                        //                //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                        //                offering[soln]['orderedItemFormData'][group] = {
+                                        //                    "count": service_properties[i][compname][qtyname],
+                                        //                    "size": sizeofvm,
+                                        //                    "flavor": service_properties[i][compname][flavourname],
+                                        //                    "role": compname.split(" ")[0]
+                                        //                };
+                                        //            }
+                                        //        }
+                                        //
+                                        //    }
+                                        //
+                                        //    orderjson.Ordered_ItemDetails=offering;
+                                        //
+                                        //    final_json_formatted = orderjson;
+                                        //
+                                        //
+                                        //    console.log("Final JSON:----------------");
+                                        //    console.log(JSON.stringify(final_json_formatted));
+                                        //    //console.log(JSON.stringify(final_json_formatted));
+                                        //
+                                        //    dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
+                                        //        if (!errors) {
+                                        //            console.log("Data inserted in Final JSON DB");
+                                        //            // var resjson = {
+                                        //            //     "status" : "success"
+                                        //            // };
+                                        //            // resp.write(JSON.stringify(success_response));
+                                        //            // resp.end();
+                                        //        }
+                                        //        else {
+                                        //            //failure_response.description = "Data insertion in Final JSON DB failed";
+                                        //            //resp.write(JSON.stringify(failure_response));
+                                        //            //resp.end();
+                                        //            console.log("Failed.");
+                                        //        }
+                                        //    });
+                                        //    //// insert msp provisioning code here...
+                                        //    var mpaasusername = "mpaasuser";
+                                        //    var mpaaspassword = "Test@123";
+                                        //    var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
+                                        //    var https = require('https');
+                                        //
+                                        //    var options = {
+                                        //        host: '5.10.122.189',
+                                        //        path: '/fulfillment_engine/mpaas/order/create',
+                                        //        //port: 8443,
+                                        //        port:4443,
+                                        //        method: 'POST',
+                                        //        headers: {
+                                        //            'Content-Type': 'application/json',
+                                        //            'Content-Length': JSON.stringify(orderjson).length,
+                                        //            "Authorization": auth
+                                        //        },
+                                        //        rejectUnauthorized: false,
+                                        //        requestCert: true,
+                                        //        agent: false,
+                                        //        //secureProtocol:
+                                        //    };
+                                        //
+                                        //    var req = https.request(options, function (err, res) {
+                                        //        // res.setEncoding('utf8');
+                                        //        if (!err) {
+                                        //            console.log("Request sent to MSP===============>Response here...");
+                                        //            //console.log(res);
+                                        //        }
+                                        //        else {
+                                        //            //console.log(err);
+                                        //        }
+                                        //
+                                        //    });
+                                        //    req.on('error', function (err, result) {
+                                        //        console.log(err);
+                                        //        console.log("Error while fetching data from IMI Server. Please try later");
+                                        //        failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                        //        resp.write(JSON.stringify(failure_response));
+                                        //        // response.end();
+                                        //    });
+                                        //    req.write(JSON.stringify(orderjson));
+                                        //
+                                        //    console.log("MSP Provisioning request initiated...");
+                                        //
+                                        //    req.end();
+                                        //}
+
+                                        function mspprovisioning(){
                                             randomno = orderidgenerated;
                                             console.log("OrderID: "+ randomno);
 
@@ -2626,6 +2821,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             msp_services = resultjson.service_details.msp;
                                             msp_len = msp_services.length;
                                             var msp_service_names = [];
+                                            var listofservices="";
 
                                             var service_properties = [];
 
@@ -2636,35 +2832,13 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 console.log(JSON.stringify(service_properties[i]));
                                             }
 
-                                            //orderjson = {
-                                            //    "Order_ID": "mpaase210d12f817c41f682217acb22219478",
-                                            //    "Ordered_Items": "mysql",
-                                            //    "Data_Center": "Amsterdam 1",
-                                            //    "Originating_From": "mpaas",
-                                            //    "User_ID": "superadmin@in.ibm.com",
-                                            //    "Comments": "some-comments",
-                                            //    "Ordered_ItemDetails": {
-                                            //        "mysql": {
-                                            //            "orderedItemFormData": {
-                                            //                "Group1": {
-                                            //                    "count": "1",
-                                            //                    "size": "small",
-                                            //                    "flavor": "RedHat",
-                                            //                    "role": "MYSQL"
-                                            //                }
-                                            //            }
-                                            //        }
-                                            //    }
-                                            //};
-
-
                                             orderjson = {
                                                 "Order_ID": randomno,
-                                                "Ordered_Items": soln,
+                                                "Ordered_Items": msp_service_names.toString(),
                                                 "Data_Center": "Amsterdam 1",
                                                 "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
                                                 "User_ID": contactmail,
-                                                "Comments": "some-comments",
+                                                "Comments": "This is for testing",
                                                 "Ordered_ItemDetails": ""
                                                 //    "mysql": {
                                                 //        "orderedItemFormData": {
@@ -2679,35 +2853,25 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                 //}
 
                                             };
-
                                             var offering = {};
-                                            var group;
-                                            var comp_name_array=[];
-                                            var compname;
-                                            var qtyname;
-                                            var sizeofvm;
-                                            var flavourname;
 
-                                            offering[soln] = {"orderedItemFormData": {}};
-                                            console.log('offering === ' + JSON.stringify(offering[soln]));
-
-                                            for (i = 0; i < msp_len; i++) {
+                                            for(i=0;i<msp_len;i++){
+                                                var catlg_name=msp_services[i].catalog_name;
+                                                offering[catlg_name] = {"orderedItemFormData": {}};
 
                                                 comp_name_array=Object.keys(service_properties[i]);
 
-                                                if(comp_name_array.length===1){
+                                                if(comp_name_array.length===1) {
                                                     var keyscnt = [];
                                                     //datalen = offering[soln]['orderedItemFormData'].length;
-                                                    keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                                    keyscnt = Object.keys(offering[catlg_name]['orderedItemFormData']);
                                                     var datalen = keyscnt.length;
                                                     group = "Group" + (datalen + 1);
                                                     compname = comp_name_array[0];
                                                     qtyname = compname + "_Quantity";
                                                     sizeofvm = compname.size;
                                                     flavourname = compname + "_O/S";
-
-                                                    //offering[soln]['orderedItemFormData'][group] = service_properties[i];
-                                                    offering[soln]['orderedItemFormData'][group] = {
+                                                    offering[catlg_name]['orderedItemFormData'][group] = {
                                                         "count": service_properties[i][compname][qtyname],
                                                         "size": sizeofvm,
                                                         "flavor": service_properties[i][compname][flavourname],
@@ -2720,7 +2884,7 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                                         var keyscnt = [];
                                                         //datalen = offering[soln]['orderedItemFormData'].length;
-                                                        keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                                        keyscnt = Object.keys(offering[catlg_name]['orderedItemFormData']);
                                                         var datalen = keyscnt.length;
                                                         group = "Group" + (datalen + 1);
                                                         compname = comp_name_array[j];
@@ -2729,7 +2893,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                         flavourname = compname + "_O/S";
 
                                                         //offering[soln]['orderedItemFormData'][group] = service_properties[i];
-                                                        offering[soln]['orderedItemFormData'][group] = {
+                                                        offering[catlg_name]['orderedItemFormData'][group] = {
                                                             "count": service_properties[i][compname][qtyname],
                                                             "size": sizeofvm,
                                                             "flavor": service_properties[i][compname][flavourname],
@@ -2737,17 +2901,14 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                         };
                                                     }
                                                 }
-
                                             }
-
                                             orderjson.Ordered_ItemDetails=offering;
-
                                             final_json_formatted = orderjson;
 
 
                                             console.log("Final JSON:----------------");
                                             console.log(JSON.stringify(final_json_formatted));
-                                            //console.log(JSON.stringify(final_json_formatted));
+
 
                                             dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
                                                 if (!errors) {
@@ -2774,8 +2935,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             var options = {
                                                 host: '5.10.122.189',
                                                 path: '/fulfillment_engine/mpaas/order/create',
-                                                //port: 8443,
-                                                port:4443,
+                                                port: 8443,
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -2811,6 +2971,7 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             console.log("MSP Provisioning request initiated...");
 
                                             req.end();
+
                                         }
 
                                         //need to remove once the provisioning incorporated
