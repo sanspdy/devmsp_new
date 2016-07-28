@@ -4267,7 +4267,7 @@ function db_insert_app(appnames, solnName, full_token_new,uname,version){
                     setTimeout(function(){
                         for(var k=0;k<runtime_details.length;k++){
                             if( !(runtime_details[k].hasOwnProperty("status")) && runtime_details[k].status === undefined ){
-                                runtime_details[k].status = "not provisioned";
+                                runtime_details[k].status = "failed";
                                 console.log("runtime detail",runtime_details[k].status);
                             }
                         }
@@ -4422,7 +4422,7 @@ function db_insert(service_name,solnName,full_token_new,uname,version){
                     setTimeout(function(){
                         for(var k=0;k<ser_details.length;k++){
                             if( !(ser_details[k].hasOwnProperty("status")) && ser_details[k].status === undefined ){
-                                ser_details[k].status = "not provisioned";
+                                ser_details[k].status = "failed";
                                 console.log("ser detail",ser_details[k].status);
                             }
                         }
@@ -4502,7 +4502,7 @@ function status_update(uname,solnName,version){
                                         }
                                         else{
                                             console.log("not provisioned");
-                                            result.docs[0].provisioning_status[0].bluemix_status = "not provisioned";
+                                            result.docs[0].provisioning_status[0].bluemix_status = "Failed";
                                         }
                                         dbsoln.insert(result.docs[0],function (err2,result2){
                                             if(!err2){
