@@ -11,7 +11,7 @@ angular.module('portalControllers')
         $scope.spinsGetServiceInfo=false;
         $scope.spinsUpdateServiceInfo=false;
         $scope.spinsBOM=false;
-        $scope.objCount=0;
+        $rootScope.objCount=0;
         $scope.MSPComponentCount=0;
         $scope.bluemixRuntimeComponentCount=0;
         $scope.bluemixServiceComponentCount=0;
@@ -705,7 +705,7 @@ angular.module('portalControllers')
                     $( "#canvas-container").draggable("disable");
                 }
                 if($scope.MSP===true) {
-                    $scope.objCount++;
+                    $rootScope.objCount++;
                     $scope.MSPComponentCount++;
 
                     var indexCount=$scope.MSPComponentCount;
@@ -829,7 +829,7 @@ angular.module('portalControllers')
                 if($scope.Bluemix===true) {
 
                     if($scope.runtimeCatalogue === true){
-                        $scope.objCount++;
+                        $rootScope.objCount++;
                         $scope.bluemixRuntimeComponentCount++;
                         var indexRuntimeCompCount=$scope.bluemixRuntimeComponentCount;
                         var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
@@ -931,7 +931,7 @@ angular.module('portalControllers')
                     }
 
                     if($scope.servicesCatalogue === true){
-                        $scope.objCount++;
+                        $rootScope.objCount++;
                         $scope.bluemixServiceComponentCount++;
 
                         var indexServiceCompCount=$scope.bluemixServiceComponentCount;
@@ -1537,7 +1537,7 @@ angular.module('portalControllers')
             $scope.printCanvas = function()
             {
                 $scope.choices = [];
-                $scope.objCount = 0;
+                //$scope.objCount = 0;
                 $scope.canvasCreated=JSON.stringify(canvas);
                 console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
                  var newArchModal = $uibModal.open({
@@ -1698,7 +1698,7 @@ angular.module('portalControllers')
             $scope.removeChoice = function(index) {
                 var lastItem = index;
                 $scope.choices.splice(lastItem,1);
-                $scope.objCount--;
+                $rootScope.objCount--;
                 // $scope.deleteObject();
             };
 
@@ -2031,7 +2031,7 @@ angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,
 });
 
 
-angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties,canvasInformation) {
+angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties,canvasInformation,$rootScope) {
     console.log("inside newArchConfirmCtrl");
     $scope.ngShowModalNewArch = true;
     $scope.currentUser2 = sharedProperties.getProperty();
@@ -2039,7 +2039,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.solnEntered2 = sharedProperties.getSoln();
     console.log('solnEntered2 == ' + $scope.solnEntered2);
     console.log('canvasInformation===' +canvasInformation);
-    $scope.deleteArchitecture = function(){
+    /*$scope.deleteArchitecture = function(){
         var uid = sharedProperties.getProperty();
         console.log("user name in solution ctrl === "+uid);
         $scope.solnEntered=sharedProperties.getSoln();
@@ -2092,14 +2092,119 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 
 
 
-    };
+    };*/
 
+    $scope.deleteArchitecture = function(){
+        $rootScope.objCount = 0;
+        $rootScope.solnName = '';
+        var uid = sharedProperties.getProperty();
+        console.log("user name in solution ctrl === "+uid);
+        $scope.solnEntered=sharedProperties.getSoln();
+        console.log('$scope.solnEntered===' +$scope.solnEntered);
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'POST',
+            url: '/api/v2/deleteSolutionVersion',
+            data: $.param({
+                "uname":uid,
+                "solnName": $scope.solnEntered,
+                "version":1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    $scope.deletedSolName = data;
+                    // $scope.data.splice(index, 1);
+                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                    //canvas.clear();
+                    $uibModalInstance.close({clearCanvas:true});
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            });
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+
+            }
+        });
+
+
+
+    };
 
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
+    /*$scope.createnewArch = function(){
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.close({clearCanvas:true});
+                    //canvas.clear();
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            resolve: {
+
+            }
+        });
+    }*/
+
+    $scope.cancelnewArch = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
     $scope.createnewArch = function(){
+        $rootScope.objCount = 0;
+        $rootScope.solnName = '';
         //$uibModalInstance.dismiss('cancel');
         $http({
             method: 'PUT',
