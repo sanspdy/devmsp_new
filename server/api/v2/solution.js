@@ -305,7 +305,7 @@ exports.v2_removeComponentFromSolutiondb=function(request, response) {
 
                                 } else {
                                     console.log("New doc created ..");
-                                    response.write(JSON.stringify(resjson));
+                                    response.write(JSON.stringify(success_response));
                                     response.end();
                                 }
 

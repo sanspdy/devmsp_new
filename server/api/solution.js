@@ -2079,6 +2079,35 @@ exports.v2_placeOrder=function(reqst, resp) {
                                             bluemixprovisioning();
 
                                         }
+                                        else{
+                                            console.log("Bluemix Provisioning failed due to insufficient details");
+                                            dbSoln.find({
+                                                selector: {
+                                                    user: uname,
+                                                    solution_name: soln,
+                                                    version: version
+                                                }
+                                            }, function (err, result) {
+                                                if (!err) {
+                                                    console.log("received result");
+                                                    if (result.docs[0] == null) {
+                                                        console.log("null value in result");
+                                                        failure_response.description = "There is no such solution and version exist. please check.";
+                                                        resp.write(JSON.stringify(failure_response));
+                                                        resp.end();
+                                                    } else {
+                                                        resultjson = result.docs[0];
+
+                                                        var orderidgenerated = resultjson._id;
+
+                                                        resultjson.order_status = "submitted";
+                                                        resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
+                                                        resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
+                                                    }
+                                                }
+                                            });
+
+                                                    }
 
                                         //calling imi api for msp component provisioning.
 
@@ -2584,6 +2613,9 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                         if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
                                            mspprovisioning();
+                                        }
+                                        else{
+                                            console.log("MSP Provisioning failed due to insufficient details");
                                         }
 
                                         function mspprovisioning() {

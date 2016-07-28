@@ -237,9 +237,9 @@ exports.v2_updateServiceInfo=function(request, response) {
                 console.log("updateServiceInfo : fetch exact record from dB "+ JSON.stringify(result));
                 if (!err) {
 
-                    if( result.docs !== null && result.docs !== undefined && result.docs[0] !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details") !== undefined && result.docs[0].service_details !== null) {
-                        if (result.docs[0].service_details.hasOwnProperty("msp") !== undefined && result.docs[0].service_details.hasOwnProperty("msp") !==null) {
-                            if (result.docs[0].service_details.msp !== null && result.docs[0].service_details.msp !== undefined ) {
+                    if( result.docs !== null && result.docs !== undefined && result.docs[0] !== null && result.docs[0] !== undefined && result.docs[0].hasOwnProperty("service_details")) {
+                        if (result.docs[0].service_details.hasOwnProperty("msp")) {
+                            if (result.docs[0].service_details.msp !== null && result.docs[0].service_details.msp !== undefined && result.docs[0].service_details.msp[compcnt]!== null && result.docs[0].service_details.msp[compcnt]!== undefined ) {
 
                                 result.docs[0].service_details.msp[compcnt] = solution_json;
                                 dbSoln.insert(result.docs[0],function(err2,result2) {
@@ -258,15 +258,15 @@ exports.v2_updateServiceInfo=function(request, response) {
                                     }
                                 });
                             }else{
-                                console.log("There is no property called bluemix runtime");
-                                failure_response.description = "There is no property called runtime";
+                                console.log("There is some error in Solution. It has no value in MSP");
+                                failure_response.description = "There is some error in Solution. It has no value in MSP";
                                 response.write(JSON.stringify(failure_response));
                                 response.end();
                             }
                         }
                         else{
-                            console.log("There is no property called bluemix");
-                            failure_response.description = "There is no property called bluemix";
+                            console.log("There is some error in Solution. It has no property called MSP");
+                            failure_response.description = "There is some error in Solution. It has no property called MSP";
                             response.write(JSON.stringify(failure_response));
                             response.end();
                         }
