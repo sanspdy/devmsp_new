@@ -7248,9 +7248,6 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
                     $uibModalInstance.dismiss('cancel');
                     $location.path('/deployment');
                     $scope.loading=true;
-
-
-
                 }
                 $scope.spinsViewBoM = false;
 
