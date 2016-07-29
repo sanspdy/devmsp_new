@@ -326,8 +326,8 @@ exports.v2_AddBMRuntimeToCanvas = function(request, response) {
                 "label":label,
                 "plan": "default",
                 "properties": {
-                    "instance": "1",
-                    "memory": "1024MB",
+                    "instance": "0",
+                    "memory": "64",
                     "price": "0.0"
                 }
             };

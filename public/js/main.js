@@ -925,6 +925,15 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         if($scope.propertiesObjectFirstKey === 'selected'){
                             $scope.selectedFlag = $scope.propertiesObjectFirstKeyValue;
                             console.log('$scope.selectedFlag===' +JSON.stringify($scope.selectedFlag));
+                            if($scope.selectedFlag === "true"){
+                                console.log("selectedflag"+$scope.selectedFlag)
+                                console.log("data is===="+JSON.stringify($scope.propertiesObject));
+                                console.log("plan data ===="+$scope.propertiesObject.entity.extra.displayName);
+                                $scope.selectvalue = $scope.propertiesObject.entity.extra.displayName;
+                                console.log("plan data ===="+$scope.selectvalue);
+
+                            }
+
                         }
                         if($scope.propertiesObjectFirstKey === 'metadata'){
                             $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
@@ -1048,8 +1057,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected,title) {
+        $scope.saveDataService = function (radioselected,displayName,title) {
+
             console.log('radioselected===' +JSON.stringify(radioselected));
+            console.log("display name===="+ displayName);
             //console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);

@@ -633,6 +633,7 @@ angular.module('portalControllers')
                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                             $scope.servicePopupData = data;
                             console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
+
                             $rootScope.bluemixAttrModal = $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',

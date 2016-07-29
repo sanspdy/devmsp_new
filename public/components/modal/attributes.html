@@ -17,7 +17,7 @@
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showServiceAttributes">
-                <button  class="save_btn" type="button" ng-click="saveDataService(planData,attrTitle)">SAVE</button>
+                <button  class="save_btn" type="button" ng-click="saveDataService(selectvalue,attrTitle)">SAVE</button>
             </div>
             <hr>
         </div>
@@ -130,7 +130,7 @@
                 <li  class="row bluemixdata" ng-repeat="property in propertiesObjectArrayData ">
                     <div class="bluemixprop col-xs-3">
                         <label class="bluemixlabel">
-                            <input class=""  ng-value="property.entity.extra.displayName" type="radio" name="PlanName" ng-model="$parent.planData"/>
+                            <input class=""  ng-value="property.entity.extra.displayName" type="radio" name="PlanName" ng-model="$parent.selectvalue"/>
                         </label>
                             {{property.entity.extra.displayName}}
                     </div>
