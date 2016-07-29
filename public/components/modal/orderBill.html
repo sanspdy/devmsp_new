@@ -28,8 +28,8 @@
             <tr class="col-xs-12 tble_data" ng-repeat="data in viewBillOfOrderArray">
                 <td class="col-xs-3">{{data.productName}}</td>
                 <td class="col-xs-3 ">
-                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv()"></span>
-                    <div  class="row" id=""  ng-show="propMSP">
+                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv($index)"></span>
+                    <div  class="row" id=""  ng-show="propMSP[$index]">
                         <div class="col-xs-3">
                             <p> Disktype:</p>
                             <p> M/W:</p>
@@ -61,14 +61,13 @@
                 <td class="col-xs-3">{{dataRuntime.title}}</td>
                 <!--<td class="col-xs-3"><img  class="img-circle" src="../../images/btn_panelexpand.png"></td>-->
                 <td class="col-xs-3 ">
-                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv()"></span>
-                    <div  class="row"   ng-show="propMSP">
+                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrlRuntime}}" ng-click="displaypropDivRuntime($index)"></span>
+                    <div  class="row"   ng-show="propRuntime[$index]">
                         <div class="col-xs-3">
                             <p> Memory:</p>
                             <p> Plan:</p>
                         </div>
                         <div class="col-xs-1">
-
                         </div>
                         <div class="col-xs-3">
                             <p>  {{dataRuntime.properties.memory}}</p>
@@ -110,8 +109,8 @@
                 <td class="col-xs-3">{{dataServices.serviceName}}</td>
                 <!--<td class="col-xs-3"><img  class="img-circle" src="../../images/btn_panelexpand.png"></td>-->
                 <td class="col-xs-3 ">
-                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrl}}" ng-click="displaypropDiv()"></span>
-                    <div  class="row"   ng-show="propServices">
+                    <span><img class="img-circle displayDiv" ng-src="{{followBtnImgUrlServices}}" ng-click="displaypropDivBluemix($index)"></span>
+                    <div  class="row"   ng-show="propServices[$index]">
                         <div class="col-xs-3">
                             <p> Plan:</p>
                         </div>
@@ -136,7 +135,7 @@
     <hr>
     <div class="row">
        <p> <span class="totl_price">Final MSP Price-</span> <span class="price">${{viewBillFinalMSPPrice}}</span> </p>
-        <!--<span class="totl_price">Final Bluemix Price-</span> <span class="price">${{viewBillFinalBluemixPrice}}</span>-->
+        <p><span class="totl_price">Final Bluemix Price-</span> <span class="price">${{viewBillFinalBluemixPrice}}</span></p>
         <p> <span class="totl_price">Total Price-</span> <span class="price">${{viewBillFinalPrice}}</span> </p>
 
         <loading ng-show="placeOrderSpins" class="placeOrderSpin"></loading>

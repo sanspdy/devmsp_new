@@ -11,7 +11,7 @@ angular.module('portalControllers')
         $scope.spinsGetServiceInfo=false;
         $scope.spinsUpdateServiceInfo=false;
         $scope.spinsBOM=false;
-        $scope.objCount=0;
+        $rootScope.objCount=0;
         $scope.MSPComponentCount=0;
         $scope.bluemixRuntimeComponentCount=0;
         $scope.bluemixServiceComponentCount=0;
@@ -27,6 +27,153 @@ angular.module('portalControllers')
         $scope.runtimeCatalogue = false;
         $scope.servicesCatalogue = false;
         $scope.state = false;
+
+        //catalogue components should be loaded on canvas page load
+        $http.get("/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
+            // console.log("Data : " + JSON.stringify(data));
+            $scope.arrayOfComponents = data;
+            console.log("new array data before === "+JSON.stringify($scope.arrayOfComponents));
+            console.log("new array datalength before === "+$scope.arrayOfComponents.length);
+            for(var i=0 ; i<$scope.arrayOfComponents.length; i++)
+            {
+                if($scope.arrayOfComponents[i].catalog_name=='ibm_tealeaf'||$scope.arrayOfComponents[i].catalog_name==='filenet'||$scope.arrayOfComponents[i].catalog_name==='ibm_bpm'||$scope.arrayOfComponents[i].catalog_name==='ibm_sterlingCPQ'||$scope.arrayOfComponents[i].catalog_name==='ibm_sterling'||$scope.arrayOfComponents[i].catalog_name==='ibm_message_sigh')
+                    $scope.arrayOfComponents.splice(i);
+            }
+            console.log("new array data after=== "+JSON.stringify($scope.arrayOfComponents));
+            console.log("new array datalength after === "+$scope.arrayOfComponents.length);
+
+            $scope.Title=[];
+            $scope.icon=[];
+            $scope.catalog_category = [];
+            $scope.catalog_name=[];
+            for(var i=0;i<$scope.arrayOfComponents.length;i++){
+                $scope.MSPComponents=$scope.arrayOfComponents[i];
+                console.log("server $scope.objectKey data"+ i+"   ====   " + JSON.stringify($scope.MSPComponents));
+
+                //iterate through object keys
+                if ($scope.MSPComponents === null) {
+                    console.log('errrorrrr');
+                    return null;
+                }else {
+
+                    var title = $scope.MSPComponents["Title"];
+                    var icon = $scope.MSPComponents["Icon"];
+                    var catalog_category=$scope.MSPComponents["catalog_category"];
+                    var catalog_name = $scope.MSPComponents["catalog_name"];
+                    //push the name string in the array
+                    console.log("title are:: "+title);
+                    console.log("catalog_category  are:: "+catalog_category);
+                    console.log("server_quantity  are:: "+catalog_name);
+                    console.log("icon  are:: "+icon);
+
+                    $scope.Title.push(title);
+                    $scope.catalog_category.push(catalog_category);
+                    $scope.catalog_name.push(catalog_name);
+                    $scope.icon.push(icon);
+                }
+            }
+            console.log("title are:: "+$scope.Title);
+            console.log("catalog_category  are:: "+$scope.catalog_category);
+            console.log("catalog_name  are:: "+$scope.catalog_name);
+            console.log("icon  are:: "+$scope.icon);
+            $scope.loading=false;
+        })
+
+
+        $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
+            console.log('inside http function');
+            console.log("Data : " + JSON.stringify(data));
+            $scope.bluemixRuntimeLabel=[];
+            $scope.bluemixRuntimeIcon = [];
+            $scope.bluemixRuntimeComponentLists=[];
+            $scope.bluemixRuntimeLabelName =[];
+
+            $scope.arrayOfBluemixRuntimeServices = data;
+            console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
+            for(var i=0;i<$scope.arrayOfBluemixRuntimeServices.length;i++) {
+                $scope.bluemixRuntimeObjects = $scope.arrayOfBluemixRuntimeServices[i];
+
+                $scope.bluemixRuntimeComponentLists.push($scope.bluemixRuntimeObjects);
+                var icon_bluemixRuntime = $scope.bluemixRuntimeObjects.icon;
+                var label_bluemixRuntime = $scope.bluemixRuntimeObjects.title;
+                var Bluemix_label = $scope.bluemixRuntimeObjects.label;
+
+                $scope.bluemixRuntimeIcon.push(icon_bluemixRuntime);
+                $scope.bluemixRuntimeLabel.push(label_bluemixRuntime);
+                $scope.bluemixRuntimeLabelName.push(Bluemix_label);
+            }
+
+            console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
+            console.log("Bluemix runtime icon length==="+$scope.bluemixRuntimeIcon.length);
+            console.log("Bluemix runtime label length==="+$scope.bluemixRuntimeLabel.length);
+
+            console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixRuntimeComponentLists));
+            console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixRuntimeIcon));
+            console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixRuntimeLabel));
+            $scope.loading=false;
+        })
+            .error(function(data,status,header,config){
+                console.log("header data" +header);
+                console.log("status data" +status);
+                console.log("config data" +config);
+                console.log("Data:" +data);
+
+
+            });
+
+
+
+        $http.get("/api/v2/getBluemixServicesList",{ cache: true}).success(function(data){
+            console.log('inside http function');
+            if(data.status == 'failed'){
+                //alert(data.description);
+                $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
+                    }
+                });
+            }
+            else {
+                console.log("Data : " + JSON.stringify(data));
+                $scope.bluemixServiceLabel = [];
+                $scope.bluemixServiceIcon = [];
+                $scope.bluemixServiceComponentLists = [];
+                $scope.arrayOfBluemixService = data;
+                console.log("arrayOfBluemixService" + $scope.arrayOfBluemixService);
+                console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
+                for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
+                    $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
+                    $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
+                    var icon_bluemixService = $scope.bluemixServiceObjects.icon;
+                    var label_bluemixService = $scope.bluemixServiceObjects.label;
+                    $scope.bluemixServiceIcon.push(icon_bluemixService);
+                    $scope.bluemixServiceLabel.push(label_bluemixService);
+                }
+                console.log("Bluemix service list length===" + $scope.bluemixServiceComponentLists.length);
+                console.log("Bluemix service icon length===" + $scope.bluemixServiceIcon.length);
+                console.log("Bluemix service label length===" + $scope.bluemixServiceLabel.length);
+                console.log("Bluemix runtime list keywise===" + JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
+                console.log("Bluemix runtime icon keywise===" + JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
+                console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
+                $scope.loading = false;
+            }
+        })
+            .error(function(data,status,header,config){
+                console.log("header data" +header);
+                console.log("status data" +status);
+                console.log("config data" +config);
+                console.log("Data:" +data);
+            })
+        //
         $scope.logoutMsp = function() {
             console.log("inside logout msp");
             localStorage.clear();
@@ -91,8 +238,8 @@ angular.module('portalControllers')
                 $scope.spinsCatalogueList=true;
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = false;
-                $scope.loading=true;
-                $http.get("/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
+                //$scope.loading=true;
+                /*$http.get("/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
                     // console.log("Data : " + JSON.stringify(data));
                     $scope.arrayOfComponents = data;
                     console.log("new array data before === "+JSON.stringify($scope.arrayOfComponents));
@@ -140,7 +287,7 @@ angular.module('portalControllers')
                     console.log("catalog_name  are:: "+$scope.catalog_name);
                     console.log("icon  are:: "+$scope.icon);
                     $scope.loading=false;
-                })
+                })*/
             }
             if (num == 2) {
                 $scope.MSP=false;
@@ -165,8 +312,8 @@ angular.module('portalControllers')
             $scope.spinsCanvas=false;
             $scope.spinsRuntimeList = true;
             $scope.spinsServicesList = false;
-            $scope.loading=true;
-            $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
+            //$scope.loading=true;
+           /* $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
                 console.log('inside http function');
                 console.log("Data : " + JSON.stringify(data));
                 $scope.bluemixRuntimeLabel=[];
@@ -197,14 +344,15 @@ angular.module('portalControllers')
                 console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixRuntimeIcon));
                 console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixRuntimeLabel));
                 $scope.loading=false;
-            }).error(function(data,status,header,config){
+            })
+                .error(function(data,status,header,config){
                 console.log("header data" +header);
                 console.log("status data" +status);
                 console.log("config data" +config);
                 console.log("Data:" +data);
 
 
-            })
+            })*/
 
         }
 
@@ -234,8 +382,8 @@ angular.module('portalControllers')
             $scope.spinsServicesList=true;
             $scope.spinsCanvasCatalogue = false;
             $scope.spinsCanvas=false;
-            $scope.loading=true;
-            $http.get("/api/v2/getBluemixServicesList",{ cache: true}).success(function(data){
+            //$scope.loading=true;
+           /* $http.get("/api/v2/getBluemixServicesList",{ cache: true}).success(function(data){
                 console.log('inside http function');
                 if(data.status == 'failed'){
                     //alert(data.description);
@@ -278,12 +426,13 @@ angular.module('portalControllers')
                     console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
                     $scope.loading = false;
                 }
-            }).error(function(data,status,header,config){
+            })
+                .error(function(data,status,header,config){
                 console.log("header data" +header);
                 console.log("status data" +status);
                 console.log("config data" +config);
                 console.log("Data:" +data);
-            })
+            })*/
         }
 
         $scope.openpopup = function (index) {
@@ -705,7 +854,7 @@ angular.module('portalControllers')
                     $( "#canvas-container").draggable("disable");
                 }
                 if($scope.MSP===true) {
-                    $scope.objCount++;
+                    $rootScope.objCount++;
                     $scope.MSPComponentCount++;
 
                     var indexCount=$scope.MSPComponentCount;
@@ -829,7 +978,7 @@ angular.module('portalControllers')
                 if($scope.Bluemix===true) {
 
                     if($scope.runtimeCatalogue === true){
-                        $scope.objCount++;
+                        $rootScope.objCount++;
                         $scope.bluemixRuntimeComponentCount++;
                         var indexRuntimeCompCount=$scope.bluemixRuntimeComponentCount;
                         var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
@@ -931,7 +1080,7 @@ angular.module('portalControllers')
                     }
 
                     if($scope.servicesCatalogue === true){
-                        $scope.objCount++;
+                        $rootScope.objCount++;
                         $scope.bluemixServiceComponentCount++;
 
                         var indexServiceCompCount=$scope.bluemixServiceComponentCount;
@@ -1537,7 +1686,7 @@ angular.module('portalControllers')
             $scope.printCanvas = function()
             {
                 $scope.choices = [];
-                $scope.objCount = 0;
+                //$scope.objCount = 0;
                 $scope.canvasCreated=JSON.stringify(canvas);
                 console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
                  var newArchModal = $uibModal.open({
@@ -1698,7 +1847,7 @@ angular.module('portalControllers')
             $scope.removeChoice = function(index) {
                 var lastItem = index;
                 $scope.choices.splice(lastItem,1);
-                $scope.objCount--;
+                $rootScope.objCount--;
                 // $scope.deleteObject();
             };
 
@@ -2031,7 +2180,7 @@ angular.module('portalControllers').controller('SaveDataCtrl', function ($scope,
 });
 
 
-angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties,canvasInformation) {
+angular.module('portalControllers').controller('newArchConfirmCtrl', function ($scope,$location,$uibModal,$uibModalInstance,$http,sharedProperties,canvasInformation,$rootScope) {
     console.log("inside newArchConfirmCtrl");
     $scope.ngShowModalNewArch = true;
     $scope.currentUser2 = sharedProperties.getProperty();
@@ -2039,7 +2188,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.solnEntered2 = sharedProperties.getSoln();
     console.log('solnEntered2 == ' + $scope.solnEntered2);
     console.log('canvasInformation===' +canvasInformation);
-    $scope.deleteArchitecture = function(){
+    /*$scope.deleteArchitecture = function(){
         var uid = sharedProperties.getProperty();
         console.log("user name in solution ctrl === "+uid);
         $scope.solnEntered=sharedProperties.getSoln();
@@ -2092,14 +2241,119 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
 
 
 
-    };
+    };*/
 
+    $scope.deleteArchitecture = function(){
+        $rootScope.objCount = 0;
+        $rootScope.solnName = '';
+        var uid = sharedProperties.getProperty();
+        console.log("user name in solution ctrl === "+uid);
+        $scope.solnEntered=sharedProperties.getSoln();
+        console.log('$scope.solnEntered===' +$scope.solnEntered);
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'POST',
+            url: '/api/v2/deleteSolutionVersion',
+            data: $.param({
+                "uname":uid,
+                "solnName": $scope.solnEntered,
+                "version":1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    $scope.deletedSolName = data;
+                    // $scope.data.splice(index, 1);
+                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
+                    //canvas.clear();
+                    $uibModalInstance.close({clearCanvas:true});
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+            });
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+
+            }
+        });
+
+
+
+    };
 
     $scope.dismissDel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
+    /*$scope.createnewArch = function(){
+        //$uibModalInstance.dismiss('cancel');
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo',
+            data: $.param({
+                'uname': $scope.currentUser2,
+                'solnName': $scope.solnEntered2,
+                'canvasinfo': canvasInformation,
+                'version':1
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.close({clearCanvas:true});
+                    //canvas.clear();
+                    //$location.path('/canvas');
+                }
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+
+            });
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/newSolArchitecture.html',
+            controller: 'newsolCtrl',
+            windowClass: 'app-modal-window-nns',
+            backdrop: 'static',
+            resolve: {
+
+            }
+        });
+    }*/
+
+    $scope.cancelnewArch = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
     $scope.createnewArch = function(){
+        $rootScope.objCount = 0;
+        $rootScope.solnName = '';
         //$uibModalInstance.dismiss('cancel');
         $http({
             method: 'PUT',
