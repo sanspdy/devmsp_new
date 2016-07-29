@@ -188,6 +188,10 @@ angular.module('portalControllers')
             $scope.state = !$scope.state;
         };
 
+        $scope.toggleStateHide = function(){
+            $scope.state = false;
+        }
+
        /* $scope.navMsp = function(){
             console.log('inside nav msp');
             /!*$location.path('/MSP');*!/

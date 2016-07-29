@@ -4,6 +4,10 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     $scope.toggleState = function() {
         $scope.state = !$scope.state;
     };
+
+    $scope.toggleStateHide = function(){
+        $scope.state = false;
+    }
     $scope.showMSP = true;
     $scope.showHybrid = true;
     $scope.showDepl = false;
