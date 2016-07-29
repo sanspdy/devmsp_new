@@ -501,6 +501,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
                     $scope.sizing = $scope.patternObject[key];
                     console.log("sizing ==="+JSON.stringify($scope.sizing));
+                    var keys=Object.keys($scope.patternObject);
+                    var len=keys.length;
+                    console.log("sizing obj length === "+len);
                     console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
                     if($scope.sizing.hasOwnProperty("size") && $scope.sizing.size !== null && $scope.sizing.size !== undefined){
                         console.log("size property ====" +JSON.stringify($scope.sizing.size));
@@ -1161,7 +1164,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 service_name: serviceTitle,
                 component_cnt: compCount,
                 solnjson: JSON.stringify(popupData),
-                "serviceplan_guid":guidPlan,
+                service_guid:guidPlan,
                 version:1
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
