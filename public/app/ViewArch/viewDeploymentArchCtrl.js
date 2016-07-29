@@ -468,8 +468,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
 
             for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
                 if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
@@ -777,8 +777,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
             for(var runtimeIndex=0;runtimeIndex<$rootScope.mservicetype.length;runtimeIndex++){
 
                 $scope.actualruntimeComponentIndex=runtimeIndex;
@@ -944,8 +944,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
          console.log("serviceName ============" + runtimeServiceName);
          console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
          var runtimeCount = $scope.openpopupRuntimeCount;
-         $scope.componentCount = runtimeCount - 1;
-         console.log('componentCount runtime === ' + $scope.componentCount);
+         $rootScope.componentCount = runtimeCount - 1;
+         console.log('componentCount runtime === ' + $rootScope.componentCount);
          $scope.newVer= sharedProperties.getNewersion();
          console.log("current version ----->"+$scope.newVer)
 
@@ -2074,8 +2074,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     console.log("serviceName ============" + runtimeServiceName);
                                     console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                     var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $scope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $scope.componentCount);
+                                    $rootScope.componentCount = runtimeCount - 1;
+                                    console.log('componentCount runtime === ' + $rootScope.componentCount);
                                     $scope.newVer= sharedProperties.getNewersion();
                                     console.log("current version ----->"+$scope.newVer)
 
@@ -3507,14 +3507,16 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
     if($rootScope.currentSubmissionStatus === 'saved'){
         console.log('inside if');
         $rootScope.showEditBtn = true;
+        $rootScope.showBtnOrder = true;
     }
     else{
         console.log('inside else');
         $rootScope.showEditBtn = false;
+        $rootScope.showBtnOrder = false;
     };
     $scope.state = false;
     $rootScope.showhideprop=false;
-    $rootScope.showBtnOrder = true;
+   // $rootScope.showBtnOrder = true;
     //$rootScope.showEditBtn = true;
     $scope.showBill1 = true;
     $scope.showBill2 = false;
@@ -3986,8 +3988,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
 
             for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
                 if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
@@ -4804,8 +4806,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                  console.log("serviceName ============" + runtimeServiceName);
                                  console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                  var runtimeCount = $scope.openpopupRuntimeCount;
-                                 $scope.componentCount = runtimeCount - 1;
-                                 console.log('componentCount runtime === ' + $scope.componentCount);
+                                 $rootScope.componentCount = runtimeCount - 1;
+                                 console.log('componentCount runtime === ' + $rootScope.componentCount);
                                  $scope.newVer= sharedProperties.getNewersion();
                                  console.log("current version ----->"+$scope.newVer)
 
@@ -5679,8 +5681,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     console.log("serviceName ============" + runtimeServiceName);
                                     console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                     var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $scope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $scope.componentCount);
+                                    $rootScope.componentCount = runtimeCount - 1;
+                                    console.log('componentCount runtime === ' + $rootScope.componentCount);
                                     $scope.newVer= sharedProperties.getNewersion();
                                     console.log("current version ----->"+$scope.newVer)
 
@@ -5954,7 +5956,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
                     $scope.redirectToPrev = function(){
 
-                        alert("inside redirect to Prev");
+                        //alert("inside redirect to Prev");
                         //$scope.redirectToHome = function(){
 
                         $scope.canvasCreated=JSON.stringify(canvas);
@@ -7162,7 +7164,7 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.ProceedToHome = function(){
+    /*$scope.ProceedToHome = function(){
         $http({
             method: 'PUT',
             url: '/api/v2/updateCanvasInfo',
@@ -7197,7 +7199,73 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
 
 
 
+    };*/
+
+    $scope.ProceedToHome = function(){
+        console.log("from save----->")
+        $scope.newVer= sharedProperties.getNewersion();
+        console.log("current version ----->"+$scope.newVer)
+        /*console.log("created canvas== "+canvas);
+         console.log("Current canvas : " + JSON.stringify(canvas));*/
+        console.log('canvasInformation===' +JSON.stringify(canvasInformation));
+        /*$scope.canvasCreated=JSON.stringify(canvas);
+        console.log("Current canvasCreated : " + $scope.canvasCreated);
+        var s1=canvas;
+        console.log('s1 type === '+typeof s1);*/
+        $scope.currentUser1 = sharedProperties.getProperty();
+        console.log('userEntered == ' + $scope.currentUser1);
+        // $scope.solnEntered1 = sharedProperties.getSoln();
+        $scope.solnEntered1=sharedProperties.getCurrentCSolName();
+        console.log('solnEntered1 == ' + $scope.solnEntered1);
+        $scope.spinsViewBoM = true;
+        $scope.spinsRuntimeList = false;
+        $scope.spinsServicesList=false;
+        $scope.spinsCanvasCatalogue = false;
+        $scope.spinsCanvas=false;
+        $scope.loading=true;
+        $scope.viewCreatSolPageConfirm = true;
+        $http({
+            method: 'PUT',
+            url: '/api/v2/updateCanvasInfo' ,
+            data: $.param({
+                'uname':  $scope.currentUser1,
+                'solnName':  $scope.solnEntered1,
+                'canvasinfo': canvasInformation,
+                'version': $scope.newVer
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //forms user object
+        })
+            .success(function (data, status, header, config) {
+
+                if (data.errors) {
+                    // Showing errors.
+                    $scope.errorName = data.errors.name;
+                } else {
+                    console.log("inside success function");
+                    $scope.PostDataResponse = data;
+                    console.log(JSON.stringify($scope.PostDataResponse));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/deployment');
+                    $scope.loading=true;
+                }
+                $scope.spinsViewBoM = false;
+
+            })
+            .error(function (data, status, header, config) {
+                console.log("header data" + header);
+                console.log("status data" + status);
+                console.log("config data" + JSON.stringify(config));
+                $scope.loading=true;
+            })
+
+
+
+
+
+
     };
+
 
     $scope.cancelProceed = function(){
         //alert('inside cancel Proceed');

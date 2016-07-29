@@ -2,7 +2,7 @@
     <div class="row">
         <div class="row header" ng-show="showMSPAttributes">
             <p class="pop_heading">{{attrTitle}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showMSPAttributes">
                 <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
             </div>
@@ -10,12 +10,12 @@
         </div>
         <div class="row header" ng-show="showRuntimeAttributes">
             <p class="pop_heading">{{popupDataRuntime.title}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <hr>
         </div>
         <div class="row header" ng-show="showServiceAttributes">
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
-            <img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">
+            <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showServiceAttributes">
                 <button  class="save_btn" type="button" ng-click="saveDataService(planData,attrTitle)">SAVE</button>
             </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-xs-12">
                     <p class="col-xs-7 keyHeads">  <b>{{key}}Size</b></p>
-                    <select  class="col-xs-3 serverSize" ng-model=sizevalue ng-change="changeServerSize($index,sizevalue,key)" ng-options="country.size for country in serverSize track by country.id">
+                    <select  class="col-xs-3 serverSize" ng-model=sizevalue[$index] ng-change="changeServerSize($index,sizevalue,key)" ng-options="country.size for country in serverSize track by country.id">
                     </select>
                     <p class="col-xs-2">
 

@@ -37,8 +37,23 @@
     left: 0;
 }
 
+.po-crossNewArch{
+    float: right;
+    margin-right: 0%;
+    margin-top: -11%;
+    top: 0;
+    left: 0;
+}
 
-
+#cancelnewArch{
+    color: #FFFFFF;
+    background-color: #017eba;
+    /*margin-top: 25%;*/
+    margin-left: 0%;
+    height: 45px;
+    width: 130px;
+    border-radius: 5px
+}
 
 #popupHeading{
     color: #707171;
@@ -233,7 +248,7 @@ hr.fancy-line:before {
 }
 
 .modalNewArch{
-    height: 150px;
+    height: 185px;
 }
 
 .modalBluemixPlanSave{

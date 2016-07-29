@@ -501,6 +501,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
                     $scope.sizing = $scope.patternObject[key];
                     console.log("sizing ==="+JSON.stringify($scope.sizing));
+                    var keys=Object.keys($scope.patternObject);
+                    var len=keys.length;
+                    console.log("sizing obj length === "+len);
                     console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
                     if($scope.sizing.hasOwnProperty("size") && $scope.sizing.size !== null && $scope.sizing.size !== undefined){
                         console.log("size property ====" +JSON.stringify($scope.sizing.size));
@@ -1161,7 +1164,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 service_name: serviceTitle,
                 component_cnt: compCount,
                 solnjson: JSON.stringify(popupData),
-                "serviceplan_guid":guidPlan,
+                service_guid:guidPlan,
                 version:1
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -1206,7 +1209,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
 });
 
-angular.module('portalControllers').controller('solCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+angular.module('portalControllers').controller('solCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$rootScope) {
     // alert("inside solution  ctrl");
     $scope.ngShowModal1 = true;
     $scope.dismissModal = function () {
@@ -1215,6 +1218,7 @@ angular.module('portalControllers').controller('solCtrl', function ($scope,$uibM
      };
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
+
 
         $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -1227,18 +1231,21 @@ angular.module('portalControllers').controller('solCtrl', function ($scope,$uibM
 
             }
         });
+        $rootScope.componentCount=0;
+        console.log("$rootScope.componentCount=====>"+$rootScope.componentCount)
     }
     $scope.openItem = function(){
         $uibModalInstance.dismiss('cancel');
         $location.path('/deployment');
     }
 });
-angular.module('portalControllers').controller('newsolCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+angular.module('portalControllers').controller('newsolCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$rootScope) {
     // alert("inside solution  ctrl");
     $scope.ngShowModalNew1 = true;
     /*$scope.dismissModal = function () {
      $uibModalInstance.dismiss('cancel');
      };*/
+    $rootScope.componentCount=0;
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
 
@@ -1394,6 +1401,9 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
+    //$scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
+    $scope.followBtnImgUrlRuntime = '../../images/btn_panelexpand.png';
+    $scope.followBtnImgUrlServices = '../../images/btn_panelexpand.png';
     $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
     if(isOrderButton==='viewBOM'){
         $scope.showOrderBtn = true;
@@ -1408,19 +1418,54 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
         });
         saveAs(blob, "Report.xls");
     };
-
+$scope.propMSP = [];
     $scope.displaypropDiv = function(index){
+        console.log('index===' +index);
         console.log('inside display prop');
         if ($scope.followBtnImgUrl === '../../images/btn_panelexpand.png') {
             $scope.followBtnImgUrl = '../../images/btn_panelhide.png';
-            $scope.propMSP = true;
-            $scope.propRuntime = true;
-            $scope.propServices = true;
+            $scope.propMSP[index] = true;
+            /*$scope.propRuntime = true;
+             $scope.propServices = true;*/
         } else {
             $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
-            $scope.propMSP = false;
-            $scope.propRuntime = false;
-            $scope.propServices = false;
+            $scope.propMSP[index] = false;
+            /* $scope.propRuntime = false;
+             $scope.propServices = false;*/
+        }
+    };
+
+    $scope.propRuntime = [];
+    $scope.displaypropDivRuntime = function(index){
+        console.log('index===' +index);
+        console.log('inside display prop');
+        if ($scope.followBtnImgUrlRuntime === '../../images/btn_panelexpand.png') {
+            $scope.followBtnImgUrlRuntime = '../../images/btn_panelhide.png';
+            //$scope.propMSP = true;
+            $scope.propRuntime[index] = true;
+            // $scope.propServices = true;
+        } else {
+            $scope.followBtnImgUrlRuntime = '../../images/btn_panelexpand.png';
+            //$scope.propMSP = false;
+            $scope.propRuntime[index] = false;
+            //$scope.propServices = false;
+        }
+    };
+    $scope.propServices = [];
+    $scope.displaypropDivBluemix = function(index){
+        console.log('index===' +index);
+        console.log('inside display prop');
+        if ($scope.followBtnImgUrlServices === '../../images/btn_panelexpand.png') {
+            $scope.followBtnImgUrlServices = '../../images/btn_panelhide.png';
+            //$scope.propMSP = true;
+            //$scope.propRuntime = true;
+            $scope.propServices[index] = true;
+            console.log('$scope.propServices==' +$scope.propServices);
+        } else {
+            $scope.followBtnImgUrlServices = '../../images/btn_panelexpand.png';
+            //$scope.propMSP = false;
+            //$scope.propRuntime = false;
+            $scope.propServices[index] = false;
         }
     };
     $scope.ngShowModal4 = true;
@@ -1449,6 +1494,8 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.loading = true;
     /*var newver = sharedProperties.getNewersion();
     console.log("version=============="+newver);*/
+
+    console.log()
     $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+1).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
@@ -1705,7 +1752,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
             if(key === 'Final_MSP_Price'){
                 $scope.viewBillFinalMSPPrice=$scope.ResponseDataViewBillObject[key];
             }
-            if(key === 'Final_Bluemix_Price'){
+            if(key === 'Final Bluemix service Price'){
                 $scope.viewBillFinalBluemixPrice=$scope.ResponseDataViewBillObject[key];
             }
         });
