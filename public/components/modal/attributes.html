@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-xs-12">
                     <p class="col-xs-7 keyHeads">  <b>{{key}}Size</b></p>
-                    <select  class="col-xs-3 serverSize" ng-model=sizevalue ng-change="changeServerSize($index,sizevalue,key)" ng-options="country.size for country in serverSize track by country.id">
+                    <select  class="col-xs-3 serverSize" ng-model=sizevalue[$index] ng-change="changeServerSize($index,sizevalue,key)" ng-options="country.size for country in serverSize track by country.id">
                     </select>
                     <p class="col-xs-2">
 
