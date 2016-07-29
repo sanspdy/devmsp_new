@@ -1394,6 +1394,9 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     $scope.propMSP = false;
     $scope.propRuntime = false;
     $scope.propServices = false;
+    //$scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
+    $scope.followBtnImgUrlRuntime = '../../images/btn_panelexpand.png';
+    $scope.followBtnImgUrlServices = '../../images/btn_panelexpand.png';
     $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
     if(isOrderButton==='viewBOM'){
         $scope.showOrderBtn = true;
@@ -1408,19 +1411,54 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
         });
         saveAs(blob, "Report.xls");
     };
-
+$scope.propMSP = [];
     $scope.displaypropDiv = function(index){
+        console.log('index===' +index);
         console.log('inside display prop');
         if ($scope.followBtnImgUrl === '../../images/btn_panelexpand.png') {
             $scope.followBtnImgUrl = '../../images/btn_panelhide.png';
-            $scope.propMSP = true;
-            $scope.propRuntime = true;
-            $scope.propServices = true;
+            $scope.propMSP[index] = true;
+            /*$scope.propRuntime = true;
+             $scope.propServices = true;*/
         } else {
             $scope.followBtnImgUrl = '../../images/btn_panelexpand.png';
-            $scope.propMSP = false;
-            $scope.propRuntime = false;
-            $scope.propServices = false;
+            $scope.propMSP[index] = false;
+            /* $scope.propRuntime = false;
+             $scope.propServices = false;*/
+        }
+    };
+
+    $scope.propRuntime = [];
+    $scope.displaypropDivRuntime = function(index){
+        console.log('index===' +index);
+        console.log('inside display prop');
+        if ($scope.followBtnImgUrlRuntime === '../../images/btn_panelexpand.png') {
+            $scope.followBtnImgUrlRuntime = '../../images/btn_panelhide.png';
+            //$scope.propMSP = true;
+            $scope.propRuntime[index] = true;
+            // $scope.propServices = true;
+        } else {
+            $scope.followBtnImgUrlRuntime = '../../images/btn_panelexpand.png';
+            //$scope.propMSP = false;
+            $scope.propRuntime[index] = false;
+            //$scope.propServices = false;
+        }
+    };
+    $scope.propServices = [];
+    $scope.displaypropDivBluemix = function(index){
+        console.log('index===' +index);
+        console.log('inside display prop');
+        if ($scope.followBtnImgUrlServices === '../../images/btn_panelexpand.png') {
+            $scope.followBtnImgUrlServices = '../../images/btn_panelhide.png';
+            //$scope.propMSP = true;
+            //$scope.propRuntime = true;
+            $scope.propServices[index] = true;
+            console.log('$scope.propServices==' +$scope.propServices);
+        } else {
+            $scope.followBtnImgUrlServices = '../../images/btn_panelexpand.png';
+            //$scope.propMSP = false;
+            //$scope.propRuntime = false;
+            $scope.propServices[index] = false;
         }
     };
     $scope.ngShowModal4 = true;
