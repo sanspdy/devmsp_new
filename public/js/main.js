@@ -39,6 +39,39 @@ angular.module('portalControllers', ['ui.bootstrap'])
         });
     })
 
+
+.filter('bytes', function() {
+    return function(bytes, precision) {
+        if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';
+        if (typeof precision === 'undefined') precision = 1;
+        var units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'],
+            number = Math.floor(Math.log(bytes) / Math.log(1024));
+        return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) +  ' ' + units[number];
+    }
+})
+
+
+.directive("outsideClick", ['$document','$parse', function( $document, $parse ){
+    return {
+        link: function( $scope, $element, $attributes ){
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function(event){
+                    var isChild = $element.find(event.target).length > 0;
+
+                    if(!isChild) {
+                        $scope.$apply(scopeExpression);
+                    }
+                };
+
+            $document.on("click", onDocumentClick);
+
+            $element.on('$destroy', function() {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    }
+}])
+
      // directive for menu slide bar
     .directive('sidebarDirective', function() {
         return {
@@ -146,6 +179,9 @@ angular.module('portalControllers', ['ui.bootstrap'])
         $scope.toggleState = function() {
             $scope.state = !$scope.state;
         };
+        $scope.toggleStateHide = function(){
+            $scope.state = false;
+        }
         /*$scope.loadHybrid=function(){
             alert('Hybrid');
         };*/
@@ -734,6 +770,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
     if(serviceType==='runtime') {
         console.log("inside runtime ctrl");
         $scope.showMSPAttributes=false;
+        //$scope.quantityRuntime = '';
         $scope.showRuntimeAttributes=true;
         $scope.showServiceAttributes=false;
         $scope.username = sharedProperties.getProperty();
