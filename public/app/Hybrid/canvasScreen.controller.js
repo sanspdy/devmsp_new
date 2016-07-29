@@ -188,6 +188,10 @@ angular.module('portalControllers')
             $scope.state = !$scope.state;
         };
 
+        $scope.toggleStateHide = function(){
+            $scope.state = false;
+        }
+
        /* $scope.navMsp = function(){
             console.log('inside nav msp');
             /!*$location.path('/MSP');*!/
@@ -527,8 +531,8 @@ angular.module('portalControllers')
                 console.log("serviceName ============" + runtimeServiceName);
                 console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
                 var runtimeCount=$scope.openpopupRuntimeCount;
-                $scope.componentCount=runtimeCount-1;
-                console.log('componentCount runtime === '+$scope.componentCount);
+                $rootScope.componentCount=runtimeCount-1;
+                console.log('componentCount runtime === '+$rootScope.componentCount);
 
                 for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
                     if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
@@ -1540,8 +1544,8 @@ angular.module('portalControllers')
                             console.log("serviceName ============" + runtimeServiceName);
                             console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                             var runtimeCount = $scope.openpopupRuntimeCount;
-                            $scope.componentCount = runtimeCount - 1;
-                            console.log('componentCount runtime === ' + $scope.componentCount);
+                            $rootScope.componentCount = runtimeCount - 1;
+                            console.log('componentCount runtime === ' + $rootScope.componentCount);
 
                             for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
                                 if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {

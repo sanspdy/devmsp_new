@@ -1004,13 +1004,15 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                  * console.log("Bluemix
                                                  * Json:"+blumix_services);
                                                  */
+                                                var flag=false;
 
                                                 for (i = 0; i < msp_len; i++) {
-                                                    if (msp_services[i] !== undefined) {
+                                                    if (msp_services[i] !== undefined && msp_services[i] !== null) {
                                                         if (msp_services[i].hasOwnProperty("priceDetails") !== undefined) {
                                                             if (msp_services[i].priceDetails === undefined) {
                                                                 console.log("Requested service is returning null");
                                                                 console.log("*** Request Responded ***");
+                                                                flag=true;
                                                                 console.log("There is no property called runtime ");
                                                                 failure_response.description = "There is no property called runtime "
                                                                 response.write(JSON.stringify(failure_response));
@@ -1030,19 +1032,21 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                             console.log("There is no price details for some components. Error ")
                                                             console.log(err);
                                                             console.log("*** Request Responded ***");
-                                                            console.log("There is no property called runtime ");
-                                                            failure_response.description = "There is no property called runtime "
+                                                            flag=true;
+                                                            console.log("There is no property called price in msp list. Error with data. ");
+                                                            failure_response.description = "There is no property called price in msp list.error with data "
                                                             response.write(JSON.stringify(failure_response));
                                                             response.end();
 
                                                         }
                                                     }
                                                     else {
-                                                        console.log("There is no price details for some components. Error ")
+                                                        console.log("Please check the index of the component that you added. Problem with indexing.  ")
                                                         console.log(err);
+                                                        flag=true;
                                                         console.log("*** Request Responded ***");
-                                                        console.log("There is no property called runtime ");
-                                                        failure_response.description = "There is no property called runtime "
+                                                        //console.log("There is no property called runtime ");
+                                                        failure_response.description = "Please check the index of the component that you added. Problem with indexing.  "
                                                         response.write(JSON.stringify(failure_response));
                                                         response.end();
 
@@ -1063,10 +1067,11 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                     else {
                                                         console.log("There is property for that component ")
                                                         console.log(err);
+                                                        flag=true;
                                                         console.log("*** Request Responded ***");
                                                         console.log("*** Request Responded ***");
-                                                        console.log("There is no property called runtime ");
-                                                        failure_response.description = "There is no property called runtime "
+                                                        console.log("There is no property called price in services ");
+                                                        failure_response.description = "There is no property called price in services. "
                                                         response.write(JSON.stringify(failure_response));
                                                         response.end();
                                                     }
@@ -1075,11 +1080,12 @@ exports.v2_viewBillOfMaterial = function(request, response) {
 
 
                                                 for (i = 0; i < blumix_len; i++) {
-                                                    if (blumix_runtime[i].hasOwnProperty("properties") !== undefined) {
-                                                        if (blumix_runtime[i].properties.hasOwnProperty("price") !== undefined) {
+                                                    if (blumix_runtime !== undefined &&blumix_runtime !== null &&blumix_runtime[i]!==null && blumix_runtime[i].hasOwnProperty("properties")) {
+                                                        if (blumix_runtime[i].properties.hasOwnProperty("price")) {
                                                             if ( blumix_runtime[i].properties=== null ||blumix_runtime[i].properties.price === null || blumix_runtime[i].properties.price === undefined) {
                                                                 console.log("Requested service is returning null");
                                                                 console.log("*** Request Responded ***");
+                                                                flag=true;
                                                                 console.log("There is no property called runtime ");
                                                                 failure_response.description = "There is no property called runtime "
                                                                 response.write(JSON.stringify(failure_response));
@@ -1095,20 +1101,22 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                         else {
                                                             console.log("There is no price details for some components. Error ")
                                                             console.log(err);
+                                                            flag=true;
                                                             console.log("*** Request Responded ***");
-                                                            console.log("There is no property called runtime ");
-                                                            failure_response.description = "There is no property called runtime "
+                                                            console.log("There is no property called price in runtime ");
+                                                            failure_response.description = "There is no property called price in runtime "
                                                             response.write(JSON.stringify(failure_response));
                                                             response.end();
 
                                                         }
                                                     }
                                                     else {
-                                                        console.log("There is property for that component ")
+                                                        console.log("Please check the index of the component that you added. Problem with indexing. ")
                                                         console.log(err);
+                                                        flag=true;
                                                         console.log("*** Request Responded ***");
-                                                        console.log("There is no property called runtime ");
-                                                        failure_response.description = "There is no property called runtime "
+                                                        //console.log("There is no property called runtime ");
+                                                        failure_response.description = "Please check the index of the component that you added. Problem with indexing. "
                                                         response.write(JSON.stringify(failure_response));
                                                         response.end();
 
@@ -1132,15 +1140,17 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                         "Final_Price": final_price
                                                     });
                                                 console.log(priceJson);
-                                                response.write(priceJson);
-                                                response.end();
+                                                if(flag === false) {
+                                                    response.write(priceJson);
+                                                    response.end();
+                                                }
                                             }
                                             else {
-                                                console.log("There is no property called runtime ")
+                                                console.log("There is some error. please try later ")
                                                 console.log(err);
                                                 console.log("*** Request Responded ***");
-                                                console.log("There is no property called runtime ");
-                                                failure_response.description = "There is no property called runtime "
+                                                //console.log("There is no property called runtime ");
+                                                failure_response.description = "There is some error with data. Please check parameters and try later"
                                                 response.write(JSON.stringify(failure_response));
                                                 response.end();
                                             }
@@ -1148,8 +1158,8 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                             console.log("There is no data in bluemix ")
                                             console.log(err);
                                             console.log("*** Request Responded ***");
-                                            console.log("There is no property called bluemix ");
-                                            failure_response.description = "There is no property called bluemix "
+                                            console.log("There is no data in bluemix ");
+                                            failure_response.description = "There is no data in  bluemix "
                                             response.write(JSON.stringify(failure_response));
                                             response.end();
                                         }
@@ -1158,8 +1168,8 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                         console.log("There is no property called bluemix ")
                                         console.log(err);
                                         console.log("*** Request Responded ***");
-                                        console.log("There is no property called msp ");
-                                        failure_response.description = "There is no property called msp "
+                                        console.log("There is data in bluemix ");
+                                        failure_response.description = "There is no data in bluemix "
                                         response.write(JSON.stringify(failure_response));
                                         response.end();
 
