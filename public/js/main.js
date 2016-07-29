@@ -1246,7 +1246,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
 
 });
 
-angular.module('portalControllers').controller('solCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+angular.module('portalControllers').controller('solCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$rootScope) {
     // alert("inside solution  ctrl");
     $scope.ngShowModal1 = true;
     $scope.dismissModal = function () {
@@ -1255,6 +1255,7 @@ angular.module('portalControllers').controller('solCtrl', function ($scope,$uibM
      };
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
+
 
         $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -1267,18 +1268,21 @@ angular.module('portalControllers').controller('solCtrl', function ($scope,$uibM
 
             }
         });
+        $rootScope.componentCount=0;
+        console.log("$rootScope.componentCount=====>"+$rootScope.componentCount)
     }
     $scope.openItem = function(){
         $uibModalInstance.dismiss('cancel');
         $location.path('/deployment');
     }
 });
-angular.module('portalControllers').controller('newsolCtrl', function ($scope,$uibModal,$uibModalInstance,$location) {
+angular.module('portalControllers').controller('newsolCtrl', function ($scope,$uibModal,$uibModalInstance,$location,$rootScope) {
     // alert("inside solution  ctrl");
     $scope.ngShowModalNew1 = true;
     /*$scope.dismissModal = function () {
      $uibModalInstance.dismiss('cancel');
      };*/
+    $rootScope.componentCount=0;
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
 
@@ -1527,6 +1531,8 @@ $scope.propMSP = [];
     $scope.loading = true;
     /*var newver = sharedProperties.getNewersion();
     console.log("version=============="+newver);*/
+
+    console.log()
     $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+1).success(function(data){
         $scope.ResponseDataViewBillObject = data;
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
