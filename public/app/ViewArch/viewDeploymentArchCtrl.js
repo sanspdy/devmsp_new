@@ -468,8 +468,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
 
             for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
                 if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
@@ -777,8 +777,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
             for(var runtimeIndex=0;runtimeIndex<$rootScope.mservicetype.length;runtimeIndex++){
 
                 $scope.actualruntimeComponentIndex=runtimeIndex;
@@ -944,8 +944,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
          console.log("serviceName ============" + runtimeServiceName);
          console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
          var runtimeCount = $scope.openpopupRuntimeCount;
-         $scope.componentCount = runtimeCount - 1;
-         console.log('componentCount runtime === ' + $scope.componentCount);
+         $rootScope.componentCount = runtimeCount - 1;
+         console.log('componentCount runtime === ' + $rootScope.componentCount);
          $scope.newVer= sharedProperties.getNewersion();
          console.log("current version ----->"+$scope.newVer)
 
@@ -2074,8 +2074,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     console.log("serviceName ============" + runtimeServiceName);
                                     console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                     var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $scope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $scope.componentCount);
+                                    $rootScope.componentCount = runtimeCount - 1;
+                                    console.log('componentCount runtime === ' + $rootScope.componentCount);
                                     $scope.newVer= sharedProperties.getNewersion();
                                     console.log("current version ----->"+$scope.newVer)
 
@@ -3988,8 +3988,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             console.log("serviceName ============" + runtimeServiceName);
             console.log('$scope.openpopupRuntimeCount count === '+$scope.openpopupRuntimeCount);
             var runtimeCount=$scope.openpopupRuntimeCount;
-            $scope.componentCount=runtimeCount-1;
-            console.log('componentCount runtime === '+$scope.componentCount);
+            $rootScope.componentCount=runtimeCount-1;
+            console.log('componentCount runtime === '+$rootScope.componentCount);
 
             for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
                 if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
@@ -4806,8 +4806,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                  console.log("serviceName ============" + runtimeServiceName);
                                  console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                  var runtimeCount = $scope.openpopupRuntimeCount;
-                                 $scope.componentCount = runtimeCount - 1;
-                                 console.log('componentCount runtime === ' + $scope.componentCount);
+                                 $rootScope.componentCount = runtimeCount - 1;
+                                 console.log('componentCount runtime === ' + $rootScope.componentCount);
                                  $scope.newVer= sharedProperties.getNewersion();
                                  console.log("current version ----->"+$scope.newVer)
 
@@ -5681,8 +5681,8 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     console.log("serviceName ============" + runtimeServiceName);
                                     console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
                                     var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $scope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $scope.componentCount);
+                                    $rootScope.componentCount = runtimeCount - 1;
+                                    console.log('componentCount runtime === ' + $rootScope.componentCount);
                                     $scope.newVer= sharedProperties.getNewersion();
                                     console.log("current version ----->"+$scope.newVer)
 

@@ -900,12 +900,22 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 console.log("config data" + JSON.stringify(config));
             })
         $rootScope.hybridversionObjectsArray.splice($rootScope.verData, 1);
+
         $uibModalInstance.dismiss();
+        if ( $rootScope.verData===1){
+            console.log("hi it las element")
+        }
+
+
+
+        console.log("array count-$$$$$$$--->"+$rootScope.hybridversionObjectsArray);
+
+        /*if($rootScope.verData===1){
+            console.log("last element in arrary---->")
+            // $rootScope.verpop.dismiss('cancel');
+        }*/
     }
- if($rootScope.verData===1){
-     console.log("last element in arrary---->")
-     //$rootScope.verpop.dismiss('cancel');
- }
+
 
 
 
