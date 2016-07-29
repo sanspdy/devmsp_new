@@ -1161,7 +1161,7 @@ angular.module('portalControllers').controller('BluemixPlanCtrl', function ($sco
                 service_name: serviceTitle,
                 component_cnt: compCount,
                 solnjson: JSON.stringify(popupData),
-                "serviceplan_guid":guidPlan,
+                service_guid:guidPlan,
                 version:1
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
