@@ -848,6 +848,10 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
 
 
                 $scope.deletedSolNameHybrid = data;
+
+
+                $rootScope.SolnArrayHybrid.splice(solIndex,1);
+                $uibModalInstance.dismiss();
                 console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolNameHybrid));
 
             })
@@ -856,22 +860,22 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 console.log("status data" + status);
                 console.log("config data" + JSON.stringify(config));
             })
-       $rootScope.SolnArrayHybrid.splice(solIndex,1);
-        $uibModalInstance.dismiss();
+
     };
 
     $scope.delconfirms= function(){
 
         //$rootScope.verData=version;
         // $rootScope.verindex=index;
+        console.log("version----->"+ $rootScope.verData);
 
         console.log("inside version delete");
-        console.log('version22222===  ' + $rootScope.verData);
+        //console.log('version22222===  ' + $rootScope.verData);
         $scope.solN=sharedProperties.getCurrentCSolName();
         console.log("current solution name"+ $scope.solN);
         $scope.username = sharedProperties.getProperty();
         console.log("current user"+  $scope.username );
-        $http({
+      $http({
             method: 'POST',
             url: '/api/v2/deleteSolutionVersion',
             data: $.param({
@@ -890,6 +894,9 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 } else {
                     $scope.deletedSolName = data;
                     // $scope.data.splice(index, 1);
+                    $rootScope.hybridversionObjectsArray.splice($rootScope.verData, 1);
+                    $uibModalInstance.dismiss();
+
 
                     console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
                 }
@@ -899,23 +906,13 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 console.log("status data" + status);
                 console.log("config data" + JSON.stringify(config));
             })
-        $rootScope.hybridversionObjectsArray.splice($rootScope.verData, 1);
-
-        $uibModalInstance.dismiss();
-        if ( $rootScope.verData===1){
-            console.log("hi it las element")
-        }
 
 
 
-        console.log("array count-$$$$$$$--->"+$rootScope.hybridversionObjectsArray);
 
-        /*if($rootScope.verData===1){
-            console.log("last element in arrary---->")
-            // $rootScope.verpop.dismiss('cancel');
-        }*/
+
+
     }
-
 
 
 
