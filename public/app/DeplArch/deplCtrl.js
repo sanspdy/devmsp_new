@@ -216,7 +216,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     }
 
     $scope.deleteArchHybrid = function (index) {
-        $uibModal.open({
+        $rootScope.delAl=$uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/delArchAll.html',
             controller: 'sol1Ctrl',
@@ -648,10 +648,7 @@ angular.module('portalControllers').controller('versionCtrl', function ($scope,$
 
         $uibModalInstance.close();
     };
-    $scope.savetoPdf=function(){
 
-
-   };
   /* $scope.viewdelete=function(version,index) {
 
       // $scope.versionarray
@@ -832,12 +829,12 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
     };
     $scope.delallconfirms=function(){
        // console.log('data of hybrid is------->' +index);
-        var solIndex =$rootScope.SolnArrayHybrid.indexOf( $rootScope.delindex);
-        console.log('solIndex hybrid === '+solIndex);
+        $rootScope.solIndex =$rootScope.SolnArrayHybrid.indexOf( $rootScope.delindex);
+        console.log('solIndex hybrid === '+$rootScope.solIndex);
         var uid = sharedProperties.getProperty();
         console.log("user name in solution ctrl === "+uid);
-        $scope.deletedSolnNameHybrid =$rootScope.SolnArrayHybrid[solIndex];
-        console.log('index of hybrid is' +solIndex);
+        $scope.deletedSolnNameHybrid =$rootScope.SolnArrayHybrid[$rootScope.solIndex];
+        console.log('index of hybrid is' +$rootScope.solIndex);
         /*$rootScope.solnName = $scope.itemData.solnInput;*/
         console.log("$scope.deletedSolnNameHybrid === " +$scope.deletedSolnNameHybrid);
 
@@ -854,7 +851,8 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 $scope.deletedSolNameHybrid = data;
 
 
-                $rootScope.SolnArrayHybrid.splice(solIndex,1);
+                $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
+
                 $uibModalInstance.dismiss();
                 console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolNameHybrid));
 
@@ -898,12 +896,29 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 } else {
                     $scope.deletedSolName = data;
                     // $scope.data.splice(index, 1);
-                    $rootScope.hybridversionObjectsArray.splice($rootScope.verData, 1);
-                    $uibModalInstance.dismiss();
+                    //pj---
+                   console.log("$rootScope.hybridversionObjectsArray=====>"+ $scope.currentcount)
+
+                    $scope.currentcount=$rootScope.hybridversionObjectsArray.length-1
+                    //--pj
+
+
+
+
+
 
 
                     console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
                 }
+              $rootScope.hybridversionObjectsArray.splice($scope.currentcount, 1);
+              $uibModalInstance.dismiss();
+
+              if($scope.currentcount ===0){
+                  $rootScope.verpop.dismiss('cancel');
+                  $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
+              }
+
+
             })
             .error(function (data, status, header, config) {
                 console.log("header data" + header);
@@ -914,8 +929,8 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
 
 
 
-
-
+        //$rootScope.delAl.dismiss('cancel');
+       // $rootScope.solIndex =$rootScope.SolnArrayHybrid.indexOf( $rootScope.delindex);
     }
 
 
