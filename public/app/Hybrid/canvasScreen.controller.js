@@ -188,6 +188,10 @@ angular.module('portalControllers')
             $scope.state = !$scope.state;
         };
 
+        $scope.toggleStateHide = function(){
+            $scope.state = false;
+        }
+
        /* $scope.navMsp = function(){
             console.log('inside nav msp');
             /!*$location.path('/MSP');*!/
@@ -633,6 +637,7 @@ angular.module('portalControllers')
                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                             $scope.servicePopupData = data;
                             console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
+
                             $rootScope.bluemixAttrModal = $uibModal.open({
                                 animation: $scope.animationsEnabled,
                                 templateUrl: '../components/modal/attributes.html',

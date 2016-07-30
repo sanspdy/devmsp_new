@@ -4,8 +4,8 @@
             <div class="col-sm-4">
                 <div class="">
                     <div>
-                        <div class="sidebar" sidebar-directive="state">
-                            <a href="#" id="navigation-toggle" ng-click="toggleState()"><img src="images/menuico.png"></a>
+                        <div class="sidebar" sidebar-directive="state" outside-click="toggleStateHide()">
+                            <a href="#" id="navigation-toggle" ng-click="toggleState()" ><img src="images/menuico.png"></a>
                             <ul class="navigation">
                                 <li class="navigation-items" ng-show="showMSP"> <a ng-click="navMsp()">MSP</a>
                                 </li>

@@ -3559,6 +3559,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.state = !$scope.state;
     };
 
+    $scope.toggleStateHide = function(){
+        $scope.state = false;
+    }
+
 
 
     $scope.navMsp = function(){

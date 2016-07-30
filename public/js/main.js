@@ -39,6 +39,39 @@ angular.module('portalControllers', ['ui.bootstrap'])
         });
     })
 
+
+.filter('bytes', function() {
+    return function(bytes, precision) {
+        if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';
+        if (typeof precision === 'undefined') precision = 1;
+        var units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'],
+            number = Math.floor(Math.log(bytes) / Math.log(1024));
+        return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) +  ' ' + units[number];
+    }
+})
+
+
+.directive("outsideClick", ['$document','$parse', function( $document, $parse ){
+    return {
+        link: function( $scope, $element, $attributes ){
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function(event){
+                    var isChild = $element.find(event.target).length > 0;
+
+                    if(!isChild) {
+                        $scope.$apply(scopeExpression);
+                    }
+                };
+
+            $document.on("click", onDocumentClick);
+
+            $element.on('$destroy', function() {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    }
+}])
+
      // directive for menu slide bar
     .directive('sidebarDirective', function() {
         return {
@@ -72,6 +105,17 @@ angular.module('portalControllers', ['ui.bootstrap'])
                 });
             }
         };
+    })
+
+    .directive('integer', function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, modelCtrl){
+            modelCtrl.$parsers.unshift(function(viewValue){
+                return parseInt(viewValue, 10);
+            });
+        }
+    };
     })
 
     .directive('myEnter', function () {
@@ -146,6 +190,9 @@ angular.module('portalControllers', ['ui.bootstrap'])
         $scope.toggleState = function() {
             $scope.state = !$scope.state;
         };
+        $scope.toggleStateHide = function(){
+            $scope.state = false;
+        }
         /*$scope.loadHybrid=function(){
             alert('Hybrid');
         };*/
@@ -734,6 +781,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
     if(serviceType==='runtime') {
         console.log("inside runtime ctrl");
         $scope.showMSPAttributes=false;
+        //$scope.quantityRuntime = '';
         $scope.showRuntimeAttributes=true;
         $scope.showServiceAttributes=false;
         $scope.username = sharedProperties.getProperty();
@@ -896,12 +944,18 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.compServiceAdded = countComp;
         console.log('compAdded == ' + $scope.compServiceAdded);
         console.log("$scope.popupData1 === " + JSON.stringify($scope.popupDataService));
+
         $.each($scope.popupDataService, function (key, value) {
             console.log('key===' + key);
             if (key === 'title') {
                 $scope.bluemixServiceTitle = $scope.popupDataService["title"];
                 console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             }
+           /* if(key === 'quantity'){
+                var quantity=$scope.popupDataService["quantity"];
+                console.log("Quantity ======"+ quantity);
+                $scope.unitQuantity=quantity;
+            }*/
             if (key === 'properties') {
                 // $scope.propertiesObject = {};
                 $scope.propertiesObjectArray = $scope.popupDataService["properties"];
@@ -925,6 +979,23 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                         if($scope.propertiesObjectFirstKey === 'selected'){
                             $scope.selectedFlag = $scope.propertiesObjectFirstKeyValue;
                             console.log('$scope.selectedFlag===' +JSON.stringify($scope.selectedFlag));
+                            if($scope.selectedFlag === "true"){
+                                console.log("selectedflag"+$scope.selectedFlag)
+                                console.log("data is===="+JSON.stringify($scope.propertiesObject));
+                                console.log("plan data ===="+$scope.propertiesObject.entity.extra.displayName);
+                                $scope.selectvalue = $scope.propertiesObject.entity.extra.displayName;
+                                console.log("plan data ===="+$scope.selectvalue);
+                                $.each($scope.popupDataService, function (key, value) {
+                                    if(key === 'quantity'){
+                                        var quantity=$scope.popupDataService["quantity"];
+                                        console.log("Quantity ======"+ quantity);
+                                        $scope.unitQuantity=quantity;
+                                    }
+
+                                })
+
+                            }
+
                         }
                         if($scope.propertiesObjectFirstKey === 'metadata'){
                             $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
@@ -985,7 +1056,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.showPriceAfter = false;
 
         $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
-            console.log('property.entity.extra.costs[0].unitQuantity===' +quantity);
+            console.log('property.entity.extra.costs[0].unitQuantity===' +JSON.stringify(quantity[price]));
             console.log('guid===' +guid);
            /* $scope.guidPlanArray = [];
             $scope.guidPlanArray.push(guid);*/
@@ -1003,7 +1074,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 method: 'POST',
                 url: '/api/getBMServicePrice',
                 data: $.param({
-                    "quantity": quantity,
+                    "quantity": quantity[price],
                     "country": country.name,
                     "serviceplan_guid":guid,
                     "service_name":$scope.bluemixServiceTitle,
@@ -1048,8 +1119,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.saveDataService = function (radioselected,title) {
+        $scope.saveDataService = function (radioselected,displayName,title) {
+
             console.log('radioselected===' +JSON.stringify(radioselected));
+            console.log("display name===="+ displayName);
             //console.log('index===' +index);
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);

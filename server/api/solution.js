@@ -666,76 +666,76 @@ exports.updateCanvasConnectionInfo=function(request, response) {
     try {
         dbSoln
             .find(
-                {
-                    selector : {
-                        solution_name : SolName
-                    }
-                },
-                function(err, result) {
-                    if (!err) {
-                        // var services=
-                        // result.docs[0].service_details.msp[compcnt];
+            {
+                selector : {
+                    solution_name : SolName
+                }
+            },
+            function(err, result) {
+                if (!err) {
+                    // var services=
+                    // result.docs[0].service_details.msp[compcnt];
 
-                        result.docs[0].canvas_details[0] = canvas_info;
-                        result.docs[0].connection_info.msp.middleware_comp[0] = connection_info;
-                        console
-                            .log(result.docs[0].canvas_details[0]);
-                        console
-                            .log(result.docs[0].connection_info.msp.middleware_comp[0]);
-                        dbSoln
-                            .insert(
-                                result.docs[0],
-                                function(err2,
-                                         result2) {
-                                    console
-                                        .log("response from insert");
-                                    console
-                                        .log("response from insert "
-                                            + JSON
-                                                .stringify(result));
-                                    if (err) {
-                                        console
-                                            .log(err2);
-                                    } else {
-                                        console
-                                            .log("New doc created ..");
-                                        setTimeout(
-                                            function() {
-                                                console
-                                                    .log("*** Request Responded ***");
-                                                console
-                                                    .log("Status Success");
-                                                response
-                                                    .write("{'status': 'success'}");
-                                                response
-                                                    .end();
-                                            },
-                                            1000);
-
-                                    }
-
-                                });
-
-                        // console.log(services);
-                        // response.write(JSON.stringify(services));
-                        // response.end();
-                    } else {
-                        var errMessage = "Error occurred while accessing components : \n"
-                            + JSON.stringify(err);
-                        response.write(errMessage);
-                        console.log(errMessage);
-                        response.end();
-                        console.log(responseMessage);
-                        setTimeout(
-                            function() {
+                    result.docs[0].canvas_details[0] = canvas_info;
+                    result.docs[0].connection_info.msp.middleware_comp[0] = connection_info;
+                    console
+                        .log(result.docs[0].canvas_details[0]);
+                    console
+                        .log(result.docs[0].connection_info.msp.middleware_comp[0]);
+                    dbSoln
+                        .insert(
+                        result.docs[0],
+                        function(err2,
+                                 result2) {
+                            console
+                                .log("response from insert");
+                            console
+                                .log("response from insert "
+                                + JSON
+                                    .stringify(result));
+                            if (err) {
                                 console
-                                    .log("*** Request Responded ***");
-                                response
-                                    .write("{status: failed}");
-                                response.end();
-                            }, 1000);
-                    }
-                });
+                                    .log(err2);
+                            } else {
+                                console
+                                    .log("New doc created ..");
+                                setTimeout(
+                                    function() {
+                                        console
+                                            .log("*** Request Responded ***");
+                                        console
+                                            .log("Status Success");
+                                        response
+                                            .write("{'status': 'success'}");
+                                        response
+                                            .end();
+                                    },
+                                    1000);
+
+                            }
+
+                        });
+
+                    // console.log(services);
+                    // response.write(JSON.stringify(services));
+                    // response.end();
+                } else {
+                    var errMessage = "Error occurred while accessing components : \n"
+                        + JSON.stringify(err);
+                    response.write(errMessage);
+                    console.log(errMessage);
+                    response.end();
+                    console.log(responseMessage);
+                    setTimeout(
+                        function() {
+                            console
+                                .log("*** Request Responded ***");
+                            response
+                                .write("{status: failed}");
+                            response.end();
+                        }, 1000);
+                }
+            });
     } catch (err) {
         console.log("There is some error:")
         console.log(err.stack);
@@ -1055,180 +1055,180 @@ exports.viewBillofMaterial=function(request, response) {
     try {
         dbSoln
             .find(
-                {
-                    selector : {
-                        solution_name : SolName
-                    }
-                },
-                function(err, result) {
-                    if (!err) {
-                        // var services=
-                        // result.docs[0].service_details.msp[compcnt];
+            {
+                selector : {
+                    solution_name : SolName
+                }
+            },
+            function(err, result) {
+                if (!err) {
+                    // var services=
+                    // result.docs[0].service_details.msp[compcnt];
 
-                        // result.docs[0].canvas_details[0]=canvas_info;
-                        // result.docs[0].connection_info.msp.middleware_comp[0]=connection_info;
-                        // console.log(result.docs[0].canvas_details[0]);
-                        var msp_services = [];
-                        var blumix_services = [];
-                        var blumix_runtime = [];
-                        var final_msp_totalprice = 0;
-                        var final_msp_licenseprice = 0;
-                        var final_runtime_price = 0;
-                        var final_price = 0;
-                        var priceJson = [];
+                    // result.docs[0].canvas_details[0]=canvas_info;
+                    // result.docs[0].connection_info.msp.middleware_comp[0]=connection_info;
+                    // console.log(result.docs[0].canvas_details[0]);
+                    var msp_services = [];
+                    var blumix_services = [];
+                    var blumix_runtime = [];
+                    var final_msp_totalprice = 0;
+                    var final_msp_licenseprice = 0;
+                    var final_runtime_price = 0;
+                    var final_price = 0;
+                    var priceJson = [];
 
-                        msp_services = result.docs[0].service_details.msp;
-                        console.log("MSP Service:"
-                            + msp_services);
+                    msp_services = result.docs[0].service_details.msp;
+                    console.log("MSP Service:"
+                        + msp_services);
 
-                        blumix_services = result.docs[0].service_details.bluemix;
-                        console.log("Bluemix Service:"
-                            + msp_services);
+                    blumix_services = result.docs[0].service_details.bluemix;
+                    console.log("Bluemix Service:"
+                        + msp_services);
 
-                        blumix_runtime = result.docs[0].service_details.bluemix[0].runtime;
-                        console.log("Bluemix Runtime:"
-                            + blumix_runtime);
+                    blumix_runtime = result.docs[0].service_details.bluemix[0].runtime;
+                    console.log("Bluemix Runtime:"
+                        + blumix_runtime);
 
-                        var msp_len = msp_services.length;
-                        console.log("MSP Length:"
-                            + msp_len);
+                    var msp_len = msp_services.length;
+                    console.log("MSP Length:"
+                        + msp_len);
 
-                        var blumix_len = blumix_runtime.length;
-                        console
-                            .log("Bluemix Runtime Length:"
-                                + blumix_len);
+                    var blumix_len = blumix_runtime.length;
+                    console
+                        .log("Bluemix Runtime Length:"
+                        + blumix_len);
 
+                    /*
+                     * msp_services=JSON.parse(msp_services);
+                     * console.log("MSP
+                     * Json:"+msp_services);
+                     *
+                     * blumix_services=JSON.parse(blumix_services);
+                     * console.log("Bluemix
+                     * Json:"+blumix_services);
+                     */
+
+                    for (i = 0; i < msp_len; i++) {
                         /*
-                         * msp_services=JSON.parse(msp_services);
-                         * console.log("MSP
-                         * Json:"+msp_services);
-                         *
-                         * blumix_services=JSON.parse(blumix_services);
-                         * console.log("Bluemix
-                         * Json:"+blumix_services);
+                         * if(!msp_services[i].priceDetails){
+                         * console.log("Requested
+                         * service is returning
+                         * null"); var
+                         * resjson={"status":
+                         * "failed",};
+                         * response.write(JSON.stringify(resjson));
+                         * response.end(); }
+                         */
+                        if (msp_services[i].priceDetails == null) {
+                            console
+                                .log("Requested service is returning null");
+                            var resjson = {
+                                "status" : "failed",
+                            };
+                            response
+                                .write(JSON
+                                    .stringify(resjson));
+                            response.end();
+                        } else {
+                            tot_price = parseInt(msp_services[i].priceDetails.TotalPrice);
+                            lic_price_var = msp_services[i].priceDetails["Total License Cost"];
+                            tot_lic_price = parseInt(lic_price_var);
+                            console
+                                .log("Total Price "
+                                + i
+                                + ":"
+                                + tot_price);
+                            final_msp_totalprice = (tot_price)
+                                + (final_msp_totalprice);
+
+                            console
+                                .log("Total License Cost"
+                                + i
+                                + ":"
+                                + tot_lic_price);
+                            final_msp_licenseprice = (tot_lic_price)
+                                + (final_msp_licenseprice);
+                        }
+                    }
+
+                    for (i = 0; i < blumix_len; i++) {
+                        /*
+                         * if(!blumix_runtime[i].properties.price){
+                         * console.log("Requested
+                         * service is returning
+                         * null"); var
+                         * resjson={"status":
+                         * "failed",};
+                         * response.write(JSON.stringify(resjson));
+                         * response.end(); }
                          */
 
-                        for (i = 0; i < msp_len; i++) {
-                            /*
-                             * if(!msp_services[i].priceDetails){
-                             * console.log("Requested
-                             * service is returning
-                             * null"); var
-                             * resjson={"status":
-                             * "failed",};
-                             * response.write(JSON.stringify(resjson));
-                             * response.end(); }
-                             */
-                            if (msp_services[i].priceDetails == null) {
-                                console
-                                    .log("Requested service is returning null");
-                                var resjson = {
-                                    "status" : "failed",
-                                };
-                                response
-                                    .write(JSON
-                                        .stringify(resjson));
-                                response.end();
-                            } else {
-                                tot_price = parseInt(msp_services[i].priceDetails.TotalPrice);
-                                lic_price_var = msp_services[i].priceDetails["Total License Cost"];
-                                tot_lic_price = parseInt(lic_price_var);
-                                console
-                                    .log("Total Price "
-                                        + i
-                                        + ":"
-                                        + tot_price);
-                                final_msp_totalprice = (tot_price)
-                                    + (final_msp_totalprice);
-
-                                console
-                                    .log("Total License Cost"
-                                        + i
-                                        + ":"
-                                        + tot_lic_price);
-                                final_msp_licenseprice = (tot_lic_price)
-                                    + (final_msp_licenseprice);
-                            }
+                        if (blumix_runtime[i].properties.price == null) {
+                            console
+                                .log("Requested service is returning null");
+                            var resjson = {
+                                "status" : "failed",
+                            };
+                            response
+                                .write(JSON
+                                    .stringify(resjson));
+                            response.end();
+                        } else {
+                            runtime_price = parseInt(blumix_runtime[i].properties.price);
+                            console
+                                .log("Runtime price:"
+                                + runtime_price);
+                            final_runtime_price = (runtime_price)
+                                + (final_runtime_price);
                         }
-
-                        for (i = 0; i < blumix_len; i++) {
-                            /*
-                             * if(!blumix_runtime[i].properties.price){
-                             * console.log("Requested
-                             * service is returning
-                             * null"); var
-                             * resjson={"status":
-                             * "failed",};
-                             * response.write(JSON.stringify(resjson));
-                             * response.end(); }
-                             */
-
-                            if (blumix_runtime[i].properties.price == null) {
-                                console
-                                    .log("Requested service is returning null");
-                                var resjson = {
-                                    "status" : "failed",
-                                };
-                                response
-                                    .write(JSON
-                                        .stringify(resjson));
-                                response.end();
-                            } else {
-                                runtime_price = parseInt(blumix_runtime[i].properties.price);
-                                console
-                                    .log("Runtime price:"
-                                        + runtime_price);
-                                final_runtime_price = (runtime_price)
-                                    + (final_runtime_price);
-                            }
-                        }
-
-                        final_price = (final_runtime_price)
-                            + (final_msp_licenseprice)
-                            + (final_msp_totalprice);
-
-                        console
-                            .log("Final Total Price:");
-                        console
-                            .log(final_msp_totalprice);
-                        console
-                            .log(final_msp_licenseprice);
-                        priceJson = JSON
-                            .stringify({
-                                "msp" : msp_services,
-                                "bluemix" : blumix_services,
-                                "Final_MSP_Price" : final_msp_totalprice,
-                                "Final_MSP_License_Price" : final_msp_licenseprice,
-                                "Final_Runtime_Price" : final_runtime_price,
-                                "Final_Price" : final_price
-                            });
-                        // priceJson=JSON.stringify([
-                        // msp_services ,
-                        // blumix_services, {
-                        // "Final_Price" :
-                        // final_msp_totalprice,
-                        // "Final_License_Price" :
-                        // final_msp_licenseprice } ]);
-                        console.log(priceJson);
-                        response.write(priceJson);
-                        response.end();
-                    } else {
-                        var errMessage = "Error occurred while accessing components : \n"
-                            + JSON.stringify(err);
-                        response.write(errMessage);
-                        console.log(errMessage);
-                        // response.end();
-                        console.log(responseMessage);
-                        setTimeout(
-                            function() {
-                                console
-                                    .log("*** Request Responded ***");
-                                response
-                                    .write("{status: failed}");
-                                response.end();
-                            }, 1000);
                     }
-                });
+
+                    final_price = (final_runtime_price)
+                        + (final_msp_licenseprice)
+                        + (final_msp_totalprice);
+
+                    console
+                        .log("Final Total Price:");
+                    console
+                        .log(final_msp_totalprice);
+                    console
+                        .log(final_msp_licenseprice);
+                    priceJson = JSON
+                        .stringify({
+                            "msp" : msp_services,
+                            "bluemix" : blumix_services,
+                            "Final_MSP_Price" : final_msp_totalprice,
+                            "Final_MSP_License_Price" : final_msp_licenseprice,
+                            "Final_Runtime_Price" : final_runtime_price,
+                            "Final_Price" : final_price
+                        });
+                    // priceJson=JSON.stringify([
+                    // msp_services ,
+                    // blumix_services, {
+                    // "Final_Price" :
+                    // final_msp_totalprice,
+                    // "Final_License_Price" :
+                    // final_msp_licenseprice } ]);
+                    console.log(priceJson);
+                    response.write(priceJson);
+                    response.end();
+                } else {
+                    var errMessage = "Error occurred while accessing components : \n"
+                        + JSON.stringify(err);
+                    response.write(errMessage);
+                    console.log(errMessage);
+                    // response.end();
+                    console.log(responseMessage);
+                    setTimeout(
+                        function() {
+                            console
+                                .log("*** Request Responded ***");
+                            response
+                                .write("{status: failed}");
+                            response.end();
+                        }, 1000);
+                }
+            });
     } catch (err) {
         console.log("There is some error:")
         console.log(err.stack);
@@ -1987,16 +1987,16 @@ exports.v2_placeOrder=function(reqst, resp) {
     var bmusername = reqst.body.bmusername;
     var bmpassword = reqst.body.bmpassword;
 
-   // if(reqst.body.space_guid === undefined && reqst.body.service_plan_guid === undefined  && reqst.body.bmusername === undefined  && reqst.body.bmusername === undefined && !reqst.body.bmpassword && !reqst.body.contactname && !reqst.body.contactmail && !)
+    // if(reqst.body.space_guid === undefined && reqst.body.service_plan_guid === undefined  && reqst.body.bmusername === undefined  && reqst.body.bmusername === undefined && !reqst.body.bmpassword && !reqst.body.contactname && !reqst.body.contactmail && !)
 
 
-   // var space_guid = "cb9e64ba-99a4-43a1-93fd-7bcd903d1865";
+    // var space_guid = "cb9e64ba-99a4-43a1-93fd-7bcd903d1865";
     //var service_plan_guid = ["0e4ddce5-c5e0-48e7-825e-359c206aa9aa","151f88eb-aa39-46b6-b3dc-8c0662a66cb1"];
-   // var bmusername = "kvilliva@in.ibm.com";
-   // var bmpassword = "Hope@1993";
+    // var bmusername = "kvilliva@in.ibm.com";
+    // var bmpassword = "Hope@1993";
 
     console.log("space guid:"+ space_guid);
-   // console.log("service_plan_guid:"+service_plan_guid11);
+    // console.log("service_plan_guid:"+service_plan_guid11);
 
 
     console.log("Placeorder for" + soln);
@@ -2056,126 +2056,134 @@ exports.v2_placeOrder=function(reqst, resp) {
 
                                 dbSoln.insert(resultjson, '', function (err, res) {
 
-                                delete resultjson._id;
-                                delete resultjson._rev;
+                                    delete resultjson._id;
+                                    delete resultjson._rev;
 
-                                dbfinaljson.insert(resultjson, '', function (err1, res1) {
-                                    if (err1) {
-                                        console.log(err1);
+                                    dbfinaljson.insert(resultjson, '', function (err1, res1) {
+                                        if (err1) {
+                                            console.log(err1);
 
-                                        console.log("Error while updating status into DB. Please try again");
-                                    //    failure_response.description = "Error while updating status into DB. Please try again" + err1;
-                                    //    resp.write(JSON.stringify(failure_response));
-                                    //    resp.end();
-                                    }
-                                    else {
-                                        //insert decomposition code.
-
-                                        var msp_properties = resultjson.service_details.msp;
-                                        var bluemix_properties = resultjson.service_details.bluemix;
-
-                                        //calling function which sends request to provision bluemix services and runtimes
-                                        if (bmusername !== null && bmusername !== undefined && bmusername !== '' && bmpassword !== null && bmpassword !== undefined && bmpassword !== '') {
-                                            bluemixprovisioning();
-
+                                            console.log("Error while updating status into DB. Please try again");
+                                            //    failure_response.description = "Error while updating status into DB. Please try again" + err1;
+                                            //    resp.write(JSON.stringify(failure_response));
+                                            //    resp.end();
                                         }
-                                        else{
-                                            console.log("Bluemix Provisioning failed due to insufficient details");
-                                            dbSoln.find({
-                                                selector: {
-                                                    user: uname,
-                                                    solution_name: soln,
-                                                    version: version
-                                                }
-                                            }, function (err, result) {
-                                                if (!err) {
-                                                    console.log("received result");
-                                                    if (result.docs[0] == null) {
-                                                        console.log("null value in result");
-                                                        failure_response.description = "There is no such solution and version exist. please check.";
-                                                        resp.write(JSON.stringify(failure_response));
-                                                        resp.end();
-                                                    } else {
-                                                        resultjson = result.docs[0];
+                                        else {
+                                            //insert decomposition code.
 
-                                                        var orderidgenerated = resultjson._id;
+                                            var msp_properties = resultjson.service_details.msp;
+                                            var bluemix_properties = resultjson.service_details.bluemix;
 
-                                                        resultjson.order_status = "submitted";
-                                                        resultjson.provisioning_status[0].msp_status = "Submitted for Provisioning";
-                                                        resultjson.provisioning_status[0].bluemix_status = "Submitted for Provisioning";
+                                            //calling function which sends request to provision bluemix services and runtimes
+                                            if (bmusername !== null && bmusername !== undefined && bmusername !== '' && bmpassword !== null && bmpassword !== undefined && bmpassword !== '') {
+                                                bluemixprovisioning();
+
+                                            }
+                                            else{
+                                                console.log("Bluemix Provisioning failed due to insufficient details");
+                                                dbSoln.find({
+                                                    selector: {
+                                                        user: uname,
+                                                        solution_name: soln,
+                                                        version: version
                                                     }
-                                                }
-                                            });
+                                                }, function (err, result) {
+                                                    if (!err) {
+                                                        console.log("received result");
+                                                        if (result.docs[0] == null) {
+                                                            console.log("null value in result");
+                                                            failure_response.description = "There is no such solution and version exist. please check.";
+                                                            resp.write(JSON.stringify(failure_response));
+                                                            resp.end();
+                                                        } else {
+                                                            resulttoupdate = result.docs[0];
 
+                                                            var orderidgenerated = resulttoupdate._id;
+
+                                                            if(resulttoupdate.hasOwnProperty("provisioning_status")&&resulttoupdate.provisioning_status[0] !== undefined && resulttoupdate.provisioning_status[0].hasOwnProperty("bluemix_status")) {
+                                                                resulttoupdate.provisioning_status[0].bluemix_status = "Bluemix provisioning Failed due to insufficient data. Please try again... ";
+                                                                dbSoln.insert(resulttoupdate, '', function (err2, res2) {
+                                                                    if(err2){
+                                                                        console.log("Error while updating the status. Sorry we are unable to provision");
+                                                                    }else{
+                                                                        console.log("Sorry we are unable to provision. Status updated in database");
+                                                                    }
+
+                                                                });
+                                                            }
+                                                        }
                                                     }
+                                                });
 
-                                        //calling imi api for msp component provisioning.
+                                            }
 
-                                        function bluemixprovisioning() {
-/*                                            var data = {
-                                                "soln_name": soln,
-                                                "uname": uname,
-                                                "version": version,
-                                                "space_guid": space_guid,
-                                                "service_plan_guid": service_plan_guid,
-                                                "bmusername": bmusername,
-                                                "bmpassword": bmpassword
-                                            };
+                                            //calling imi api for msp component provisioning.
 
-                                            var options = {
-                                                //host: 'cbicportal.mybluemix.net',
-                                                //port:80,
-                                                path: '/api/acceptdummy',
-                                                method: 'POST',
-                                                headers: {
-                                                    'Content-Type': 'application/json',
-                                                    'Content-Length': JSON.stringify(data).length
-                                                }
-                                            };
+                                            function bluemixprovisioning() {
+                                                /*                                            var data = {
+                                                 "soln_name": soln,
+                                                 "uname": uname,
+                                                 "version": version,
+                                                 "space_guid": space_guid,
+                                                 "service_plan_guid": service_plan_guid,
+                                                 "bmusername": bmusername,
+                                                 "bmpassword": bmpassword
+                                                 };
 
-                                            var req = http.request(options, function (res) {
-                                                // res.setEncoding('utf8');
-                                                console.log("Request sent to Bluemix");
-                                            });
-                                            req.on('error', function (err, result) {
-                                                console.log(err);
-                                                //console.log("Error while fetching data from IMI Server. Please try later");
-                                                //failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                //resp.write(JSON.stringify(failure_response));
-                                                // response.end();
-                                            });
-                                            req.write(JSON.stringify(data));
-                                            req.end();*/
-                                            var solnName = soln;
-                                           // var uname = uname;
-                                           // var version = parseInt(request.body.version);
-                                           // var space_guid = request.body.space_guid;
-                                           // var service_plan_guid = service_plan_guid;
-                                           // var bmusername = request.body.bmusername;
-                                           // var bmpassword = request.body.bmpassword;
-                                            var dbsol = cloudant.use(dbCredentials.dbSolution);
+                                                 var options = {
+                                                 //host: 'cbicportal.mybluemix.net',
+                                                 //port:80,
+                                                 path: '/api/acceptdummy',
+                                                 method: 'POST',
+                                                 headers: {
+                                                 'Content-Type': 'application/json',
+                                                 'Content-Length': JSON.stringify(data).length
+                                                 }
+                                                 };
 
-                                            try{
-                                                console.log("creds,",solnName,uname,version);
+                                                 var req = http.request(options, function (res) {
+                                                 // res.setEncoding('utf8');
+                                                 console.log("Request sent to Bluemix");
+                                                 });
+                                                 req.on('error', function (err, result) {
+                                                 console.log(err);
+                                                 //console.log("Error while fetching data from IMI Server. Please try later");
+                                                 //failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                                 //resp.write(JSON.stringify(failure_response));
+                                                 // response.end();
+                                                 });
+                                                 req.write(JSON.stringify(data));
+                                                 req.end();*/
+                                                var solnName = soln;
+                                                // var uname = uname;
+                                                // var version = parseInt(request.body.version);
+                                                // var space_guid = request.body.space_guid;
+                                                // var service_plan_guid = service_plan_guid;
+                                                // var bmusername = request.body.bmusername;
+                                                // var bmpassword = request.body.bmpassword;
+                                                var dbsol = cloudant.use(dbCredentials.dbSolution);
 
-                                                dbsol.find({"selector":{solution_name: solnName, user: uname, version:version}},function(err,result){
-                                                    if(!err) {
-                                                        console.log(result);
-                                                        if (result.docs[0].hasOwnProperty("service_details") || result.docs[0].service_details[0] !== undefined) {
-                                                            console.log("here1");
+                                                try{
+                                                    console.log("creds,",solnName,uname,version);
 
-                                                            if (result.docs[0].service_details.bluemix[0].services !== undefined || result.docs[0].service_details.bluemix[0].services !== null) {
-                                                                console.log("here2");
-                                                                bluemixprovisioning1();
+                                                    dbsol.find({"selector":{solution_name: solnName, user: uname, version:version}},function(err,result){
+                                                        if(!err) {
+                                                            console.log(result);
+                                                            if (result.docs[0].hasOwnProperty("service_details") || result.docs[0].service_details[0] !== undefined) {
+                                                                console.log("here1");
 
-                                                            }
-                                                            else {
-                                                                console.log("No bluemix servvices to be provisioned");
-                                                            }
+                                                                if (result.docs[0].service_details.bluemix[0].services !== undefined || result.docs[0].service_details.bluemix[0].services !== null) {
+                                                                    console.log("here2");
+                                                                    bluemixprovisioning1();
 
-                                                            if (result.docs[0].service_details.bluemix[0].runtime !== null || result.docs[0].service_details.bluemix[0].runtime !== undefined) {
+                                                                }
+                                                                else {
+                                                                    console.log("No bluemix servvices to be provisioned");
+                                                                }
 
-                                                                console.log("I am here3");
+                                                                if (result.docs[0].service_details.bluemix[0].runtime !== null || result.docs[0].service_details.bluemix[0].runtime !== undefined) {
+
+                                                                    console.log("I am here3");
 
                                                                     setTimeout(function(){
                                                                         bluemixappprovisioning();
@@ -2184,100 +2192,308 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                                         },30000)
                                                                     },20000);
                                                                     //bluemixappprovisioning();
-                                                                
 
-                                                            }
-                                                            else {
-                                                                console.log("No runtimes to be provisioned");
-                                                            }
-                                                        }
-                                                    }
-
-
-
-                                                })
-                                            }
-                                            catch(err){
-                                                console.log(err);
-                                            }
-
-                                            function bluemixprovisioning1(){
-                                                var service_name =[];
-                                                var full_token_new="";
-                                                var data={};
-                                                var options={};
-                                                var data1='';
-                                                var index="";
-                                                var original_url='api.ng.bluemix.net';
-                                                if(bmusername === null){
-                                                    response.write("No username provided");
-                                                    response.end();
-                                                }
-                                                else if(bmpassword === null){
-                                                    response.write("No username provided");
-                                                    response.end();
-
-                                                }
-                                                else if(solnName === null){
-                                                    response.write("No soln name provided");
-                                                    response.end();
-                                                }
-                                                else if(service_plan_guid === null){
-                                                    response.write("No soln name provided");
-                                                    response.end();
-                                                }
-                                                else if(space_guid === null){
-                                                    response.write("No space guid provided");
-                                                    response.end();
-                                                }
-                                                else {
-                                                    console.log(service_plan_guid[0]);
-
-                                                    try {
-                                                        console.log("service_plan_guid ==============="+service_plan_guid);
-
-                                                        console.log("inside service guid loop");
-                                                        // console.log(service_plan_guid[k]);
-                                                        var dbsoln = cloudant.use("solutions");
-                                                        dbsoln.find({selector: {user: uname, solution_name: solnName, version: version}}, function (err, result) {
-                                                            if (!err) {
-                                                                //console.log(k);
-                                                                if (result.docs !== null || result.docs !== undefined) {
-                                                                    var ser_details = result.docs[0].service_details.bluemix[0].services;
-                                                                    console.log("Ser details =============",ser_details);
-                                                                    for (var k = 0; k < service_plan_guid.length; k++) {
-                                                                        l1: for (var i = 0; i < ser_details.length; i++) {
-                                                                            var properties = ser_details[i].properties[0];
-                                                                            for (var j = 0; j < properties.length; j++) {
-                                                                                console.log(service_plan_guid[k]);
-                                                                                if (properties[j].metadata.guid === service_plan_guid[k]) {
-                                                                                    service_name[k] = ser_details[i].service_name;
-                                                                                    index = i;
-                                                                                    //console.log(service_name[k]);
-                                                                                    break l1;
-
-                                                                                }
-                                                                                else {
-                                                                                    console.log("No matching service plans found");
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    console.log("service namemeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",service_name);
 
                                                                 }
                                                                 else {
-                                                                    console.log("No data available");
+                                                                    console.log("No runtimes to be provisioned");
                                                                 }
                                                             }
-                                                            else {
-                                                                console.log("Some error in finding data");
-                                                            }
-                                                        });
+                                                        }
+
+
+
+                                                    })
+                                                }
+                                                catch(err){
+                                                    console.log(err);
+                                                }
+
+                                                function bluemixprovisioning1(){
+                                                    var service_name =[];
+                                                    var full_token_new="";
+                                                    var data={};
+                                                    var options={};
+                                                    var data1='';
+                                                    var index="";
+                                                    var original_url='api.ng.bluemix.net';
+                                                    if(bmusername === null){
+                                                        response.write("No username provided");
+                                                        response.end();
                                                     }
-                                                    catch (err) {
+                                                    else if(bmpassword === null){
+                                                        response.write("No username provided");
+                                                        response.end();
+
+                                                    }
+                                                    else if(solnName === null){
+                                                        response.write("No soln name provided");
+                                                        response.end();
+                                                    }
+                                                    else if(service_plan_guid === null){
+                                                        response.write("No soln name provided");
+                                                        response.end();
+                                                    }
+                                                    else if(space_guid === null){
+                                                        response.write("No space guid provided");
+                                                        response.end();
+                                                    }
+                                                    else {
+                                                        console.log(service_plan_guid[0]);
+
+                                                        try {
+                                                            console.log("service_plan_guid ==============="+service_plan_guid);
+
+                                                            console.log("inside service guid loop");
+                                                            // console.log(service_plan_guid[k]);
+                                                            var dbsoln = cloudant.use("solutions");
+                                                            dbsoln.find({selector: {user: uname, solution_name: solnName, version: version}}, function (err, result) {
+                                                                if (!err) {
+                                                                    //console.log(k);
+                                                                    if (result.docs !== null || result.docs !== undefined) {
+                                                                        var ser_details = result.docs[0].service_details.bluemix[0].services;
+                                                                        console.log("Ser details =============",ser_details);
+                                                                        for (var k = 0; k < service_plan_guid.length; k++) {
+                                                                            l1: for (var i = 0; i < ser_details.length; i++) {
+                                                                                var properties = ser_details[i].properties[0];
+                                                                                for (var j = 0; j < properties.length; j++) {
+                                                                                    console.log(service_plan_guid[k]);
+                                                                                    if (properties[j].metadata.guid === service_plan_guid[k]) {
+                                                                                        service_name[k] = ser_details[i].service_name;
+                                                                                        index = i;
+                                                                                        //console.log(service_name[k]);
+                                                                                        break l1;
+
+                                                                                    }
+                                                                                    else {
+                                                                                        console.log("No matching service plans found");
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        console.log("service namemeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",service_name);
+
+                                                                    }
+                                                                    else {
+                                                                        console.log("No data available");
+                                                                    }
+                                                                }
+                                                                else {
+                                                                    console.log("Some error in finding data");
+                                                                }
+                                                            });
+                                                        }
+                                                        catch (err) {
+                                                            console.log(err);
+                                                        }
+                                                        var data = JSON.stringify({
+                                                            'grant_type' : 'password'
+                                                        });
+
+                                                        var dataString = JSON.stringify(data);
+
+                                                        // console.log("data string : " + dataString);
+
+                                                        var options = {
+                                                            host : 'login.ng.bluemix.net',
+                                                            port : 80,
+                                                            path : '/UAALoginServerWAR/oauth/token'
+                                                            + '?grant_type=password&username='+bmusername+'&password='+bmpassword,
+                                                            method : 'POST',
+                                                            headers : {
+                                                                'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                                                                'Content-Length' : data.length,
+                                                                'Accept' : 'application/json;charset=utf-8',
+                                                                'Authorization' : 'Basic Y2Y6'
+                                                            }
+
+                                                        };
+                                                        var token = '';
+                                                        var msg = "";
+                                                        var msg_json = {};
+                                                        var req = http.request(options, function(res) {
+
+                                                            // console.log("response received : " + res);
+                                                            res.setEncoding('utf8');
+                                                            res.on('data', function(chunk) {
+                                                                msg += chunk;
+                                                            });
+                                                            res.on('end', function() {
+                                                                var msg_json = JSON.parse(msg);
+                                                                token_type = msg_json.token_type;
+                                                                token_data = msg_json.access_token;
+                                                                console.log("------",msg_json);
+                                                                full_token = token_type +' '+ token_data;
+                                                                full_token_new = full_token;
+                                                                //console.log(full_token);
+                                                                /*response.write(full_token);
+                                                                 response.end();*/
+                                                                console.log("full tokrn print ====",full_token_new);
+                                                            });
+                                                            console.log("message : " + msg);
+                                                            console.log(";;;;;;;;", msg_json);
+
+                                                        });
+                                                        req.on('error', function() {
+                                                            failure_response.description = "Error while fetching bluemix token"
+                                                            response.write(JSON.stringify(failure_response));
+                                                            response.end();
+                                                        });
+
+                                                        req.write(data);
+                                                        req.end();
+
+                                                        try {
+                                                            var msg = "";
+                                                            console.log("Inside Tryyyy");
+                                                            setTimeout(function(){
+                                                                for(var i=0;i < service_name.length;i++) {
+                                                                    (function(j){
+                                                                        setTimeout(function(){
+                                                                            console.log(j);
+
+                                                                            console.log(service_name.length);
+                                                                            console.log("service nameeeeeeeeeeeeeee", service_name[j]);
+                                                                            console.log("service guiddddddddddddddd", service_plan_guid[j]);
+
+
+                                                                            data = JSON.stringify({
+                                                                                "space_guid": space_guid,
+                                                                                "name": service_name[j],
+                                                                                "service_plan_guid": service_plan_guid[j]
+                                                                            });
+                                                                            console.log("Printing dataaaaaaaaaaaaaaaaaaaaaa", data);
+                                                                            var options = {
+                                                                                host: 'api.ng.bluemix.net',
+                                                                                path: '/v2/service_instances'
+                                                                                + '?accepts_incomplete=true',
+                                                                                method: 'POST',
+                                                                                headers: {
+                                                                                    'Authorization': full_token_new
+                                                                                }
+
+                                                                            };
+                                                                            console.log("optionsssssssssssssssssssssssssssssssssssssssssss", options);
+                                                                            // var StringDecoder = require('string_decoder').StringDecoder;
+
+
+                                                                            var reqst = http.request(options, function (res) {
+                                                                                // var decoder = new StringDecoder('utf8');
+                                                                                console.log("Sent for request");
+                                                                                res.setEncoding('utf8');
+                                                                                res.on('data', function (chunk) {
+                                                                                    //console.log(chunk);
+                                                                                    //  var text = decoder.write(chunk);
+                                                                                    // console.log(text);
+                                                                                    msg += chunk;
+                                                                                    //console.log(msg);
+
+                                                                                });
+                                                                                res.on('end', function () {
+                                                                                    try {
+                                                                                        //response.write(msg);
+
+                                                                                        console.log("mdgggggggggggg",msg);
+                                                                                        console.log("-----------------------------------------");
+                                                                                        msg = JSON.stringify(msg);
+                                                                                        var msg1 = JSON.parse(msg);
+                                                                                        msg1 = JSON.parse(msg1);
+                                                                                        console.log("messageeeeeeeeeeeeeeeeeeeeeeeeeeee",msg1);
+                                                                                        console.log("-----------------------------------------");
+                                                                                        console.log("here i am",i);
+                                                                                        console.log(service_name.length - 1);
+
+
+                                                                                    }
+                                                                                    catch (err) {
+                                                                                        console.log(err);
+                                                                                    }
+
+                                                                                });
+                                                                            });
+                                                                            reqst.on('error', function (e) {
+                                                                                console.log(e);
+                                                                            });
+                                                                            reqst.write(data);
+                                                                            reqst.end();
+
+                                                                        },1000);
+                                                                    }(i));
+
+
+                                                                }
+
+
+                                                            },3000);
+
+
+
+
+
+                                                        }
+                                                        catch (err) {
+                                                            console.log(err);
+                                                        }
+                                                        try {
+                                                            setTimeout(function () {
+                                                                db_insert(service_name, solnName, full_token_new,uname,version)
+
+                                                            }, 20000);
+
+                                                        }
+                                                        catch(err){
+                                                            console.log(err);
+                                                        }
+
+                                                    }
+
+                                                }
+                                                function bluemixappprovisioning(){
+                                                    var full_token_new = "";
+                                                    var msg = "";
+                                                    var app_details=[];
+                                                    var appname="";
+                                                    var appnames=[];
+                                                    var dbsoln = cloudant.use("solutions");
+                                                    var dbbuildpack = cloudant.use("bluemix_buildpack");
+
+                                                    try{
+                                                        dbsoln.find({selector:{user: uname, solution_name: solnName, version: version}},function(err,result){
+                                                            if(!err){
+                                                                if (result.docs !== null || result.docs !== undefined){
+                                                                    app_name=result.docs[0].service_details.bluemix[0].runtime;
+                                                                    for(var i=0;i<app_name.length;i++){
+                                                                        item1={};
+                                                                        item1["name"]=app_name[i].appname;
+                                                                        item={};
+                                                                        item["space_guid"]=space_guid;
+                                                                        item["name"]=app_name[i].appname;
+                                                                        item["buildpack"]=app_name[i].label;
+                                                                        item["memory"]=parseInt(app_name[i].properties.memory);
+                                                                        item["instances"]=parseInt(app_name[i].properties.instance);
+                                                                        app_details.push(item);
+                                                                        appnames.push(item1);
+                                                                    }
+                                                                    console.log("appname is:",app_details);
+                                                                    console.log("app name array:",appnames);
+
+                                                                }
+                                                                else{
+                                                                    console.log("No data returned");
+                                                                }
+                                                            }
+                                                            else{
+                                                                console.log("error",err);
+                                                            }
+
+                                                        })
+
+
+                                                    }
+                                                    catch(err){
                                                         console.log(err);
                                                     }
+
                                                     var data = JSON.stringify({
                                                         'grant_type' : 'password'
                                                     });
@@ -2335,100 +2551,61 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                     req.write(data);
                                                     req.end();
 
-                                                    try {
-                                                        var msg = "";
-                                                        console.log("Inside Tryyyy");
+
+                                                    try{
+
                                                         setTimeout(function(){
-                                                            for(var i=0;i < service_name.length;i++) {
+                                                            for(var i=0;i<app_details.length;i++){
                                                                 (function(j){
                                                                     setTimeout(function(){
-                                                                        console.log(j);
-
-                                                                        console.log(service_name.length);
-                                                                        console.log("service nameeeeeeeeeeeeeee", service_name[j]);
-                                                                        console.log("service guiddddddddddddddd", service_plan_guid[j]);
-
-
-                                                                        data = JSON.stringify({
-                                                                            "space_guid": space_guid,
-                                                                            "name": service_name[j],
-                                                                            "service_plan_guid": service_plan_guid[j]
-                                                                        });
-                                                                        console.log("Printing dataaaaaaaaaaaaaaaaaaaaaa", data);
+                                                                        data = JSON.stringify(app_details[j]);
+                                                                        console.log(data);
                                                                         var options = {
-                                                                            host: 'api.ng.bluemix.net',
-                                                                            path: '/v2/service_instances'
-                                                                            + '?accepts_incomplete=true',
-                                                                            method: 'POST',
-                                                                            headers: {
-                                                                                'Authorization': full_token_new
+                                                                            host : 'api.ng.bluemix.net',
+                                                                            path : '/v2/apps',
+                                                                            method : 'POST',
+                                                                            headers : {
+                                                                                'Authorization' : full_token_new
                                                                             }
 
                                                                         };
-                                                                        console.log("optionsssssssssssssssssssssssssssssssssssssssssss", options);
+                                                                        console.log("optionsssssssssssssssssssssssssssssssssssssssssss",options);
                                                                         // var StringDecoder = require('string_decoder').StringDecoder;
 
-
-                                                                        var reqst = http.request(options, function (res) {
+                                                                        var reqst = http.request(options,function(res){
                                                                             // var decoder = new StringDecoder('utf8');
-                                                                            console.log("Sent for request");
                                                                             res.setEncoding('utf8');
-                                                                            res.on('data', function (chunk) {
-                                                                                //console.log(chunk);
+                                                                            res.on('data',function(chunk){
+                                                                                console.log(chunk);
                                                                                 //  var text = decoder.write(chunk);
                                                                                 // console.log(text);
                                                                                 msg += chunk;
-                                                                                //console.log(msg);
+                                                                                console.log(msg);
 
                                                                             });
-                                                                            res.on('end', function () {
-                                                                                try {
-                                                                                    //response.write(msg);
-
-                                                                                    console.log("mdgggggggggggg",msg);
-                                                                                    console.log("-----------------------------------------");
-                                                                                    msg = JSON.stringify(msg);
-                                                                                    var msg1 = JSON.parse(msg);
-                                                                                    msg1 = JSON.parse(msg1);
-                                                                                    console.log("messageeeeeeeeeeeeeeeeeeeeeeeeeeee",msg1);
-                                                                                    console.log("-----------------------------------------");
-                                                                                    console.log("here i am",i);
-                                                                                    console.log(service_name.length - 1);
-
-
-                                                                                }
-                                                                                catch (err) {
-                                                                                    console.log(err);
-                                                                                }
-
+                                                                            res.on('end',function(){
+                                                                                console.log("ended");
+                                                                                // response.write(msg);
+                                                                                // response.end();
                                                                             });
                                                                         });
-                                                                        reqst.on('error', function (e) {
+                                                                        reqst.on('error',function (e) {
                                                                             console.log(e);
                                                                         });
                                                                         reqst.write(data);
                                                                         reqst.end();
-
-                                                                    },1000);
+                                                                    },3000);
                                                                 }(i));
-
-
                                                             }
 
-
                                                         },3000);
-
-
-
-
-
                                                     }
-                                                    catch (err) {
+                                                    catch(err){
                                                         console.log(err);
                                                     }
                                                     try {
                                                         setTimeout(function () {
-                                                            db_insert(service_name, solnName, full_token_new,uname,version)
+                                                            db_insert_app(appnames, solnName, full_token_new,uname,version)
 
                                                         }, 20000);
 
@@ -2437,550 +2614,415 @@ exports.v2_placeOrder=function(reqst, resp) {
                                                         console.log(err);
                                                     }
 
-                                                }
 
+
+                                                }
                                             }
-                                            function bluemixappprovisioning(){
-                                                var full_token_new = "";
-                                                var msg = "";
-                                                var app_details=[];
-                                                var appname="";
-                                                var appnames=[];
-                                                var dbsoln = cloudant.use("solutions");
-                                                var dbbuildpack = cloudant.use("bluemix_buildpack");
 
-                                                try{
-                                                    dbsoln.find({selector:{user: uname, solution_name: solnName, version: version}},function(err,result){
-                                                        if(!err){
-                                                            if (result.docs !== null || result.docs !== undefined){
-                                                                app_name=result.docs[0].service_details.bluemix[0].runtime;
-                                                                for(var i=0;i<app_name.length;i++){
-                                                                    item1={};
-                                                                    item1["name"]=app_name[i].appname;
-                                                                    item={};
-                                                                    item["space_guid"]=space_guid;
-                                                                    item["name"]=app_name[i].appname;
-                                                                    item["buildpack"]=app_name[i].label;
-                                                                    item["memory"]=parseInt(app_name[i].properties.memory);
-                                                                    item["instances"]=parseInt(app_name[i].properties.instance);
-                                                                    app_details.push(item);
-                                                                    appnames.push(item1);
-                                                                }
-                                                                console.log("appname is:",app_details);
-                                                                console.log("app name array:",appnames);
+                                            if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
+                                                mspprovisioning();
+                                            }
+                                            else{
+                                                console.log("MSP Provisioning failed due to insufficient details");
 
-                                                            }
-                                                            else{
-                                                                console.log("No data returned");
-                                                            }
-                                                        }
-                                                        else{
-                                                            console.log("error",err);
-                                                        }
-
-                                                    })
-
-
-                                                }
-                                                catch(err){
-                                                    console.log(err);
-                                                }
-
-                                                var data = JSON.stringify({
-                                                    'grant_type' : 'password'
-                                                });
-
-                                                var dataString = JSON.stringify(data);
-
-                                                // console.log("data string : " + dataString);
-
-                                                var options = {
-                                                    host : 'login.ng.bluemix.net',
-                                                    port : 80,
-                                                    path : '/UAALoginServerWAR/oauth/token'
-                                                    + '?grant_type=password&username='+bmusername+'&password='+bmpassword,
-                                                    method : 'POST',
-                                                    headers : {
-                                                        'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8',
-                                                        'Content-Length' : data.length,
-                                                        'Accept' : 'application/json;charset=utf-8',
-                                                        'Authorization' : 'Basic Y2Y6'
+                                                dbSoln.find({
+                                                    selector: {
+                                                        user: uname,
+                                                        solution_name: soln,
+                                                        version: version
                                                     }
+                                                }, function (err, result) {
+                                                    if (!err) {
+                                                        console.log("received result");
+                                                        if (result.docs[0] == null && result.docs !== undefined) {
+                                                            console.log("null value in result");
+                                                            failure_response.description = "There is no such solution and version exist. please check.";
+                                                            resp.write(JSON.stringify(failure_response));
+                                                            resp.end();
+                                                        } else {
+                                                            resulttoupdate = result.docs[0];
+
+                                                            var orderidgenerated = resulttoupdate._id;
+
+                                                            if(resulttoupdate.hasOwnProperty("provisioning_status")&&resulttoupdate.provisioning_status[0] !== undefined && resulttoupdate.provisioning_status[0].hasOwnProperty("msp_status")) {
+                                                                resulttoupdate.provisioning_status[0].msp_status = "MSP provisioning Failed due to insufficient data. Please try again... ";
+                                                                dbSoln.insert(resulttoupdate, '', function (err2, res2) {
+                                                                    if(err2){
+                                                                        console.log("Error while updating the status. Sorry we are unable to provision");
+                                                                    }else{
+                                                                        console.log("Sorry we are unable to provision. Status updated in database");
+                                                                    }
+
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            }
+
+                                            //function mspprovisioning() {
+                                            //    randomno = orderidgenerated;
+                                            //    console.log("OrderID: "+ randomno);
+                                            //
+                                            //    var msp_services = [];
+                                            //    msp_services = resultjson.service_details.msp;
+                                            //    msp_len = msp_services.length;
+                                            //    var msp_service_names = [];
+                                            //
+                                            //    var service_properties = [];
+                                            //
+                                            //    for (i = 0; i < msp_len; i++) {
+                                            //        msp_service_names[i] = msp_services[i].catalog_name;
+                                            //        service_properties[i] = msp_services[i].Pattern;
+                                            //        console.log("Properties______________________________");
+                                            //        console.log(JSON.stringify(service_properties[i]));
+                                            //    }
+                                            //
+                                            //    //orderjson = {
+                                            //    //    "Order_ID": "mpaase210d12f817c41f682217acb22219478",
+                                            //    //    "Ordered_Items": "mysql",
+                                            //    //    "Data_Center": "Amsterdam 1",
+                                            //    //    "Originating_From": "mpaas",
+                                            //    //    "User_ID": "superadmin@in.ibm.com",
+                                            //    //    "Comments": "some-comments",
+                                            //    //    "Ordered_ItemDetails": {
+                                            //    //        "mysql": {
+                                            //    //            "orderedItemFormData": {
+                                            //    //                "Group1": {
+                                            //    //                    "count": "1",
+                                            //    //                    "size": "small",
+                                            //    //                    "flavor": "RedHat",
+                                            //    //                    "role": "MYSQL"
+                                            //    //                }
+                                            //    //            }
+                                            //    //        }
+                                            //    //    }
+                                            //    //};
+                                            //
+                                            //
+                                            //    orderjson = {
+                                            //        "Order_ID": randomno,
+                                            //        "Ordered_Items": soln,
+                                            //        "Data_Center": "Amsterdam 1",
+                                            //        "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
+                                            //        "User_ID": contactmail,
+                                            //        "Comments": "some-comments",
+                                            //        "Ordered_ItemDetails": ""
+                                            //        //    "mysql": {
+                                            //        //        "orderedItemFormData": {
+                                            //        //            "Group1": {
+                                            //        //                "count": "1",
+                                            //        //                "size": "small",
+                                            //        //                "flavor": "RedHat",
+                                            //        //                "role": "MYSQL"
+                                            //        //            }
+                                            //        //        }
+                                            //        //    }
+                                            //        //}
+                                            //
+                                            //    };
+                                            //
+                                            //    var offering = {};
+                                            //    var group;
+                                            //    var comp_name_array=[];
+                                            //    var compname;
+                                            //    var qtyname;
+                                            //    var sizeofvm;
+                                            //    var flavourname;
+                                            //
+                                            //    offering[soln] = {"orderedItemFormData": {}};
+                                            //    console.log('offering === ' + JSON.stringify(offering[soln]));
+                                            //
+                                            //    for (i = 0; i < msp_len; i++) {
+                                            //
+                                            //        comp_name_array=Object.keys(service_properties[i]);
+                                            //
+                                            //        if(comp_name_array.length===1){
+                                            //            var keyscnt = [];
+                                            //            //datalen = offering[soln]['orderedItemFormData'].length;
+                                            //            keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                            //            var datalen = keyscnt.length;
+                                            //            group = "Group" + (datalen + 1);
+                                            //            compname = comp_name_array[0];
+                                            //            qtyname = compname + "_Quantity";
+                                            //            sizeofvm = compname.size;
+                                            //            flavourname = compname + "_O/S";
+                                            //
+                                            //            //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                            //            offering[soln]['orderedItemFormData'][group] = {
+                                            //                "count": service_properties[i][compname][qtyname],
+                                            //                "size": sizeofvm,
+                                            //                "flavor": service_properties[i][compname][flavourname],
+                                            //                "role": msp_service_names[i]
+                                            //            };
+                                            //        }
+                                            //        else {
+                                            //
+                                            //            for (j = 0; j < comp_name_array.length; j++) {
+                                            //
+                                            //                var keyscnt = [];
+                                            //                //datalen = offering[soln]['orderedItemFormData'].length;
+                                            //                keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
+                                            //                var datalen = keyscnt.length;
+                                            //                group = "Group" + (datalen + 1);
+                                            //                compname = comp_name_array[j];
+                                            //                qtyname = compname + "_Quantity";
+                                            //                sizeofvm = compname.size;
+                                            //                flavourname = compname + "_O/S";
+                                            //
+                                            //                //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                            //                offering[soln]['orderedItemFormData'][group] = {
+                                            //                    "count": service_properties[i][compname][qtyname],
+                                            //                    "size": sizeofvm,
+                                            //                    "flavor": service_properties[i][compname][flavourname],
+                                            //                    "role": compname.split(" ")[0]
+                                            //                };
+                                            //            }
+                                            //        }
+                                            //
+                                            //    }
+                                            //
+                                            //    orderjson.Ordered_ItemDetails=offering;
+                                            //
+                                            //    final_json_formatted = orderjson;
+                                            //
+                                            //
+                                            //    console.log("Final JSON:----------------");
+                                            //    console.log(JSON.stringify(final_json_formatted));
+                                            //    //console.log(JSON.stringify(final_json_formatted));
+                                            //
+                                            //    dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
+                                            //        if (!errors) {
+                                            //            console.log("Data inserted in Final JSON DB");
+                                            //            // var resjson = {
+                                            //            //     "status" : "success"
+                                            //            // };
+                                            //            // resp.write(JSON.stringify(success_response));
+                                            //            // resp.end();
+                                            //        }
+                                            //        else {
+                                            //            //failure_response.description = "Data insertion in Final JSON DB failed";
+                                            //            //resp.write(JSON.stringify(failure_response));
+                                            //            //resp.end();
+                                            //            console.log("Failed.");
+                                            //        }
+                                            //    });
+                                            //    //// insert msp provisioning code here...
+                                            //    var mpaasusername = "mpaasuser";
+                                            //    var mpaaspassword = "Test@123";
+                                            //    var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
+                                            //    var https = require('https');
+                                            //
+                                            //    var options = {
+                                            //        host: '5.10.122.189',
+                                            //        path: '/fulfillment_engine/mpaas/order/create',
+                                            //        //port: 8443,
+                                            //        port:4443,
+                                            //        method: 'POST',
+                                            //        headers: {
+                                            //            'Content-Type': 'application/json',
+                                            //            'Content-Length': JSON.stringify(orderjson).length,
+                                            //            "Authorization": auth
+                                            //        },
+                                            //        rejectUnauthorized: false,
+                                            //        requestCert: true,
+                                            //        agent: false,
+                                            //        //secureProtocol:
+                                            //    };
+                                            //
+                                            //    var req = https.request(options, function (err, res) {
+                                            //        // res.setEncoding('utf8');
+                                            //        if (!err) {
+                                            //            console.log("Request sent to MSP===============>Response here...");
+                                            //            //console.log(res);
+                                            //        }
+                                            //        else {
+                                            //            //console.log(err);
+                                            //        }
+                                            //
+                                            //    });
+                                            //    req.on('error', function (err, result) {
+                                            //        console.log(err);
+                                            //        console.log("Error while fetching data from IMI Server. Please try later");
+                                            //        failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                            //        resp.write(JSON.stringify(failure_response));
+                                            //        // response.end();
+                                            //    });
+                                            //    req.write(JSON.stringify(orderjson));
+                                            //
+                                            //    console.log("MSP Provisioning request initiated...");
+                                            //
+                                            //    req.end();
+                                            //}
+
+                                            function mspprovisioning(){
+                                                randomno = orderidgenerated;
+                                                console.log("OrderID: "+ randomno);
+
+                                                var msp_services = [];
+                                                msp_services = resultjson.service_details.msp;
+                                                msp_len = msp_services.length;
+                                                var msp_service_names = [];
+                                                var listofservices="";
+
+                                                var service_properties = [];
+
+                                                for (i = 0; i < msp_len; i++) {
+                                                    msp_service_names[i] = msp_services[i].catalog_name;
+                                                    service_properties[i] = msp_services[i].Pattern;
+                                                    console.log("Properties______________________________");
+                                                    console.log(JSON.stringify(service_properties[i]));
+                                                }
+
+                                                orderjson = {
+                                                    "Order_ID": randomno,
+                                                    "Ordered_Items": msp_service_names.toString(),
+                                                    "Data_Center": "Amsterdam 1",
+                                                    "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
+                                                    "User_ID": contactmail,
+                                                    "Comments": "This is for testing",
+                                                    "Ordered_ItemDetails": ""
+                                                    //    "mysql": {
+                                                    //        "orderedItemFormData": {
+                                                    //            "Group1": {
+                                                    //                "count": "1",
+                                                    //                "size": "small",
+                                                    //                "flavor": "RedHat",
+                                                    //                "role": "MYSQL"
+                                                    //            }
+                                                    //        }
+                                                    //    }
+                                                    //}
 
                                                 };
-                                                var token = '';
-                                                var msg = "";
-                                                var msg_json = {};
-                                                var req = http.request(options, function(res) {
+                                                var offering = {};
 
-                                                    // console.log("response received : " + res);
-                                                    res.setEncoding('utf8');
-                                                    res.on('data', function(chunk) {
-                                                        msg += chunk;
-                                                    });
-                                                    res.on('end', function() {
-                                                        var msg_json = JSON.parse(msg);
-                                                        token_type = msg_json.token_type;
-                                                        token_data = msg_json.access_token;
-                                                        console.log("------",msg_json);
-                                                        full_token = token_type +' '+ token_data;
-                                                        full_token_new = full_token;
-                                                        //console.log(full_token);
-                                                        /*response.write(full_token);
-                                                         response.end();*/
-                                                        console.log("full tokrn print ====",full_token_new);
-                                                    });
-                                                    console.log("message : " + msg);
-                                                    console.log(";;;;;;;;", msg_json);
+                                                for(i=0;i<msp_len;i++){
+                                                    var catlg_name=msp_services[i].catalog_name;
+                                                    offering[catlg_name] = {"orderedItemFormData": {}};
 
-                                                });
-                                                req.on('error', function() {
-                                                    failure_response.description = "Error while fetching bluemix token"
-                                                    response.write(JSON.stringify(failure_response));
-                                                    response.end();
-                                                });
+                                                    comp_name_array=Object.keys(service_properties[i]);
 
-                                                req.write(data);
-                                                req.end();
-
-
-                                                try{
-
-                                                    setTimeout(function(){
-                                                        for(var i=0;i<app_details.length;i++){
-                                                            (function(j){
-                                                                setTimeout(function(){
-                                                                    data = JSON.stringify(app_details[j]);
-                                                                    console.log(data);
-                                                                    var options = {
-                                                                        host : 'api.ng.bluemix.net',
-                                                                        path : '/v2/apps',
-                                                                        method : 'POST',
-                                                                        headers : {
-                                                                            'Authorization' : full_token_new
-                                                                        }
-
-                                                                    };
-                                                                    console.log("optionsssssssssssssssssssssssssssssssssssssssssss",options);
-                                                                    // var StringDecoder = require('string_decoder').StringDecoder;
-
-                                                                    var reqst = http.request(options,function(res){
-                                                                        // var decoder = new StringDecoder('utf8');
-                                                                        res.setEncoding('utf8');
-                                                                        res.on('data',function(chunk){
-                                                                            console.log(chunk);
-                                                                            //  var text = decoder.write(chunk);
-                                                                            // console.log(text);
-                                                                            msg += chunk;
-                                                                            console.log(msg);
-
-                                                                        });
-                                                                        res.on('end',function(){
-                                                                            console.log("ended");
-                                                                            // response.write(msg);
-                                                                            // response.end();
-                                                                        });
-                                                                    });
-                                                                    reqst.on('error',function (e) {
-                                                                        console.log(e);
-                                                                    });
-                                                                    reqst.write(data);
-                                                                    reqst.end();
-                                                                },3000);
-                                                            }(i));
-                                                        }
-
-                                                    },3000);
-                                                }
-                                                catch(err){
-                                                    console.log(err);
-                                                }
-                                                try {
-                                                    setTimeout(function () {
-                                                        db_insert_app(appnames, solnName, full_token_new,uname,version)
-
-                                                    }, 20000);
-
-                                                }
-                                                catch(err){
-                                                    console.log(err);
-                                                }
-
-
-
-                                            }
-                                        }
-
-                                        if (contactname !== null && contactname !== undefined && contactmail !== '' && contactmail !== undefined) {
-                                           mspprovisioning();
-                                        }
-                                        else{
-                                            console.log("MSP Provisioning failed due to insufficient details");
-                                        }
-
-                                        //function mspprovisioning() {
-                                        //    randomno = orderidgenerated;
-                                        //    console.log("OrderID: "+ randomno);
-                                        //
-                                        //    var msp_services = [];
-                                        //    msp_services = resultjson.service_details.msp;
-                                        //    msp_len = msp_services.length;
-                                        //    var msp_service_names = [];
-                                        //
-                                        //    var service_properties = [];
-                                        //
-                                        //    for (i = 0; i < msp_len; i++) {
-                                        //        msp_service_names[i] = msp_services[i].catalog_name;
-                                        //        service_properties[i] = msp_services[i].Pattern;
-                                        //        console.log("Properties______________________________");
-                                        //        console.log(JSON.stringify(service_properties[i]));
-                                        //    }
-                                        //
-                                        //    //orderjson = {
-                                        //    //    "Order_ID": "mpaase210d12f817c41f682217acb22219478",
-                                        //    //    "Ordered_Items": "mysql",
-                                        //    //    "Data_Center": "Amsterdam 1",
-                                        //    //    "Originating_From": "mpaas",
-                                        //    //    "User_ID": "superadmin@in.ibm.com",
-                                        //    //    "Comments": "some-comments",
-                                        //    //    "Ordered_ItemDetails": {
-                                        //    //        "mysql": {
-                                        //    //            "orderedItemFormData": {
-                                        //    //                "Group1": {
-                                        //    //                    "count": "1",
-                                        //    //                    "size": "small",
-                                        //    //                    "flavor": "RedHat",
-                                        //    //                    "role": "MYSQL"
-                                        //    //                }
-                                        //    //            }
-                                        //    //        }
-                                        //    //    }
-                                        //    //};
-                                        //
-                                        //
-                                        //    orderjson = {
-                                        //        "Order_ID": randomno,
-                                        //        "Ordered_Items": soln,
-                                        //        "Data_Center": "Amsterdam 1",
-                                        //        "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
-                                        //        "User_ID": contactmail,
-                                        //        "Comments": "some-comments",
-                                        //        "Ordered_ItemDetails": ""
-                                        //        //    "mysql": {
-                                        //        //        "orderedItemFormData": {
-                                        //        //            "Group1": {
-                                        //        //                "count": "1",
-                                        //        //                "size": "small",
-                                        //        //                "flavor": "RedHat",
-                                        //        //                "role": "MYSQL"
-                                        //        //            }
-                                        //        //        }
-                                        //        //    }
-                                        //        //}
-                                        //
-                                        //    };
-                                        //
-                                        //    var offering = {};
-                                        //    var group;
-                                        //    var comp_name_array=[];
-                                        //    var compname;
-                                        //    var qtyname;
-                                        //    var sizeofvm;
-                                        //    var flavourname;
-                                        //
-                                        //    offering[soln] = {"orderedItemFormData": {}};
-                                        //    console.log('offering === ' + JSON.stringify(offering[soln]));
-                                        //
-                                        //    for (i = 0; i < msp_len; i++) {
-                                        //
-                                        //        comp_name_array=Object.keys(service_properties[i]);
-                                        //
-                                        //        if(comp_name_array.length===1){
-                                        //            var keyscnt = [];
-                                        //            //datalen = offering[soln]['orderedItemFormData'].length;
-                                        //            keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
-                                        //            var datalen = keyscnt.length;
-                                        //            group = "Group" + (datalen + 1);
-                                        //            compname = comp_name_array[0];
-                                        //            qtyname = compname + "_Quantity";
-                                        //            sizeofvm = compname.size;
-                                        //            flavourname = compname + "_O/S";
-                                        //
-                                        //            //offering[soln]['orderedItemFormData'][group] = service_properties[i];
-                                        //            offering[soln]['orderedItemFormData'][group] = {
-                                        //                "count": service_properties[i][compname][qtyname],
-                                        //                "size": sizeofvm,
-                                        //                "flavor": service_properties[i][compname][flavourname],
-                                        //                "role": msp_service_names[i]
-                                        //            };
-                                        //        }
-                                        //        else {
-                                        //
-                                        //            for (j = 0; j < comp_name_array.length; j++) {
-                                        //
-                                        //                var keyscnt = [];
-                                        //                //datalen = offering[soln]['orderedItemFormData'].length;
-                                        //                keyscnt = Object.keys(offering[soln]['orderedItemFormData']);
-                                        //                var datalen = keyscnt.length;
-                                        //                group = "Group" + (datalen + 1);
-                                        //                compname = comp_name_array[j];
-                                        //                qtyname = compname + "_Quantity";
-                                        //                sizeofvm = compname.size;
-                                        //                flavourname = compname + "_O/S";
-                                        //
-                                        //                //offering[soln]['orderedItemFormData'][group] = service_properties[i];
-                                        //                offering[soln]['orderedItemFormData'][group] = {
-                                        //                    "count": service_properties[i][compname][qtyname],
-                                        //                    "size": sizeofvm,
-                                        //                    "flavor": service_properties[i][compname][flavourname],
-                                        //                    "role": compname.split(" ")[0]
-                                        //                };
-                                        //            }
-                                        //        }
-                                        //
-                                        //    }
-                                        //
-                                        //    orderjson.Ordered_ItemDetails=offering;
-                                        //
-                                        //    final_json_formatted = orderjson;
-                                        //
-                                        //
-                                        //    console.log("Final JSON:----------------");
-                                        //    console.log(JSON.stringify(final_json_formatted));
-                                        //    //console.log(JSON.stringify(final_json_formatted));
-                                        //
-                                        //    dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
-                                        //        if (!errors) {
-                                        //            console.log("Data inserted in Final JSON DB");
-                                        //            // var resjson = {
-                                        //            //     "status" : "success"
-                                        //            // };
-                                        //            // resp.write(JSON.stringify(success_response));
-                                        //            // resp.end();
-                                        //        }
-                                        //        else {
-                                        //            //failure_response.description = "Data insertion in Final JSON DB failed";
-                                        //            //resp.write(JSON.stringify(failure_response));
-                                        //            //resp.end();
-                                        //            console.log("Failed.");
-                                        //        }
-                                        //    });
-                                        //    //// insert msp provisioning code here...
-                                        //    var mpaasusername = "mpaasuser";
-                                        //    var mpaaspassword = "Test@123";
-                                        //    var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
-                                        //    var https = require('https');
-                                        //
-                                        //    var options = {
-                                        //        host: '5.10.122.189',
-                                        //        path: '/fulfillment_engine/mpaas/order/create',
-                                        //        //port: 8443,
-                                        //        port:4443,
-                                        //        method: 'POST',
-                                        //        headers: {
-                                        //            'Content-Type': 'application/json',
-                                        //            'Content-Length': JSON.stringify(orderjson).length,
-                                        //            "Authorization": auth
-                                        //        },
-                                        //        rejectUnauthorized: false,
-                                        //        requestCert: true,
-                                        //        agent: false,
-                                        //        //secureProtocol:
-                                        //    };
-                                        //
-                                        //    var req = https.request(options, function (err, res) {
-                                        //        // res.setEncoding('utf8');
-                                        //        if (!err) {
-                                        //            console.log("Request sent to MSP===============>Response here...");
-                                        //            //console.log(res);
-                                        //        }
-                                        //        else {
-                                        //            //console.log(err);
-                                        //        }
-                                        //
-                                        //    });
-                                        //    req.on('error', function (err, result) {
-                                        //        console.log(err);
-                                        //        console.log("Error while fetching data from IMI Server. Please try later");
-                                        //        failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                        //        resp.write(JSON.stringify(failure_response));
-                                        //        // response.end();
-                                        //    });
-                                        //    req.write(JSON.stringify(orderjson));
-                                        //
-                                        //    console.log("MSP Provisioning request initiated...");
-                                        //
-                                        //    req.end();
-                                        //}
-
-                                        function mspprovisioning(){
-                                            randomno = orderidgenerated;
-                                            console.log("OrderID: "+ randomno);
-
-                                            var msp_services = [];
-                                            msp_services = resultjson.service_details.msp;
-                                            msp_len = msp_services.length;
-                                            var msp_service_names = [];
-                                            var listofservices="";
-
-                                            var service_properties = [];
-
-                                            for (i = 0; i < msp_len; i++) {
-                                                msp_service_names[i] = msp_services[i].catalog_name;
-                                                service_properties[i] = msp_services[i].Pattern;
-                                                console.log("Properties______________________________");
-                                                console.log(JSON.stringify(service_properties[i]));
-                                            }
-
-                                            orderjson = {
-                                                "Order_ID": randomno,
-                                                "Ordered_Items": msp_service_names.toString(),
-                                                "Data_Center": "Amsterdam 1",
-                                                "Originating_From": "http://cbicportal.mybluemix.net/api/updatestatus",
-                                                "User_ID": contactmail,
-                                                "Comments": "This is for testing",
-                                                "Ordered_ItemDetails": ""
-                                                //    "mysql": {
-                                                //        "orderedItemFormData": {
-                                                //            "Group1": {
-                                                //                "count": "1",
-                                                //                "size": "small",
-                                                //                "flavor": "RedHat",
-                                                //                "role": "MYSQL"
-                                                //            }
-                                                //        }
-                                                //    }
-                                                //}
-
-                                            };
-                                            var offering = {};
-
-                                            for(i=0;i<msp_len;i++){
-                                                var catlg_name=msp_services[i].catalog_name;
-                                                offering[catlg_name] = {"orderedItemFormData": {}};
-
-                                                comp_name_array=Object.keys(service_properties[i]);
-
-                                                if(comp_name_array.length===1) {
-                                                    var keyscnt = [];
-                                                    //datalen = offering[soln]['orderedItemFormData'].length;
-                                                    keyscnt = Object.keys(offering[catlg_name]['orderedItemFormData']);
-                                                    var datalen = keyscnt.length;
-                                                    group = "Group" + (datalen + 1);
-                                                    compname = comp_name_array[0];
-                                                    qtyname = compname + "_Quantity";
-                                                    sizeofvm = compname.size;
-                                                    flavourname = compname + "_O/S";
-                                                    offering[catlg_name]['orderedItemFormData'][group] = {
-                                                        "count": service_properties[i][compname][qtyname],
-                                                        "size": sizeofvm,
-                                                        "flavor": service_properties[i][compname][flavourname],
-                                                        "role": msp_service_names[i]
-                                                    };
-                                                }
-                                                else {
-
-                                                    for (j = 0; j < comp_name_array.length; j++) {
-
+                                                    if(comp_name_array.length===1) {
                                                         var keyscnt = [];
                                                         //datalen = offering[soln]['orderedItemFormData'].length;
                                                         keyscnt = Object.keys(offering[catlg_name]['orderedItemFormData']);
                                                         var datalen = keyscnt.length;
                                                         group = "Group" + (datalen + 1);
-                                                        compname = comp_name_array[j];
+                                                        compname = comp_name_array[0];
                                                         qtyname = compname + "_Quantity";
                                                         sizeofvm = compname.size;
                                                         flavourname = compname + "_O/S";
-
-                                                        //offering[soln]['orderedItemFormData'][group] = service_properties[i];
                                                         offering[catlg_name]['orderedItemFormData'][group] = {
                                                             "count": service_properties[i][compname][qtyname],
                                                             "size": sizeofvm,
                                                             "flavor": service_properties[i][compname][flavourname],
-                                                            "role": compname.split(" ")[0]
+                                                            "role": msp_service_names[i]
                                                         };
                                                     }
+                                                    else {
+
+                                                        for (j = 0; j < comp_name_array.length; j++) {
+
+                                                            var keyscnt = [];
+                                                            //datalen = offering[soln]['orderedItemFormData'].length;
+                                                            keyscnt = Object.keys(offering[catlg_name]['orderedItemFormData']);
+                                                            var datalen = keyscnt.length;
+                                                            group = "Group" + (datalen + 1);
+                                                            compname = comp_name_array[j];
+                                                            qtyname = compname + "_Quantity";
+                                                            sizeofvm = compname.size;
+                                                            flavourname = compname + "_O/S";
+
+                                                            //offering[soln]['orderedItemFormData'][group] = service_properties[i];
+                                                            offering[catlg_name]['orderedItemFormData'][group] = {
+                                                                "count": service_properties[i][compname][qtyname],
+                                                                "size": sizeofvm,
+                                                                "flavor": service_properties[i][compname][flavourname],
+                                                                "role": compname.split(" ")[0]
+                                                            };
+                                                        }
+                                                    }
                                                 }
+                                                orderjson.Ordered_ItemDetails=offering;
+                                                final_json_formatted = orderjson;
+
+
+                                                console.log("Final JSON:----------------");
+                                                console.log(JSON.stringify(final_json_formatted));
+
+
+                                                dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
+                                                    if (!errors) {
+                                                        console.log("Data inserted in Final JSON DB");
+                                                        // var resjson = {
+                                                        //     "status" : "success"
+                                                        // };
+                                                        // resp.write(JSON.stringify(success_response));
+                                                        // resp.end();
+                                                    }
+                                                    else {
+                                                        //failure_response.description = "Data insertion in Final JSON DB failed";
+                                                        //resp.write(JSON.stringify(failure_response));
+                                                        //resp.end();
+                                                        console.log("Failed.");
+                                                    }
+                                                });
+                                                //// insert msp provisioning code here...
+                                                var mpaasusername = "mpaasuser";
+                                                var mpaaspassword = "Test@123";
+                                                var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
+                                                var https = require('https');
+
+                                                var options = {
+                                                    host: '5.10.122.189',
+                                                    path: '/fulfillment_engine/mpaas/order/create',
+                                                    port: 8443,
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'Content-Length': JSON.stringify(orderjson).length,
+                                                        "Authorization": auth
+                                                    },
+                                                    rejectUnauthorized: false,
+                                                    requestCert: true,
+                                                    agent: false,
+                                                    //secureProtocol:
+                                                };
+
+                                                var req = https.request(options, function (err, res) {
+                                                    // res.setEncoding('utf8');
+                                                    if (!err) {
+                                                        console.log("Request sent to MSP===============>Response here...");
+                                                        //console.log(res);
+                                                    }
+                                                    else {
+                                                        //console.log(err);
+                                                    }
+
+                                                });
+                                                req.on('error', function (err, result) {
+                                                    console.log(err);
+                                                    console.log("Error while fetching data from IMI Server. Please try later");
+                                                    failure_response.description = "Error while fetching data from IMI Server. Please try later"
+                                                    resp.write(JSON.stringify(failure_response));
+                                                    // response.end();
+                                                });
+                                                req.write(JSON.stringify(orderjson));
+
+                                                console.log("MSP Provisioning request initiated...");
+
+                                                req.end();
+
                                             }
-                                            orderjson.Ordered_ItemDetails=offering;
-                                            final_json_formatted = orderjson;
 
-
-                                            console.log("Final JSON:----------------");
-                                            console.log(JSON.stringify(final_json_formatted));
-
-
-                                            dbfinaljson.insert(final_json_formatted, '', function (errors, result2) {
-                                                if (!errors) {
-                                                    console.log("Data inserted in Final JSON DB");
-                                                    // var resjson = {
-                                                    //     "status" : "success"
-                                                    // };
-                                                    // resp.write(JSON.stringify(success_response));
-                                                    // resp.end();
-                                                }
-                                                else {
-                                                    //failure_response.description = "Data insertion in Final JSON DB failed";
-                                                    //resp.write(JSON.stringify(failure_response));
-                                                    //resp.end();
-                                                    console.log("Failed.");
-                                                }
-                                            });
-                                            //// insert msp provisioning code here...
-                                            var mpaasusername = "mpaasuser";
-                                            var mpaaspassword = "Test@123";
-                                            var auth = "Basic " + new Buffer(mpaasusername + ":" + mpaaspassword).toString("base64");
-                                            var https = require('https');
-
-                                            var options = {
-                                                host: '5.10.122.189',
-                                                path: '/fulfillment_engine/mpaas/order/create',
-                                                port: 8443,
-                                                method: 'POST',
-                                                headers: {
-                                                    'Content-Type': 'application/json',
-                                                    'Content-Length': JSON.stringify(orderjson).length,
-                                                    "Authorization": auth
-                                                },
-                                                rejectUnauthorized: false,
-                                                requestCert: true,
-                                                agent: false,
-                                                //secureProtocol:
-                                            };
-
-                                            var req = https.request(options, function (err, res) {
-                                                // res.setEncoding('utf8');
-                                                if (!err) {
-                                                    console.log("Request sent to MSP===============>Response here...");
-                                                    //console.log(res);
-                                                }
-                                                else {
-                                                    //console.log(err);
-                                                }
-
-                                            });
-                                            req.on('error', function (err, result) {
-                                                console.log(err);
-                                                console.log("Error while fetching data from IMI Server. Please try later");
-                                                failure_response.description = "Error while fetching data from IMI Server. Please try later"
-                                                resp.write(JSON.stringify(failure_response));
-                                                // response.end();
-                                            });
-                                            req.write(JSON.stringify(orderjson));
-
-                                            console.log("MSP Provisioning request initiated...");
-
-                                            req.end();
-
+                                            //need to remove once the provisioning incorporated
+                                            console.log("*** Request Responded ***");
+                                            resp.write(JSON.stringify(success_response));
+                                            resp.end();
                                         }
-
-                                        //need to remove once the provisioning incorporated
-                                        console.log("*** Request Responded ***");
-                                        resp.write(JSON.stringify(success_response));
-                                        resp.end();
-                                    }
+                                    });
                                 });
-                            });
 
                             }
                         } else {
@@ -3854,41 +3896,41 @@ exports.AddComponentToCanvas = function(request, response) {
                                 .stringify(properties);
                             dbSoln
                                 .insert(
-                                    result.docs[0],
-                                    function(
-                                        err2,
-                                        result2) {
+                                result.docs[0],
+                                function(
+                                    err2,
+                                    result2) {
+                                    console
+                                        .log("response from insert");
+                                    console
+                                        .log("response from insert "
+                                        + JSON
+                                            .stringify(result));
+                                    if (err) {
                                         console
-                                            .log("response from insert");
+                                            .log(err2);
+                                    } else {
                                         console
-                                            .log("response from insert "
-                                                + JSON
-                                                    .stringify(result));
-                                        if (err) {
-                                            console
-                                                .log(err2);
-                                        } else {
-                                            console
-                                                .log("New doc created ..");
-                                            setTimeout(
-                                                function() {
-                                                    console
-                                                        .log("*** Request Responded ***");
-                                                    var resjson = {
-                                                        "status" : "success",
-                                                    };
-                                                    response
-                                                        .write(JSON
-                                                            .stringify(resjson));
+                                            .log("New doc created ..");
+                                        setTimeout(
+                                            function() {
+                                                console
+                                                    .log("*** Request Responded ***");
+                                                var resjson = {
+                                                    "status" : "success",
+                                                };
+                                                response
+                                                    .write(JSON
+                                                        .stringify(resjson));
 
-                                                    response
-                                                        .end();
-                                                },
-                                                1000);
+                                                response
+                                                    .end();
+                                            },
+                                            1000);
 
-                                        }
+                                    }
 
-                                    });
+                                });
                         }
 
                     } else {
@@ -4238,81 +4280,81 @@ exports.getServiceInfo =  function(request, response) {
 
                 dbSoln
                     .find(
-                        {
-                            selector : {
-                                solution_name : SolName
-                            }
-                        },
-                        function(err, result) {
-                            if (!err) {
-                                console.log(result);
-                                if (result.docs[0] == null) {
-                                    console
-                                        .log("null value in result");
-                                    var resjson = {
-                                        "status" : "failed"
-                                    };
-                                    response
-                                        .write(JSON
-                                            .stringify(resjson));
-                                    response.end();
-                                } else if (result.docs[0].service_details.msp.length <= compcnt) {
-                                    console
-                                        .log("less value in result and u requested impossible value");
-                                    var resjson = {
-                                        "status" : "failed"
-                                    };
-                                    response
-                                        .write(JSON
-                                            .stringify(resjson));
+                    {
+                        selector : {
+                            solution_name : SolName
+                        }
+                    },
+                    function(err, result) {
+                        if (!err) {
+                            console.log(result);
+                            if (result.docs[0] == null) {
+                                console
+                                    .log("null value in result");
+                                var resjson = {
+                                    "status" : "failed"
+                                };
+                                response
+                                    .write(JSON
+                                        .stringify(resjson));
+                                response.end();
+                            } else if (result.docs[0].service_details.msp.length <= compcnt) {
+                                console
+                                    .log("less value in result and u requested impossible value");
+                                var resjson = {
+                                    "status" : "failed"
+                                };
+                                response
+                                    .write(JSON
+                                        .stringify(resjson));
 
+                                response.end();
+                            } else {
+                                var services = result.docs[0].service_details.msp[compcnt];
+                                var nameofservice = result.docs[0].service_details.msp[compcnt].catalog_name;
+                                if (nameofservice == service_name) {
+                                    console
+                                        .log(services);
+                                    response
+                                        .write(JSON
+                                            .stringify(services));
                                     response.end();
                                 } else {
-                                    var services = result.docs[0].service_details.msp[compcnt];
-                                    var nameofservice = result.docs[0].service_details.msp[compcnt].catalog_name;
-                                    if (nameofservice == service_name) {
-                                        console
-                                            .log(services);
-                                        response
-                                            .write(JSON
-                                                .stringify(services));
-                                        response.end();
-                                    } else {
-                                        var resjson = {
-                                            "status" : "failed"
-                                        };
+                                    var resjson = {
+                                        "status" : "failed"
+                                    };
 
-                                        console
-                                            .log("Service Name Not matching");
-                                        response
-                                            .write(JSON
-                                                .stringify(resjson));
-                                        response.end();
-                                    }
+                                    console
+                                        .log("Service Name Not matching");
+                                    response
+                                        .write(JSON
+                                            .stringify(resjson));
+                                    response.end();
                                 }
-                            } else {
-                                var errMessage = "Error occurred while accessing components : \n"
-                                    + JSON
-                                        .stringify(err);
-                                // response.write(errMessage);
-                                console.log(errMessage);
-                                console
-                                    .log(responseMessage);
-                                setTimeout(
-                                    function() {
-                                        console
-                                            .log("*** Request Responded ***");
-                                        var resjson = {
-                                            "status" : "failed"
-                                        };
-                                        response
-                                            .write(JSON
-                                                .stringify(resjson));
-                                        response
-                                            .end();
-                                    }, 1000);
                             }
-                        });
+                        } else {
+                            var errMessage = "Error occurred while accessing components : \n"
+                                + JSON
+                                    .stringify(err);
+                            // response.write(errMessage);
+                            console.log(errMessage);
+                            console
+                                .log(responseMessage);
+                            setTimeout(
+                                function() {
+                                    console
+                                        .log("*** Request Responded ***");
+                                    var resjson = {
+                                        "status" : "failed"
+                                    };
+                                    response
+                                        .write(JSON
+                                            .stringify(resjson));
+                                    response
+                                        .end();
+                                }, 1000);
+                        }
+                    });
             }
 
             else {

@@ -3372,6 +3372,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 var actual_price = parseFloat(price_cal[14].amount.INR);
 
                                                 final_price = (quantity - discount) * actual_price;
+                                                console.log("Finallll",final_price);
                                                 final_price = parseFloat(final_price).toFixed(2);
 
                                                 console.log(final_price);
