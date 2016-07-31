@@ -54,23 +54,41 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         console.log('$scope.username' +$scope.username);
         $http.get("/api/v2/viewMyDeployArchNames?uname="+$scope.username+"&version="+1)
             .success(function(data){
-                console.log('inside view DeployArch function');
-                $scope.components = data;
-                console.log("Array of solution name : " + JSON.stringify($scope.components));
-                console.log(" length of Array of solution name of MSP : " + $scope.components.msp.length);
-                console.log(" length of Array of solution name of Hybrid : " + $scope.components.hybrid.length);
-                 $scope.SolnArray =$scope.components.msp;
-               $rootScope.SolnArrayHybrid = $scope.components.hybrid;
-                for(var i=0;i<$scope.SolnArray.length;i++){
-                    $scope.SolutionNames = $scope.SolnArray[i];
-                    console.log("$scope.SolutionNames===" +$scope.SolutionNames);
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
                 }
+                else {
+                    console.log('inside view DeployArch function');
+                    $scope.components = data;
+                    console.log("Array of solution name : " + JSON.stringify($scope.components));
+                    console.log(" length of Array of solution name of MSP : " + $scope.components.msp.length);
+                    console.log(" length of Array of solution name of Hybrid : " + $scope.components.hybrid.length);
+                    $scope.SolnArray = $scope.components.msp;
+                    $rootScope.SolnArrayHybrid = $scope.components.hybrid;
+                    for (var i = 0; i < $scope.SolnArray.length; i++) {
+                        $scope.SolutionNames = $scope.SolnArray[i];
+                        console.log("$scope.SolutionNames===" + $scope.SolutionNames);
+                    }
 
-                for(var j=0;j<$scope.SolnArrayHybrid.length;j++){
-                    $scope.SolutionNamesHybrid =$rootScope.SolnArrayHybrid[j];
-                    console.log("$scope.SolutionNames===" +$scope.SolutionNamesHybrid);
+                    for (var j = 0; j < $scope.SolnArrayHybrid.length; j++) {
+                        $scope.SolutionNamesHybrid = $rootScope.SolnArrayHybrid[j];
+                        console.log("$scope.SolutionNames===" + $scope.SolutionNamesHybrid);
+                    }
                 }
-
             })
             .error(function(data,status,header,config){
                 console.log("header data" +header);
@@ -113,26 +131,45 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
 
         $http.get("/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
-            $scope.ResponseDataViewBillObject = data;
-            console.log('version details === '+JSON.stringify($scope.ResponseDataViewBillObject));
-            $scope.hybridData = $scope.ResponseDataViewBillObject;
-            ///* $location.path('/viewArchietecture');*/
-
-           $rootScope.verpop=$uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/versiondetail.html',
-                /* windowClass: 'app-modal-window-sam',*/
-                controller: 'versionCtrl',
-                backdrop: 'static',
-                keyboard: false,
-                resolve: {
-                    indexVersion:function () {
-                        return $scope.ResponseDataViewBillObject;
+            if(data.status == 'failed'){
+                //alert(data.description);
+                $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
                     }
+                });
+            }
+            else {
+                $scope.ResponseDataViewBillObject = data;
+                console.log('version details === ' + JSON.stringify($scope.ResponseDataViewBillObject));
+                $scope.hybridData = $scope.ResponseDataViewBillObject;
+                ///* $location.path('/viewArchietecture');*/
+
+                $rootScope.verpop = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/versiondetail.html',
+                    /* windowClass: 'app-modal-window-sam',*/
+                    controller: 'versionCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        indexVersion: function () {
+                            return $scope.ResponseDataViewBillObject;
+                        }
 
 
-                }
-            });
+                    }
+                });
+            }
         });
 
     };
@@ -203,9 +240,27 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         //forms user object
     })
         .success(function (data, status, header, config) {
-            $scope.deletedSolName = data;
-            console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolName));
-
+            if(data.status == 'failed'){
+                //alert(data.description);
+                $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
+                    }
+                });
+            }
+            else {
+                $scope.deletedSolName = data;
+                console.log('$scope.deleteArchitectureData ==== ' + JSON.stringify($scope.deletedSolName));
+            }
         })
         .error(function (data, status, header, config) {
             console.log("header data" + header);
@@ -309,124 +364,143 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
     $scope.loading = true;
 
     $http.get("/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
-        $scope.ResponseDataViewBillObject = data;
-        console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
+        if(data.status == 'failed'){
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
+        else {
+            $scope.ResponseDataViewBillObject = data;
+            console.log('view bill of material === ' + JSON.stringify($scope.ResponseDataViewBillObject));
 
-        Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
-            console.log('ResponseDataViewBillObject key values === '+ key);
-            if(key==='msp'){
-                $scope.mspDataViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.mspDataViewBillObject === '+JSON.stringify($scope.mspDataViewBillObjectsArray));
+            Object.keys($scope.ResponseDataViewBillObject).forEach(function (key) {
+                console.log('ResponseDataViewBillObject key values === ' + key);
+                if (key === 'msp') {
+                    $scope.mspDataViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+                    console.log('$scope.mspDataViewBillObject === ' + JSON.stringify($scope.mspDataViewBillObjectsArray));
 
-                for(var mspArrayIndex=0;mspArrayIndex<$scope.mspDataViewBillObjectsArray.length;mspArrayIndex++) {
-                    $scope.viewBillOfOrder={
-                        'productName':'',
-                        'productDesc':'',
-                        'productProvider':'MSP',
-                        'productQuantity':'',
-                        'productPrice':'',
-                        'productLC':''
-                    };
-                    $scope.mspViewBillObject=$scope.mspDataViewBillObjectsArray[mspArrayIndex];
-                    $.each($scope.mspViewBillObject, function (key, value) {
-                        console.log('key===' + key);
-                        if (key === 'catalog_name') {
-                            $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
-                        }
-                        if (key === 'title') {
-                            $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
-                            $scope.viewBillOfOrder.productName=$scope.MSPVBAttrTitle;
-                            $scope.viewBillOfOrder.productDesc=$scope.MSPVBAttrTitle;
-                        }
-                        if (key === 'priceDetails') {
-                            $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
-                            console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
-                            $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
-                            $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
-                            console.log('$scope.mspLicenseCost == '+$scope.mspLicenseCost);
-                            $scope.viewBillOfOrder.productPrice=$scope.msptotal_Price;
-                            $scope.viewBillOfOrder.productLC=$scope.mspLicenseCost;
-                        }
-                        if (key === 'Pattern') {
-                            $scope.patternObject = {};
-                            $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
-                            console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
-                            Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
-                                $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
-                                console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
-                                Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
-                                    var isQuantityKey = key1;
-                                    console.log('isQuantityKey === '+isQuantityKey);
-                                    if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found quantity key');
-                                        $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
-                                        $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
-                                    }
+                    for (var mspArrayIndex = 0; mspArrayIndex < $scope.mspDataViewBillObjectsArray.length; mspArrayIndex++) {
+                        $scope.viewBillOfOrder = {
+                            'productName': '',
+                            'productDesc': '',
+                            'productProvider': 'MSP',
+                            'productQuantity': '',
+                            'productPrice': '',
+                            'productLC': ''
+                        };
+                        $scope.mspViewBillObject = $scope.mspDataViewBillObjectsArray[mspArrayIndex];
+                        $.each($scope.mspViewBillObject, function (key, value) {
+                            console.log('key===' + key);
+                            if (key === 'catalog_name') {
+                                $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
+                            }
+                            if (key === 'title') {
+                                $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
+                                $scope.viewBillOfOrder.productName = $scope.MSPVBAttrTitle;
+                                $scope.viewBillOfOrder.productDesc = $scope.MSPVBAttrTitle;
+                            }
+                            if (key === 'priceDetails') {
+                                $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
+                                console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
+                                $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
+                                $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
+                                console.log('$scope.mspLicenseCost == ' + $scope.mspLicenseCost);
+                                $scope.viewBillOfOrder.productPrice = $scope.msptotal_Price;
+                                $scope.viewBillOfOrder.productLC = $scope.mspLicenseCost;
+                            }
+                            if (key === 'Pattern') {
+                                $scope.patternObject = {};
+                                $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
+                                console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
+                                Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
+                                    $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
+                                    console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
+                                    Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
+                                        var isQuantityKey = key1;
+                                        console.log('isQuantityKey === ' + isQuantityKey);
+                                        if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
+                                            $scope.serialNumber++;
+                                            console.log('found quantity key');
+                                            $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                            console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
+                                            $scope.viewBillOfOrder.productQuantity = $scope.MSPVBPatternObjectQuantity;
+                                        }
 
+                                    });
                                 });
-                            });
-                        }
-                    });
-                    console.log('$scope.viewBillOfOrder === '+JSON.stringify($scope.viewBillOfOrder));
-                    $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
-                }
-            }
-
-            if(key==='bluemix'){
-                $scope.bluemixViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.bluemixViewBillObjectsArray === '+JSON.stringify($scope.bluemixViewBillObjectsArray));
-                for(var bluemixArrayIndex=0;bluemixArrayIndex<$scope.bluemixViewBillObjectsArray.length;bluemixArrayIndex++) {
-                    $scope.bluemixViewBillObject=$scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
-                    Object.keys($scope.bluemixViewBillObject).forEach(function(key){
-                        if(key === 'services'){
-                            $scope.bluemixServiceViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixServiceViewBillObjectArray === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                            for(var bluemixServiceArrayIndex=0;bluemixServiceArrayIndex<$scope.bluemixServiceViewBillObjectArray.length;bluemixServiceArrayIndex++) {
-                                $scope.bluemixServiceObject=$scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
-                                console.log('$scope.bluemixServiceObject === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                                Object.keys($scope.bluemixServiceObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixServicesVBTitle=$scope.bluemixServiceObject[key];
-                                        console.log('$scope.bluemixServicesVBTitle= '+$scope.bluemixServicesVBTitle);
-                                    }
-                                })
                             }
-                        }
-
-                        if(key === 'runtime'){
-                            $scope.bluemixRuntimeViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixRuntimeViewBillObjectArray === '+JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
-                            for(var bluemixRuntimeArrayIndex=0;bluemixRuntimeArrayIndex<$scope.bluemixRuntimeViewBillObjectArray.length;bluemixRuntimeArrayIndex++) {
-                                $scope.bluemixRuntimeObject=$scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
-                                Object.keys($scope.bluemixRuntimeObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixRuntimeVBTitle=$scope.bluemixRuntimeObject[key];
-                                        console.log('$scope.bluemixRuntimeVBTitle === '+$scope.bluemixRuntimeVBTitle);
-                                    }
-                                    if(key==='properties'){
-                                        $scope.bluemixRuntimeVBPropertiesObject=$scope.bluemixRuntimeObject[key];
-                                        Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function(key){
-                                            if(key==='price'){
-                                                $scope.bluemixRuntimeVBPrice=$scope.bluemixRuntimeVBPropertiesObject[key];
-                                                console.log('$scope.bluemixRuntimeVBPrice === '+$scope.bluemixRuntimeVBPrice);
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        }
-                    })
+                        });
+                        console.log('$scope.viewBillOfOrder === ' + JSON.stringify($scope.viewBillOfOrder));
+                        $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
+                    }
                 }
-            }
-            if(key==='Final_Price'){
-                $scope.viewBillFinalPrice=$scope.ResponseDataViewBillObject[key];
-            }
-        });
-        $scope.loading = false;
+
+                if (key === 'bluemix') {
+                    $scope.bluemixViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+                    console.log('$scope.bluemixViewBillObjectsArray === ' + JSON.stringify($scope.bluemixViewBillObjectsArray));
+                    for (var bluemixArrayIndex = 0; bluemixArrayIndex < $scope.bluemixViewBillObjectsArray.length; bluemixArrayIndex++) {
+                        $scope.bluemixViewBillObject = $scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
+                        Object.keys($scope.bluemixViewBillObject).forEach(function (key) {
+                            if (key === 'services') {
+                                $scope.bluemixServiceViewBillObjectArray = $scope.bluemixViewBillObject[key];
+                                console.log('$scope.bluemixServiceViewBillObjectArray === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                                for (var bluemixServiceArrayIndex = 0; bluemixServiceArrayIndex < $scope.bluemixServiceViewBillObjectArray.length; bluemixServiceArrayIndex++) {
+                                    $scope.bluemixServiceObject = $scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
+                                    console.log('$scope.bluemixServiceObject === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                                    Object.keys($scope.bluemixServiceObject).forEach(function (key) {
+                                        if (key === 'title') {
+                                            $scope.serialNumber++;
+                                            $scope.bluemixServicesVBTitle = $scope.bluemixServiceObject[key];
+                                            console.log('$scope.bluemixServicesVBTitle= ' + $scope.bluemixServicesVBTitle);
+                                        }
+                                    })
+                                }
+                            }
+
+                            if (key === 'runtime') {
+                                $scope.bluemixRuntimeViewBillObjectArray = $scope.bluemixViewBillObject[key];
+                                console.log('$scope.bluemixRuntimeViewBillObjectArray === ' + JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
+                                for (var bluemixRuntimeArrayIndex = 0; bluemixRuntimeArrayIndex < $scope.bluemixRuntimeViewBillObjectArray.length; bluemixRuntimeArrayIndex++) {
+                                    $scope.bluemixRuntimeObject = $scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
+                                    Object.keys($scope.bluemixRuntimeObject).forEach(function (key) {
+                                        if (key === 'title') {
+                                            $scope.serialNumber++;
+                                            $scope.bluemixRuntimeVBTitle = $scope.bluemixRuntimeObject[key];
+                                            console.log('$scope.bluemixRuntimeVBTitle === ' + $scope.bluemixRuntimeVBTitle);
+                                        }
+                                        if (key === 'properties') {
+                                            $scope.bluemixRuntimeVBPropertiesObject = $scope.bluemixRuntimeObject[key];
+                                            Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function (key) {
+                                                if (key === 'price') {
+                                                    $scope.bluemixRuntimeVBPrice = $scope.bluemixRuntimeVBPropertiesObject[key];
+                                                    console.log('$scope.bluemixRuntimeVBPrice === ' + $scope.bluemixRuntimeVBPrice);
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+                if (key === 'Final_Price') {
+                    $scope.viewBillFinalPrice = $scope.ResponseDataViewBillObject[key];
+                }
+            });
+            $scope.loading = false;
+        }
     });
 
     $scope.pushBOMObjectsMSP=function (BOMObj) {
@@ -462,124 +536,143 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     $scope.loading = true;
 
     $http.get("/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
-        $scope.ResponseDataViewBillObject = data;
-        console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
+        if(data.status == 'failed'){
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
+        else {
+            $scope.ResponseDataViewBillObject = data;
+            console.log('view bill of material === ' + JSON.stringify($scope.ResponseDataViewBillObject));
 
-        Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
-            console.log('ResponseDataViewBillObject key values === '+ key);
-            if(key==='msp'){
-                $scope.mspDataViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.mspDataViewBillObject === '+JSON.stringify($scope.mspDataViewBillObjectsArray));
+            Object.keys($scope.ResponseDataViewBillObject).forEach(function (key) {
+                console.log('ResponseDataViewBillObject key values === ' + key);
+                if (key === 'msp') {
+                    $scope.mspDataViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+                    console.log('$scope.mspDataViewBillObject === ' + JSON.stringify($scope.mspDataViewBillObjectsArray));
 
-                for(var mspArrayIndex=0;mspArrayIndex<$scope.mspDataViewBillObjectsArray.length;mspArrayIndex++) {
-                    $scope.viewBillOfOrder={
-                        'productName':'',
-                        'productDesc':'',
-                        'productProvider':'MSP',
-                        'productQuantity':'',
-                        'productPrice':'',
-                        'productLC':''
-                    };
-                    $scope.mspViewBillObject=$scope.mspDataViewBillObjectsArray[mspArrayIndex];
-                    $.each($scope.mspViewBillObject, function (key, value) {
-                        console.log('key===' + key);
-                        if (key === 'catalog_name') {
-                            $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
-                        }
-                        if (key === 'title') {
-                            $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
-                            $scope.viewBillOfOrder.productName=$scope.MSPVBAttrTitle;
-                            $scope.viewBillOfOrder.productDesc=$scope.MSPVBAttrTitle;
-                        }
-                        if (key === 'priceDetails') {
-                            $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
-                            console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
-                            $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
-                            $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
-                            console.log('$scope.mspLicenseCost == '+$scope.mspLicenseCost);
-                            $scope.viewBillOfOrder.productPrice=$scope.msptotal_Price;
-                            $scope.viewBillOfOrder.productLC=$scope.mspLicenseCost;
-                        }
-                        if (key === 'Pattern') {
-                            $scope.patternObject = {};
-                            $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
-                            console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
-                            Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
-                                $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
-                                console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
-                                Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
-                                    var isQuantityKey = key1;
-                                    console.log('isQuantityKey === '+isQuantityKey);
-                                    if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found quantity key');
-                                        $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
-                                        $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
-                                    }
+                    for (var mspArrayIndex = 0; mspArrayIndex < $scope.mspDataViewBillObjectsArray.length; mspArrayIndex++) {
+                        $scope.viewBillOfOrder = {
+                            'productName': '',
+                            'productDesc': '',
+                            'productProvider': 'MSP',
+                            'productQuantity': '',
+                            'productPrice': '',
+                            'productLC': ''
+                        };
+                        $scope.mspViewBillObject = $scope.mspDataViewBillObjectsArray[mspArrayIndex];
+                        $.each($scope.mspViewBillObject, function (key, value) {
+                            console.log('key===' + key);
+                            if (key === 'catalog_name') {
+                                $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
+                            }
+                            if (key === 'title') {
+                                $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
+                                $scope.viewBillOfOrder.productName = $scope.MSPVBAttrTitle;
+                                $scope.viewBillOfOrder.productDesc = $scope.MSPVBAttrTitle;
+                            }
+                            if (key === 'priceDetails') {
+                                $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
+                                console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
+                                $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
+                                $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
+                                console.log('$scope.mspLicenseCost == ' + $scope.mspLicenseCost);
+                                $scope.viewBillOfOrder.productPrice = $scope.msptotal_Price;
+                                $scope.viewBillOfOrder.productLC = $scope.mspLicenseCost;
+                            }
+                            if (key === 'Pattern') {
+                                $scope.patternObject = {};
+                                $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
+                                console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
+                                Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
+                                    $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
+                                    console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
+                                    Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
+                                        var isQuantityKey = key1;
+                                        console.log('isQuantityKey === ' + isQuantityKey);
+                                        if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
+                                            $scope.serialNumber++;
+                                            console.log('found quantity key');
+                                            $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
+                                            console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
+                                            $scope.viewBillOfOrder.productQuantity = $scope.MSPVBPatternObjectQuantity;
+                                        }
 
+                                    });
                                 });
-                            });
-                        }
-                    });
-                    console.log('$scope.viewBillOfOrder === '+JSON.stringify($scope.viewBillOfOrder));
-                    $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
-                }
-            }
-
-            if(key==='bluemix'){
-                $scope.bluemixViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.bluemixViewBillObjectsArray === '+JSON.stringify($scope.bluemixViewBillObjectsArray));
-                for(var bluemixArrayIndex=0;bluemixArrayIndex<$scope.bluemixViewBillObjectsArray.length;bluemixArrayIndex++) {
-                    $scope.bluemixViewBillObject=$scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
-                    Object.keys($scope.bluemixViewBillObject).forEach(function(key){
-                        if(key === 'services'){
-                            $scope.bluemixServiceViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixServiceViewBillObjectArray === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                            for(var bluemixServiceArrayIndex=0;bluemixServiceArrayIndex<$scope.bluemixServiceViewBillObjectArray.length;bluemixServiceArrayIndex++) {
-                                $scope.bluemixServiceObject=$scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
-                                console.log('$scope.bluemixServiceObject === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                                Object.keys($scope.bluemixServiceObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixServicesVBTitle=$scope.bluemixServiceObject[key];
-                                        console.log('$scope.bluemixServicesVBTitle= '+$scope.bluemixServicesVBTitle);
-                                    }
-                                })
                             }
-                        }
-
-                        if(key === 'runtime'){
-                            $scope.bluemixRuntimeViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixRuntimeViewBillObjectArray === '+JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
-                            for(var bluemixRuntimeArrayIndex=0;bluemixRuntimeArrayIndex<$scope.bluemixRuntimeViewBillObjectArray.length;bluemixRuntimeArrayIndex++) {
-                                $scope.bluemixRuntimeObject=$scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
-                                Object.keys($scope.bluemixRuntimeObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixRuntimeVBTitle=$scope.bluemixRuntimeObject[key];
-                                        console.log('$scope.bluemixRuntimeVBTitle === '+$scope.bluemixRuntimeVBTitle);
-                                    }
-                                    if(key==='properties'){
-                                        $scope.bluemixRuntimeVBPropertiesObject=$scope.bluemixRuntimeObject[key];
-                                        Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function(key){
-                                            if(key==='price'){
-                                                $scope.bluemixRuntimeVBPrice=$scope.bluemixRuntimeVBPropertiesObject[key];
-                                                console.log('$scope.bluemixRuntimeVBPrice === '+$scope.bluemixRuntimeVBPrice);
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        }
-                    })
+                        });
+                        console.log('$scope.viewBillOfOrder === ' + JSON.stringify($scope.viewBillOfOrder));
+                        $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
+                    }
                 }
-            }
-            if(key==='Final_Price'){
-                $scope.viewBillFinalPrice=$scope.ResponseDataViewBillObject[key];
-            }
-        });
-        $scope.loading = false;
+
+                if (key === 'bluemix') {
+                    $scope.bluemixViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+                    console.log('$scope.bluemixViewBillObjectsArray === ' + JSON.stringify($scope.bluemixViewBillObjectsArray));
+                    for (var bluemixArrayIndex = 0; bluemixArrayIndex < $scope.bluemixViewBillObjectsArray.length; bluemixArrayIndex++) {
+                        $scope.bluemixViewBillObject = $scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
+                        Object.keys($scope.bluemixViewBillObject).forEach(function (key) {
+                            if (key === 'services') {
+                                $scope.bluemixServiceViewBillObjectArray = $scope.bluemixViewBillObject[key];
+                                console.log('$scope.bluemixServiceViewBillObjectArray === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                                for (var bluemixServiceArrayIndex = 0; bluemixServiceArrayIndex < $scope.bluemixServiceViewBillObjectArray.length; bluemixServiceArrayIndex++) {
+                                    $scope.bluemixServiceObject = $scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
+                                    console.log('$scope.bluemixServiceObject === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+                                    Object.keys($scope.bluemixServiceObject).forEach(function (key) {
+                                        if (key === 'title') {
+                                            $scope.serialNumber++;
+                                            $scope.bluemixServicesVBTitle = $scope.bluemixServiceObject[key];
+                                            console.log('$scope.bluemixServicesVBTitle= ' + $scope.bluemixServicesVBTitle);
+                                        }
+                                    })
+                                }
+                            }
+
+                            if (key === 'runtime') {
+                                $scope.bluemixRuntimeViewBillObjectArray = $scope.bluemixViewBillObject[key];
+                                console.log('$scope.bluemixRuntimeViewBillObjectArray === ' + JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
+                                for (var bluemixRuntimeArrayIndex = 0; bluemixRuntimeArrayIndex < $scope.bluemixRuntimeViewBillObjectArray.length; bluemixRuntimeArrayIndex++) {
+                                    $scope.bluemixRuntimeObject = $scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
+                                    Object.keys($scope.bluemixRuntimeObject).forEach(function (key) {
+                                        if (key === 'title') {
+                                            $scope.serialNumber++;
+                                            $scope.bluemixRuntimeVBTitle = $scope.bluemixRuntimeObject[key];
+                                            console.log('$scope.bluemixRuntimeVBTitle === ' + $scope.bluemixRuntimeVBTitle);
+                                        }
+                                        if (key === 'properties') {
+                                            $scope.bluemixRuntimeVBPropertiesObject = $scope.bluemixRuntimeObject[key];
+                                            Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function (key) {
+                                                if (key === 'price') {
+                                                    $scope.bluemixRuntimeVBPrice = $scope.bluemixRuntimeVBPropertiesObject[key];
+                                                    console.log('$scope.bluemixRuntimeVBPrice === ' + $scope.bluemixRuntimeVBPrice);
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+                if (key === 'Final_Price') {
+                    $scope.viewBillFinalPrice = $scope.ResponseDataViewBillObject[key];
+                }
+            });
+            $scope.loading = false;
+        }
     });
 
     $scope.pushBOMObjectsMSP=function (BOMObj) {
@@ -849,11 +942,27 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
             //forms user object
         })
             .success(function (data, status, header, config) {
-
-
-                $scope.deletedSolNameHybrid = data;
-                console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolNameHybrid));
-
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                 else {
+                    $scope.deletedSolNameHybrid = data;
+                    console.log('$scope.deleteArchitectureData ==== ' + JSON.stringify($scope.deletedSolNameHybrid));
+                }
             })
             .error(function (data, status, header, config) {
                 console.log("header data" + header);
@@ -888,10 +997,28 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
         })
             .success(function (data, status, header, config) {
 
-                if (data.errors) {
+                /*if (data.errors) {
                     // Showing errors.
                     $scope.errorName = data.errors.name;
-                } else {
+                }*/
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
                     $scope.deletedSolName = data;
                     // $scope.data.splice(index, 1);
 
