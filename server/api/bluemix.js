@@ -3308,6 +3308,7 @@ exports.getBMServicePrice=function(reqst, resp) {
     var quantity = reqst.body.quantity;
     //var quantity = parseInt(qty);
     var country = reqst.body.country;
+    console.log("Country ===="+country);
     //var compcnt = parseInt(reqst.body.cnt);
     var serviceplan_guid = reqst.body.serviceplan_guid;
     var service_name = reqst.body.service_name;

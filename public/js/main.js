@@ -831,7 +831,79 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                // console.log('$scope.memoryProperties ==== '+JSON.stringify($scope.memoryProperties));
             }
         })
+        $scope.increment = function(value){
 
+            console.log("Value received==="+value);
+
+            if(value.match("MB")){
+                console.log("Contaains MB");
+                var current_value = parseInt(value)*2;
+                if(current_value < 1024){
+                    $scope.memoryProperties['memory']= current_value + 'MB'
+                }
+                if(current_value === 1024){
+                    $scope.memoryProperties['memory']= '1 GB'
+                }
+
+            }
+            if(value.match("GB")){
+                console.log("Contaains GB");
+                var current_value = parseFloat(value)+0.125;
+                if(current_value <= 1024){
+                    $scope.memoryProperties['memory']= current_value + 'GB'
+                }
+                if(current_value > 1024 ){
+                    $scope.memoryProperties['memory']= '1 TB'
+                }
+            }
+            if(value.match("TB")){
+                console.log("Contaains TB");
+                var current_value=parseInt(value);
+                if(current_value === 1){
+                    $scope.memoryProperties['memory']="64 MB"
+                }
+
+            }
+
+        }
+        $scope.decrement = function(value){
+            if(value.match("MB")){
+                console.log("Contaains MB");
+                var current_value = parseInt(value)/2;
+                if(current_value >= 64){
+                    $scope.memoryProperties['memory']= current_value + 'MB'
+                }
+                else{
+                    $scope.memoryProperties['memory']= '64 MB'
+                }
+                /*if(current_value === 1024){
+                    $scope.memoryProperties['memory']= '1 GB'
+                }*/
+
+            }
+            if(value.match("GB")){
+                console.log("Contaains GB");
+                var current_value = parseFloat(value)-0.125;
+                if(current_value < 1){
+                    $scope.memoryProperties['memory']= '512 MB'
+                }
+                else{
+                    $scope.memoryProperties['memory']= current_value + 'GB'
+                }
+                /*if(current_value > 1024 ){
+                    $scope.memoryProperties['memory']= '1 TB'
+                }*/
+            }
+            if(value.match("TB")){
+                console.log("Contaains TB");
+                var current_value=parseInt(value);
+                if(current_value === 1){
+                    $scope.memoryProperties['memory']="1024 GB"
+                }
+
+            }
+
+        }
 
         $scope.changedRuntimeValueSave = function () {
             //console.log("Value===="+value);
