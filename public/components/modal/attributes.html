@@ -98,13 +98,29 @@
                     <p class="keyTitle"> {{runtimeBluemixPlan}}</p>
                 </div>
             </div>
-            <div class="col-xs-2" ng-repeat="(key, value) in memoryProperties" ng-show="showRuntimeAttributes">
+            <div ng-model="memoryProperties" >
+                <div class="col-xs-2" ng-show="showRuntimeAttributes">
+                    <p class="keyStyle">Instance</p>
+                    <input class="spss_input" type="text" ng-model="memoryProperties['instance']" ng-blur="changedRuntimeValueSave()"/>
+                </div>
+                <div class="col-xs-2" ng-show="showRuntimeAttributes">
+                    <p class="keyStyle">Memory</p>
+                    <input class="spss_input" type="number" string-to-number ng-model="memoryProperties['memory']" ng-blur="changedRuntimeValueSave()"/>
+                </div>
+                <div class="col-xs-2" ng-show="showRuntimeAttributes">
+                    <p class="keyStyle">Price</p>
+                    <input class="spss_input" type="text" ng-model="memoryProperties['price']" />
+                </div>
+            </div>
+
+
+           <!-- <div class="col-xs-2" ng-repeat="(key, value) in memoryProperties" ng-show="showRuntimeAttributes">
                 <div class="col-xs-4">
                     <p class="keyStyle">{{key}}</p>
                     <input class="spss_input"  only-digits type="text" ng-model="memoryProperties[key]" ng-blur="changedRuntimeValueSave()">
 
                 </div>
-            </div>
+            </div> -->
             <!--<select  ng-model="quantityRuntime | filter:bytes"></select>-->
         </div>
 

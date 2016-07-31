@@ -117,6 +117,19 @@ angular.module('portalControllers', ['ui.bootstrap'])
         }
     };
     })
+    .directive('stringToNumber', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function(value) {
+                    return '' + value;
+                });
+                ngModel.$formatters.push(function(value) {
+                    return parseFloat(value);
+                });
+            }
+        };
+    })
 
     .directive('myEnter', function () {
         return function (scope, element, attrs) {
@@ -806,13 +819,22 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             }
             if(key==='properties'){
                 $scope.memoryProperties=$scope.popupDataRuntime[key];
-                console.log('$scope.memoryProperties ==== '+JSON.stringify($scope.memoryProperties));
+                Object.keys($scope.memoryProperties).forEach(function (key) {
+
+                    if(key==='instance') {
+                        $scope.memoryProperties[key] = $scope.memoryProperties[key];
+                    }
+
+
+                })
+               // $scope.memoryProperties=$scope.popupDataRuntime[key];
+               // console.log('$scope.memoryProperties ==== '+JSON.stringify($scope.memoryProperties));
             }
         })
 
 
         $scope.changedRuntimeValueSave = function () {
-
+            //console.log("Value===="+value);
             console.log('changed valuess memory === '+JSON.stringify($scope.memoryProperties));
             Object.keys($scope.memoryProperties).forEach(function (key) {
                 if(key==='instance') {
