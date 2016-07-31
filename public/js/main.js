@@ -1067,6 +1067,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('price===' +price);
             //$scope.latestPrice = price;
             $scope.latestQuantity = quantity;
+            console.log('$scope.latestQuantity====' +JSON.stringify($scope.latestQuantity));
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
             $scope.loading=true;
