@@ -56,7 +56,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             .success(function(data){
                 console.log('inside view DeployArch function');
                 $scope.components = data;
-                if (data.status == 'failed') {
+               
                 if(data.status == 'failed'){
                     //alert(data.description);
                     $scope.loading = false;
@@ -74,16 +74,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                         }
                     });
                 }
-                console.log("Array of solution name : " + JSON.stringify($scope.components));
-                console.log(" length of Array of solution name of MSP : " + $scope.components.msp.length);
-                console.log(" length of Array of solution name of Hybrid : " + $scope.components.hybrid.length);
-                 $scope.SolnArray =$scope.components.msp;
-               $rootScope.SolnArrayHybrid = $scope.components.hybrid;
-                for(var i=0;i<$scope.SolnArray.length;i++){
-                    $scope.SolutionNames = $scope.SolnArray[i];
-                    console.log("$scope.SolutionNames===" +$scope.SolutionNames);
-                }
-                else {
+                 else {
                     console.log('inside view DeployArch function');
                     $scope.components = data;
                     console.log("Array of solution name : " + JSON.stringify($scope.components));
