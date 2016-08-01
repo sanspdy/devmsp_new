@@ -12,9 +12,9 @@ angular.module('portalControllers')
         $scope.spinsUpdateServiceInfo=false;
         $scope.spinsBOM=false;
         $rootScope.objCount=0;
-        $scope.MSPComponentCount=0;
-        $scope.bluemixRuntimeComponentCount=0;
-        $scope.bluemixServiceComponentCount=0;
+        $rootScope.MSPComponentCount=0;
+        $rootScope.bluemixRuntimeComponentCount=0;
+        $rootScope.bluemixServiceComponentCount=0;
         $scope.openpopupMSPCount=0;
         $scope.openpopupRuntimeCount=0;
         $scope.openpopupBluemixCount=0;
@@ -495,10 +495,10 @@ angular.module('portalControllers')
                 console.log('userEntered == ' + $scope.currentUser);
                 $scope.solnEntered = sharedProperties.getSoln();
 
-                for(var MSPIndex=0;MSPIndex<$scope.choicesMSP.length;MSPIndex++){
-                    if($scope.choices[index].selectedCatalogName=== $scope.choicesMSP[MSPIndex].selectedCatalogName){
-                        $scope.actualMSPComponentIndex=MSPIndex;
-                        console.log('$scope.actualMSPComponentIndex === '+$scope.actualMSPComponentIndex);
+                for(var MSPIndex=0;MSPIndex<$rootScope.choicesMSP.length;MSPIndex++){
+                    if($scope.choices[index].selectedCatalogName=== $rootScope.choicesMSP[MSPIndex].selectedCatalogName){
+                        $rootScope.actualMSPComponentIndex=MSPIndex;
+                        console.log('$rootScope.actualMSPComponentIndex === '+$rootScope.actualMSPComponentIndex);
                     }
                 }
                 var user = $scope.currentUser;
@@ -521,7 +521,7 @@ angular.module('portalControllers')
                         'solnName': $scope.solnEntered,
                         'service_details': 'msp',
                         'service_name': serviceName1,
-                        'component_cnt': $scope.actualMSPComponentIndex,
+                        'component_cnt': $rootScope.actualMSPComponentIndex,
                         'version':1
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -561,7 +561,7 @@ angular.module('portalControllers')
                                         return $scope.popupData;
                                     },
                                     countComp:function () {
-                                        return $scope.actualMSPComponentIndex;
+                                        return $rootScope.actualMSPComponentIndex;
                                     },
                                     serviceType:function(){
                                         return 'msp';
@@ -598,8 +598,8 @@ angular.module('portalControllers')
                 $rootScope.componentCount=runtimeCount-1;
                 console.log('componentCount runtime === '+$rootScope.componentCount);
 
-                for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
-                    if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
+                for(var runtimeIndex=0;runtimeIndex<$rootScope.choicesRuntime.length;runtimeIndex++){
+                    if($scope.choices[index].selectedImageTitle=== $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle){
                         $scope.actualruntimeComponentIndex=runtimeIndex;
                         console.log('$scope.actualruntimeComponentIndex === '+$scope.actualruntimeComponentIndex);
                     }
@@ -691,8 +691,8 @@ angular.module('portalControllers')
                 $scope.componentServiceCount=bluemixCount-1;
                 console.log('componentCount Service === '+$scope.componentServiceCount);
 
-                for(var serviceIndex=0;serviceIndex<$scope.choicesServices.length;serviceIndex++){
-                    if($scope.choices[index].selectedImageTitle=== $scope.choicesServices[serviceIndex].selectedImageTitle){
+                for(var serviceIndex=0;serviceIndex<$rootScope.choicesServices.length;serviceIndex++){
+                    if($scope.choices[index].selectedImageTitle=== $rootScope.choicesServices[serviceIndex].selectedImageTitle){
                         $scope.actualServiceComponentIndex=serviceIndex;
                         console.log('$scope.actualServiceComponentIndex === '+$scope.actualServiceComponentIndex);
                     }
@@ -966,9 +966,9 @@ angular.module('portalControllers')
                 }
                 if($scope.MSP===true) {
                     $rootScope.objCount++;
-                    $scope.MSPComponentCount++;
+                    $rootScope.MSPComponentCount++;
 
-                    var indexCount=$scope.MSPComponentCount;
+                    var indexCount=$rootScope.MSPComponentCount;
                     var objectCount=indexCount-1;
 
 
@@ -1110,9 +1110,11 @@ angular.module('portalControllers')
 
                     if($scope.runtimeCatalogue === true){
                         $rootScope.objCount++;
-                        $scope.bluemixRuntimeComponentCount++;
-                        var indexRuntimeCompCount=$scope.bluemixRuntimeComponentCount;
-                        var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
+                        $rootScope.bluemixRuntimeComponentCount++;
+                        var indexRuntimeCompCount=0;
+                        indexRuntimeCompCount=$rootScope.bluemixRuntimeComponentCount;
+                        var bluemixRuntimeCompCount=0;
+                        bluemixRuntimeCompCount=indexRuntimeCompCount-1;
                         $scope.bluemixRuntimeimageSrc = $scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex];
                         console.log("$scope.imageSrc===" + $scope.bluemixRuntimeimageSrc);
                         $scope.bluemixRuntimeimageSrcArray = $scope.bluemixRuntimeimageSrc.split('MSP_Logos/');
@@ -1233,9 +1235,10 @@ angular.module('portalControllers')
 
                     if($scope.servicesCatalogue === true){
                         $rootScope.objCount++;
-                        $scope.bluemixServiceComponentCount++;
+                        $rootScope.bluemixServiceComponentCount++;
 
-                        var indexServiceCompCount=$scope.bluemixServiceComponentCount;
+                        var indexServiceCompCount=0;
+                        indexServiceCompCount=$rootScope.bluemixServiceComponentCount;
                         var bluemixServiceCompCount=indexServiceCompCount-1;
                         $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
                         console.log("$scope.imageSrc===" + $scope.bluemixServiceimageSrc);
@@ -1655,10 +1658,10 @@ angular.module('portalControllers')
                             $scope.currentUser = sharedProperties.getProperty();
                             console.log('userEntered == ' + $scope.currentUser);
                             $scope.solnEntered = sharedProperties.getSoln();
-                            for (var MSPIndex = 0; MSPIndex < $scope.choicesMSP.length; MSPIndex++) {
-                                if ($scope.choices[index].selectedCatalogName === $scope.choicesMSP[MSPIndex].selectedCatalogName) {
-                                    $scope.actualMSPComponentIndex = MSPIndex;
-                                    console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
+                            for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
+                                if ($scope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
+                                    $rootScope.actualMSPComponentIndex = MSPIndex;
+                                    console.log('$rootScope.actualMSPComponentIndex === ' + $rootScope.actualMSPComponentIndex);
                                 }
                             }
                             var user1 = $scope.currentUser;
@@ -1675,7 +1678,7 @@ angular.module('portalControllers')
                                     'solnName': $scope.solnEntered,
                                     'service_details': 'msp',
                                     'service_name': serviceName1,
-                                    'component_cnt': $scope.actualMSPComponentIndex,
+                                    'component_cnt': $rootScope.actualMSPComponentIndex,
                                     'version':1
                                 }),
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -1735,8 +1738,8 @@ angular.module('portalControllers')
                             $rootScope.componentCount = runtimeCount - 1;
                             console.log('componentCount runtime === ' + $rootScope.componentCount);
 
-                            for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
-                                if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+                            for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
+                                if ($scope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
                                     $scope.actualruntimeComponentIndex = runtimeIndex;
                                     console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
                                 }
@@ -1807,8 +1810,8 @@ angular.module('portalControllers')
                             $scope.componentServiceCount = bluemixCount - 1;
                             console.log('componentCount Service === ' + $scope.componentServiceCount);
 
-                            for (var serviceIndex = 0; serviceIndex < $scope.choicesServices.length; serviceIndex++) {
-                                if ($scope.choices[index].selectedImageTitle === $scope.choicesServices[serviceIndex].selectedImageTitle) {
+                            for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
+                                if ($scope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
                                     $scope.actualServiceComponentIndex = serviceIndex;
                                     console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
                                 }
@@ -2031,9 +2034,9 @@ angular.module('portalControllers')
             };
 
             $scope.choices = [];
-            $scope.choicesMSP = [];
-            $scope.choicesRuntime = [];
-            $scope.choicesServices = [];
+            $rootScope.choicesMSP = [];
+            $rootScope.choicesRuntime = [];
+            $rootScope.choicesServices = [];
 
 
             $scope.getIndex=function (index) {
@@ -2059,11 +2062,11 @@ angular.module('portalControllers')
                             break;
                         }else{
                             if(obj.type==='msp'){
-                                $scope.choicesMSP.push(obj);
+                                $rootScope.choicesMSP.push(obj);
                             }else if(obj.type==='runtime'){
-                                $scope.choicesRuntime.push(obj);
+                                $rootScope.choicesRuntime.push(obj);
                             }else if(obj.type==='bluemix'){
-                                $scope.choicesRuntime.push(obj);
+                                $rootScope.choicesRuntime.push(obj);
                             }
 
                             $scope.choices.push(obj);
@@ -2073,11 +2076,11 @@ angular.module('portalControllers')
                     }
                 }else{
                     if(obj.type==='msp'){
-                        $scope.choicesMSP.push(obj);
+                        $rootScope.choicesMSP.push(obj);
                     }else if(obj.type==='runtime'){
-                        $scope.choicesRuntime.push(obj);
+                        $rootScope.choicesRuntime.push(obj);
                     }else if(obj.type==='bluemix'){
-                        $scope.choicesServices.push(obj);
+                        $rootScope.choicesServices.push(obj);
                     }
 
                     $scope.choices.push(obj);
@@ -2087,9 +2090,9 @@ angular.module('portalControllers')
 
 
                 console.log('choicesObject == '+JSON.stringify($scope.choices));
-                console.log('choicesMSP == '+JSON.stringify($scope.choicesMSP));
-                console.log('choicesRuntime == '+JSON.stringify($scope.choicesRuntime));
-                console.log('choicesServices == '+JSON.stringify($scope.choicesServices));
+                console.log('choicesMSP == '+JSON.stringify($rootScope.choicesMSP));
+                console.log('choicesRuntime == '+JSON.stringify($rootScope.choicesRuntime));
+                console.log('choicesServices == '+JSON.stringify($rootScope.choicesServices));
                 // var newItemNo = $scope.choices.length+1;
                 // $scope.choices.push({'id':'choice'+newItemNo});
             };
@@ -2512,60 +2515,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.solnEntered2 = sharedProperties.getSoln();
     console.log('solnEntered2 == ' + $scope.solnEntered2);
     console.log('canvasInformation===' +canvasInformation);
-    /*$scope.deleteArchitecture = function(){
-        var uid = sharedProperties.getProperty();
-        console.log("user name in solution ctrl === "+uid);
-        $scope.solnEntered=sharedProperties.getSoln();
-        console.log('$scope.solnEntered===' +$scope.solnEntered);
-        //$uibModalInstance.dismiss('cancel');
-        $http({
-            method: 'POST',
-            url: '/api/v2/deleteSolutionVersion',
-            data: $.param({
-                "uname":uid,
-                "solnName": $scope.solnEntered,
-                "version":1
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-            //forms user object
-        })
-            .success(function (data, status, header, config) {
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
-                    $scope.deletedSolName = data;
-                    // $scope.data.splice(index, 1);
-                    console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
-                    //canvas.clear();
-                    $uibModalInstance.close({clearCanvas:true});
-                    //$location.path('/canvas');
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("header data" + header);
-                console.log("status data" + status);
-                console.log("config data" + JSON.stringify(config));
-            });
 
-
-
-
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/newSolArchitecture.html',
-            controller: 'newsolCtrl',
-            windowClass: 'app-modal-window-nns',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-
-            }
-        });
-
-
-
-    };*/
 
     $scope.deleteArchitecture = function(){
         $rootScope.objCount = 0;
@@ -2642,52 +2592,7 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
         $uibModalInstance.dismiss('cancel');
     };
 
-    /*$scope.createnewArch = function(){
-        //$uibModalInstance.dismiss('cancel');
-        $http({
-            method: 'PUT',
-            url: '/api/v2/updateCanvasInfo',
-            data: $.param({
-                'uname': $scope.currentUser2,
-                'solnName': $scope.solnEntered2,
-                'canvasinfo': canvasInformation,
-                'version':1
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            //forms user object
-        })
-            .success(function (data, status, header, config) {
 
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
-                    console.log("inside success function");
-                    $scope.PostDataResponse = data;
-                    console.log(JSON.stringify($scope.PostDataResponse));
-                    $uibModalInstance.close({clearCanvas:true});
-                    //canvas.clear();
-                    //$location.path('/canvas');
-                }
-            })
-            .error(function (data, status, header, config) {
-                console.log("header data" + header);
-                console.log("status data" + status);
-                console.log("config data" + JSON.stringify(config));
-
-            });
-
-        $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: '../components/modal/newSolArchitecture.html',
-            controller: 'newsolCtrl',
-            windowClass: 'app-modal-window-nns',
-            backdrop: 'static',
-            resolve: {
-
-            }
-        });
-    }*/
 
     $scope.cancelnewArch = function () {
         $uibModalInstance.dismiss('cancel');
@@ -2696,6 +2601,8 @@ angular.module('portalControllers').controller('newArchConfirmCtrl', function ($
     $scope.createnewArch = function(){
         $rootScope.objCount = 0;
         $rootScope.solnName = '';
+        $rootScope.MSPComponentCount = 0;
+
         //$uibModalInstance.dismiss('cancel');
         $http({
             method: 'PUT',

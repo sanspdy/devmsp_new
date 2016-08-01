@@ -3385,7 +3385,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.send(final_price);
+                                                    resp.status(200).send(final_price.toString());
                                                     resp.end();
                                                 }
 
@@ -3405,7 +3405,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                     resp.end();
                                                 }
                                                 else {
-                                                    resp.send(final_price);
+                                                    resp.status(200).send(final_price.toString());
                                                     resp.end();
                                                 }
 

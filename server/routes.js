@@ -89,7 +89,6 @@ module.exports = function(app) {
 
     app.put('/api/v2/getServiceInfo',v2_mspjs.v2_getServiceInfo);
 
-
 // ************************************************************************************************************************************************
 // This API will fetch service info of component.
 //     app.put('/api/getBluemixServiceInfo',bluemixjs.getBluemixServiceInfo);
@@ -127,7 +126,6 @@ module.exports = function(app) {
 // ************************************************************************************************************************************************
 // This API will update service info of component in solution table.
 //     app.put('/api/updateBMServiceInfo',bluemixjs.updateBMServiceInfo);
-
 
     app.put('/api/v2/updateBMServiceInfo',v2_bluemixjs.v2_updateBMServiceInfo);
 

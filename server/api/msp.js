@@ -904,6 +904,15 @@ exports.getMspComponentLists = function(reqst, response) {
                 console.log(result);
 
             });
+            res.on('end',function(){
+                console.log("*** Request Responded ***");
+                lengthofresult = result.length;
+                console.log(lengthofresult);
+
+                console.log(result);
+                response.write(result);
+                response.end();
+            });
         });
         req.on('error',function(err,result) {
             console.log(err);
@@ -917,15 +926,15 @@ exports.getMspComponentLists = function(reqst, response) {
 
         req.end();
 
-        setTimeout(function() {
-            console.log("*** Request Responded ***");
-            lengthofresult = result.length;
-            console.log(lengthofresult);
-
-            console.log(result);
-            response.write(result);
-            response.end();
-        }, 500);
+        //setTimeout(function() {
+        //    console.log("*** Request Responded ***");
+        //    lengthofresult = result.length;
+        //    console.log(lengthofresult);
+        //
+        //    console.log(result);
+        //    response.write(result);
+        //    response.end();
+        //}, 500);
 
     } catch (err) {
         console.log("There is some error:")
