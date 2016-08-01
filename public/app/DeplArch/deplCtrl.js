@@ -54,13 +54,10 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         console.log('$scope.username' +$scope.username);
         $http.get("/api/v2/viewMyDeployArchNames?uname="+$scope.username+"&version="+1)
             .success(function(data){
-<<<<<<< HEAD
                 console.log('inside view DeployArch function');
                 $scope.components = data;
                 if (data.status == 'failed') {
-=======
                 if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
                     //alert(data.description);
                     $scope.loading = false;
                     $uibModal.open({
@@ -76,7 +73,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                             },
                         }
                     });
-<<<<<<< HEAD
                 }
                 console.log("Array of solution name : " + JSON.stringify($scope.components));
                 console.log(" length of Array of solution name of MSP : " + $scope.components.msp.length);
@@ -86,8 +82,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                 for(var i=0;i<$scope.SolnArray.length;i++){
                     $scope.SolutionNames = $scope.SolnArray[i];
                     console.log("$scope.SolutionNames===" +$scope.SolutionNames);
-=======
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
                 }
                 else {
                     console.log('inside view DeployArch function');
@@ -149,12 +143,9 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
 
         $http.get("/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
-<<<<<<< HEAD
             $scope.ResponseDataViewBillObject = data;
             if (data.status == 'failed') {
-=======
             if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
                 //alert(data.description);
                 $scope.loading = false;
                 $uibModal.open({
@@ -168,7 +159,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                         ErrorMsg: function () {
                             return data.description;
                         },
-<<<<<<< HEAD
                     }
                 });
             }
@@ -186,8 +176,6 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                 resolve: {
                     indexVersion:function () {
                         return $scope.ResponseDataViewBillObject;
-=======
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
                     }
                 });
             }
@@ -317,12 +305,12 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
         //forms user object
     })
         .success(function (data, status, header, config) {
-<<<<<<< HEAD
+
             $scope.deletedSolName = data;
             if (data.status == 'failed') {
-=======
+
             if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
                 //alert(data.description);
                 $scope.loading = false;
                 $uibModal.open({
@@ -339,15 +327,15 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
                     }
                 });
             }
-<<<<<<< HEAD
+
             console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolName));
 
-=======
+
             else {
                 $scope.deletedSolName = data;
                 console.log('$scope.deleteArchitectureData ==== ' + JSON.stringify($scope.deletedSolName));
             }
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
         })
         .error(function (data, status, header, config) {
             console.log("header data" + header);
@@ -451,12 +439,12 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
     $scope.loading = true;
 
     $http.get("/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
-<<<<<<< HEAD
+
         $scope.ResponseDataViewBillObject = data;
         if (data.status == 'failed') {
-=======
+
         if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
             //alert(data.description);
             $scope.loading = false;
             $uibModal.open({
@@ -473,7 +461,7 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
                 }
             });
         }
-<<<<<<< HEAD
+
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
@@ -529,7 +517,7 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
                                         $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
                                     }
 
-=======
+
         else {
             $scope.ResponseDataViewBillObject = data;
             console.log('view bill of material === ' + JSON.stringify($scope.ResponseDataViewBillObject));
@@ -588,7 +576,7 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
                                         }
 
                                     });
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
                                 });
                             }
                         });
@@ -686,12 +674,12 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
     $scope.loading = true;
 
     $http.get("/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
-<<<<<<< HEAD
+
         $scope.ResponseDataViewBillObject = data;
         if (data.status == 'failed') {
-=======
+
         if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
             //alert(data.description);
             $scope.loading = false;
             $uibModal.open({
@@ -708,7 +696,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
                 }
             });
         }
-<<<<<<< HEAD
+
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
@@ -764,7 +752,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
                                         $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
                                     }
 
-=======
+
         else {
             $scope.ResponseDataViewBillObject = data;
             console.log('view bill of material === ' + JSON.stringify($scope.ResponseDataViewBillObject));
@@ -823,7 +811,7 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
                                         }
 
                                     });
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
                                 });
                             }
                         });
@@ -1152,14 +1140,14 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
             //forms user object
         })
             .success(function (data, status, header, config) {
-<<<<<<< HEAD
+
 
 
                 $scope.deletedSolNameHybrid = data;
                 if (data.status == 'failed') {
-=======
+
                 if(data.status == 'failed'){
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
                     //alert(data.description);
                     $scope.loading = false;
                     $uibModal.open({
@@ -1176,7 +1164,7 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                         }
                     });
                 }
-<<<<<<< HEAD
+
 
 
                 $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
@@ -1184,12 +1172,12 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 $uibModalInstance.dismiss();
                 console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolNameHybrid));
 
-=======
+
                  else {
                     $scope.deletedSolNameHybrid = data;
                     console.log('$scope.deleteArchitectureData ==== ' + JSON.stringify($scope.deletedSolNameHybrid));
                 }
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
+
             })
             .error(function (data, status, header, config) {
                 console.log("header data" + header);
