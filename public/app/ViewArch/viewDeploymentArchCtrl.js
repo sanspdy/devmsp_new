@@ -3799,24 +3799,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.bluemixRuntimeComponentLists=[];
 
             $scope.arrayOfBluemixRuntimeServices = data;
-         if (data.status == 'failed') {
-          //alert(data.description);
-          $scope.loading = false;
-          $uibModal.open({
-           animation: $scope.animationsEnabled,
-           templateUrl: '../components/modal/ErrorWarning.html',
-           windowClass: 'app-modal-window-sam-Plan',
-           controller: 'ErrorWarningCtrl',
-           backdrop: 'static',
-           keyboard: false,
-           resolve: {
-            ErrorMsg: function () {
-             return data.description;
-            },
-           }
-          })
-         }
-
             console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
             for(var i=0;i<$scope.arrayOfBluemixRuntimeServices.length;i++) {
                 $scope.bluemixRuntimeObjects = $scope.arrayOfBluemixRuntimeServices[i];
@@ -3884,25 +3866,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.bluemixServiceComponentLists=[];
 
             $scope.arrayOfBluemixService = data;
-
-         if (data.status == 'failed') {
-          //alert(data.description);
-          $scope.loading = false;
-          $uibModal.open({
-           animation: $scope.animationsEnabled,
-           templateUrl: '../components/modal/ErrorWarning.html',
-           windowClass: 'app-modal-window-sam-Plan',
-           controller: 'ErrorWarningCtrl',
-           backdrop: 'static',
-           keyboard: false,
-           resolve: {
-            ErrorMsg: function () {
-             return data.description;
-            },
-           }
-          })
-         }
-
             console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
             for(var i=0;i<$scope.arrayOfBluemixService.length;i++) {
                 $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
@@ -4310,13 +4273,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
      console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));*/
     //--------------
     //edit page start here
-   // $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+    $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
     //$scope.CurrentVer = sharedProperties.getVersion();
 
     // $scope.versionnum =  $scope.CurrentVer;
-   // $scope.tname= sharedProperties.getVersion()
-   // $rootScope.versionnum = $scope.tname
+    $scope.tname= sharedProperties.getVersion()
+    $rootScope.versionnum = $scope.tname
 
 
 
@@ -4367,12 +4330,33 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         });
     }
 
+    $scope.loadHybrid = function(){
+        /*$location.path('/canvas');*/
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../components/modal/solArchitecture.html',
+            controller: 'solCtrl',
+            windowClass: 'app-modal-window-sa',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+            }
+        });
+    }
+
+    $scope.viewDepl=function(){
+        $location.path('/deployment');
+    };
 
 
-
-
-
-
+    $scope.showDiv = function () {
+        $scope.showhideprop = true;
+        $scope.vEdit();
+    }
+    // close Div
+    $scope.hideDiv = function () {
+        $scope.showhideprop = false;
+    }
     //-----
 
     $scope.currentUser11 = sharedProperties.getProperty();
@@ -4410,12 +4394,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     canvas = new fabric.Canvas('canvas',{
                         selection: true,
                     });
-                 canvas.on("object:selected", function(options) {
-                  options.target.bringToFront();
-                  $( "#canvas-container").draggable("disable");
-                  });
-
-                    //$("#canvas-container").draggable();
+                    canvas.on("object:selected", function(options) {
+                        options.target.bringToFront();
+                        $( "#canvas-container").draggable("enable");
+                    });
                     // canvas.isDrawingMode = true;
                     /* fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
                      console.log('scroll');
@@ -4504,14 +4486,14 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                     //--------------
 
 
-                  /*$(function() {
+                    $(function() {
                         $("#canvas-container").draggable();
-                    });*/
+                    });
                     canvas.observe('mouse:down', function(){
 
                         var Get_obj = canvas.getActiveObject();
                         console.log("clicked on canvas---->")
-                        //$("#canvas-container").draggable("enable");
+                        $("#canvas-container").draggable("enable");
                     });
                     /* var imgDevice = document.getElementById("device_img");
                      var deviderImg = document.getElementById("devider_img");
@@ -4543,7 +4525,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                      imgInstance3.hasControls=false;
                      */
                     // we need this here because this is when the canvas gets initialized
-                    ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
+                    // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
                     // }
 
                     var canvasRenderObject=$scope.resultCanvasDetails.canvas[0];
@@ -5106,23 +5088,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 .success(function(data) {
                                     console.log("inside success function");
                                     $scope.DataResponse = data;
-                                 if (data.status == 'failed') {
-                                  //alert(data.description);
-                                  $scope.loading = false;
-                                  $uibModal.open({
-                                   animation: $scope.animationsEnabled,
-                                   templateUrl: '../components/modal/ErrorWarning.html',
-                                   windowClass: 'app-modal-window-sam-Plan',
-                                   controller: 'ErrorWarningCtrl',
-                                   backdrop: 'static',
-                                   keyboard: false,
-                                   resolve: {
-                                    ErrorMsg: function () {
-                                     return data.description;
-                                    },
-                                   }
-                                  });
-                                 }
                                     console.log(JSON.stringify($scope.DataResponse));
                                     $scope.loading=false;
                                 })
@@ -5222,23 +5187,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                     .success(function(data) {
                                         console.log("inside bluemix runtime success function");
                                         $scope.runtimeDataResponse = data;
-                                     if (data.status == 'failed') {
-                                      //alert(data.description);
-                                      $scope.loading = false;
-                                      $uibModal.open({
-                                       animation: $scope.animationsEnabled,
-                                       templateUrl: '../components/modal/ErrorWarning.html',
-                                       windowClass: 'app-modal-window-sam-Plan',
-                                       controller: 'ErrorWarningCtrl',
-                                       backdrop: 'static',
-                                       keyboard: false,
-                                       resolve: {
-                                        ErrorMsg: function () {
-                                         return data.description;
-                                        },
-                                       }
-                                      });
-                                     }
                                         console.log(JSON.stringify($scope.runtimeDataResponse));
                                         $scope.loading=false;
                                     }).error(function(data,status,header,config){
@@ -5331,23 +5279,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 }).success(function(data) {
                                     console.log("inside bluemix runtime success function");
                                     $scope.serviceDataResponse = data;
-                                 if (data.status == 'failed') {
-                                  //alert(data.description);
-                                  $scope.loading = false;
-                                  $uibModal.open({
-                                   animation: $scope.animationsEnabled,
-                                   templateUrl: '../components/modal/ErrorWarning.html',
-                                   windowClass: 'app-modal-window-sam-Plan',
-                                   controller: 'ErrorWarningCtrl',
-                                   backdrop: 'static',
-                                   keyboard: false,
-                                   resolve: {
-                                    ErrorMsg: function () {
-                                     return data.description;
-                                    },
-                                   }
-                                  });
-                                 }
                                     console.log(JSON.stringify($scope.serviceDataResponse));
                                     $scope.loading=false;
                                 }).error(function(data,status,header,config){
@@ -5451,7 +5382,10 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         protocol:""
                     }
 
+                    $scope.fromObjectArray=[];
+                    $scope.toObjectArray=[];
 
+                    $scope.addInfo=0;
 
                     $scope.addChildLine=function (options) {
                         // console.log('options :: '+options);
@@ -5553,11 +5487,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                         // undefined instead of delete since we are anyway going to do this many times
                         canvas.addChild = undefined;
                     }
-
-                 $scope.fromObjectArray=[];
-                 $scope.toObjectArray=[];
-
-                 $scope.addInfo=0;
 
                     $scope.createCanvasInfo=function(fromTextName,toTextName){
                         console.log('fromTextName === '+fromTextName);
@@ -5728,23 +5657,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         .success(function (data) {
                                             console.log("inside getServiceInfo function === " + JSON.stringify(data));
                                             $scope.popupData = data;
-                                         if (data.status == 'failed') {
-                                          //alert(data.description);
-                                          $scope.loading = false;
-                                          $uibModal.open({
-                                           animation: $scope.animationsEnabled,
-                                           templateUrl: '../components/modal/ErrorWarning.html',
-                                           windowClass: 'app-modal-window-sam-Plan',
-                                           controller: 'ErrorWarningCtrl',
-                                           backdrop: 'static',
-                                           keyboard: false,
-                                           resolve: {
-                                            ErrorMsg: function () {
-                                             return data.description;
-                                            },
-                                           }
-                                          });
-                                         }
                                             // console.log("MSP attr data == "+$scope.popupData);
 
 
@@ -5801,23 +5713,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         .success(function (data) {
                                             console.log("inside runtime function === " + JSON.stringify(data));
                                             $scope.runtimePopupData = data;
-                                         if (data.status == 'failed') {
-                                          //alert(data.description);
-                                          $scope.loading = false;
-                                          $uibModal.open({
-                                           animation: $scope.animationsEnabled,
-                                           templateUrl: '../components/modal/ErrorWarning.html',
-                                           windowClass: 'app-modal-window-sam-Plan',
-                                           controller: 'ErrorWarningCtrl',
-                                           backdrop: 'static',
-                                           keyboard: false,
-                                           resolve: {
-                                            ErrorMsg: function () {
-                                             return data.description;
-                                            },
-                                           }
-                                          });
-                                         }
                                             // console.log("MSP attr data == "+$scope.popupData);
 
                                             /*$scope.loading=false;*/
@@ -5874,23 +5769,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                         .success(function (data) {
                                             console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
                                             $scope.servicePopupData = data;
-                                         if (data.status == 'failed') {
-                                          //alert(data.description);
-                                          $scope.loading = false;
-                                          $uibModal.open({
-                                           animation: $scope.animationsEnabled,
-                                           templateUrl: '../components/modal/ErrorWarning.html',
-                                           windowClass: 'app-modal-window-sam-Plan',
-                                           controller: 'ErrorWarningCtrl',
-                                           backdrop: 'static',
-                                           keyboard: false,
-                                           resolve: {
-                                            ErrorMsg: function () {
-                                             return data.description;
-                                            },
-                                           }
-                                          });
-                                         }
                                             console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
                                             /*$scope.loading=false;*/
 
@@ -6059,23 +5937,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                                 } else {
                                     console.log("inside success function");
                                     $scope.PostDataResponse = data;
-                                 if (data.status == 'failed') {
-                                  //alert(data.description);
-                                  $scope.loading = false;
-                                  $uibModal.open({
-                                   animation: $scope.animationsEnabled,
-                                   templateUrl: '../components/modal/ErrorWarning.html',
-                                   windowClass: 'app-modal-window-sam-Plan',
-                                   controller: 'ErrorWarningCtrl',
-                                   backdrop: 'static',
-                                   keyboard: false,
-                                   resolve: {
-                                    ErrorMsg: function () {
-                                     return data.description;
-                                    },
-                                   }
-                                  });
-                                 }
                                     console.log(JSON.stringify($scope.PostDataResponse));
 
 
@@ -6255,7 +6116,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.newVer= sharedProperties.getVersion();
         console.log("current version ----->"+$scope.newVer);
         //var serviceName1 = $scope.choices[index].selectedCatalogName;
-        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+        if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0 && $scope.resultCanvasDetails.services.bluemix[0].runtime.length === 0 ){
             console.log('invoke place order for msp prov');
             //console.log(serviceName1=== +serviceName1);
             $http({
@@ -6271,41 +6132,41 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 //forms user object
             }).success(function(data,status,header,config) {
-                console.log("place order data ==="+JSON.stringify(data));
-             if (data.status == 'failed') {
-              //alert(data.description);
-              $scope.loading = false;
-              $uibModal.open({
-               animation: $scope.animationsEnabled,
-               templateUrl: '../components/modal/ErrorWarning.html',
-               windowClass: 'app-modal-window-sam-Plan',
-               controller: 'ErrorWarningCtrl',
-               backdrop: 'static',
-               keyboard: false,
-               resolve: {
-                ErrorMsg: function () {
-                 return data.description;
-                },
-               }
-              });
-             }
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
+                    console.log("place order data ===" + JSON.stringify(data));
 
-                //alert('Order Placed Successfully');
-                $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '../components/modal/orderSuccess.html',
-                    controller: 'orderSuccessCtrl',
-                    backdrop: 'static',
-                    keyboard: false,
-                    windowClass: 'app-modal-window-att-prov',
-                    resolve: {
-
-                    }
-                });
-                /*$uibModalInstance.dismiss('cancel');
-                 $location.path('/deployment');*/
+                    //alert('Order Placed Successfully');
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/orderSuccess.html',
+                        controller: 'orderSuccessCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'app-modal-window-att-prov',
+                        resolve: {}
+                    });
+                }
             })
+
         }
+
         else{
             console.log('inside placeorder');
             $scope.currentUser = sharedProperties.getProperty();
@@ -6613,23 +6474,6 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
     console.log("new version==========="+newver);
     $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
         $scope.ResponseDataViewBillObject = data;
-     if (data.status == 'failed') {
-      //alert(data.description);
-      $scope.loading = false;
-      $uibModal.open({
-       animation: $scope.animationsEnabled,
-       templateUrl: '../components/modal/ErrorWarning.html',
-       windowClass: 'app-modal-window-sam-Plan',
-       controller: 'ErrorWarningCtrl',
-       backdrop: 'static',
-       keyboard: false,
-       resolve: {
-        ErrorMsg: function () {
-         return data.description;
-        },
-       }
-      });
-     }
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
         sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
@@ -6909,28 +6753,31 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config) {
-         if (data.status == 'failed') {
-          //alert(data.description);
-          $scope.loading = false;
-          $uibModal.open({
-           animation: $scope.animationsEnabled,
-           templateUrl: '../components/modal/ErrorWarning.html',
-           windowClass: 'app-modal-window-sam-Plan',
-           controller: 'ErrorWarningCtrl',
-           backdrop: 'static',
-           keyboard: false,
-           resolve: {
-            ErrorMsg: function () {
-             return data.description;
-            },
-           }
-          });
-         }
-            console.log("place order data ==="+JSON.stringify(data));
-            $uibModalInstance.dismiss('cancel');
-            $location.path('/deployment');
         })
+            .success(function(data,status,header,config) {
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
+                    console.log("place order data ===" + JSON.stringify(data));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/deployment');
+                }
+            })
         $scope.placeOrderSpins = false;
     }
 });
@@ -7024,39 +6871,42 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org,'space_url':spaceUrl}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config)
-        {
-            /*$scope.selSpace = true;
-             $scope.showSpace = true;*/
-            console.log("get organization data ==="+JSON.stringify(data));
-            $scope.spaceList = data;
-         if (data.status == 'failed') {
-          //alert(data.description);
-          $scope.loading = false;
-          $uibModal.open({
-           animation: $scope.animationsEnabled,
-           templateUrl: '../components/modal/ErrorWarning.html',
-           windowClass: 'app-modal-window-sam-Plan',
-           controller: 'ErrorWarningCtrl',
-           backdrop: 'static',
-           keyboard: false,
-           resolve: {
-            ErrorMsg: function () {
-             return data.description;
-            },
-           }
-          });
-         }
-            console.log('$scope.spaceList===' +JSON.stringify($scope.spaceList));
-            for(var i=0;i<$scope.spaceList.length;i++){
-                console.log('$scope.spaceList.length==' +$scope.spaceList.length);
-                $scope.spaceData = $scope.spaceList[i].space_name;
-                console.log('$scope.spaceData' +JSON.stringify($scope.spaceData));
-                $scope.spaceDataArray.push($scope.spaceData);
-                $scope.loading = false;
-            }
-            console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
         })
+            .success(function(data,status,header,config)
+            {
+                /*$scope.selSpace = true;
+                 $scope.showSpace = true;*/
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
+                    console.log("get organization data ===" + JSON.stringify(data));
+                    $scope.spaceList = data;
+                    console.log('$scope.spaceList===' + JSON.stringify($scope.spaceList));
+                    for (var i = 0; i < $scope.spaceList.length; i++) {
+                        console.log('$scope.spaceList.length==' + $scope.spaceList.length);
+                        $scope.spaceData = $scope.spaceList[i].space_name;
+                        console.log('$scope.spaceData' + JSON.stringify($scope.spaceData));
+                        $scope.spaceDataArray.push($scope.spaceData);
+                        $scope.loading = false;
+                    }
+                    console.log('$scope.spaceDataArray==' + JSON.stringify($scope.spaceDataArray));
+                }
+            })
     };
     $scope.proceedForOrder = function(org,space){
         console.log('org===' +org);
@@ -7107,40 +6957,40 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             }),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config) {
-         if (data.status == 'failed') {
-          //alert(data.description);
-          $scope.loading = false;
-          $uibModal.open({
-           animation: $scope.animationsEnabled,
-           templateUrl: '../components/modal/ErrorWarning.html',
-           windowClass: 'app-modal-window-sam-Plan',
-           controller: 'ErrorWarningCtrl',
-           backdrop: 'static',
-           keyboard: false,
-           resolve: {
-            ErrorMsg: function () {
-             return data.description;
-            },
-           }
-          });
-         }
-
-            console.log("place order data ==="+JSON.stringify(data));
-            $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/orderSuccess.html',
-                controller: 'orderSuccessCtrl',
-                backdrop: 'static',
-                keyboard: false,
-                windowClass: 'app-modal-window-att-prov',
-                resolve: {
-
+        })
+            .success(function(data,status,header,config) {
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
+                    console.log("place order data ===" + JSON.stringify(data));
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/orderSuccess.html',
+                        controller: 'orderSuccessCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'app-modal-window-att-prov',
+                        resolve: {}
+                    });
+                    /*$uibModalInstance.dismiss('cancel');
+                     $location.path('/deployment');*/
                 }
             });
-            /*$uibModalInstance.dismiss('cancel');
-             $location.path('/deployment');*/
-        });
         //$location.path('/deployment');
     }
 });
@@ -7205,24 +7055,6 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     // console.log("inside success function");
                     $rootScope.showhideprop=false;
                     $scope.editCanvasDetails = data;
-                 if (data.status == 'failed') {
-                  //alert(data.description);
-                  $scope.loading = false;
-                  $uibModal.open({
-                   animation: $scope.animationsEnabled,
-                   templateUrl: '../components/modal/ErrorWarning.html',
-                   windowClass: 'app-modal-window-sam-Plan',
-                   controller: 'ErrorWarningCtrl',
-                   backdrop: 'static',
-                   keyboard: false,
-                   resolve: {
-                    ErrorMsg: function () {
-                     return data.description;
-                    },
-                   }
-                  });
-                 }
-
                     console.log('editCanvasDetails===>' + JSON.stringify($scope.editCanvasDetails));
                     $scope.newsolution=$scope.editCanvasDetails.solution_name;
                     $scope.newVersion=$scope.editCanvasDetails.version;
@@ -7303,22 +7135,19 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
 
                     //----end--
                     $timeout(function () {
-
                         var canvas;
                         // window.newAnimation = function () {
-                       // canvas = new fabric.Canvas('canvas');
+                        canvas = new fabric.Canvas('canvas');
                         canvas = new fabric.Canvas('canvas',{
                             selection: true,
                         });
-                     $(function() {
-                      $( "#canvas-container").draggable();
-                     });
-                  /* canvas.on("object:selected", function(options) {
-                      options.target.bringToFront();
-                      $( "#canvas-container").draggable("disable");
-                     });
-*/
+                        $scope.canvasCreated=JSON.stringify(canvas);
+                        console.log("Current canvasCreated : " + $scope.canvasCreated);
 
+                        canvas.on("object:selected", function(options) {
+                            options.target.bringToFront();
+                            $( "#canvas-container").draggable("enable");
+                        });
                         window.addEventListener("load", function()
                         {
                             var canvas = document.createElement('canvas'); document.body.appendChild(canvas);
@@ -7339,16 +7168,45 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                             window.addEventListener("resize", resize);
                             resize();
                         });
+                        /*var imgDevice = document.getElementById("device_img");
+                         var deviderImg = document.getElementById("devider_img");
+                         var edgeDevice = document.getElementById("edge_device");
+
+                         var imgInstance1 = new fabric.Image(imgDevice);
+                         imgInstance1.left=400;
+                         imgInstance1.top=400;
+                         canvas.add(imgInstance1);
+                         imgInstance1.lockMovementY = true;
+                         imgInstance1.lockMovementX = true;
+                         imgInstance1.hasControls=false;
+
+
+                         var imgInstance2 = new fabric.Image(deviderImg);
+                         imgInstance2.left=615;
+                         imgInstance2.top=400;
+                         canvas.add(imgInstance2);
+                         imgInstance2.lockMovementY = true;
+                         imgInstance2.lockMovementX = true;
+                         imgInstance2.hasControls=false;
+
+                         var imgInstance3 = new fabric.Image(edgeDevice);
+                         imgInstance3.left=800;
+                         imgInstance3.top=400;
+                         canvas.add(imgInstance3);
+                         imgInstance3.lockMovementY = true;
+                         imgInstance3.lockMovementX = true;
+                         imgInstance3.hasControls=false;*/
+                        // we need this here because this is when the canvas gets initialized
+                        // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
+                        // }
+
                         var canvasRenderObject=$scope.editCanvasDetails.canvas_details[0];
                         canvas.loadFromDatalessJSON(canvasRenderObject);
                         canvas.renderAll();
-
-
-
-
+                        $scope.canvasCreated=JSON.stringify(canvas);
+                        console.log("Current canvasCreated : " + $scope.canvasCreated)
+                        // sharedProperties.setCanvasInfo($scope.canvasCreated);
                     })
-
-
                 }
             })
             .error(function (data, status, header, config) {
@@ -7463,23 +7321,6 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
                 } else {
                     console.log("inside success function");
                     $scope.PostDataResponse = data;
-                 if (data.status == 'failed') {
-                  //alert(data.description);
-                  $scope.loading = false;
-                  $uibModal.open({
-                   animation: $scope.animationsEnabled,
-                   templateUrl: '../components/modal/ErrorWarning.html',
-                   windowClass: 'app-modal-window-sam-Plan',
-                   controller: 'ErrorWarningCtrl',
-                   backdrop: 'static',
-                   keyboard: false,
-                   resolve: {
-                    ErrorMsg: function () {
-                     return data.description;
-                    },
-                   }
-                  });
-                 }
                     console.log(JSON.stringify($scope.PostDataResponse));
                     $uibModalInstance.dismiss('cancel');
                     $location.path('/deployment');
@@ -7511,15 +7352,3 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
 });
 
 //ends
-angular.module('portalControllers').controller('ErrorWarningCtrl', function ($scope,$location,$uibModal,$uibModalInstance,ErrorMsg) {
- console.log("inside newArchConfirmCtrl");
- console.log('ErrorMsg===' +ErrorMsg);
- $scope.showError = ErrorMsg;
- $scope.ngShowModalErrorWarning = true;
- $scope.dismissModal = function () {
-  $uibModalInstance.dismiss('cancel');
- };
- $scope.ErrorClose = function(){
-  $uibModalInstance.dismiss('cancel');
- }
-});
