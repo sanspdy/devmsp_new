@@ -4414,9 +4414,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                   options.target.bringToFront();
                   $( "#canvas-container").draggable("disable");
                   });
-                /* $(function() {
-                  $( "#canvas-container").draggable();
-                 });*/
+
                     //$("#canvas-container").draggable();
                     // canvas.isDrawingMode = true;
                     /* fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
@@ -6243,7 +6241,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
 
 
     $scope.placeServiceOrder=function (index) {
-<<<<<<< HEAD
         $scope.currentUser = sharedProperties.getProperty();
         console.log('userEntered == ' + $scope.currentUser);
         //console.log('user===' +user);
@@ -6323,87 +6320,6 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.spinsCatalogueList = false;
             $scope.spinsViewBoM = false;
             $scope.loading = true;
-=======
-     $scope.currentUser = sharedProperties.getProperty();
-     console.log('userEntered == ' + $scope.currentUser);
-     //console.log('user===' +user);
-     console.log('$scope.solnEntered11===' +JSON.stringify($scope.solnEntered11));
-     $scope.Contact = sharedProperties.getContactName();
-     console.log('$scope.Contact===' +$scope.Contact);
-     $scope.currentBMUser=sharedProperties.getBMuname();
-     $scope.currentBMPass=sharedProperties.getBMPass();
-     console.log('currentBMUser===' +JSON.stringify($scope.currentBMUser));
-     console.log('currentBMPass===' +JSON.stringify($scope.currentBMPass));
-     console.log('resultCanvasDetails===' +JSON.stringify($scope.resultCanvasDetails));
-     $scope.newVer= sharedProperties.getVersion();
-     console.log("current version ----->"+$scope.newVer);
-     //var serviceName1 = $scope.choices[index].selectedCatalogName;
-     if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0 && $scope.resultCanvasDetails.services.bluemix[0].runtime.length === 0 ){
-     console.log('invoke place order for msp prov');
-     //console.log(serviceName1=== +serviceName1);
-     $http({
-     method  : 'POST',
-     url     : '/api/v2/placeOrder',
-     data    : $.param({
-     'uname': $scope.currentUser,
-     'soln_name': $scope.solnEntered11,
-     'version':$scope.newVer,
-     'contactname':$scope.Contact,
-     'contactmail':$scope.currentUser,
-     }),
-     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-     //forms user object
-     }).success(function(data,status,header,config) {
-         if(data.status == 'failed'){
-             //alert(data.description);
-             $scope.loading = false;
-             $uibModal.open({
-                 animation: $scope.animationsEnabled,
-                 templateUrl: '../components/modal/ErrorWarning.html',
-                 windowClass: 'app-modal-window-sam-Plan',
-                 controller: 'ErrorWarningCtrl',
-                 backdrop: 'static',
-                 keyboard: false,
-                 resolve: {
-                     ErrorMsg: function () {
-                         return data.description;
-                     },
-                 }
-             });
-         }
-         else {
-             console.log("place order data ===" + JSON.stringify(data));
-
-             //alert('Order Placed Successfully');
-             $uibModal.open({
-                 animation: $scope.animationsEnabled,
-                 templateUrl: '../components/modal/orderSuccess.html',
-                 controller: 'orderSuccessCtrl',
-                 backdrop: 'static',
-                 keyboard: false,
-                 windowClass: 'app-modal-window-att-prov',
-                 resolve: {}
-             });
-         }
-     })
-
-     }
-
-     else{
-     console.log('inside placeorder');
-     $scope.currentUser = sharedProperties.getProperty();
-     console.log('userEntered == ' + $scope.currentUser);
-     var user = $scope.currentUser;
-     console.log("inside place order");
-     console.log('$scope.solnEntered === '+$scope.solnEntered11);
-     $scope.placeOrderSpins = true;
-     $scope.viewCreatSol = false;
-     $scope.spinsCatalogueList=false;
-     $scope.spinsCanvas=false;
-     $scope.spinsCatalogueList = false;
-     $scope.spinsViewBoM = false;
-     $scope.loading = true;
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
 
             $scope.placeOrderSpins = false;
             //modal opens
@@ -6993,7 +6909,6 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-<<<<<<< HEAD
         }).success(function(data,status,header,config) {
          if (data.status == 'failed') {
           //alert(data.description);
@@ -7015,32 +6930,6 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             console.log("place order data ==="+JSON.stringify(data));
             $uibModalInstance.dismiss('cancel');
             $location.path('/deployment');
-=======
-        })
-            .success(function(data,status,header,config) {
-                if(data.status == 'failed'){
-                    //alert(data.description);
-                    $scope.loading = false;
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/ErrorWarning.html',
-                        windowClass: 'app-modal-window-sam-Plan',
-                        controller: 'ErrorWarningCtrl',
-                        backdrop: 'static',
-                        keyboard: false,
-                        resolve: {
-                            ErrorMsg: function () {
-                                return data.description;
-                            },
-                        }
-                    });
-                }
-                else {
-                    console.log("place order data ===" + JSON.stringify(data));
-                    $uibModalInstance.dismiss('cancel');
-                    $location.path('/deployment');
-                }
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
         })
         $scope.placeOrderSpins = false;
     }
@@ -7135,12 +7024,10 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org,'space_url':spaceUrl}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        })
-            .success(function(data,status,header,config)
+        }).success(function(data,status,header,config)
         {
             /*$scope.selSpace = true;
              $scope.showSpace = true;*/
-<<<<<<< HEAD
             console.log("get organization data ==="+JSON.stringify(data));
             $scope.spaceList = data;
          if (data.status == 'failed') {
@@ -7166,38 +7053,9 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 $scope.spaceData = $scope.spaceList[i].space_name;
                 console.log('$scope.spaceData' +JSON.stringify($scope.spaceData));
                 $scope.spaceDataArray.push($scope.spaceData);
-=======
-            if(data.status == 'failed'){
-                //alert(data.description);
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
                 $scope.loading = false;
-                $uibModal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '../components/modal/ErrorWarning.html',
-                    windowClass: 'app-modal-window-sam-Plan',
-                    controller: 'ErrorWarningCtrl',
-                    backdrop: 'static',
-                    keyboard: false,
-                    resolve: {
-                        ErrorMsg: function () {
-                            return data.description;
-                        },
-                    }
-                });
             }
-            else {
-                console.log("get organization data ===" + JSON.stringify(data));
-                $scope.spaceList = data;
-                console.log('$scope.spaceList===' + JSON.stringify($scope.spaceList));
-                for (var i = 0; i < $scope.spaceList.length; i++) {
-                    console.log('$scope.spaceList.length==' + $scope.spaceList.length);
-                    $scope.spaceData = $scope.spaceList[i].space_name;
-                    console.log('$scope.spaceData' + JSON.stringify($scope.spaceData));
-                    $scope.spaceDataArray.push($scope.spaceData);
-                    $scope.loading = false;
-                }
-                console.log('$scope.spaceDataArray==' + JSON.stringify($scope.spaceDataArray));
-            }
+            console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
         })
     };
     $scope.proceedForOrder = function(org,space){
@@ -7249,7 +7107,6 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             }),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-<<<<<<< HEAD
         }).success(function(data,status,header,config) {
          if (data.status == 'failed') {
           //alert(data.description);
@@ -7279,41 +7136,10 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
                 windowClass: 'app-modal-window-att-prov',
                 resolve: {
 
-=======
-        })
-            .success(function(data,status,header,config) {
-                if(data.status == 'failed'){
-                    //alert(data.description);
-                    $scope.loading = false;
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/ErrorWarning.html',
-                        windowClass: 'app-modal-window-sam-Plan',
-                        controller: 'ErrorWarningCtrl',
-                        backdrop: 'static',
-                        keyboard: false,
-                        resolve: {
-                            ErrorMsg: function () {
-                                return data.description;
-                            },
-                        }
-                    });
                 }
-                else {
-                    console.log("place order data ===" + JSON.stringify(data));
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/orderSuccess.html',
-                        controller: 'orderSuccessCtrl',
-                        backdrop: 'static',
-                        keyboard: false,
-                        windowClass: 'app-modal-window-att-prov',
-                        resolve: {}
-                    });
-                    /*$uibModalInstance.dismiss('cancel');
-                     $location.path('/deployment');*/
->>>>>>> 29125e306a37df1a03a82260d52f0a0f0c79c2d6
-                }
+            });
+            /*$uibModalInstance.dismiss('cancel');
+             $location.path('/deployment');*/
         });
         //$location.path('/deployment');
     }
