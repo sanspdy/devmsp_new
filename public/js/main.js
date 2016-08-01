@@ -1538,6 +1538,9 @@ angular.module('portalControllers').controller('newsolCtrl', function ($scope,$u
      $uibModalInstance.dismiss('cancel');
      };*/
     $rootScope.componentCount=0;
+    $rootScope.actualMSPComponentIndex=0;
+    $rootScope.bluemixRuntimeComponentCount=0;
+    $rootScope.bluemixServiceComponentCount=0;
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
 
