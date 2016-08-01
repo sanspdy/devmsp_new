@@ -25,7 +25,6 @@ if (host !== 'localhost') app.set('env', 'production');
 //require('./config/express')(app);
 //require('./routes')(app);
 
-
 var dbCredentials = {
     dbComponents : 'components',
     dbBlueprints : 'blueprint',
