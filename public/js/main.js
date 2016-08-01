@@ -473,6 +473,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
     ];
 
+
     $scope.names = [
         {
         id:1,
@@ -487,33 +488,9 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
     /*console.log('$scope.names[0].name===' +JSON.stringify($scope.names[0].name));
     $scope.selectedCountry = $scope.names[0].name;*/
 
-    $scope.GetValue = function (con) {
-        /*console.log('countryselect===' +JSON.stringify($scope.countryselect));*/
-        $scope.countryId = $scope.ddlFruits;
-        console.log('$scope.countryId===' + JSON.stringify($scope.countryId));
-        console.log('$scope.currencyData===' + JSON.stringify($scope.currencyData));
-        for(var i =0;i<$scope.currencyData.length;i++){
-            $scope.countryselect = $scope.currencyData[i];
-            console.log('$scope.countryselect==' + JSON.stringify($scope.countryselect));
-            $scope.amountData = $scope.countryselect.amount;
-            console.log('$scope.amountData==' + JSON.stringify($scope.amountData));
-            $scope.countryData = $scope.countryselect['country'];
-            console.log('$scope.countryData==' + JSON.stringify($scope.countryData));
-            Object.keys($scope.amountData).forEach(function (key) {
-                $scope.amountDataFirstKey = key;
-                console.log("$scope.amountDataFirstKey == " + JSON.stringify($scope.amountDataFirstKey));
-                $scope.amountDataFirstKeyValue = $scope.amountData[key];
-                console.log("$scope.amountDataFirstKeyValue == " + JSON.stringify($scope.amountDataFirstKeyValue));
-            })
-            $scope.CountryPrice = $scope.amountDataFirstKeyValue;
-        }
-        /*var CountryPrice = $.grep($scope.amountData, function (con) {
-            return con.country == countryId;
-        })[0].amountDataFirstKeyValue;*/
-        console.log("Selected Country: " + $scope.countryId + "\nSelected Price: " + $scope.CountryPrice);
-    }
     if(serviceType==='msp') {
         console.log("inside msp portal ctrl");
+        $scope.sizevalue = [];
         $scope.username = sharedProperties.getProperty();
         $scope.solnName = sharedProperties.getSoln();
         $scope.ngShowModal = true;
@@ -547,7 +524,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 $scope.patternObject = $scope.popupData1["Pattern"];
                 console.log('patternObject == ' + JSON.stringify($scope.patternObject));
                 Object.keys($scope.patternObject).forEach(function (key) {
-                    console.log('key===' +key);
+                    console.log('key===' + key);
                     /*if (key === 'IIB Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["IIB Server"];
 
@@ -557,24 +534,32 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                      } else if (key === 'MYSQL Server') {
                      $scope.patternObjectIIB_Server = $scope.patternObject["MYSQL Server"];
                      }*/
+
                     $scope.patternObjectIIB_Server.push($scope.patternObject[key]);
-                    console.log('$scope.patternObject[key]===' +JSON.stringify($scope.patternObject[key]));
+                    console.log('$scope.patternObject[key]===' + JSON.stringify($scope.patternObject[key]));
                     $scope.sizing = $scope.patternObject[key];
-                    console.log("sizing ==="+JSON.stringify($scope.sizing));
-                    var keys=Object.keys($scope.patternObject);
-                    var len=keys.length;
-                    console.log("sizing obj length === "+len);
-                    console.log("$scope.patternObjectIIB_Server == "+JSON.stringify($scope.patternObjectIIB_Server));
-                    if($scope.sizing.hasOwnProperty("size") && $scope.sizing.size !== null && $scope.sizing.size !== undefined){
-                        console.log("size property ====" +JSON.stringify($scope.sizing.size));
-                        $scope.sizevalue = $scope.sizing.size;
+                    console.log("sizing ===" + JSON.stringify($scope.sizing));
+                    var keys = Object.keys($scope.patternObject);
+                    var len = keys.length;
+                    console.log("sizing obj length === " + len);
+                    console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.patternObjectIIB_Server));
+                    for (var i = 0; i < $scope.patternObjectIIB_Server.length; i++) {
+
+                    if ($scope.patternObjectIIB_Server[i].hasOwnProperty("size") && $scope.patternObjectIIB_Server[i].size !== null && $scope.patternObjectIIB_Server[i].size !== undefined) {
+                        console.log("size property ====" + JSON.stringify($scope.patternObjectIIB_Server[i].size));
+                        var index = _.findIndex($scope.serverSize, function (data) {
+                            return data.size.toLowerCase() === $scope.patternObjectIIB_Server[i].size.toLowerCase();
+                        });
+                        $scope.sizevalue[i] = $scope.serverSize[index];
+                        console.log('$scope.sizevalue=====' + JSON.stringify($scope.sizevalue));
                     }
-                    else{
+                }
+                   /* else{
                         console.log("no key size");
                        $scope.sizing.size={"id":1,"size":"Small"};
                         console.log("printing sizing.size ===="+JSON.stringify($scope.sizing.size));
                         $scope.sizevalue = $scope.sizing.size;
-                    }
+                    }*/
 
                 })
             }
@@ -586,6 +571,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('key===>' +key);
             console.log('index===>' +index);
             console.log('size===>' +size);
+            console.log('size===>' +JSON.stringify(size.size));
             console.log('updated object values ==== ' + JSON.stringify($scope.patternObjectIIB_Server));
             var updatedSizeProperties = [
                 {
@@ -691,7 +677,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log("size22 ====="+updatedSizeProperties[i].type);
                 if(size.size.toLowerCase() === updatedSizeProperties[i].type.toLowerCase()){
                     console.log('inside if');
-                    $scope.a['size']= size;  //adding size key and value to existing json
+                    $scope.a['size']= size.size;  //adding size key and value to existing json
                     $scope.a[namCPU] = updatedSizeProperties[i].cpu;
                     $scope.a[namMemory] = updatedSizeProperties[i].memory;
                     $scope.a[namDisksize] = updatedSizeProperties[i].disksize;
@@ -919,6 +905,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 }
 
             }
+            $scope.changedRuntimeValueSave();
 
         }
         $scope.decrement = function(value){
@@ -957,6 +944,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 }
 
             }
+            $scope.changedRuntimeValueSave();
 
         }
 
@@ -974,8 +962,14 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                     $scope.pricePropertiesValue = $scope.memoryProperties[key];
                 }
             })
-            $scope.memoryValueArray=$scope.memoryPropertiesValue.split('MB');
-            $scope.memoryValueFinal=$scope.memoryValueArray[0];
+            if($scope.memoryPropertiesValue.match('MB')){
+                $scope.memoryValueArray=$scope.memoryPropertiesValue.split('MB');
+                $scope.memoryValueFinal=$scope.memoryValueArray[0];
+            }
+            if($scope.memoryPropertiesValue.match('GB')){
+                $scope.memoryValueArray=$scope.memoryPropertiesValue.split('GB');
+                $scope.memoryValueFinal=$scope.memoryValueArray[0]*1024;
+            }
             console.log('changed valuess memory final === '+$scope.memoryValueFinal);
 
             console.log('changed valuess instance === '+$scope.instancePropertiesValue);

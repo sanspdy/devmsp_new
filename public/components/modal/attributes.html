@@ -11,13 +11,16 @@
         <div class="row header" ng-show="showRuntimeAttributes">
             <p class="pop_heading">{{popupDataRuntime.title}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
+            <div class=" btn_div row" ng-show="showRuntimeAttributes">
+            <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>
+                </div>
             <hr>
         </div>
         <div class="row header" ng-show="showServiceAttributes">
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showServiceAttributes">
-                <button  class="save_btn" type="button" ng-click="saveDataService(selectvalue,attrTitle)">SAVE</button>
+                <button  class="save_btn" type="button"  ng-click="saveDataService(selectvalue,attrTitle)">SAVE</button>
             </div>
             <hr>
         </div>
@@ -41,7 +44,7 @@
                 </div>
                 <div class="col-xs-12">
                     <p class="col-xs-7 keyHeads">  <b>{{key}}Size</b></p>
-                    <select  class="col-xs-3 serverSize" ng-model=sizevalue[$index] ng-change="changeServerSize($index,sizevalue,key)" ng-options="country.size for country in serverSize track by country.id">
+                    <select  class="col-xs-3 serverSize" ng-model=sizevalue[$index] ng-change="changeServerSize($index,sizevalue[$index],key)" ng-options="country.size for country in serverSize track by country.id">
                     </select>
                     <p class="col-xs-2">
 
@@ -107,8 +110,8 @@
                     <p class="keyStyle">Memory</p>
                     <div id="incdec">
                         <input class="spss_input" type="text"  ng-model="memoryProperties['memory']" ng-blur="changedRuntimeValueSave()"/>
-                        <img src="up_arrow.jpeg" id="up" ng-click="increment(memoryProperties['memory'])" />
-                        <img src="down_arrow.jpeg" id="down" ng-click="decrement(memoryProperties['memory'])"/>
+                        <img src="../../images/Arrow-up-navmenu.png" id="up" ng-click="increment(memoryProperties['memory'])" />
+                        <img src="../../images/Arrow-down-navmenu.png" id="down" ng-click="decrement(memoryProperties['memory'])"/>
                     </div>
                    <!-- <input class="spss_input" type="number" string-to-number ng-model="memoryProperties['memory']" ng-blur="changedRuntimeValueSave()"/> -->
                 </div>
@@ -180,7 +183,7 @@
                     <div class="col-xs-1">
                         <!--<loading ng-show="viewbluemixPrice" class=""></loading>-->
                         <p ng-show="showPriceBefore"> --</p>
-                        <p ng-show="showPriceAfter">  &#x20B9;{{pricedata[$index]}}</p>
+                        <p ng-show="showPriceAfter"> &#36; {{pricedata[$index]}}</p>
                         <!--<input type="text" ng-model="pricedata[$index]">-->
                     </div>
                 </li>
@@ -190,10 +193,17 @@
     <!--<div class=" btn_div row" ng-show="showMSPAttributes">
         <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
     </div>-->
-    <div class=" btn_div row" ng-show="showRuntimeAttributes">
+   <!-- <div class=" btn_div row" ng-show="showRuntimeAttributes">
         <p ng-show="showRuntimeAttributes" class="runtimeNote"><b>Note:</b></p>
         <p ng-show="showRuntimeAttributes" class="runtimePrice">Click <a href ="https://console.ng.bluemix.net/pricing/" target="_blank">here</a> for Pricing Details</p>
-        <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>
+       &lt;!&ndash; <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>&ndash;&gt;
+    </div>-->
+    <div class="disclaimer_runtime" ng-show="showRuntimeAttributes">
+        <p>
+            <b>Note:</b></p>
+        <p>This pricing list is for informational purposes only.</p>
+        <p>All prices are subject to the additional terms included in the pricing pages on <<a href ="https://console.ng.bluemix.net/pricing/" target="_blank">Bluemix Pricing</a>>
+        </p>
     </div>
     <!--<div class=" btn_div row" ng-show="showServiceAttributes">
         <button  class="save_btn" type="button" ng-click="saveDataService(planData)">SAVE</button>

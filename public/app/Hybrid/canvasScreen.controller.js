@@ -5,7 +5,7 @@ angular.module('portalControllers')
         $scope.showMSP = true;
         $scope.showHybrid = false;
         $scope.showDepl = true;
-        $scope.spinsCatalogueList=false;
+        //$scope.spinsCatalogueList=false;
         $scope.lineAdded=0;
         $scope.spinsCanvas=false;
         $scope.spinsGetServiceInfo=false;
@@ -284,7 +284,7 @@ angular.module('portalControllers')
                 $scope.MSP=true;
                 $scope.previousOrders=true;
                 $scope.drafts=false;
-                $scope.spinsCatalogueList=true;
+                //$scope.spinsCatalogueList=true;
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = false;
                 //$scope.loading=true;
@@ -357,10 +357,10 @@ angular.module('portalControllers')
             $scope.runtimeCatalogue = true;
             console.log('inside edit1 function');
             $scope.isActive1 = !$scope.isActive1;
-            $scope.spinsCatalogueList=false;
+            //$scope.spinsCatalogueList=false;
             $scope.spinsCanvas=false;
-            $scope.spinsRuntimeList = true;
-            $scope.spinsServicesList = false;
+           // $scope.spinsRuntimeList = true;
+            //$scope.spinsServicesList = false;
             //$scope.loading=true;
            /* $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
                 console.log('inside http function');
@@ -427,8 +427,8 @@ angular.module('portalControllers')
             $scope.servicesCatalogue = true;
 
             $scope.isActive2 = !$scope.isActive2;
-            $scope.spinsRuntimeList = false;
-            $scope.spinsServicesList=true;
+            //$scope.spinsRuntimeList = false;
+           // $scope.spinsServicesList=true;
             $scope.spinsCanvasCatalogue = false;
             $scope.spinsCanvas=false;
             //$scope.loading=true;
@@ -507,7 +507,7 @@ angular.module('portalControllers')
                 var mspCount=$scope.openpopupMSPCount;
                 $scope.mspCount=mspCount-1;
                 console.log('componentCount MSP === '+$scope.mspCount);
-                $scope.spinsCatalogueList=false;
+                //$scope.spinsCatalogueList=false;
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = true;
                 $scope.loading=true;
@@ -604,7 +604,7 @@ angular.module('portalControllers')
                         console.log('$scope.actualruntimeComponentIndex === '+$scope.actualruntimeComponentIndex);
                     }
                 }
-                $scope.spinsCatalogueList=false;
+                //$scope.spinsCatalogueList=false;
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = true;
                 $scope.loading=true;
@@ -697,7 +697,7 @@ angular.module('portalControllers')
                         console.log('$scope.actualServiceComponentIndex === '+$scope.actualServiceComponentIndex);
                     }
                 }
-                $scope.spinsCatalogueList=false;
+                //$scope.spinsCatalogueList=false;
                 $scope.spinsCanvas=false;
                 $scope.spinsCanvasCatalogue = true;
                 $scope.loading=true;
@@ -1016,11 +1016,12 @@ angular.module('portalControllers')
                     console.log("$scope.itemData.component_count====" +$scope.Title[$scope.selectedImageIndex]);
                     var user=$scope.userEntered;
                     var serviceName=$scope.catalog_name[$scope.selectedImageIndex];
-                    $scope.spinsCatalogueList=false;
+                    //$scope.spinsCatalogueList=false;
                     $scope.spinsCanvas=true;
-                    $scope.spinsRuntimeList=false;
-                    $scope.spinsServicesList=false;
-                    $scope.spinsCatalogueList=false;
+                    $scope.spinsCanvasCatalogue = false;
+                    //$scope.spinsRuntimeList=false;
+                    //$scope.spinsServicesList=false;
+                    //$scope.spinsCatalogueList=false;
                     $scope.loading=true;
                     $http({
                         method  : 'PUT',
@@ -1143,9 +1144,10 @@ angular.module('portalControllers')
                         console.log("runtime serviceName====" +serviceName);
                         console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
                         sharedProperties.setRuntimeCount(bluemixRuntimeCompCount);
-                        $scope.spinsCatalogueList=false;
-                        $scope.spinsRuntimeList = false;
-                        $scope.spinsServicesList = false;
+                       // $scope.spinsCatalogueList=false;
+                       // $scope.spinsRuntimeList = false;
+                       // $scope.spinsServicesList = false;
+                        $scope.spinsCanvasCatalogue = false;
                         $scope.spinsCanvas=true;
                         $scope.loading=true;
                         $http({
@@ -1261,9 +1263,10 @@ angular.module('portalControllers')
 
                         console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
                         sharedProperties.setComponentCount(bluemixServiceCompCount);
-                        $scope.spinsCatalogueList=false;
-                        $scope.spinsRuntimeList = false;
-                        $scope.spinsServicesList = false;
+                        //$scope.spinsCatalogueList=false;
+                       // $scope.spinsRuntimeList = false;
+                        //$scope.spinsServicesList = false;
+                        $scope.spinsCanvasCatalogue = false;
                         $scope.spinsCanvas=true;
                         $scope.loading=true;
                         $http({
@@ -1958,8 +1961,8 @@ angular.module('portalControllers')
                 $scope.solnEntered1 = sharedProperties.getSoln();
                 console.log('solnEntered1 == ' + $scope.solnEntered1);
                 $scope.spinsViewBoM = true;
-                $scope.spinsRuntimeList = false;
-                $scope.spinsServicesList=false;
+                //$scope.spinsRuntimeList = false;
+                //$scope.spinsServicesList=false;
                 $scope.spinsCanvasCatalogue = false;
                 $scope.spinsCanvas=false;
                 $scope.loading=true;

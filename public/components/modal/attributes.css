@@ -153,7 +153,7 @@
     width:600px;
 }
 .app-modal-window-att2 .modal-dialog {
-    width: 700px;
+    width: 750px;
 }
 .app-modal-window-att3 .modal-dialog {
     width: 1200px;
@@ -243,3 +243,9 @@
 .runtimePrice{
     margin-left: 6%;
 }
+
+/*
+#up{
+    margin-top: -45%;
+    margin-left: 30%;
+}*/

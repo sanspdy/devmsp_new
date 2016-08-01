@@ -99,3 +99,8 @@ table tbody td { border-bottom: 1px solid grey; padding: 1% }
     font-size: 16px;
     margin-top: 5%;
 }
+.disclaimer_runtime{
+    font-size: 16px;
+    margin-left: 3%;
+    margin-top: 11%;
+}
