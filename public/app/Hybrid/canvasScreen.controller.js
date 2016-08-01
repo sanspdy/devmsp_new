@@ -1110,8 +1110,10 @@ angular.module('portalControllers')
                     if($scope.runtimeCatalogue === true){
                         $rootScope.objCount++;
                         $rootScope.bluemixRuntimeComponentCount++;
-                        var indexRuntimeCompCount=$rootScope.bluemixRuntimeComponentCount;
-                        var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
+                        var indexRuntimeCompCount=0;
+                        indexRuntimeCompCount=$rootScope.bluemixRuntimeComponentCount;
+                        var bluemixRuntimeCompCount=0;
+                        bluemixRuntimeCompCount=indexRuntimeCompCount-1;
                         $scope.bluemixRuntimeimageSrc = $scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex];
                         console.log("$scope.imageSrc===" + $scope.bluemixRuntimeimageSrc);
                         $scope.bluemixRuntimeimageSrcArray = $scope.bluemixRuntimeimageSrc.split('MSP_Logos/');
@@ -1233,7 +1235,8 @@ angular.module('portalControllers')
                         $rootScope.objCount++;
                         $rootScope.bluemixServiceComponentCount++;
 
-                        var indexServiceCompCount=$rootScope.bluemixServiceComponentCount;
+                        var indexServiceCompCount=0;
+                        indexServiceCompCount=$rootScope.bluemixServiceComponentCount;
                         var bluemixServiceCompCount=indexServiceCompCount-1;
                         $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
                         console.log("$scope.imageSrc===" + $scope.bluemixServiceimageSrc);
@@ -1461,7 +1464,6 @@ angular.module('portalControllers')
                             }
                         }
                     });
-
                 }
 
 
