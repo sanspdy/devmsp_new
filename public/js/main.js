@@ -1541,6 +1541,10 @@ angular.module('portalControllers').controller('newsolCtrl', function ($scope,$u
     $rootScope.actualMSPComponentIndex=0;
     $rootScope.bluemixRuntimeComponentCount=0;
     $rootScope.bluemixServiceComponentCount=0;
+    $rootScope.choicesMSP = [];
+    $rootScope.choicesRuntime = [];
+    $rootScope.choicesServices = [];
+
     $scope.createItem = function(){
         $uibModalInstance.dismiss('cancel');
 
