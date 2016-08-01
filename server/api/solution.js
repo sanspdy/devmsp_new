@@ -3627,7 +3627,8 @@ exports.viewMyDeployArch = function(request, response) {
 
 
 exports.viewMyDeployArchNames = function(request, response) {
-    var username = request.query.uname;
+    var username = "";
+    username=request.query.uname;
     if(username==null){
         console.log("There is some error:");
         console.log("*** Request Responded ***");
@@ -3671,8 +3672,6 @@ exports.viewMyDeployArchNames = function(request, response) {
                             for(i=0;i<doc_len;i++){
                                 if(result.docs[i]!=null){
                                     if(result.docs[i].hasOwnProperty("solution_name")!==null || result.docs[i].hasOwnProperty("solution_name")!== undefined){
-
-
 
                                         if(result.docs[i].order_status !== "drafted") {
 

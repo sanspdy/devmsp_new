@@ -973,6 +973,7 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                 var final_runtime_price = 0;
                                                 var final_bluemix_price=0;
                                                 var final_price = 0;
+                                                var final_bmprice=0;
                                                 var priceJson = [];
 
                                                 msp_services = result.docs[0].service_details.msp;
@@ -1127,6 +1128,8 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                     + (final_msp_licenseprice)
                                                     + (final_msp_totalprice) + (final_bluemix_price);
 
+                                                final_bmprice=(final_runtime_price)+ (final_bluemix_price);
+
                                                 console.log("Final Total Price:");
                                                 console.log(final_msp_totalprice);
                                                 console.log(final_msp_licenseprice);
@@ -1137,6 +1140,7 @@ exports.v2_viewBillOfMaterial = function(request, response) {
                                                         "Final_MSP_License_Price": final_msp_licenseprice,
                                                         "Final Bluemix service Price":final_bluemix_price,
                                                         "Final_Runtime_Price": final_runtime_price,
+                                                        "Final Bluemix Price":final_bmprice,
                                                         "Final_Price": final_price
                                                     });
                                                 console.log(priceJson);
