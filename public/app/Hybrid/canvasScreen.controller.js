@@ -495,8 +495,8 @@ angular.module('portalControllers')
                 console.log('userEntered == ' + $scope.currentUser);
                 $scope.solnEntered = sharedProperties.getSoln();
 
-                for(var MSPIndex=0;MSPIndex<$scope.choicesMSP.length;MSPIndex++){
-                    if($scope.choices[index].selectedCatalogName=== $scope.choicesMSP[MSPIndex].selectedCatalogName){
+                for(var MSPIndex=0;MSPIndex<$rootScope.choicesMSP.length;MSPIndex++){
+                    if($scope.choices[index].selectedCatalogName=== $rootScope.choicesMSP[MSPIndex].selectedCatalogName){
                         $rootScope.actualMSPComponentIndex=MSPIndex;
                         console.log('$rootScope.actualMSPComponentIndex === '+$rootScope.actualMSPComponentIndex);
                     }
@@ -598,8 +598,8 @@ angular.module('portalControllers')
                 $rootScope.componentCount=runtimeCount-1;
                 console.log('componentCount runtime === '+$rootScope.componentCount);
 
-                for(var runtimeIndex=0;runtimeIndex<$scope.choicesRuntime.length;runtimeIndex++){
-                    if($scope.choices[index].selectedImageTitle=== $scope.choicesRuntime[runtimeIndex].selectedImageTitle){
+                for(var runtimeIndex=0;runtimeIndex<$rootScope.choicesRuntime.length;runtimeIndex++){
+                    if($scope.choices[index].selectedImageTitle=== $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle){
                         $scope.actualruntimeComponentIndex=runtimeIndex;
                         console.log('$scope.actualruntimeComponentIndex === '+$scope.actualruntimeComponentIndex);
                     }
@@ -691,8 +691,8 @@ angular.module('portalControllers')
                 $scope.componentServiceCount=bluemixCount-1;
                 console.log('componentCount Service === '+$scope.componentServiceCount);
 
-                for(var serviceIndex=0;serviceIndex<$scope.choicesServices.length;serviceIndex++){
-                    if($scope.choices[index].selectedImageTitle=== $scope.choicesServices[serviceIndex].selectedImageTitle){
+                for(var serviceIndex=0;serviceIndex<$rootScope.choicesServices.length;serviceIndex++){
+                    if($scope.choices[index].selectedImageTitle=== $rootScope.choicesServices[serviceIndex].selectedImageTitle){
                         $scope.actualServiceComponentIndex=serviceIndex;
                         console.log('$scope.actualServiceComponentIndex === '+$scope.actualServiceComponentIndex);
                     }
@@ -1464,6 +1464,7 @@ angular.module('portalControllers')
                             }
                         }
                     });
+
                 }
 
 
@@ -1654,8 +1655,8 @@ angular.module('portalControllers')
                             $scope.currentUser = sharedProperties.getProperty();
                             console.log('userEntered == ' + $scope.currentUser);
                             $scope.solnEntered = sharedProperties.getSoln();
-                            for (var MSPIndex = 0; MSPIndex < $scope.choicesMSP.length; MSPIndex++) {
-                                if ($scope.choices[index].selectedCatalogName === $scope.choicesMSP[MSPIndex].selectedCatalogName) {
+                            for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
+                                if ($scope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
                                     $rootScope.actualMSPComponentIndex = MSPIndex;
                                     console.log('$rootScope.actualMSPComponentIndex === ' + $rootScope.actualMSPComponentIndex);
                                 }
@@ -1734,8 +1735,8 @@ angular.module('portalControllers')
                             $rootScope.componentCount = runtimeCount - 1;
                             console.log('componentCount runtime === ' + $rootScope.componentCount);
 
-                            for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
-                                if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+                            for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
+                                if ($scope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
                                     $scope.actualruntimeComponentIndex = runtimeIndex;
                                     console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
                                 }
@@ -1806,8 +1807,8 @@ angular.module('portalControllers')
                             $scope.componentServiceCount = bluemixCount - 1;
                             console.log('componentCount Service === ' + $scope.componentServiceCount);
 
-                            for (var serviceIndex = 0; serviceIndex < $scope.choicesServices.length; serviceIndex++) {
-                                if ($scope.choices[index].selectedImageTitle === $scope.choicesServices[serviceIndex].selectedImageTitle) {
+                            for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
+                                if ($scope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
                                     $scope.actualServiceComponentIndex = serviceIndex;
                                     console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
                                 }
@@ -2030,9 +2031,9 @@ angular.module('portalControllers')
             };
 
             $scope.choices = [];
-            $scope.choicesMSP = [];
-            $scope.choicesRuntime = [];
-            $scope.choicesServices = [];
+            $rootScope.choicesMSP = [];
+            $rootScope.choicesRuntime = [];
+            $rootScope.choicesServices = [];
 
 
             $scope.getIndex=function (index) {
@@ -2058,11 +2059,11 @@ angular.module('portalControllers')
                             break;
                         }else{
                             if(obj.type==='msp'){
-                                $scope.choicesMSP.push(obj);
+                                $rootScope.choicesMSP.push(obj);
                             }else if(obj.type==='runtime'){
-                                $scope.choicesRuntime.push(obj);
+                                $rootScope.choicesRuntime.push(obj);
                             }else if(obj.type==='bluemix'){
-                                $scope.choicesRuntime.push(obj);
+                                $rootScope.choicesRuntime.push(obj);
                             }
 
                             $scope.choices.push(obj);
@@ -2072,11 +2073,11 @@ angular.module('portalControllers')
                     }
                 }else{
                     if(obj.type==='msp'){
-                        $scope.choicesMSP.push(obj);
+                        $rootScope.choicesMSP.push(obj);
                     }else if(obj.type==='runtime'){
-                        $scope.choicesRuntime.push(obj);
+                        $rootScope.choicesRuntime.push(obj);
                     }else if(obj.type==='bluemix'){
-                        $scope.choicesServices.push(obj);
+                        $rootScope.choicesServices.push(obj);
                     }
 
                     $scope.choices.push(obj);
@@ -2086,9 +2087,9 @@ angular.module('portalControllers')
 
 
                 console.log('choicesObject == '+JSON.stringify($scope.choices));
-                console.log('choicesMSP == '+JSON.stringify($scope.choicesMSP));
-                console.log('choicesRuntime == '+JSON.stringify($scope.choicesRuntime));
-                console.log('choicesServices == '+JSON.stringify($scope.choicesServices));
+                console.log('choicesMSP == '+JSON.stringify($rootScope.choicesMSP));
+                console.log('choicesRuntime == '+JSON.stringify($rootScope.choicesRuntime));
+                console.log('choicesServices == '+JSON.stringify($rootScope.choicesServices));
                 // var newItemNo = $scope.choices.length+1;
                 // $scope.choices.push({'id':'choice'+newItemNo});
             };
