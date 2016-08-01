@@ -56,6 +56,23 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
             .success(function(data){
                 console.log('inside view DeployArch function');
                 $scope.components = data;
+                if (data.status == 'failed') {
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
                 console.log("Array of solution name : " + JSON.stringify($scope.components));
                 console.log(" length of Array of solution name of MSP : " + $scope.components.msp.length);
                 console.log(" length of Array of solution name of Hybrid : " + $scope.components.hybrid.length);
@@ -114,6 +131,23 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
 
         $http.get("/api/v2/viewMyDeployArchVersions?uname="+$scope.username+"&solname="+index).success(function(data) {
             $scope.ResponseDataViewBillObject = data;
+            if (data.status == 'failed') {
+                //alert(data.description);
+                $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
+                    }
+                });
+            }
             console.log('version details === '+JSON.stringify($scope.ResponseDataViewBillObject));
             $scope.hybridData = $scope.ResponseDataViewBillObject;
             ///* $location.path('/viewArchietecture');*/
@@ -139,6 +173,23 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     $scope.viewBomHybrid = function(data){
         console.log('sol name index value'+data);
         $scope.currentVBOMSolName= data;
+        if (data.status == 'failed') {
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
         console.log('$scope.currentVBOMSolName === '+$scope.currentVBOMSolName);
         $scope.showOrderBtn =false;
         $uibModal.open({
@@ -164,6 +215,23 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     $scope.viewBomMsp = function(data){
         console.log('sol name index value'+data);
         $scope.currentVBOMSolName= data;
+        if (data.status == 'failed') {
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
         console.log('$scope.currentVBOMSolName === '+$scope.currentVBOMSolName);
         $scope.showOrderBtn =false;
         $uibModal.open({
@@ -204,6 +272,23 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     })
         .success(function (data, status, header, config) {
             $scope.deletedSolName = data;
+            if (data.status == 'failed') {
+                //alert(data.description);
+                $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
+                    }
+                });
+            }
             console.log('$scope.deleteArchitectureData ==== '+JSON.stringify($scope.deletedSolName));
 
         })
@@ -310,6 +395,23 @@ angular.module('portalControllers').controller('orderViewBillCtrl', function ($s
 
     $http.get("/api/v1/viewBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
         $scope.ResponseDataViewBillObject = data;
+        if (data.status == 'failed') {
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
@@ -463,6 +565,23 @@ angular.module('portalControllers').controller('orderViewBillCtrlMsp', function 
 
     $http.get("/api/v1/viewMspBillofMaterial?solnName="+$scope.solnEntered).success(function(data){
         $scope.ResponseDataViewBillObject = data;
+        if (data.status == 'failed') {
+            //alert(data.description);
+            $scope.loading = false;
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/ErrorWarning.html',
+                windowClass: 'app-modal-window-sam-Plan',
+                controller: 'ErrorWarningCtrl',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    ErrorMsg: function () {
+                        return data.description;
+                    },
+                }
+            });
+        }
         console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
 
         Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
@@ -849,6 +968,23 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
 
 
                 $scope.deletedSolNameHybrid = data;
+                if (data.status == 'failed') {
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
 
 
                 $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
@@ -895,6 +1031,23 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                     $scope.errorName = data.errors.name;
                 } else {
                     $scope.deletedSolName = data;
+                    if (data.status == 'failed') {
+                        //alert(data.description);
+                        $scope.loading = false;
+                        $uibModal.open({
+                            animation: $scope.animationsEnabled,
+                            templateUrl: '../components/modal/ErrorWarning.html',
+                            windowClass: 'app-modal-window-sam-Plan',
+                            controller: 'ErrorWarningCtrl',
+                            backdrop: 'static',
+                            keyboard: false,
+                            resolve: {
+                                ErrorMsg: function () {
+                                    return data.description;
+                                },
+                            }
+                        });
+                    }
                     // $scope.data.splice(index, 1);
                     //pj---
                    console.log("$rootScope.hybridversionObjectsArray=====>"+ $scope.currentcount)
@@ -903,6 +1056,7 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                     //--pj
 
 
+                   $scope.maincount= $rootScope.SolnArrayHybrid.length-1;
 
 
 
@@ -915,7 +1069,10 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
 
               if($scope.currentcount ===0){
                   $rootScope.verpop.dismiss('cancel');
-                  $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
+
+
+                  $rootScope.SolnArrayHybrid.splice(  $scope.maincount,1);
+
               }
 
 
