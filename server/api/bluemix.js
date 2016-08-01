@@ -3308,6 +3308,7 @@ exports.getBMServicePrice=function(reqst, resp) {
     var quantity = reqst.body.quantity;
     //var quantity = parseInt(qty);
     var country = reqst.body.country;
+    console.log("Country ===="+country);
     //var compcnt = parseInt(reqst.body.cnt);
     var serviceplan_guid = reqst.body.serviceplan_guid;
     var service_name = reqst.body.service_name;
@@ -3356,6 +3357,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                     // var price_cal = properties.entity.extra.costs[0].currencies;
                                     dbdiscount.find({selector: {"guid": serviceplan_guid}}, function (err1, result1) {
                                         console.log(unit_id);
+                                        console.log("Printing result===="+JSON.stringify(result1.docs[0]));
                                         var discount = result1.docs[0].cost_plan[unit_id];
                                         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$", discount);
                                         if (discount === "free") {
@@ -3372,6 +3374,7 @@ exports.getBMServicePrice=function(reqst, resp) {
                                                 var actual_price = parseFloat(price_cal[14].amount.INR);
 
                                                 final_price = (quantity - discount) * actual_price;
+                                                console.log("Finallll",final_price);
                                                 final_price = parseFloat(final_price).toFixed(2);
 
                                                 console.log(final_price);

@@ -21,7 +21,7 @@
     </dir-pagination-controls>
     <div>
     <p id="deplHeading1"> My Deployment Architectures Hybrid(Bluemix + MSP)</p>
-    <div id="block2" dir-paginate="data in SolnArrayHybrid | itemsPerPage:4  | filter:q track by $index" pagination-id="pageHybrid">
+    <div id="block2" dir-paginate="data in SolnArrayHybrid | filter:q| itemsPerPage:4   track by $index" pagination-id="pageHybrid">
         <span id="content11"> Architecture Name:{{data}}</span>
         <br>
         <!--<img class="viewDeplBom"  ng-click="viewBomHybrid(data)" src="../../images/viewArch.jpg">-->

@@ -6116,7 +6116,7 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
      $scope.newVer= sharedProperties.getVersion();
      console.log("current version ----->"+$scope.newVer);
      //var serviceName1 = $scope.choices[index].selectedCatalogName;
-     if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0){
+     if($scope.resultCanvasDetails.services.bluemix[0].services.length === 0 && $scope.resultCanvasDetails.services.bluemix[0].runtime.length === 0 ){
      console.log('invoke place order for msp prov');
      //console.log(serviceName1=== +serviceName1);
      $http({
@@ -6132,24 +6132,41 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
      //forms user object
      }).success(function(data,status,header,config) {
-     console.log("place order data ==="+JSON.stringify(data));
+         if(data.status == 'failed'){
+             //alert(data.description);
+             $scope.loading = false;
+             $uibModal.open({
+                 animation: $scope.animationsEnabled,
+                 templateUrl: '../components/modal/ErrorWarning.html',
+                 windowClass: 'app-modal-window-sam-Plan',
+                 controller: 'ErrorWarningCtrl',
+                 backdrop: 'static',
+                 keyboard: false,
+                 resolve: {
+                     ErrorMsg: function () {
+                         return data.description;
+                     },
+                 }
+             });
+         }
+         else {
+             console.log("place order data ===" + JSON.stringify(data));
 
-     //alert('Order Placed Successfully');
-     $uibModal.open({
-     animation: $scope.animationsEnabled,
-     templateUrl: '../components/modal/orderSuccess.html',
-     controller: 'orderSuccessCtrl',
-     backdrop: 'static',
-         keyboard: false,
-     windowClass: 'app-modal-window-att-prov',
-     resolve: {
-
-     }
-     });
-     /*$uibModalInstance.dismiss('cancel');
-     $location.path('/deployment');*/
+             //alert('Order Placed Successfully');
+             $uibModal.open({
+                 animation: $scope.animationsEnabled,
+                 templateUrl: '../components/modal/orderSuccess.html',
+                 controller: 'orderSuccessCtrl',
+                 backdrop: 'static',
+                 keyboard: false,
+                 windowClass: 'app-modal-window-att-prov',
+                 resolve: {}
+             });
+         }
      })
+
      }
+
      else{
      console.log('inside placeorder');
      $scope.currentUser = sharedProperties.getProperty();
@@ -6736,11 +6753,30 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
             data    : $.param({'uname': user,soln_name: $scope.solnEntered}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config) {
-
-            console.log("place order data ==="+JSON.stringify(data));
-            $uibModalInstance.dismiss('cancel');
-            $location.path('/deployment');
+        })
+            .success(function(data,status,header,config) {
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
+                }
+                else {
+                    console.log("place order data ===" + JSON.stringify(data));
+                    $uibModalInstance.dismiss('cancel');
+                    $location.path('/deployment');
+                }
         })
         $scope.placeOrderSpins = false;
     }
@@ -6835,21 +6871,41 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             data    : $.param({'uname': $scope.itemData.username,'pass':$scope.itemData.password,'orgname':org,'space_url':spaceUrl}),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config)
+        })
+            .success(function(data,status,header,config)
         {
             /*$scope.selSpace = true;
              $scope.showSpace = true;*/
-            console.log("get organization data ==="+JSON.stringify(data));
-            $scope.spaceList = data;
-            console.log('$scope.spaceList===' +JSON.stringify($scope.spaceList));
-            for(var i=0;i<$scope.spaceList.length;i++){
-                console.log('$scope.spaceList.length==' +$scope.spaceList.length);
-                $scope.spaceData = $scope.spaceList[i].space_name;
-                console.log('$scope.spaceData' +JSON.stringify($scope.spaceData));
-                $scope.spaceDataArray.push($scope.spaceData);
+            if(data.status == 'failed'){
+                //alert(data.description);
                 $scope.loading = false;
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/ErrorWarning.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'ErrorWarningCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        ErrorMsg: function () {
+                            return data.description;
+                        },
+                    }
+                });
             }
-            console.log('$scope.spaceDataArray==' +JSON.stringify($scope.spaceDataArray));
+            else {
+                console.log("get organization data ===" + JSON.stringify(data));
+                $scope.spaceList = data;
+                console.log('$scope.spaceList===' + JSON.stringify($scope.spaceList));
+                for (var i = 0; i < $scope.spaceList.length; i++) {
+                    console.log('$scope.spaceList.length==' + $scope.spaceList.length);
+                    $scope.spaceData = $scope.spaceList[i].space_name;
+                    console.log('$scope.spaceData' + JSON.stringify($scope.spaceData));
+                    $scope.spaceDataArray.push($scope.spaceData);
+                    $scope.loading = false;
+                }
+                console.log('$scope.spaceDataArray==' + JSON.stringify($scope.spaceDataArray));
+            }
         })
     };
     $scope.proceedForOrder = function(org,space){
@@ -6901,22 +6957,39 @@ angular.module('portalControllers').controller('provisionCtrl', function ($scope
             }),
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             //forms user object
-        }).success(function(data,status,header,config) {
-
-            console.log("place order data ==="+JSON.stringify(data));
-            $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/orderSuccess.html',
-                controller: 'orderSuccessCtrl',
-                backdrop: 'static',
-                keyboard: false,
-                windowClass: 'app-modal-window-att-prov',
-                resolve: {
-
+        })
+            .success(function(data,status,header,config) {
+                if(data.status == 'failed'){
+                    //alert(data.description);
+                    $scope.loading = false;
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/ErrorWarning.html',
+                        windowClass: 'app-modal-window-sam-Plan',
+                        controller: 'ErrorWarningCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        resolve: {
+                            ErrorMsg: function () {
+                                return data.description;
+                            },
+                        }
+                    });
                 }
-            });
-            /*$uibModalInstance.dismiss('cancel');
-             $location.path('/deployment');*/
+                else {
+                    console.log("place order data ===" + JSON.stringify(data));
+                    $uibModal.open({
+                        animation: $scope.animationsEnabled,
+                        templateUrl: '../components/modal/orderSuccess.html',
+                        controller: 'orderSuccessCtrl',
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'app-modal-window-att-prov',
+                        resolve: {}
+                    });
+                    /*$uibModalInstance.dismiss('cancel');
+                     $location.path('/deployment');*/
+                }
         });
         //$location.path('/deployment');
     }
