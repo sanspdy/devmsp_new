@@ -301,12 +301,22 @@ select{
 }
 
 .saveArchBtn{
-    color: whitesmoke;
+    /*color: whitesmoke;
     position: fixed;
     top: 77%;
     left: 80%;
     background-color: #017eba;
     width: 98px;
+    height: 33px;
+    border-radius: 7px;
+    float: right;*/
+
+    color: whitesmoke;
+    position: fixed;
+    top: 77%;
+    left: 75%;
+    background-color: #017eba;
+    width: 167px;
     height: 33px;
     border-radius: 7px;
     float: right;

@@ -437,7 +437,7 @@ angular.module('portalControllers', ['ui.bootstrap'])
         };
 
     this.setviewArchData = function(canInfo){
-        console.log("canInfo===" +canInfo);
+        console.log("canInfo===" +JSON.stringify(canInfo));
         cinfo = canInfo;
     };
     this.getCanvasinfo = function(){
@@ -1171,6 +1171,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                 console.log('$scope.selectedCountry[$index]===' +JSON.stringify($scope.selectedCountry));*/
                 //console.log('propertiesObject == ' + JSON.stringify($scope.propertiesObjectArray[0].selected));
                 $scope.propertiesObjectArrayData.names = $scope.names;
+                $scope.unitQuantity = [];
                 for (var i = 0; i < $scope.propertiesObjectArrayData.length; i++) {
                     $scope.propertiesObject=$scope.propertiesObjectArrayData[i];
                     Object.keys($scope.propertiesObject).forEach(function (key) {
@@ -1187,13 +1188,18 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
                                 console.log("selectedflag"+$scope.selectedFlag)
                                 console.log("data is===="+JSON.stringify($scope.propertiesObject));
                                 console.log("plan data ===="+$scope.propertiesObject.entity.extra.displayName);
+
                                 $scope.selectvalue = $scope.propertiesObject.entity.extra.displayName;
                                 console.log("plan data ===="+$scope.selectvalue);
+                                console.log('$scope.popupDataService===' +JSON.stringify($scope.popupDataService));
                                 $.each($scope.popupDataService, function (key, value) {
                                     if(key === 'quantity'){
+                                        /*var indexquantity = _.findIndex($scope.popupDataService.properties[0], function (data) {
+                                            return data.entity.extra.displayName ===  radioselected ;
+                                        });*/
                                         var quantity=$scope.popupDataService["quantity"];
                                         console.log("Quantity ======"+ quantity);
-                                        $scope.unitQuantity=quantity;
+                                        $scope.unitQuantity[i]=quantity;
                                     }
 
                                 })
@@ -1259,7 +1265,8 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.showPriceBefore= true;
         $scope.showPriceAfter = false;
 
-        $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price){
+        $scope.changedBluemixValueSave = function(quantity,guid,unitID,country,price,labelName){
+            console.log('labelName===' +JSON.stringify(labelName));
             console.log('property.entity.extra.costs[0].unitQuantity===' +JSON.stringify(quantity[price]));
             console.log('guid===' +guid);
            /* $scope.guidPlanArray = [];
@@ -1270,7 +1277,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             //console.log('isselected===' +isselected);
             console.log('price===' +price);
             //$scope.latestPrice = price;
-            $scope.latestQuantity = quantity;
+            $scope.latestQuantity = quantity[price];
             console.log('$scope.latestQuantity====' +JSON.stringify($scope.latestQuantity));
             console.log('$scope.bluemixServiceTitle===' +JSON.stringify($scope.bluemixServiceTitle));
             $scope.viewbluemixPrice = true;
@@ -1738,7 +1745,7 @@ angular.module('portalControllers').controller('orderBillCtrl', function ($scope
     }else if(isOrderButton==='deplBOM'){
         $scope.showOrderBtn = false;
     }
-    $scope.latestPlans = sharedPropertiesCanvas.getPlans();
+    //$scope.latestPlans = sharedPropertiesCanvas.getPlans();
     console.log('$scope.latestPlans===' +JSON.stringify($scope.latestPlans));
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('exportable').innerHTML], {

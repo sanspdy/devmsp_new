@@ -1949,7 +1949,9 @@ angular.module('portalControllers')
             };
 
 
-
+$scope.viewArch = function(){
+    $location.path('/deployment');
+}
 
 
             $scope.viewBill = function(){
