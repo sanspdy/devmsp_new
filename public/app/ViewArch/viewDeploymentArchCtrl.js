@@ -3622,10 +3622,27 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         })
             .success(function (data, status, header, config) {
 
-                if (data.errors) {
+               /* if (data.errors) {
                     // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
+                    $scope.errorName = data.errors.name;*/
+             if(data.status == 'failed'){
+              //alert(data.description);
+              $scope.loading = false;
+              $uibModal.open({
+               animation: $scope.animationsEnabled,
+               templateUrl: '../components/modal/ErrorWarning.html',
+               windowClass: 'app-modal-window-sam-Plan',
+               controller: 'ErrorWarningCtrl',
+               backdrop: 'static',
+               keyboard: false,
+               resolve: {
+                ErrorMsg: function () {
+                 return data.description;
+                },
+               }
+              });
+             }
+             else {
                     console.log("inside success function");
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));
@@ -3712,58 +3729,76 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
             $scope.spinsCanvasCatalogue = false;
             $scope.loading=true;
             $http.get("/api/v1/getMspComponentlists",{ cache: true}).success(function(data){
-                // console.log("Data : " + JSON.stringify(data));
-                $scope.arrayOfComponents = data;
-                console.log("new array data before === "+JSON.stringify($scope.arrayOfComponents));
-                console.log("new array datalength before === "+$scope.arrayOfComponents.length);
-                for(var i=0 ; i<$scope.arrayOfComponents.length; i++)
-                {
-                    if($scope.arrayOfComponents[i].catalog_name=='ibm_tealeaf'||$scope.arrayOfComponents[i].catalog_name==='filenet'||$scope.arrayOfComponents[i].catalog_name==='ibm_bpm'||$scope.arrayOfComponents[i].catalog_name==='ibm_sterlingCPQ'||$scope.arrayOfComponents[i].catalog_name==='ibm_sterling'||$scope.arrayOfComponents[i].catalog_name==='ibm_message_sigh')
-                        $scope.arrayOfComponents.splice(i);
-                }
-                console.log("new array data after=== "+JSON.stringify($scope.arrayOfComponents));
-                console.log("new array datalength after === "+$scope.arrayOfComponents.length);
+             if(data.status == 'failed'){
+              //alert(data.description);
+              $scope.loading = false;
+              $uibModal.open({
+               animation: $scope.animationsEnabled,
+               templateUrl: '../components/modal/ErrorWarning.html',
+               windowClass: 'app-modal-window-sam-Plan',
+               controller: 'ErrorWarningCtrl',
+               backdrop: 'static',
+               keyboard: false,
+               resolve: {
+                ErrorMsg: function () {
+                 return data.description;
+                },
+               }
+              });
+             }
+             else {
+              // console.log("Data : " + JSON.stringify(data));
+              $scope.arrayOfComponents = data;
+              console.log("new array data before === " + JSON.stringify($scope.arrayOfComponents));
+              console.log("new array datalength before === " + $scope.arrayOfComponents.length);
+              for (var i = 0; i < $scope.arrayOfComponents.length; i++) {
+               if ($scope.arrayOfComponents[i].catalog_name == 'ibm_tealeaf' || $scope.arrayOfComponents[i].catalog_name === 'filenet' || $scope.arrayOfComponents[i].catalog_name === 'ibm_bpm' || $scope.arrayOfComponents[i].catalog_name === 'ibm_sterlingCPQ' || $scope.arrayOfComponents[i].catalog_name === 'ibm_sterling' || $scope.arrayOfComponents[i].catalog_name === 'ibm_message_sigh')
+                $scope.arrayOfComponents.splice(i);
+              }
+              console.log("new array data after=== " + JSON.stringify($scope.arrayOfComponents));
+              console.log("new array datalength after === " + $scope.arrayOfComponents.length);
 
-                $scope.Title=[];
-                $scope.icon=[];
-                $scope.catalog_category = [];
-                $scope.catalog_name=[];
-                for(var i=0;i<$scope.arrayOfComponents.length;i++){
-                    $scope.MSPComponents=$scope.arrayOfComponents[i];
-                    console.log("server $scope.objectKey data"+ i+"   ====   " + JSON.stringify($scope.MSPComponents));
+              $scope.Title = [];
+              $scope.icon = [];
+              $scope.catalog_category = [];
+              $scope.catalog_name = [];
+              for (var i = 0; i < $scope.arrayOfComponents.length; i++) {
+               $scope.MSPComponents = $scope.arrayOfComponents[i];
+               console.log("server $scope.objectKey data" + i + "   ====   " + JSON.stringify($scope.MSPComponents));
 
-                    //iterate through object keys
-                    if ($scope.MSPComponents === null) {
-                        console.log('errrorrrr');
-                        return null;
-                    }else {
+               //iterate through object keys
+               if ($scope.MSPComponents === null) {
+                console.log('errrorrrr');
+                return null;
+               } else {
 
-                        var title = $scope.MSPComponents["Title"];
-                        var icon = $scope.MSPComponents["Icon"];
-                        var catalog_category=$scope.MSPComponents["catalog_category"];
-                        var catalog_name = $scope.MSPComponents["catalog_name"];
+                var title = $scope.MSPComponents["Title"];
+                var icon = $scope.MSPComponents["Icon"];
+                var catalog_category = $scope.MSPComponents["catalog_category"];
+                var catalog_name = $scope.MSPComponents["catalog_name"];
 
-                        //push the name string in the array
-                        console.log("title are:: "+title);
-                        console.log("catalog_category  are:: "+catalog_category);
-                        console.log("server_quantity  are:: "+catalog_name);
-                        console.log("icon  are:: "+icon);
+                //push the name string in the array
+                console.log("title are:: " + title);
+                console.log("catalog_category  are:: " + catalog_category);
+                console.log("server_quantity  are:: " + catalog_name);
+                console.log("icon  are:: " + icon);
 
-                        $scope.Title.push(title);
-                        $scope.catalog_category.push(catalog_category);
-                        $scope.catalog_name.push(catalog_name);
-                        $scope.icon.push(icon);
+                $scope.Title.push(title);
+                $scope.catalog_category.push(catalog_category);
+                $scope.catalog_name.push(catalog_name);
+                $scope.icon.push(icon);
 
 
-                    }
+               }
 
-                }
+              }
 
-                console.log("title are:: "+$scope.Title);
-                console.log("catalog_category  are:: "+$scope.catalog_category);
-                console.log("catalog_name  are:: "+$scope.catalog_name);
-                console.log("icon  are:: "+$scope.icon);
-                $scope.loading=false;
+              console.log("title are:: " + $scope.Title);
+              console.log("catalog_category  are:: " + $scope.catalog_category);
+              console.log("catalog_name  are:: " + $scope.catalog_name);
+              console.log("icon  are:: " + $scope.icon);
+              $scope.loading = false;
+             }
             })
 
         }
@@ -3791,35 +3826,58 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.spinsRuntimeList = true;
         $scope.spinsServicesList = false;
         $scope.loading=true;
-        $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data){
-            console.log('inside http function');
-            console.log("Data : " + JSON.stringify(data));
-            $scope.bluemixRuntimeLabel=[];
-            $scope.bluemixRuntimeIcon = [];
-            $scope.bluemixRuntimeComponentLists=[];
+        $http.get("/api/getBluemixBuildpackList",{ cache: true}).success(function(data) {
+         //error
+         console.log('inside http function');
+         if(data.status == 'failed'){
+          //alert(data.description);
+          $scope.loading = false;
+          $uibModal.open({
+           animation: $scope.animationsEnabled,
+           templateUrl: '../components/modal/ErrorWarning.html',
+           windowClass: 'app-modal-window-sam-Plan',
+           controller: 'ErrorWarningCtrl',
+           backdrop: 'static',
+           keyboard: false,
+           resolve: {
+            ErrorMsg: function () {
+             return data.description;
+            },
+           }
+          });
+         }
+         else {
 
-            $scope.arrayOfBluemixRuntimeServices = data;
-            console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
-            for(var i=0;i<$scope.arrayOfBluemixRuntimeServices.length;i++) {
-                $scope.bluemixRuntimeObjects = $scope.arrayOfBluemixRuntimeServices[i];
 
-                $scope.bluemixRuntimeComponentLists.push($scope.bluemixRuntimeObjects);
-                var icon_bluemixRuntime = $scope.bluemixRuntimeObjects.icon;
-                var label_bluemixRuntime = $scope.bluemixRuntimeObjects.title;
+         console.log("Data : " + JSON.stringify(data));
+         $scope.bluemixRuntimeLabel = [];
+         $scope.bluemixRuntimeIcon = [];
+         $scope.bluemixRuntimeComponentLists = [];
 
-                $scope.bluemixRuntimeIcon.push(icon_bluemixRuntime);
-                $scope.bluemixRuntimeLabel.push(label_bluemixRuntime);
-            }
+         $scope.arrayOfBluemixRuntimeServices = data;
+         console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixRuntimeServices.length);
+         for (var i = 0; i < $scope.arrayOfBluemixRuntimeServices.length; i++) {
+          $scope.bluemixRuntimeObjects = $scope.arrayOfBluemixRuntimeServices[i];
 
-            console.log("Bluemix runtime list length==="+$scope.bluemixRuntimeComponentLists.length);
-            console.log("Bluemix runtime icon length==="+$scope.bluemixRuntimeIcon.length);
-            console.log("Bluemix runtime label length==="+$scope.bluemixRuntimeLabel.length);
+          $scope.bluemixRuntimeComponentLists.push($scope.bluemixRuntimeObjects);
+          var icon_bluemixRuntime = $scope.bluemixRuntimeObjects.icon;
+          var label_bluemixRuntime = $scope.bluemixRuntimeObjects.title;
 
-            console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixRuntimeComponentLists));
-            console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixRuntimeIcon));
-            console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixRuntimeLabel));
-            $scope.loading=false;
-        }).error(function(data,status,header,config){
+          $scope.bluemixRuntimeIcon.push(icon_bluemixRuntime);
+          $scope.bluemixRuntimeLabel.push(label_bluemixRuntime);
+         }
+
+         console.log("Bluemix runtime list length===" + $scope.bluemixRuntimeComponentLists.length);
+         console.log("Bluemix runtime icon length===" + $scope.bluemixRuntimeIcon.length);
+         console.log("Bluemix runtime label length===" + $scope.bluemixRuntimeLabel.length);
+
+         console.log("Bluemix runtime list keywise===" + JSON.stringify($scope.bluemixRuntimeComponentLists));
+         console.log("Bluemix runtime icon keywise===" + JSON.stringify($scope.bluemixRuntimeIcon));
+         console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixRuntimeLabel));
+         $scope.loading = false;
+        }
+        })
+            .error(function(data,status,header,config){
             console.log("header data" +header);
             console.log("status data" +status);
             console.log("config data" +config);
@@ -3858,35 +3916,56 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         $scope.spinsCanvas=false;
         $scope.loading=true;
 
-        $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data){
-            console.log('inside http function');
-            console.log("Data : " + JSON.stringify(data));
-            $scope.bluemixServiceLabel=[];
-            $scope.bluemixServiceIcon = [];
-            $scope.bluemixServiceComponentLists=[];
+        $http.get("/api/getBluemixServicesList",{ cache: true}).success(function(data) {
+         console.log('inside http function');
+         if(data.status == 'failed'){
+          //alert(data.description);
+          $scope.loading = false;
+          $uibModal.open({
+           animation: $scope.animationsEnabled,
+           templateUrl: '../components/modal/ErrorWarning.html',
+           windowClass: 'app-modal-window-sam-Plan',
+           controller: 'ErrorWarningCtrl',
+           backdrop: 'static',
+           keyboard: false,
+           resolve: {
+            ErrorMsg: function () {
+             return data.description;
+            },
+           }
+          });
+         }
+         else {
 
-            $scope.arrayOfBluemixService = data;
-            console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
-            for(var i=0;i<$scope.arrayOfBluemixService.length;i++) {
-                $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
+         console.log("Data : " + JSON.stringify(data));
+         $scope.bluemixServiceLabel = [];
+         $scope.bluemixServiceIcon = [];
+         $scope.bluemixServiceComponentLists = [];
 
-                $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
-                var icon_bluemixService = $scope.bluemixServiceObjects.icon;
-                var label_bluemixService = $scope.bluemixServiceObjects.label;
+         $scope.arrayOfBluemixService = data;
+         console.log("arrayOfBluemixServices length: " + $scope.arrayOfBluemixService.length);
+         for (var i = 0; i < $scope.arrayOfBluemixService.length; i++) {
+          $scope.bluemixServiceObjects = $scope.arrayOfBluemixService[i];
 
-                $scope.bluemixServiceIcon.push(icon_bluemixService);
-                $scope.bluemixServiceLabel.push(label_bluemixService);
-            }
+          $scope.bluemixServiceComponentLists.push($scope.bluemixServiceObjects);
+          var icon_bluemixService = $scope.bluemixServiceObjects.icon;
+          var label_bluemixService = $scope.bluemixServiceObjects.label;
 
-            console.log("Bluemix service list length==="+$scope.bluemixServiceComponentLists.length);
-            console.log("Bluemix service icon length==="+$scope.bluemixServiceIcon.length);
-            console.log("Bluemix service label length==="+$scope.bluemixServiceLabel.length);
+          $scope.bluemixServiceIcon.push(icon_bluemixService);
+          $scope.bluemixServiceLabel.push(label_bluemixService);
+         }
 
-            console.log("Bluemix runtime list keywise==="+JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
-            console.log("Bluemix runtime icon keywise==="+JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
-            console.log("Bluemix runtime label keywise==="+JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
-            $scope.loading=false;
-        }).error(function(data,status,header,config){
+         console.log("Bluemix service list length===" + $scope.bluemixServiceComponentLists.length);
+         console.log("Bluemix service icon length===" + $scope.bluemixServiceIcon.length);
+         console.log("Bluemix service label length===" + $scope.bluemixServiceLabel.length);
+
+         console.log("Bluemix runtime list keywise===" + JSON.stringify($scope.bluemixServiceComponentLists));   //fetches the icon and title
+         console.log("Bluemix runtime icon keywise===" + JSON.stringify($scope.bluemixServiceIcon));  // fetches the url of all icons
+         console.log("Bluemix runtime label keywise===" + JSON.stringify($scope.bluemixServiceLabel));  // fetches the titles of services
+         $scope.loading = false;
+        }
+        })
+            .error(function(data,status,header,config){
             console.log("header data" +header);
             console.log("status data" +status);
             console.log("config data" +config);
@@ -3944,30 +4023,50 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 //forms user object
             })
                 .success(function (data) {
-                    console.log("inside getServiceInfo function === " + JSON.stringify(data));
-                    $scope.popupData = data;
-                    // console.log("MSP attr data == "+$scope.popupData);
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/attributes.html',
-                        controller: 'AttrCtrl',
-                        backdrop: 'static',
-                        keyboard: false,
-                        windowClass: 'app-modal-window-att',
-                        resolve: {
-                            parentDivCall: function () {
-                                return $scope.popupData;
-                            },
-                            countComp:function () {
-                                return $scope.actualMSPComponentIndex;
-                            },
-                            serviceType:function(){
-                                return 'msp';
-                            }
-                        }
-                    });
+                 //error
+                 console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                 if(data.status == 'failed'){
+                  //alert(data.description);
+                  $scope.loading = false;
+                  $uibModal.open({
+                   animation: $scope.animationsEnabled,
+                   templateUrl: '../components/modal/ErrorWarning.html',
+                   windowClass: 'app-modal-window-sam-Plan',
+                   controller: 'ErrorWarningCtrl',
+                   backdrop: 'static',
+                   keyboard: false,
+                   resolve: {
+                    ErrorMsg: function () {
+                     return data.description;
+                    },
+                   }
+                  });
+                 }
+                 else {
+                 $scope.popupData = data;
+                 // console.log("MSP attr data == "+$scope.popupData);
+                 $uibModal.open({
+                  animation: $scope.animationsEnabled,
+                  templateUrl: '../components/modal/attributes.html',
+                  controller: 'AttrCtrl',
+                  backdrop: 'static',
+                  keyboard: false,
+                  windowClass: 'app-modal-window-att',
+                  resolve: {
+                   parentDivCall: function () {
+                    return $scope.popupData;
+                   },
+                   countComp: function () {
+                    return $scope.actualMSPComponentIndex;
+                   },
+                   serviceType: function () {
+                    return 'msp';
+                   }
+                  }
+                 });
 
-                    $scope.loading=false;
+                 $scope.loading = false;
+                }
                 }
             ).error(function (data, status, header, config) {
                     console.log("header data" + header);
@@ -4022,31 +4121,50 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 //forms user object
             })
                 .success(function (data) {
-                    console.log("inside runtime function === " + JSON.stringify(data));
-                    $scope.runtimePopupData = data;
-                    // console.log("MSP attr data == "+$scope.popupData);
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/attributes.html',
-                        controller: 'AttrCtrl',
-                        windowClass: 'app-modal-window-att2',
-                        backdrop: 'static',
-                        keyboard: false,
-                        resolve: {
-                            parentDivCall: function () {
-                                return $scope.runtimePopupData;
-                            },
-                            countComp:function () {
-                                return $scope.actualruntimeComponentIndex;
-                            },
-                            serviceType:function(){
-                                return 'runtime';
-                            }
+                 console.log("inside runtime function === " + JSON.stringify(data));
+                 if(data.status == 'failed'){
+                  //alert(data.description);
+                  $scope.loading = false;
+                  $uibModal.open({
+                   animation: $scope.animationsEnabled,
+                   templateUrl: '../components/modal/ErrorWarning.html',
+                   windowClass: 'app-modal-window-sam-Plan',
+                   controller: 'ErrorWarningCtrl',
+                   backdrop: 'static',
+                   keyboard: false,
+                   resolve: {
+                    ErrorMsg: function () {
+                     return data.description;
+                    },
+                   }
+                  });
+                 }
+                 else {
+                 $scope.runtimePopupData = data;
+                 // console.log("MSP attr data == "+$scope.popupData);
+                 $uibModal.open({
+                  animation: $scope.animationsEnabled,
+                  templateUrl: '../components/modal/attributes.html',
+                  controller: 'AttrCtrl',
+                  windowClass: 'app-modal-window-att2',
+                  backdrop: 'static',
+                  keyboard: false,
+                  resolve: {
+                   parentDivCall: function () {
+                    return $scope.runtimePopupData;
+                   },
+                   countComp: function () {
+                    return $scope.actualruntimeComponentIndex;
+                   },
+                   serviceType: function () {
+                    return 'runtime';
+                   }
 
-                        }
-                    });
+                  }
+                 });
 
-                    $scope.loading=false;
+                 $scope.loading = false;
+                }
                 }
             ).error(function (data, status, header, config) {
                     console.log("header data" + header);
@@ -4098,30 +4216,50 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
                 //forms user object
             })
                 .success(function (data) {
-                    console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
-                    $scope.servicePopupData = data;
-                    console.log("$scope.servicePopupData == "+JSON.stringify($scope.servicePopupData));
-                    $uibModal.open({
-                        animation: $scope.animationsEnabled,
-                        templateUrl: '../components/modal/attributes.html',
-                        controller: 'AttrCtrl',
-                        windowClass: 'app-modal-window-att3',
-                        backdrop: 'static',
-                        keyboard: false,
-                        resolve: {
-                            parentDivCall: function () {
-                                return $scope.servicePopupData;
-                            },
-                            countComp:function () {
-                                return $scope.actualServiceComponentIndex;
-                            },
-                            serviceType:function(){
-                                return 'bluemix';
-                            }
+                 console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                 //error
+                 if(data.status == 'failed'){
+                  //alert(data.description);
+                  $scope.loading = false;
+                  $uibModal.open({
+                   animation: $scope.animationsEnabled,
+                   templateUrl: '../components/modal/ErrorWarning.html',
+                   windowClass: 'app-modal-window-sam-Plan',
+                   controller: 'ErrorWarningCtrl',
+                   backdrop: 'static',
+                   keyboard: false,
+                   resolve: {
+                    ErrorMsg: function () {
+                     return data.description;
+                    },
+                   }
+                  });
+                 }
+                 else {
+                 $scope.servicePopupData = data;
+                 console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+                 $uibModal.open({
+                  animation: $scope.animationsEnabled,
+                  templateUrl: '../components/modal/attributes.html',
+                  controller: 'AttrCtrl',
+                  windowClass: 'app-modal-window-att3',
+                  backdrop: 'static',
+                  keyboard: false,
+                  resolve: {
+                   parentDivCall: function () {
+                    return $scope.servicePopupData;
+                   },
+                   countComp: function () {
+                    return $scope.actualServiceComponentIndex;
+                   },
+                   serviceType: function () {
+                    return 'bluemix';
+                   }
 
-                        }
-                    });
-                    $scope.loading=false;
+                  }
+                 });
+                 $scope.loading = false;
+                }
 
                 }
             ).error(function (data, status, header, config) {
@@ -4273,13 +4411,13 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
      console.log('$scope.getCanvasInformation===' +JSON.stringify($scope.getCanvasInformation));*/
     //--------------
     //edit page start here
-    $scope.solnEntered11=sharedProperties.getCurrentCSolName();
+   // $scope.solnEntered11=sharedProperties.getCurrentCSolName();
 
     //$scope.CurrentVer = sharedProperties.getVersion();
 
     // $scope.versionnum =  $scope.CurrentVer;
-    $scope.tname= sharedProperties.getVersion()
-    $rootScope.versionnum = $scope.tname
+   // $scope.tname= sharedProperties.getVersion()
+   // $rootScope.versionnum = $scope.tname
 
 
 
@@ -4378,1720 +4516,1811 @@ angular.module('portalControllers').controller('viewDeploymentArchCtrl', functio
         //forms user object
     })
         .success(function (data, status, header, config) {
-            if (data.errors) {
-                // Showing errors.
-                $scope.errorName = data.errors.name;
-            } else {
-                // console.log("inside success function");
-                $scope.resultCanvasDetails = data;
-                console.log('resultCanvasDetails === '+JSON.stringify($scope.resultCanvasDetails));
-                //sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
-                console.log('resultCanvasDetails.services[0] === '+JSON.stringify($scope.resultCanvasDetails.services));
-                $timeout(function () {
-                    var canvas;
-                    // window.newAnimation = function () {
-                    /*canvas = new fabric.Canvas('canvas');*/
-                    canvas = new fabric.Canvas('canvas',{
-                        selection: true,
-                    });
-                    canvas.on("object:selected", function(options) {
-                        options.target.bringToFront();
-                        $( "#canvas-container").draggable("enable");
-                    });
-                    // canvas.isDrawingMode = true;
-                    /* fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
-                     console.log('scroll');
-                     canvas.calcOffset();
-                     });*/
-
-                    //canvas resize
-
-                    window.addEventListener("load", function()
-                    {
-
-
-                        var canvas = document.createElement('canvas'); document.body.appendChild(canvas);
-                        var context = canvas.getContext('2d');
-
-                        function draw()
-                        {
-                            context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
-                            canvas.calcOffset();
-
-                        }
-                        function resize()
-                        {
-                            canvas.width = window.innerWidth;
-                            canvas.height = window.innerHeight;
-                            draw();
-                        }
-                        window.addEventListener("resize", resize);
-                        resize();
-                    });
-                    /*(function() {
-                     console.log("from canvas resize")
-                     var
-                     // Obtain a reference to the canvas element
-                     // using its id.
-                     htmlCanvas = document.getElementById('canvas'),
-
-                     // Obtain a graphics context on the
-                     // canvas element for drawing.
-                     context = htmlCanvas.getContext('2d');
-
-                     // Start listening to resize events and
-                     // draw canvas.
-                     initialize();
-
-                     function initialize() {
-                     // Register an event listener to
-                     // call the resizeCanvas() function each time
-                     // the window is resized.
-                     window.addEventListener('resize', resizeCanvas, true);
-
-                     // Draw canvas border for the first time.
-                     resizeCanvas();
-                     }
-
-                     // Display custom canvas.
-                     // In this case it's a blue, 5 pixel border that
-                     // resizes along with the browser window.
-                     /!*function redraw() {
-                     /!*context.strokeStyle = 'blue';*!/
-                     /!*context.lineWidth = '5';*!/
-                     context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
-                     }*!/
-
-                     // Runs each time the DOM window resize event fires.
-                     // Resets the canvas dimensions to match window,
-                     // then draws the new borders accordingly.
-                     function resizeCanvas() {
-                     htmlCanvas.width = window.innerWidth;
-                     htmlCanvas.height = window.innerHeight;
-
-                     // redraw();
-                     }
-
-                     })();*/
-                    /*canvas.setWidth(1192);
-                     canvas.setHeight(11892);
-
-
-                     fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
-                     console.log('scroll');
-                     canvas.calcOffset();
-                     });*/
-
-
-                    //--------------
-
-
-                    $(function() {
-                        $("#canvas-container").draggable();
-                    });
-                    canvas.observe('mouse:down', function(){
-
-                        var Get_obj = canvas.getActiveObject();
-                        console.log("clicked on canvas---->")
-                        $("#canvas-container").draggable("enable");
-                    });
-                    /* var imgDevice = document.getElementById("device_img");
-                     var deviderImg = document.getElementById("devider_img");
-                     var edgeDevice = document.getElementById("edge_device");
-
-                     var imgInstance1 = new fabric.Image(imgDevice);
-                     imgInstance1.left=400;
-                     imgInstance1.top=400;
-                     canvas.add(imgInstance1);
-                     imgInstance1.lockMovementY = true;
-                     imgInstance1.lockMovementX = true;
-                     imgInstance1.hasControls=false;
-
-
-                     var imgInstance2 = new fabric.Image(deviderImg);
-                     imgInstance2.left=615;
-                     imgInstance2.top=400;
-                     canvas.add(imgInstance2);
-                     imgInstance2.lockMovementY = true;
-                     imgInstance2.lockMovementX = true;
-                     imgInstance2.hasControls=false;
-
-                     var imgInstance3 = new fabric.Image(edgeDevice);
-                     imgInstance3.left=800;
-                     imgInstance3.top=400;
-                     canvas.add(imgInstance3);
-                     imgInstance3.lockMovementY = true;
-                     imgInstance3.lockMovementX = true;
-                     imgInstance3.hasControls=false;
-                     */
-                    // we need this here because this is when the canvas gets initialized
-                    // ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
-                    // }
-
-                    var canvasRenderObject=$scope.resultCanvasDetails.canvas[0];
-                    console.log('canvasRenderObject===' +canvasRenderObject);
-                    canvas.loadFromDatalessJSON(canvasRenderObject);
-                    canvas.renderAll();
-                    //edit function---->
-                    $scope.deleteObjectold = function (index) {
-
-                        console.log('deleted object index == ' + index);
-                        var object = canvas.getActiveObject();
-                        if (object === null || object === undefined) {
-                            /*alert("Please Select the service from canvas to be deleted");*/
-                            $uibModal.open({
-                                animation: $scope.animationsEnabled,
-                                templateUrl: '../components/modal/DeleteCanvasService.html',
-                                size: 'sm',
-                                controller: 'DeleteCanvasServiceCtrl',
-                                windowClass: 'app-modal-window-dc',
-                                backdrop: 'static',
-                                keyboard: false,
-                                resolve: {}
-                            });
-                        } else {
-                            console.log('deleted group object === ' + object);
-
-                            console.log('index in openpopup ====' + index);
-
-
-
-                            if ($rootScope.editmode){
-                                if ($rootScope.mservicetype[index] === 'msp'){
-                                    console.log("msp");
-                                    $scope.openpopupMSPCount++;
-                                    for(var MIndex=0;MIndex<$rootScope.mdat.length;MIndex++){
-                                        $scope.actualMSPComponentIndex=MIndex;
-                                        console.log("$scope.actualMSPComponentIndex"+$scope.actualMSPComponentIndex)
-                                    }
-
-                                    //user--
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    var user1 = $scope.currentUser;
-
-                                    //solution name--
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    console.log("$scope.solnEntered"+$scope.solnEntered)
-
-                                    //service name--
-                                    var serviceName1 =  $rootScope.mdat[index].catalog_name
-                                    console.log("serviceName ============" + serviceName1);
-
-
-
-                                    //version details--
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer);
-
-
-
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb',
-                                        data: $.param({
-                                            'uname': user1,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'msp',
-                                            'service_name': serviceName1,
-                                            'component_cnt': $scope.actualMSPComponentIndex,
-                                            'version':$scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside removeComponent function === " + JSON.stringify(data));
-                                            $scope.popupData = data;
-                                            // console.log("MSP attr data == "+$scope.popupData);
-
-
-                                            /*$scope.loading=false;*/
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-
-
-                                }
-                                if($rootScope.mservicetype[index] === 'bluemix'){
-                                    console.log("bluemix")
-                                    $scope.openpopupBluemixCount++;
-
-                                    for(var MSPIndex=0;MSPIndex<$rootScope.serdtat.length;MSPIndex++){
-
-                                        $scope.actualMSPComponentIndex=MSPIndex;
-                                        console.log('$scope.actualMSPComponentIndex === '+$scope.actualMSPComponentInde);
-
-                                    }
-                                    //user--
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    var user = $scope.currentUser;
-
-                                    //solution name--
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    console.log("$scope.solnEntered"+$scope.solnEntered)
-
-                                    //service name--
-                                    var bluemixServiceName =  $rootScope.serdtat[$scope.actualrunComponentIndex].title
-                                    console.log("serviceName ============" + bluemixServiceName);
-
-
-
-                                    //version details--
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer);
-
-
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb ',
-                                        data: $.param({
-                                            'uname': user,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'bluemix',
-                                            'service_name': bluemixServiceName,
-                                            'component_cnt': $scope.actualServiceComponentIndex,
-                                            'version': $scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
-                                            $scope.servicePopupData = data;
-                                            console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
-                                            /*$scope.loading=false;*/
-
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-                                }
-
-                                if($rootScope.mservicetype[index] === 'runtime'){
-                                    console.log("runtime")
-
-                                    for(var runIndex=0;runIndex<$rootScope.rundat.length;runIndex++){
-
-                                        $scope.actualrunComponentIndex=runIndex;
-                                        console.log('$scope.actualrunComponentIndex === '+$scope.actualrunComponentIndex);
-
-                                    }
-                                    //user--
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    var user = $scope.currentUser;
-
-                                    //solution name--
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    console.log("$scope.solnEntered"+$scope.solnEntered)
-
-                                    //service name--
-                                    var runtimeServiceName =  $rootScope.rundat[$scope.actualrunComponentIndex].label
-                                    console.log("serviceName ============" + runtimeServiceName);
-
-
-
-                                    //version details--
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer);
-
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb',
-                                        data: $.param({
-                                            'uname': user,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'runtime',
-                                            'service_name': runtimeServiceName,
-                                            'component_cnt': $scope.actualruntimeComponentIndex,
-                                            'version':$scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside runtime function === " + JSON.stringify(data));
-                                            $scope.runtimePopupData = data;
-                                            // console.log("MSP attr data == "+$scope.popupData);
-
-                                            /*$scope.loading=false;*/
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-
-                                }
-
-
-                                /* if ($rootScope.choices[index].type === 'msp') {
-                                 // $scope.openpopupMSPCount++;
-                                 console.log('inside MSP');
-
-                                 console.log("componentName======" + $rootScope.choices1[index]);
-                                 $scope.currentUser = sharedProperties.getProperty();
-                                 console.log('userEntered == ' + $scope.currentUser);
-                                 // $scope.solnEntered = sharedProperties.getSoln();
-                                 $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                 for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
-                                 if ($rootScope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
-                                 $scope.actualMSPComponentIndex = MSPIndex;
-                                 console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
-                                 }
-                                 }
-                                 var user1 = $scope.currentUser;
-                                 var serviceName1 = $rootScope.choices[index].selectedCatalogName;
-                                 console.log("serviceName ============" + serviceName1);
-                                 console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
-                                 var mspCount = $scope.openpopupMSPCount;
-                                 $scope.mspCount = mspCount - 1;
-                                 console.log('componentCount MSP === ' + $scope.mspCount);
-                                 $scope.newVer= sharedProperties.getNewersion();
-                                 console.log("current version ----->"+$scope.newVer)
-                                 $http({
-                                 method: 'PUT',
-                                 url: '/api/v2/removeComponentFromSolutiondb',
-                                 data: $.param({
-                                 'uname': user1,
-                                 'solnName': $scope.solnEntered,
-                                 'service_details': 'msp',
-                                 'service_name': serviceName1,
-                                 'component_cnt': $scope.actualMSPComponentIndex,
-                                 'version':$scope.newVer
-                                 }),
-                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                 //forms user object
-                                 })
-                                 .success(function (data) {
-                                 console.log("inside getServiceInfo function === " + JSON.stringify(data));
-                                 $scope.popupData = data;
-                                 // console.log("MSP attr data == "+$scope.popupData);
-
-
-                                 /!*$scope.loading=false;*!/
-                                 }
-                                 ).error(function (data, status, header, config) {
-                                 console.log("header data" + header);
-                                 console.log("status data" + status);
-                                 console.log("config data" + config);
-                                 console.log("Data:" + data);
-
-
-                                 })
-                                 }
-
-                                 if ($rootScope.choices[index].type === 'runtime') {
-
-                                 console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
-                                 // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
-                                 $scope.currentUser = sharedProperties.getProperty();
-                                 console.log('userEntered == ' + $scope.currentUser);
-                                 //$scope.solnEntered = sharedProperties.getSoln();
-                                 $scope.solnEntered=sharedProperties.getCurrentCSolName()
-                                 var user = $scope.currentUser;
-                                 var runtimeServiceName = $rootScope.choices[index].selectedImageTitle;
-                                 console.log("serviceName ============" + runtimeServiceName);
-                                 console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
-                                 var runtimeCount = $scope.openpopupRuntimeCount;
-                                 $rootScope.componentCount = runtimeCount - 1;
-                                 console.log('componentCount runtime === ' + $rootScope.componentCount);
-                                 $scope.newVer= sharedProperties.getNewersion();
-                                 console.log("current version ----->"+$scope.newVer)
-
-                                 for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
-                                 if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
-                                 $scope.actualruntimeComponentIndex = runtimeIndex;
-                                 console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
-                                 }
-                                 }
-                                 $http({
-                                 method: 'PUT',
-                                 url: '/api/v2/removeComponentFromSolutiondb',
-                                 data: $.param({
-                                 'uname': user,
-                                 'solnName': $scope.solnEntered,
-                                 'service_details': 'runtime',
-                                 'service_name': runtimeServiceName,
-                                 'component_cnt': $scope.actualruntimeComponentIndex,
-                                 'version':$scope.newVer
-                                 }),
-                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                 //forms user object
-                                 })
-                                 .success(function (data) {
-                                 console.log("inside runtime function === " + JSON.stringify(data));
-                                 $scope.runtimePopupData = data;
-                                 // console.log("MSP attr data == "+$scope.popupData);
-
-                                 /!*$scope.loading=false;*!/
-                                 }
-                                 ).error(function (data, status, header, config) {
-                                 console.log("header data" + header);
-                                 console.log("status data" + status);
-                                 console.log("config data" + config);
-                                 console.log("Data:" + data);
-
-
-                                 })
-                                 }
-
-                                 if ($rootScope.choices[index].type === 'bluemix') {
-
-                                 console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
-                                 // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
-                                 $scope.currentUser = sharedProperties.getProperty();
-                                 console.log('userEntered == ' + $scope.currentUser);
-                                 //$scope.solnEntered = sharedProperties.getSoln();
-                                 $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                 var user = $scope.currentUser;
-                                 var bluemixServiceName = $rootScope.choices[index].selectedImageTitle;
-                                 console.log("serviceName ============" + bluemixServiceName);
-                                 var bluemixCount = $scope.openpopupBluemixCount;
-                                 $scope.componentServiceCount = bluemixCount - 1;
-                                 console.log('componentCount Service === ' + $scope.componentServiceCount);
-                                 $scope.newVer= sharedProperties.getNewersion();
-                                 console.log("current version ----->"+$scope.newVer)
-
-                                 for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
-                                 if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
-                                 $scope.actualServiceComponentIndex = serviceIndex;
-                                 console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
-                                 }
-                                 }
-
-
-                                 $http({
-                                 method: 'PUT',
-                                 url: '/api/v2/removeComponentFromSolutiondb ',
-                                 data: $.param({
-                                 'uname': user,
-                                 'solnName': $scope.solnEntered,
-                                 'service_details': 'bluemix',
-                                 'service_name': bluemixServiceName,
-                                 'component_cnt': $scope.actualServiceComponentIndex,
-                                 'version': $scope.newVer
-                                 }),
-                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                 //forms user object
-                                 })
-                                 .success(function (data) {
-                                 console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
-                                 $scope.servicePopupData = data;
-                                 console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
-                                 /!*$scope.loading=false;*!/
-
-                                 }
-                                 ).error(function (data, status, header, config) {
-                                 console.log("header data" + header);
-                                 console.log("status data" + status);
-                                 console.log("config data" + config);
-                                 console.log("Data:" + data);
-
-
-                                 })
-                                 }
-                                 */
-
-                                if (canvas.getActiveGroup()) {
-                                    canvas.getActiveGroup().forEachObject(function (o) {
-                                        canvas.remove(o)
-                                    });
-                                    canvas.discardActiveGroup().renderAll();
-                                } else {
-                                    canvas.remove(canvas.getActiveObject());
-                                }
-
-                                // console.log('deleted object'+JSON.stringify(object));
-                                // remove lines (if any)
-                                if (object.addChild) {
-                                    if (object.addChild.from)
-                                    // step backwards since we are deleting
-                                        for (var i = object.addChild.from.length - 1; i >= 0; i--) {
-                                            var line = object.addChild.from[i];
-                                            line.addChildRemove();
-                                            line.remove();
-                                        }
-                                    if (object.addChild.to)
-                                        for (var i = object.addChild.to.length - 1; i >= 0; i--) {
-                                            var line = object.addChild.to[i];
-                                            line.addChildRemove();
-                                            line.remove();
-                                        }
-                                }
-                                // object.remove();
-                                // tbText.remove();
-                                $scope.removeChoice1(index);
-
-
-
-                            }
-                            else {
-                                /*alert("this service has not been selected for delete.Please delete service which is selected");*/
-                                $uibModal.open({
-                                    animation: $scope.animationsEnabled,
-                                    templateUrl: '../components/modal/SelectProperService.html',
-                                    size: 'sm',
-                                    controller: 'SelectProperServiceCtrl',
-                                    windowClass: 'app-modal-window-selectpro',
-                                    backdrop: 'static',
-                                    keyboard: false,
-                                    resolve: {
-
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    $scope.removeChoice1 = function(index) {
-                        var lastItem = index;
-                        $rootScope.choices1.splice(lastItem,1);
-                        $rootScope.objCount--;
-                        // $scope.deleteObject();
-                    };
-
-                    $scope.handleDragStart=function (e) {
-
-                        [].forEach.call(images, function (img) {
-                            img.classList.remove('img_dragging');
-                        });
-
-                        [].forEach.call(images1, function (img) {
-                            img.classList.remove('img_dragging');
-                        });
-                        this.classList.add('img_dragging');
-                    }
-
-                    $scope.handleDragOver=function (e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
-                            $( "#canvas-container").draggable("disable");
-                        }
-
-                        e.dataTransfer.dropEffect = 'copy'; // See the section on the DataTransfer object.
-                        // NOTE: comment above refers to the article (see top) -natchiketa
-
-                        return false;
-                    }
-
-                    $scope.handleDragEnter=function (e) {
-                        // this / e.target is the current hover target.
-                        this.classList.add('over');
-                    }
-
-                    $scope.handleDragLeave=function (e) {
-                        this.classList.remove('over'); // this / e.target is previous target element.
-
-                    }
-
-
-                    $scope.handleDrop=function (e) {
-                        // this / e.target is current target element.
-
-                        if (e.stopPropagation) {
-                            e.stopPropagation(); // stops the browser from redirecting.
-                            e.preventDefault();
-                            $( "#canvas-container").draggable("disable");
-                        }
-                        if($scope.MSP===true) {
-                            $rootScope.objCount++;
-                            $scope.MSPComponentCount++;
-
-                            var indexCount=$scope.MSPComponentCount;
-                            var objectCount=indexCount-1;
-
-
-                            $scope.imageSrc = $scope.icon[$scope.selectedImageIndex];
-                            console.log("$scope.imageSrc===" + $scope.imageSrc);
-                            var rest = $scope.imageSrc.substring(0, $scope.imageSrc.lastIndexOf("/") + 1);
-                            $scope.last = $scope.imageSrc.substring($scope.imageSrc.lastIndexOf("/") + 1, $scope.imageSrc.length);
-                            // $scope.imageSrcArray = $scope.imageSrc.split('newimage/');
-                            // console.log("imageSrcArray===" + $scope.imageSrcArray[1]);
-                            console.log('last === '+$scope.last);
-                            $scope.selectedImageName = $scope.last.split('.png');
-                            console.log("selectedImageName===" + $scope.selectedImageName);
-                            // console.log("selected object==== " + $scope.imageSrcArray[1]);
-                            console.log("selected object==== " + $scope.last);
-                            console.log("selected object==== " + $scope.selectedImageName[0]);
-
-                            $scope.valueOfSelectedImage = $scope.Title[$scope.selectedImageIndex];
-                            $scope.valueOfCatalogName =$scope.catalog_name[$scope.selectedImageIndex];
-                            $scope.valueOfCatalogCategory = $scope.catalog_category[$scope.selectedImageIndex];
-                            var type='msp';
-
-                            console.log('id=== ' + $scope.valueOfSelectedImage);
-
-                            console.log('id=== ' + $scope.valueOfCatalogCategory);
-
-
-                            $scope.canvasCatalogueObject = {
-
-                                'selectedImage': $scope.last,
-                                'selectedImageTitle': $scope.Title[$scope.selectedImageIndex],
-                                'selectedValueCategory': $scope.catalog_category[$scope.selectedImageIndex],
-                                'selectedCatalogName': $scope.catalog_name[$scope.selectedImageIndex],
-                                'type': type
-                            };
-
-                            /*Manisha Integration starts*/
-
-                            $scope.userEntered=sharedProperties.getProperty();
-                            console.log('userEntered == '+$scope.userEntered);
-                            // this / e.target is current target element.
-                            // $scope.solnEntered=sharedProperties.getSoln();
-                            $scope.solnEntered=sharedProperties.getCurrentCSolName()
-                            console.log("$scope.solnEntered============" +$scope.solnEntered);
-                            console.log("$scope.itemData.component_count====" +objectCount);
-                            console.log("$scope.itemData.component_count====" +$scope.Title[$scope.selectedImageIndex]);
-                            var user=$scope.userEntered;
-                            var serviceName=$scope.catalog_name[$scope.selectedImageIndex];
-                            var count_msp = sharedProperties.getMSPCount() + 1;
-                            console.log("count isss MSP"+count_msp);
-                            sharedProperties.setMSPCount(count_msp);
-                            //july19 added
-                            $scope.newVer= sharedProperties.getNewersion();
-                            console.log("current version ----->"+$scope.newVer)
-
-                            $scope.spinsCatalogueList=false;
-                            $scope.spinsCanvas=true;
-                            $scope.spinsRuntimeList=false;
-                            $scope.spinsServicesList=false;
-                            $scope.spinsCatalogueList=false;
-
-                            $scope.loading=true;
-
-                            $http({
-                                method  : 'PUT',
-                                url     : '/api/v2/AddComponentToCanvas',
-                                data    : $.param({'uname': user, 'solnName': $scope.solnEntered, 'service_details': 'msp','service_name': serviceName,'component_cnt': count_msp,'version': $scope.newVer}),
-                                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                                //forms user object
-                            })
-
-                                .success(function(data) {
-                                    console.log("inside success function");
-                                    $scope.DataResponse = data;
-                                    console.log(JSON.stringify($scope.DataResponse));
-                                    $scope.loading=false;
-                                })
-
-                                .error(function(data,status,header,config){
-                                    $timeout(function() {
-
-                                        console.log("header data" +header);
-                                        console.log("status data" +status);
-                                        console.log("config data" +config);
-                                        console.log("Data:" +data);
-
-                                    }, 2000);
-
-                                })
-
-                            $scope.count = 0;
-
-                            fabric.Image.fromURL($scope.icon[$scope.selectedImageIndex], function (oImg) {
-                                // scale image down, and flip it, before adding it onto canvas
-                                //oImg.scale(0.5).setFlipX(true);
-                                oImg.width = 80;
-                                oImg.height = 80;
-                                oImg.left = e.layerX;
-                                oImg.top = e.layerY;
-                                // canvas.add(oImg);
-
-                                var tbText = new fabric.Text($scope.Title[$scope.selectedImageIndex], {
-                                    top: e.layerY+45,
-                                    left: e.layerX,
-                                    fontSize:15,
-                                    hasControls: true,
-                                    lockScalingX:true,
-                                    lockScalingY:true
-                                });
-                                // canvas.add(tbText);
-                                var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
-                                console.log("group object is == "+JSON.stringify(group));
-                                canvas.add(group);
-                            });
-                        }
-                        if($scope.Bluemix===true) {
-
-                            if($scope.runtimeCatalogue === true){
-                                $rootScope.objCount++;
-                                $scope.bluemixRuntimeComponentCount++;
-                                var indexRuntimeCompCount=$scope.bluemixRuntimeComponentCount;
-                                var bluemixRuntimeCompCount=indexRuntimeCompCount-1;
-                                $scope.bluemixRuntimeimageSrc = $scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex];
-                                console.log("$scope.imageSrc===" + $scope.bluemixRuntimeimageSrc);
-                                $scope.bluemixRuntimeimageSrcArray = $scope.bluemixRuntimeimageSrc.split('MSP_Logos/');
-                                console.log("imageSrcArray===" + $scope.bluemixRuntimeimageSrcArray);
-                                $scope.bluemixRuntimeselectedImageName = $scope.bluemixRuntimeimageSrcArray[1].split('.png');
-                                console.log("selectedImageName===" + $scope.bluemixRuntimeselectedImageName);
-                                console.log("selected object==== " + $scope.bluemixRuntimeimageSrcArray[1]);
-                                console.log("selected object==== " + $scope.bluemixRuntimeselectedImageName[0]);
-                                var type='runtime';
-                                $scope.bluemixRuntimeSelectedImage = $scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex];
-                                console.log("selected object name ==== " + $scope.bluemixRuntimeSelectedImage);
-
-                                $scope.canvasCatalogueObject = {
-                                    'selectedImage': $scope.bluemixRuntimeimageSrcArray[1],
-                                    'selectedImageTitle': $scope.bluemixRuntimeSelectedImage,
-                                    'type': type
-
-                                };
-
-                                $scope.runtimeUsername=sharedProperties.getProperty();
-                                console.log('userEntered == '+$scope.runtimeUsername);
-                                // this / e.target is current target element.
-
-                                //$scope.solnRuntimeEntered=sharedProperties.getSoln();
-                                $scope.solnRuntimeEntered=sharedProperties.getCurrentCSolName();
-                                console.log("$scope.solnEntered============" +$scope.solnRuntimeEntered);
-                                var user=$scope.runtimeUsername;
-                                var serviceName=$scope.bluemixRuntimeSelectedImage;
-                                console.log("runtime serviceName====" +serviceName);
-                                console.log("bluemixRuntimeCompCount====" +bluemixRuntimeCompCount);
-                                var count_runtime = sharedProperties.getRuntimeCount() + 1;
-                                console.log("Runtime count is ==="+count_runtime);
-                                sharedProperties.setRuntimeCount(count_runtime);
-                                $scope.newVer= sharedProperties.getNewersion();
-                                console.log("current version ----->"+$scope.newVer)
-                                $scope.spinsCatalogueList=false;
-                                $scope.spinsRuntimeList = false;
-                                $scope.spinsServicesList = false;
-                                $scope.spinsCanvas=true;
-                                $scope.loading=true;
-
-                                $http({
-                                    method  : 'PUT',
-                                    url     : '/api/v2/AddBMRuntimeToCanvas',
-                                    data    : $.param({'uname': user, 'solnName': $scope.solnRuntimeEntered, 'service_details': 'runtime','service_name': serviceName,'component_cnt': count_runtime,'version':$scope.newVer}),
-                                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                                })
-
-                                    .success(function(data) {
-                                        console.log("inside bluemix runtime success function");
-                                        $scope.runtimeDataResponse = data;
-                                        console.log(JSON.stringify($scope.runtimeDataResponse));
-                                        $scope.loading=false;
-                                    }).error(function(data,status,header,config){
-                                        $timeout(function() {
-
-                                            console.log("header data" +header);
-                                            console.log("status data" +status);
-                                            console.log("config data" +config);
-                                            console.log("Data:" +data);
-
-                                        }, 2000);
-
-                                    })
-
-                                $scope.count = 0;
-
-                                fabric.Image.fromURL($scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex], function (oImg) {
-
-                                    oImg.width = 80;
-                                    oImg.height = 80;
-                                    oImg.left = e.layerX;
-                                    oImg.top = e.layerY;
-                                    // canvas.add(oImg);
-
-                                    var tbText = new fabric.Text($scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex], {
-                                        top: e.layerY+45,
-                                        left: e.layerX,
-                                        fontSize:15,
-                                        hasControls: true,
-                                        lockScalingX:true,
-                                        lockScalingY:true
-                                    });
-                                    // canvas.add(tbText);
-                                    var group = new fabric.Group([oImg, tbText], { left: e.layerX, top: e.layerY });
-                                    // console.log("group object is == "+JSON.stringify(group));
-                                    canvas.add(group);
-                                });
-                            }
-                            if($scope.servicesCatalogue === true){
-                                $rootScope.objCount++;
-                                $scope.bluemixServiceComponentCount++;
-                                var indexServiceCompCount=$scope.bluemixServiceComponentCount;
-                                var bluemixServiceCompCount=indexServiceCompCount-1;
-                                $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
-                                console.log("$scope.imageSrc===" + $scope.bluemixServiceimageSrc);
-                                $scope.bluemixServiceimageSrcArray = $scope.bluemixServiceimageSrc.split('MSP_Logos/');
-                                console.log("imageSrcArray===" + $scope.bluemixServiceimageSrcArray);
-                                $scope.bluemixServiceselectedImageName = $scope.bluemixServiceimageSrcArray[1].split('.png');
-                                console.log("selectedImageName===" + $scope.bluemixServiceselectedImageName);
-                                console.log("selected object==== " + $scope.bluemixServiceimageSrcArray[1]);
-                                var type='bluemix';
-                                $scope.bluemixServiceSelectedImage = $scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex];
-                                console.log("selected object name ==== " + $scope.bluemixServiceSelectedImage);
-                                $scope.canvasCatalogueObject = {
-                                    'selectedImage': $scope.bluemixServiceimageSrcArray[1],
-                                    'selectedImageTitle': $scope.bluemixServiceSelectedImage,
-                                    'type': type
-                                };
-                                $scope.serviceUsername=sharedProperties.getProperty();
-                                console.log('userEntered == '+$scope.serviceUsername);
-                                // this / e.target is current target element.
-                                $scope.solnServiceEntered=sharedProperties.getCurrentCSolName()
-                                //$scope.solnServiceEntered=sharedProperties.getSoln();
-                                console.log("$scope.solnEntered============" +$scope.solnServiceEntered);
-                                var user=$scope.serviceUsername;
-                                var serviceName=$scope.bluemixServiceSelectedImage;
-                                console.log("serviceName============" +serviceName);
-                                console.log("bluemixServiceCompCount============" +bluemixServiceCompCount);
-                                $scope.newVer= sharedProperties.getNewersion();
-                                var compcnt=sharedProperties.getComponentCount() + 1;
-                                console.log("Component count before ========="+compcnt);
-                                sharedProperties.setComponentCount(compcnt);
-                                console.log("Component count after =========="+compcnt);
-                                console.log("current version ----->"+$scope.newVer)
-                                $scope.spinsCatalogueList=false;
-                                $scope.spinsRuntimeList = false;
-                                $scope.spinsServicesList = false;
-                                $scope.spinsCanvas=true;
-                                $scope.loading=true;
-                                $http({
-                                    method  : 'PUT',
-                                    url     : '/api/v2/AddBMComponentToCanvas',
-                                    data    : $.param({'uname': user,
-                                        'solnName': $scope.solnServiceEntered,
-                                        'service_details': 'bluemix',
-                                        'service_name': serviceName,
-                                        'component_cnt': compcnt,
-                                        'version': $scope.newVer }),
-                                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                                }).success(function(data) {
-                                    console.log("inside bluemix runtime success function");
-                                    $scope.serviceDataResponse = data;
-                                    console.log(JSON.stringify($scope.serviceDataResponse));
-                                    $scope.loading=false;
-                                }).error(function(data,status,header,config){
-                                    // $timeout(function() {
-
-                                    console.log("header data" +header);
-                                    console.log("status data" +status);
-                                    console.log("config data" +config);
-                                    console.log("Data:" +data);
-
-
-
-                                })
-
-                                $scope.count = 0;
-
-                                fabric.Image.fromURL($scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex], function (oImgService) {
-
-                                    oImgService.width = 80;
-                                    oImgService.height = 80;
-                                    oImgService.left = e.layerX;
-                                    oImgService.top = e.layerY;
-                                    // canvas.add(oImg);
-
-                                    var serviceText = new fabric.Text($scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex], {
-                                        top: e.layerY+45,
-                                        left: e.layerX,
-                                        fontSize:15,
-                                        hasControls: true,
-                                        lockScalingX:true,
-                                        lockScalingY:true
-                                    });
-                                    // canvas.add(tbText);
-                                    var group = new fabric.Group([oImgService, serviceText], { left: e.layerX, top: e.layerY });
-                                    // console.log("group object is == "+JSON.stringify(group));
-                                    canvas.add(group);
-                                });
-                            }
-
-
-                        }
-
-                        canvas.forEachObject(function(o){  o.hasBorders = o.hasControls=true; o.lockScalingX= o.lockScalingY=true; });
-
-                        canvas.on({
-                            'mouse:down': function(e) {
-                                if (e.target) {
-                                    e.target.opacity = 0.5;
-                                    canvas.renderAll();
-                                    $( "#canvas-container").draggable("disable");
-                                }
-                            },
-                            'mouse:up': function(e) {
-                                if (e.target) {
-                                    e.target.opacity = 1;
-                                    canvas.renderAll();
-                                }
-                            },
-                            'object:moved': function(e) {
-                                e.target.opacity = 0.5;
-                            },
-                            'object:modified': function(e) {
-                                e.target.opacity = 1;
-                                $( "#canvas-container").draggable("enable");
-                            }
-                        });
-
-                        $scope.addNewChoice($scope.canvasCatalogueObject);
-                        return true;
-                    }
-
-
-                    $scope.handleDragEnd=function (e) {
-                        // this/e.target is the source node.
-                        $( "#canvas-container").draggable("disable");
-                        [].forEach.call(images, function (img) {
-                            img.classList.remove('img_dragging');
-                            console.log (" drag end : " + img);
-                        });
-                        [].forEach.call(images1, function (img) {
-                            img.classList.remove('img_dragging');
-                            console.log (" drag end : " + img);
-                        });
-                    }
-                    $scope.connectionInfo={
-                        'connection_info':{
-                            'services':[]
-                        }
-                    };
-
-                    $scope.servicesObject={
-                        service_name:'',
-                        zone:"DMZ",
-                        connect_with:[
-                        ]
-                    };
-
-                    $scope.childObject={
-                        service_name:'',
-                        zone:"core",
-                        protocol:""
-                    }
-
-                    $scope.fromObjectArray=[];
-                    $scope.toObjectArray=[];
-
-                    $scope.addInfo=0;
-
-                    $scope.addChildLine=function (options) {
-                        // console.log('options :: '+options);
-                        canvas.off('object:selected', $scope.addChildLine);
-                        // add the line
-                        var fromObject = canvas.addChild.start;
-                        console.log('from object every time:::'+JSON.stringify(fromObject));
-
-                        if(angular.isObject(fromObject)){
-                            Object.keys(fromObject).forEach(function (key) {
-                                if (key === 'objects') {
-                                    $scope.fromServiceObject = fromObject[key];
-                                    for(var i=0;i<$scope.fromServiceObject.length;i++){
-                                        $scope.fromGroupObject=$scope.fromServiceObject[i];
-                                        Object.keys($scope.fromGroupObject).forEach(function (key) {
-                                            // console.log("Object key fromGroupObject: " + key);
-                                            if(key==='text'){
-                                                console.log('from image text name === ' +$scope.fromGroupObject.text);
-                                                // $scope.servicesObject.service_name=$scope.fromGroupObject.text;
-                                            }
-
-                                        })
-                                    }
-                                }
-                            });
-                        }
-
-                        var toObject = options.target;
-
-                        if(angular.isObject(toObject)){
-                            Object.keys(toObject).forEach(function (key) {
-                                //get the value of name
-                                // console.log("toGroupObject key : " + key);
-                                if (key === 'objects') {
-                                    $scope.toServiceObject = toObject[key];
-                                    for(var i=0;i<$scope.toServiceObject.length;i++){
-                                        $scope.toGroupObject=$scope.toServiceObject[i];
-                                        Object.keys($scope.toGroupObject).forEach(function (key) {
-                                            if(key==='text'){
-                                                console.log('to image text name === '+$scope.toGroupObject.text);
-                                                // $scope.childObject.service_name=$scope.toGroupObject.text;
-
-                                            }
-                                        })
-                                    }
-                                }
-                            });
-
-                        }
-
-
-                        $scope.createCanvasInfo($scope.fromGroupObject.text,$scope.toGroupObject.text);
-
-                        var from = fromObject.getCenterPoint();
-                        var to = toObject.getCenterPoint();
-                        var line = new fabric.Line([from.x, from.y, to.x, to.y], {
-                            fill: 'grey',
-                            stroke: 'grey',
-                            strokeWidth: 1,
-                            selectable: false
-                        });
-                        //$scope.lineAdded++;
-                        canvas.add(line);
-                        // so that the line is behind the connected shapes
-                        line.sendToBack();
-
-                        // add a reference to the line to each object
-                        fromObject.addChild = {
-                            // this retains the existing arrays (if there were any)
-                            from: (fromObject.addChild && fromObject.addChild.from) || [],
-                            to: (fromObject.addChild && fromObject.addChild.to)
-                        }
-                        fromObject.addChild.from.push(line);
-                        toObject.addChild = {
-                            from: (toObject.addChild && toObject.addChild.from),
-                            to: (toObject.addChild && toObject.addChild.to) || []
-                        }
-                        toObject.addChild.to.push(line);
-
-                        // to remove line references when the line gets removed
-                        line.addChildRemove = function () {
-                            fromObject.addChild.from.forEach(function (e, i, arr) {
-
-                                if (e === line) {
-                                    console.log('i from object value === '+i);
-                                    arr.splice(i, 1);
-                                }
-                            });
-                            toObject.addChild.to.forEach(function (e, i, arr) {
-                                //$scope.lineAdded--;
-                                if (e === line) {
-                                    console.log('i to object value === '+i);
-                                    arr.splice(i, 1);
-                                }
-                            });
-                            $scope.lineAdded--;
-                        }
-
-                        // undefined instead of delete since we are anyway going to do this many times
-                        canvas.addChild = undefined;
-                    }
-
-                    $scope.createCanvasInfo=function(fromTextName,toTextName){
-                        console.log('fromTextName === '+fromTextName);
-                        console.log('toTextName === '+toTextName);
-                        console.log('$scope.addInfo === '+$scope.addInfo);
-                        if($scope.addInfo > 0) {
-                            console.log('greater than zero');
-                            $scope.newServicesObject={
-                                service_name:'',
-                                zone:"DMZ",
-                                connect_with:[
-                                ]
-                            };
-
-                            $scope.newChildObject={
-                                service_name:'',
-                                zone:"core",
-                                protocol:""
-                            }
-
-                            // for (var i = 0; i < $scope.fromObjectArray.length; i++) {
-                            if ($scope.fromObjectArray.indexOf(fromTextName) === -1) {
-                                console.log('doesnt match in from array');
-                                $scope.newServicesObject['service_name'] = fromTextName;
-                                console.log('newServicesObject === ' + JSON.stringify($scope.newServicesObject));
-                                $scope.newChildObject['service_name'] = toTextName;
-                                console.log('newChildObject === ' + JSON.stringify($scope.newChildObject));
-                                $scope.newServicesObject.connect_with.push($scope.newChildObject);
-                                console.log('$scope.newServicesObject == ' + JSON.stringify($scope.newServicesObject));
-                                $scope.connectionInfo.connection_info.services.push($scope.newServicesObject);
-                                console.log('final json === ' + JSON.stringify($scope.connectionInfo));
-                            }else{
-                                for(var i=0;i<$scope.connectionInfo.connection_info.services.length;i++) {
-                                    $scope.servicesObj=$scope.connectionInfo.connection_info.services[i];
-                                    console.log('$scope.servicesObj === '+JSON.stringify($scope.servicesObj));
-                                    if($scope.servicesObj.service_name===fromTextName) {
-                                        console.log('from text name matches');
-                                        $scope.newChildObject['service_name'] = toTextName;
-                                        console.log('newChildObject === ' + JSON.stringify($scope.newChildObject));
-                                        $scope.servicesObj.connect_with.push($scope.newChildObject);
-                                        console.log('$scope.servicesObj == ' + JSON.stringify($scope.servicesObj));
-                                        $scope.connectionInfo.connection_info.services[i]=$scope.servicesObj;
-                                        // $scope.connectionInfo.connection_info.services.push($scope.servicesObj);
-                                        console.log('final json === ' + JSON.stringify($scope.connectionInfo));
-                                        break;
-                                    }
-                                }
-                            }
-                            // }
-                        }else {
-                            $scope.servicesObject['service_name'] = fromTextName;
-                            console.log('servicesObject === ' + JSON.stringify($scope.servicesObject));
-                            $scope.childObject['service_name'] = toTextName;
-                            console.log('servicesObject === ' + JSON.stringify($scope.childObject));
-                            $scope.servicesObject.connect_with.push($scope.childObject);
-                            console.log('$scope.servicesObject == ' + JSON.stringify($scope.servicesObject));
-                            $scope.connectionInfo.connection_info.services.push($scope.servicesObject);
-                            console.log('final json === ' + JSON.stringify($scope.connectionInfo));
-                        }
-                        $scope.fromObjectArray.push(fromTextName);
-                        $scope.toObjectArray.push(toTextName);
-                        $scope.addInfo++;
-                    }
-
-                    function addChildMoveLine(event) {
-                        canvas.on(event, function (options) {
-                            var object = options.target;
-                            var objectCenter = object.getCenterPoint();
-                            // udpate lines (if any)
-                            if (object.addChild) {
-                                if (object.addChild.from)
-                                    object.addChild.from.forEach(function (line) {
-                                        line.set({ 'x1': objectCenter.x, 'y1': objectCenter.y });
-                                    })
-                                if (object.addChild.to)
-                                    object.addChild.to.forEach(function (line) {
-                                        line.set({ 'x2': objectCenter.x, 'y2': objectCenter.y });
-                                    })
-                            }
-
-                            canvas.renderAll();
-                        });
-                    }
-
-                    $scope.addChild = function () {
-                        console.log('inside addchild');
-                        $scope.lineAdded++;
-                        // $rootScope.objCount++;
-                        // console.log('inside addchild'+$rootScope.objCount);
-                        canvas.addChild = {
-                            start: canvas.getActiveObject()
-                        }
-
-                        // for when addChild is clicked twice
-                        canvas.off('object:selected', $scope.addChildLine);
-                        canvas.on('object:selected', $scope.addChildLine);
-                    }
-
-                    $scope.deleteObject = function (index) {
-
-                        console.log('deleted object index == '+index);
-                        var object = canvas.getActiveObject();
-                        if(object === null || object === undefined){
-                            /*alert("Please Select the service from canvas to be deleted");*/
-                            $uibModal.open({
-                                animation: $scope.animationsEnabled,
-                                templateUrl: '../components/modal/DeleteCanvasService.html',
-                                size: 'sm',
-                                controller: 'DeleteCanvasServiceCtrl',
-                                windowClass: 'app-modal-window-dc',
-                                backdrop: 'static',
-                                keyboard: false,
-                                resolve: {
-
-                                }
-                            });
-                        }else {
-                            console.log('deleted group object === ' + object);
-
-                            console.log('index in openpopup ====' + index);
-                            console.log('choices in delete click == ' + JSON.stringify($scope.choices));
-
-                            var nameInCanvas = '';
-                            var nameInList = '';
-                            nameInCanvas = $scope.choices[index].selectedImageTitle;
-                            nameInList = object.objects[1].text;
-                            console.log('nameInCanvas===' + nameInCanvas);
-                            console.log('nameInList====' + nameInList);
-
-                            if (nameInCanvas == nameInList) {
-                                if ($scope.choices[index].type === 'msp') {
-                                    // $scope.openpopupMSPCount++;
-                                    console.log('inside MSP');
-
-                                    console.log("componentName======" + $scope.choices[index].selectedImageTitle);
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    // $scope.solnEntered = sharedProperties.getSoln();
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    for (var MSPIndex = 0; MSPIndex < $scope.choicesMSP.length; MSPIndex++) {
-                                        if ($scope.choices[index].selectedCatalogName === $scope.choicesMSP[MSPIndex].selectedCatalogName) {
-                                            $scope.actualMSPComponentIndex = MSPIndex;
-                                            console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
-                                        }
-                                    }
-                                    var user1 = $scope.currentUser;
-                                    var serviceName1 = $scope.choices[index].selectedCatalogName;
-                                    console.log("serviceName ============" + serviceName1);
-                                    var mspCount = $scope.openpopupMSPCount;
-                                    $scope.mspCount = mspCount - 1;
-                                    console.log('componentCount MSP === ' + $scope.mspCount);
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb',
-                                        data: $.param({
-                                            'uname': user1,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'msp',
-                                            'service_name': serviceName1,
-                                            'component_cnt': $scope.actualMSPComponentIndex,
-                                            'version':$scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside getServiceInfo function === " + JSON.stringify(data));
-                                            $scope.popupData = data;
-                                            // console.log("MSP attr data == "+$scope.popupData);
-
-
-                                            /*$scope.loading=false;*/
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-                                }
-
-                                if ($scope.choices[index].type === 'runtime') {
-
-                                    console.log("componentName======" + $scope.choices[index].selectedImageTitle);
-                                    // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    //$scope.solnEntered = sharedProperties.getSoln();
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName()
-                                    var user = $scope.currentUser;
-                                    var runtimeServiceName = $scope.choices[index].selectedImageTitle;
-                                    console.log("serviceName ============" + runtimeServiceName);
-                                    console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
-                                    var runtimeCount = $scope.openpopupRuntimeCount;
-                                    $rootScope.componentCount = runtimeCount - 1;
-                                    console.log('componentCount runtime === ' + $rootScope.componentCount);
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
-
-                                    for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
-                                        if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {
-                                            $scope.actualruntimeComponentIndex = runtimeIndex;
-                                            console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
-                                        }
-                                    }
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb',
-                                        data: $.param({
-                                            'uname': user,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'runtime',
-                                            'service_name': runtimeServiceName,
-                                            'component_cnt': $scope.actualruntimeComponentIndex,
-                                            'version':$scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside runtime function === " + JSON.stringify(data));
-                                            $scope.runtimePopupData = data;
-                                            // console.log("MSP attr data == "+$scope.popupData);
-
-                                            /*$scope.loading=false;*/
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-                                }
-
-                                if ($scope.choices[index].type === 'bluemix') {
-
-                                    console.log("componentName======" + $scope.choices[index].selectedImageTitle);
-                                    // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
-                                    $scope.currentUser = sharedProperties.getProperty();
-                                    console.log('userEntered == ' + $scope.currentUser);
-                                    //$scope.solnEntered = sharedProperties.getSoln();
-                                    $scope.solnEntered=sharedProperties.getCurrentCSolName();
-                                    var user = $scope.currentUser;
-                                    var bluemixServiceName = $scope.choices[index].selectedImageTitle;
-                                    console.log("serviceName ============" + bluemixServiceName);
-                                    var bluemixCount = $scope.openpopupBluemixCount;
-                                    $scope.componentServiceCount = bluemixCount - 1;
-                                    console.log('componentCount Service === ' + $scope.componentServiceCount);
-                                    $scope.newVer= sharedProperties.getNewersion();
-                                    console.log("current version ----->"+$scope.newVer)
-
-                                    for (var serviceIndex = 0; serviceIndex < $scope.choicesServices.length; serviceIndex++) {
-                                        if ($scope.choices[index].selectedImageTitle === $scope.choicesServices[serviceIndex].selectedImageTitle) {
-                                            $scope.actualServiceComponentIndex = serviceIndex;
-                                            console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
-                                        }
-                                    }
-
-
-                                    $http({
-                                        method: 'PUT',
-                                        url: '/api/v2/removeComponentFromSolutiondb ',
-                                        data: $.param({
-                                            'uname': user,
-                                            'solnName': $scope.solnEntered,
-                                            'service_details': 'bluemix',
-                                            'service_name': bluemixServiceName,
-                                            'component_cnt': $scope.actualServiceComponentIndex,
-                                            'version': $scope.newVer
-                                        }),
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        //forms user object
-                                    })
-                                        .success(function (data) {
-                                            console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
-                                            $scope.servicePopupData = data;
-                                            console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
-                                            /*$scope.loading=false;*/
-
-                                        }
-                                    ).error(function (data, status, header, config) {
-                                            console.log("header data" + header);
-                                            console.log("status data" + status);
-                                            console.log("config data" + config);
-                                            console.log("Data:" + data);
-
-
-                                        })
-                                }
-
-
-                                if (canvas.getActiveGroup()) {
-                                    canvas.getActiveGroup().forEachObject(function (o) {
-                                        canvas.remove(o)
-                                    });
-                                    canvas.discardActiveGroup().renderAll();
-                                } else {
-                                    canvas.remove(canvas.getActiveObject());
-                                }
-
-                                // console.log('deleted object'+JSON.stringify(object));
-                                // remove lines (if any)
-                                if (object.addChild) {
-                                    if (object.addChild.from)
-                                    // step backwards since we are deleting
-                                        for (var i = object.addChild.from.length - 1; i >= 0; i--) {
-                                            var line = object.addChild.from[i];
-                                            line.addChildRemove();
-                                            line.remove();
-                                        }
-                                    if (object.addChild.to)
-                                        for (var i = object.addChild.to.length - 1; i >= 0; i--) {
-                                            var line = object.addChild.to[i];
-                                            line.addChildRemove();
-                                            line.remove();
-                                        }
-                                }
-                                // object.remove();
-                                // tbText.remove();
-                                $scope.removeChoice(index);
-
-                            }
-                            else {
-                                /*alert("this service has not been selected for delete.Please delete service which is selected");*/
-                                $uibModal.open({
-                                    animation: $scope.animationsEnabled,
-                                    templateUrl: '../components/modal/SelectProperService.html',
-                                    size: 'sm',
-                                    controller: 'SelectProperServiceCtrl',
-                                    windowClass: 'app-modal-window-selectpro',
-                                    backdrop: 'static',
-                                    keyboard: false,
-                                    resolve: {
-
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    $scope.printCanvas = function()
-                    {
-                        /*console.log("created canvas== "+canvas);
-                         console.log("Current canvas : " + JSON.stringify(canvas));
-                         canvas.clear();*/
-                        //canvas.clear();
-                        //canvas.clear();
-                        var imgDevice = document.getElementById("device_img");
-                        var deviderImg = document.getElementById("devider_img");
-                        var edgeDevice = document.getElementById("edge_device");
-
-                        var imgInstance1 = new fabric.Image(imgDevice);
-                        imgInstance1.left=509;
-                        imgInstance1.top=180;
-                        canvas.add(imgInstance1);
-                        imgInstance1.lockMovementY = true;
-                        imgInstance1.lockMovementX = true;
-
-
-                        var imgInstance2 = new fabric.Image(deviderImg);
-                        imgInstance2.left=615;
-                        imgInstance2.top=342;
-                        canvas.add(imgInstance2);
-                        imgInstance2.lockMovementY = true;
-                        imgInstance2.lockMovementX = true;
-
-                        var imgInstance3 = new fabric.Image(edgeDevice);
-                        imgInstance3.left=722;
-                        imgInstance3.top=180;
-                        canvas.add(imgInstance3);
-                        imgInstance3.lockMovementY = true;
-                        imgInstance3.lockMovementX = true;
-
-                        $scope.choices = [];
-                        $rootScope.objCount = 0;
-
-                        /*$uibModal.open({
+         if(data.status == 'failed'){
+          //alert(data.description);
+          $scope.loading = false;
+          $uibModal.open({
+           animation: $scope.animationsEnabled,
+           templateUrl: '../components/modal/ErrorWarning.html',
+           windowClass: 'app-modal-window-sam-Plan',
+           controller: 'ErrorWarningCtrl',
+           backdrop: 'static',
+           keyboard: false,
+           resolve: {
+            ErrorMsg: function () {
+             return data.description;
+            },
+           }
+          });
+         }
+         else {
+
+             // console.log("inside success function");
+             $scope.resultCanvasDetails = data;
+             console.log('resultCanvasDetails === ' + JSON.stringify($scope.resultCanvasDetails));
+             //sharedProperties.setCanvasInfo($scope.resultCanvasDetails);
+             console.log('resultCanvasDetails.services[0] === ' + JSON.stringify($scope.resultCanvasDetails.services));
+             $timeout(function () {
+              var canvas;
+              // window.newAnimation = function () {
+              /*canvas = new fabric.Canvas('canvas');*/
+              canvas = new fabric.Canvas('canvas', {
+               selection: true,
+              });
+              canvas.on("object:selected", function (options) {
+               options.target.bringToFront();
+               $("#canvas-container").draggable("disable");
+              });
+              // canvas.isDrawingMode = true;
+              /* fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
+               console.log('scroll');
+               canvas.calcOffset();
+               });*/
+
+              //canvas resize
+
+              window.addEventListener("load", function () {
+
+
+               var canvas = document.createElement('canvas');
+               document.body.appendChild(canvas);
+               var context = canvas.getContext('2d');
+
+               function draw() {
+                context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+                canvas.calcOffset();
+
+               }
+
+               function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                draw();
+               }
+
+               window.addEventListener("resize", resize);
+               resize();
+              });
+              /*(function() {
+               console.log("from canvas resize")
+               var
+               // Obtain a reference to the canvas element
+               // using its id.
+               htmlCanvas = document.getElementById('canvas'),
+
+               // Obtain a graphics context on the
+               // canvas element for drawing.
+               context = htmlCanvas.getContext('2d');
+
+               // Start listening to resize events and
+               // draw canvas.
+               initialize();
+
+               function initialize() {
+               // Register an event listener to
+               // call the resizeCanvas() function each time
+               // the window is resized.
+               window.addEventListener('resize', resizeCanvas, true);
+
+               // Draw canvas border for the first time.
+               resizeCanvas();
+               }
+
+               // Display custom canvas.
+               // In this case it's a blue, 5 pixel border that
+               // resizes along with the browser window.
+               /!*function redraw() {
+               /!*context.strokeStyle = 'blue';*!/
+               /!*context.lineWidth = '5';*!/
+               context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+               }*!/
+
+               // Runs each time the DOM window resize event fires.
+               // Resets the canvas dimensions to match window,
+               // then draws the new borders accordingly.
+               function resizeCanvas() {
+               htmlCanvas.width = window.innerWidth;
+               htmlCanvas.height = window.innerHeight;
+
+               // redraw();
+               }
+
+               })();*/
+              /*canvas.setWidth(1192);
+               canvas.setHeight(11892);
+
+
+               fabric.util.addListener(document.getElementById('canvas-container'), 'scroll', function () {
+               console.log('scroll');
+               canvas.calcOffset();
+               });*/
+
+
+              //--------------
+
+
+              /*$(function() {
+               $("#canvas-container").draggable();
+               });*/
+              canvas.observe('mouse:down', function () {
+
+               var Get_obj = canvas.getActiveObject();
+               console.log("clicked on canvas---->")
+               //$("#canvas-container").draggable("enable");
+              });
+              /* var imgDevice = document.getElementById("device_img");
+               var deviderImg = document.getElementById("devider_img");
+               var edgeDevice = document.getElementById("edge_device");
+
+               var imgInstance1 = new fabric.Image(imgDevice);
+               imgInstance1.left=400;
+               imgInstance1.top=400;
+               canvas.add(imgInstance1);
+               imgInstance1.lockMovementY = true;
+               imgInstance1.lockMovementX = true;
+               imgInstance1.hasControls=false;
+
+
+               var imgInstance2 = new fabric.Image(deviderImg);
+               imgInstance2.left=615;
+               imgInstance2.top=400;
+               canvas.add(imgInstance2);
+               imgInstance2.lockMovementY = true;
+               imgInstance2.lockMovementX = true;
+               imgInstance2.hasControls=false;
+
+               var imgInstance3 = new fabric.Image(edgeDevice);
+               imgInstance3.left=800;
+               imgInstance3.top=400;
+               canvas.add(imgInstance3);
+               imgInstance3.lockMovementY = true;
+               imgInstance3.lockMovementX = true;
+               imgInstance3.hasControls=false;
+               */
+              // we need this here because this is when the canvas gets initialized
+              ['object:moving', 'object:scaling'].forEach(addChildMoveLine);
+              // }
+
+              var canvasRenderObject = $scope.resultCanvasDetails.canvas[0];
+              console.log('canvasRenderObject===' + canvasRenderObject);
+              canvas.loadFromDatalessJSON(canvasRenderObject);
+              canvas.renderAll();
+              //edit function---->
+              $scope.deleteObjectold = function (index) {
+
+               console.log('deleted object index == ' + index);
+               var object = canvas.getActiveObject();
+               if (object === null || object === undefined) {
+                /*alert("Please Select the service from canvas to be deleted");*/
+                $uibModal.open({
+                 animation: $scope.animationsEnabled,
+                 templateUrl: '../components/modal/DeleteCanvasService.html',
+                 size: 'sm',
+                 controller: 'DeleteCanvasServiceCtrl',
+                 windowClass: 'app-modal-window-dc',
+                 backdrop: 'static',
+                 keyboard: false,
+                 resolve: {}
+                });
+               } else {
+                console.log('deleted group object === ' + object);
+
+                console.log('index in openpopup ====' + index);
+
+
+                if ($rootScope.editmode) {
+                 if ($rootScope.mservicetype[index] === 'msp') {
+                  console.log("msp");
+                  $scope.openpopupMSPCount++;
+                  for (var MIndex = 0; MIndex < $rootScope.mdat.length; MIndex++) {
+                   $scope.actualMSPComponentIndex = MIndex;
+                   console.log("$scope.actualMSPComponentIndex" + $scope.actualMSPComponentIndex)
+                  }
+
+                  //user--
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  var user1 = $scope.currentUser;
+
+                  //solution name--
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName();
+                  console.log("$scope.solnEntered" + $scope.solnEntered)
+
+                  //service name--
+                  var serviceName1 = $rootScope.mdat[index].catalog_name
+                  console.log("serviceName ============" + serviceName1);
+
+
+                  //version details--
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer);
+
+
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb',
+                   data: $.param({
+                    'uname': user1,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'msp',
+                    'service_name': serviceName1,
+                    'component_cnt': $scope.actualMSPComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       //error
+                       if(data.status == 'failed'){
+                        //alert(data.description);
+                        $scope.loading = false;
+                        $uibModal.open({
                          animation: $scope.animationsEnabled,
-                         templateUrl: '../components/modal/newSolArchitecture.html',
-                         controller: 'newsolCtrl',
-                         windowClass: 'app-modal-window-nns',
+                         templateUrl: '../components/modal/ErrorWarning.html',
+                         windowClass: 'app-modal-window-sam-Plan',
+                         controller: 'ErrorWarningCtrl',
                          backdrop: 'static',
+                         keyboard: false,
                          resolve: {
-
+                          ErrorMsg: function () {
+                           return data.description;
+                          },
                          }
-                         });*/
+                        });
+                       }
+                       else {
+                       console.log("inside removeComponent function === " + JSON.stringify(data));
+                       $scope.popupData = data;
+                       // console.log("MSP attr data == "+$scope.popupData);
 
+
+                       /*$scope.loading=false;*/
+                      }
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
+
+
+                      })
+
+
+                 }
+                 if ($rootScope.mservicetype[index] === 'bluemix') {
+                  console.log("bluemix")
+                  $scope.openpopupBluemixCount++;
+
+                  for (var MSPIndex = 0; MSPIndex < $rootScope.serdtat.length; MSPIndex++) {
+
+                   $scope.actualMSPComponentIndex = MSPIndex;
+                   console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentInde);
+
+                  }
+                  //user--
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  var user = $scope.currentUser;
+
+                  //solution name--
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName();
+                  console.log("$scope.solnEntered" + $scope.solnEntered)
+
+                  //service name--
+                  var bluemixServiceName = $rootScope.serdtat[$scope.actualrunComponentIndex].title
+                  console.log("serviceName ============" + bluemixServiceName);
+
+
+                  //version details--
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer);
+
+
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb ',
+                   data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'bluemix',
+                    'service_name': bluemixServiceName,
+                    'component_cnt': $scope.actualServiceComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       //error
+                       if(data.status == 'failed'){
+                        //alert(data.description);
+                        $scope.loading = false;
                         $uibModal.open({
-                            animation: $scope.animationsEnabled,
-                            templateUrl: '../components/modal/newArchConfirmation.html',
-                            controller: 'newArchConfirmCtrl',
-                            windowClass: 'app-modal-window-newArch',
-                            backdrop: 'static',
-                            keyboard: false,
-                            resolve: {
-
-                            }
+                         animation: $scope.animationsEnabled,
+                         templateUrl: '../components/modal/ErrorWarning.html',
+                         windowClass: 'app-modal-window-sam-Plan',
+                         controller: 'ErrorWarningCtrl',
+                         backdrop: 'static',
+                         keyboard: false,
+                         resolve: {
+                          ErrorMsg: function () {
+                           return data.description;
+                          },
+                         }
                         });
-                    };
+                       }
+                       else {
+
+                       console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                       $scope.servicePopupData = data;
+                       console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+                       /*$scope.loading=false;*/
+                      }
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
 
 
+                      })
+                 }
 
-                    $scope.esave = function(){
-                        console.log("from save----->")
-                        $scope.newVer= sharedProperties.getNewersion();
-                        console.log("current version ----->"+$scope.newVer)
-                        /*console.log("created canvas== "+canvas);
-                         console.log("Current canvas : " + JSON.stringify(canvas));*/
-                        $scope.canvasCreated=JSON.stringify(canvas);
-                        console.log("Current canvasCreated : " + $scope.canvasCreated);
-                        var s1=canvas;
-                        console.log('s1 type === '+typeof s1);
-                        $scope.currentUser1 = sharedProperties.getProperty();
-                        console.log('userEntered == ' + $scope.currentUser1);
-                        // $scope.solnEntered1 = sharedProperties.getSoln();
-                        $scope.solnEntered1=sharedProperties.getCurrentCSolName();
-                        console.log('solnEntered1 == ' + $scope.solnEntered1);
-                        $scope.spinsViewBoM = true;
-                        $scope.spinsRuntimeList = false;
-                        $scope.spinsServicesList=false;
-                        $scope.spinsCanvasCatalogue = false;
-                        $scope.spinsCanvas=false;
-                        $scope.loading=true;
+                 if ($rootScope.mservicetype[index] === 'runtime') {
+                  console.log("runtime")
 
-                        $http({
-                            method: 'PUT',
-                            url: '/api/v2/updateCanvasInfo' ,
-                            data: $.param({
-                                'uname':  $scope.currentUser1,
-                                'solnName':  $scope.solnEntered1,
-                                'canvasinfo': $scope.canvasCreated,
-                                'version': $scope.newVer
-                            }),
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            //forms user object
-                        })
-                            .success(function (data, status, header, config) {
+                  for (var runIndex = 0; runIndex < $rootScope.rundat.length; runIndex++) {
 
-                                if (data.errors) {
-                                    // Showing errors.
-                                    $scope.errorName = data.errors.name;
-                                } else {
-                                    console.log("inside success function");
-                                    $scope.PostDataResponse = data;
-                                    console.log(JSON.stringify($scope.PostDataResponse));
+                   $scope.actualrunComponentIndex = runIndex;
+                   console.log('$scope.actualrunComponentIndex === ' + $scope.actualrunComponentIndex);
+
+                  }
+                  //user--
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  var user = $scope.currentUser;
+
+                  //solution name--
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName();
+                  console.log("$scope.solnEntered" + $scope.solnEntered)
+
+                  //service name--
+                  var runtimeServiceName = $rootScope.rundat[$scope.actualrunComponentIndex].label
+                  console.log("serviceName ============" + runtimeServiceName);
 
 
-                                }
-                                $scope.spinsViewBoM = false;
+                  //version details--
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer);
 
-                            })
-                            .error(function (data, status, header, config) {
-                                console.log("header data" + header);
-                                console.log("status data" + status);
-                                console.log("config data" + JSON.stringify(config));
-
-                            })
-
-
-
-
-
-
-                    };
-
-                    $scope.redirectToPrev = function(){
-
-                        //alert("inside redirect to Prev");
-                        //$scope.redirectToHome = function(){
-
-                        $scope.canvasCreated=JSON.stringify(canvas);
-                        console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb',
+                   data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'runtime',
+                    'service_name': runtimeServiceName,
+                    'component_cnt': $scope.actualruntimeComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       if(data.status == 'failed'){
+                        //alert(data.description);
+                        $scope.loading = false;
                         $uibModal.open({
-                            animation: $scope.animationsEnabled,
-                            templateUrl: '../components/modal/homePageConfirm.html',
-                            windowClass: 'app-modal-window-homeConfirm',
-                            controller: 'confirmHomeCtrlViewMode',
-                            backdrop: 'static',
-                            keyboard: false,
-                            resolve: {
-                                canvasInformation: function () {
-                                    console.log('$scope.canvasCreated==' +JSON.stringify($scope.canvasCreated));
-                                    return $scope.canvasCreated;
-                                },
-                                /*countComp:function () {
-                                 return $scope.actualServiceComponentIndex;
-                                 },
-                                 serviceType:function(){
-                                 return 'bluemix';
-                                 }
-                                 */                    }
+                         animation: $scope.animationsEnabled,
+                         templateUrl: '../components/modal/ErrorWarning.html',
+                         windowClass: 'app-modal-window-sam-Plan',
+                         controller: 'ErrorWarningCtrl',
+                         backdrop: 'static',
+                         keyboard: false,
+                         resolve: {
+                          ErrorMsg: function () {
+                           return data.description;
+                          },
+                         }
                         });
-                        /*console.log("inside redirect");
-                         $location.path('/home');*/
-                        //$state.go('/home');
-                        //};
-                    }
+                       }
+                       else {
+                       console.log("inside runtime function === " + JSON.stringify(data));
+                       $scope.runtimePopupData = data;
+                       // console.log("MSP attr data == "+$scope.popupData);
 
-                    $scope.choices = [];
-                    $scope.choicesMSP = [];
-                    $scope.choicesRuntime = [];
-                    $scope.choicesServices = [];
-
-
-                    $scope.getIndex=function (index) {
-                        console.log("index====="+index);
-                        $scope.selectedImageIndex=index;
-                    }
-
-                    $scope.getIndexBluemix=function (index) {
-                        console.log("index====="+index);
-                        $scope.selectedBluemixImageIndex=index;
-                    }
-
-                    $scope.getIndexServiceBluemix=function (index) {
-                        console.log("index====="+index);
-                        $scope.selectedServiceBluemixImageIndex=index;
-                    }
-
-                    $scope.addNewChoice = function(obj) {
-                        console.log('Inside addnewchoice');
-                        if($scope.count>0) {
-                            for (var i = 0; i < choices.length; i++) {
-                                if (choices[i].selectedImage === obj.selectedImage && choices[i].selectedImageTitle === obj.selectedImageTitle) {
-                                    break;
-                                }else{
-                                    if(obj.type==='msp'){
-                                        $scope.choicesMSP.push(obj);
-                                    }else if(obj.type==='runtime'){
-                                        $scope.choicesRuntime.push(obj);
-                                    }else if(obj.type==='bluemix'){
-                                        $scope.choicesRuntime.push(obj);
-                                    }
-
-                                    $scope.choices.push(obj);
-
-                                }
-
-                            }
-                        }else{
-                            if(obj.type==='msp'){
-                                $scope.choicesMSP.push(obj);
-                            }else if(obj.type==='runtime'){
-                                $scope.choicesRuntime.push(obj);
-                            }else if(obj.type==='bluemix'){
-                                $scope.choicesServices.push(obj);
-                            }
-
-                            $scope.choices.push(obj);
-                        }
-                        // $rootScope.objCount++;
-                        $scope.count++;
+                       /*$scope.loading=false;*/
+                      }
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
 
 
-                        console.log('choicesObject == '+JSON.stringify($scope.choices));
-                        console.log('choicesMSP == '+JSON.stringify($scope.choicesMSP));
-                        console.log('choicesRuntime == '+JSON.stringify($scope.choicesRuntime));
-                        console.log('choicesServices == '+JSON.stringify($scope.choicesServices));
-                        // var newItemNo = $scope.choices.length+1;
-                        // $scope.choices.push({'id':'choice'+newItemNo});
-                    };
+                      })
 
-                    $scope.removeChoice = function(index) {
-                        var lastItem = index;
-                        $scope.choices.splice(lastItem,1);
-                        $rootScope.objCount--;
-                        // $scope.deleteObject();
-                    };
+                 }
 
-                    if (Modernizr.draganddrop) {
-                        // Browser supports HTML5 DnD.
 
-                        // Bind the event listeners for the image elements
-                        var images = document.querySelectorAll('#images img');
+                 /* if ($rootScope.choices[index].type === 'msp') {
+                  // $scope.openpopupMSPCount++;
+                  console.log('inside MSP');
 
-                        [].forEach.call(images, function (img) {
-                            img.addEventListener('dragstart', $scope.handleDragStart, false);
-                            img.addEventListener('dragend', $scope.handleDragEnd, false);
-                        });
+                  console.log("componentName======" + $rootScope.choices1[index]);
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  // $scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                  for (var MSPIndex = 0; MSPIndex < $rootScope.choicesMSP.length; MSPIndex++) {
+                  if ($rootScope.choices[index].selectedCatalogName === $rootScope.choicesMSP[MSPIndex].selectedCatalogName) {
+                  $scope.actualMSPComponentIndex = MSPIndex;
+                  console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
+                  }
+                  }
+                  var user1 = $scope.currentUser;
+                  var serviceName1 = $rootScope.choices[index].selectedCatalogName;
+                  console.log("serviceName ============" + serviceName1);
+                  console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+                  var mspCount = $scope.openpopupMSPCount;
+                  $scope.mspCount = mspCount - 1;
+                  console.log('componentCount MSP === ' + $scope.mspCount);
+                  $scope.newVer= sharedProperties.getNewersion();
+                  console.log("current version ----->"+$scope.newVer)
+                  $http({
+                  method: 'PUT',
+                  url: '/api/v2/removeComponentFromSolutiondb',
+                  data: $.param({
+                  'uname': user1,
+                  'solnName': $scope.solnEntered,
+                  'service_details': 'msp',
+                  'service_name': serviceName1,
+                  'component_cnt': $scope.actualMSPComponentIndex,
+                  'version':$scope.newVer
+                  }),
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                  //forms user object
+                  })
+                  .success(function (data) {
+                  console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                  $scope.popupData = data;
+                  // console.log("MSP attr data == "+$scope.popupData);
 
-                        var images1 = document.querySelectorAll('#images1 img');
 
-                        [].forEach.call(images1, function (img) {
-                            img.addEventListener('dragstart', $scope.handleDragStart, false);
-                            img.addEventListener('dragend', $scope.handleDragEnd, false);
-                        });
-                        // Bind the event listeners for the canvas
-                        var canvasContainer = document.getElementById('canvas-container');
-                        canvasContainer.addEventListener('dragenter', $scope.handleDragEnter, false);
-                        canvasContainer.addEventListener('dragover', $scope.handleDragOver, false);
-                        canvasContainer.addEventListener('dragleave', $scope.handleDragLeave, false);
-                        canvasContainer.addEventListener('drop', $scope.handleDrop, false);
-                    } else {
-                        // Replace with a fallback to a library solution.
-                        // alert("This browser doesn't support the HTML5 Drag and Drop API.");
-                    }
+                  /!*$scope.loading=false;*!/
+                  }
+                  ).error(function (data, status, header, config) {
+                  console.log("header data" + header);
+                  console.log("status data" + status);
+                  console.log("config data" + config);
+                  console.log("Data:" + data);
+
+
+                  })
+                  }
+
+                  if ($rootScope.choices[index].type === 'runtime') {
+
+                  console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+                  // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  //$scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered=sharedProperties.getCurrentCSolName()
+                  var user = $scope.currentUser;
+                  var runtimeServiceName = $rootScope.choices[index].selectedImageTitle;
+                  console.log("serviceName ============" + runtimeServiceName);
+                  console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+                  var runtimeCount = $scope.openpopupRuntimeCount;
+                  $rootScope.componentCount = runtimeCount - 1;
+                  console.log('componentCount runtime === ' + $rootScope.componentCount);
+                  $scope.newVer= sharedProperties.getNewersion();
+                  console.log("current version ----->"+$scope.newVer)
+
+                  for (var runtimeIndex = 0; runtimeIndex < $rootScope.choicesRuntime.length; runtimeIndex++) {
+                  if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+                  $scope.actualruntimeComponentIndex = runtimeIndex;
+                  console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
+                  }
+                  }
+                  $http({
+                  method: 'PUT',
+                  url: '/api/v2/removeComponentFromSolutiondb',
+                  data: $.param({
+                  'uname': user,
+                  'solnName': $scope.solnEntered,
+                  'service_details': 'runtime',
+                  'service_name': runtimeServiceName,
+                  'component_cnt': $scope.actualruntimeComponentIndex,
+                  'version':$scope.newVer
+                  }),
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                  //forms user object
+                  })
+                  .success(function (data) {
+                  console.log("inside runtime function === " + JSON.stringify(data));
+                  $scope.runtimePopupData = data;
+                  // console.log("MSP attr data == "+$scope.popupData);
+
+                  /!*$scope.loading=false;*!/
+                  }
+                  ).error(function (data, status, header, config) {
+                  console.log("header data" + header);
+                  console.log("status data" + status);
+                  console.log("config data" + config);
+                  console.log("Data:" + data);
+
+
+                  })
+                  }
+
+                  if ($rootScope.choices[index].type === 'bluemix') {
+
+                  console.log("componentName======" + $rootScope.choices[index].selectedImageTitle);
+                  // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  //$scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered=sharedProperties.getCurrentCSolName();
+                  var user = $scope.currentUser;
+                  var bluemixServiceName = $rootScope.choices[index].selectedImageTitle;
+                  console.log("serviceName ============" + bluemixServiceName);
+                  var bluemixCount = $scope.openpopupBluemixCount;
+                  $scope.componentServiceCount = bluemixCount - 1;
+                  console.log('componentCount Service === ' + $scope.componentServiceCount);
+                  $scope.newVer= sharedProperties.getNewersion();
+                  console.log("current version ----->"+$scope.newVer)
+
+                  for (var serviceIndex = 0; serviceIndex < $rootScope.choicesServices.length; serviceIndex++) {
+                  if ($rootScope.choices[index].selectedImageTitle === $rootScope.choicesServices[serviceIndex].selectedImageTitle) {
+                  $scope.actualServiceComponentIndex = serviceIndex;
+                  console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
+                  }
+                  }
+
+
+                  $http({
+                  method: 'PUT',
+                  url: '/api/v2/removeComponentFromSolutiondb ',
+                  data: $.param({
+                  'uname': user,
+                  'solnName': $scope.solnEntered,
+                  'service_details': 'bluemix',
+                  'service_name': bluemixServiceName,
+                  'component_cnt': $scope.actualServiceComponentIndex,
+                  'version': $scope.newVer
+                  }),
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                  //forms user object
+                  })
+                  .success(function (data) {
+                  console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                  $scope.servicePopupData = data;
+                  console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+                  /!*$scope.loading=false;*!/
+
+                  }
+                  ).error(function (data, status, header, config) {
+                  console.log("header data" + header);
+                  console.log("status data" + status);
+                  console.log("config data" + config);
+                  console.log("Data:" + data);
+
+
+                  })
+                  }
+                  */
+
+                 if (canvas.getActiveGroup()) {
+                  canvas.getActiveGroup().forEachObject(function (o) {
+                   canvas.remove(o)
+                  });
+                  canvas.discardActiveGroup().renderAll();
+                 } else {
+                  canvas.remove(canvas.getActiveObject());
+                 }
+
+                 // console.log('deleted object'+JSON.stringify(object));
+                 // remove lines (if any)
+                 if (object.addChild) {
+                  if (object.addChild.from)
+                  // step backwards since we are deleting
+                   for (var i = object.addChild.from.length - 1; i >= 0; i--) {
+                    var line = object.addChild.from[i];
+                    line.addChildRemove();
+                    line.remove();
+                   }
+                  if (object.addChild.to)
+                   for (var i = object.addChild.to.length - 1; i >= 0; i--) {
+                    var line = object.addChild.to[i];
+                    line.addChildRemove();
+                    line.remove();
+                   }
+                 }
+                 // object.remove();
+                 // tbText.remove();
+                 $scope.removeChoice1(index);
+
+
+                }
+                else {
+                 /*alert("this service has not been selected for delete.Please delete service which is selected");*/
+                 $uibModal.open({
+                  animation: $scope.animationsEnabled,
+                  templateUrl: '../components/modal/SelectProperService.html',
+                  size: 'sm',
+                  controller: 'SelectProperServiceCtrl',
+                  windowClass: 'app-modal-window-selectpro',
+                  backdrop: 'static',
+                  keyboard: false,
+                  resolve: {}
+                 });
+                }
+               }
+              }
+
+              $scope.removeChoice1 = function (index) {
+               var lastItem = index;
+               $rootScope.choices1.splice(lastItem, 1);
+               $rootScope.objCount--;
+               // $scope.deleteObject();
+              };
+
+              $scope.handleDragStart = function (e) {
+
+               [].forEach.call(images, function (img) {
+                img.classList.remove('img_dragging');
+               });
+
+               [].forEach.call(images1, function (img) {
+                img.classList.remove('img_dragging');
+               });
+               this.classList.add('img_dragging');
+              }
+
+              $scope.handleDragOver = function (e) {
+               if (e.preventDefault) {
+                e.preventDefault(); // Necessary. Allows us to drop.
+                $("#canvas-container").draggable("disable");
+               }
+
+               e.dataTransfer.dropEffect = 'copy'; // See the section on the DataTransfer object.
+               // NOTE: comment above refers to the article (see top) -natchiketa
+
+               return false;
+              }
+
+              $scope.handleDragEnter = function (e) {
+               // this / e.target is the current hover target.
+               this.classList.add('over');
+              }
+
+              $scope.handleDragLeave = function (e) {
+               this.classList.remove('over'); // this / e.target is previous target element.
+
+              }
+
+
+              $scope.handleDrop = function (e) {
+               // this / e.target is current target element.
+
+               if (e.stopPropagation) {
+                e.stopPropagation(); // stops the browser from redirecting.
+                e.preventDefault();
+                $("#canvas-container").draggable("disable");
+               }
+               if ($scope.MSP === true) {
+                $rootScope.objCount++;
+                $scope.MSPComponentCount++;
+
+                var indexCount = $scope.MSPComponentCount;
+                var objectCount = indexCount - 1;
+
+
+                $scope.imageSrc = $scope.icon[$scope.selectedImageIndex];
+                console.log("$scope.imageSrc===" + $scope.imageSrc);
+                var rest = $scope.imageSrc.substring(0, $scope.imageSrc.lastIndexOf("/") + 1);
+                $scope.last = $scope.imageSrc.substring($scope.imageSrc.lastIndexOf("/") + 1, $scope.imageSrc.length);
+                // $scope.imageSrcArray = $scope.imageSrc.split('newimage/');
+                // console.log("imageSrcArray===" + $scope.imageSrcArray[1]);
+                console.log('last === ' + $scope.last);
+                $scope.selectedImageName = $scope.last.split('.png');
+                console.log("selectedImageName===" + $scope.selectedImageName);
+                // console.log("selected object==== " + $scope.imageSrcArray[1]);
+                console.log("selected object==== " + $scope.last);
+                console.log("selected object==== " + $scope.selectedImageName[0]);
+
+                $scope.valueOfSelectedImage = $scope.Title[$scope.selectedImageIndex];
+                $scope.valueOfCatalogName = $scope.catalog_name[$scope.selectedImageIndex];
+                $scope.valueOfCatalogCategory = $scope.catalog_category[$scope.selectedImageIndex];
+                var type = 'msp';
+
+                console.log('id=== ' + $scope.valueOfSelectedImage);
+
+                console.log('id=== ' + $scope.valueOfCatalogCategory);
+
+
+                $scope.canvasCatalogueObject = {
+
+                 'selectedImage': $scope.last,
+                 'selectedImageTitle': $scope.Title[$scope.selectedImageIndex],
+                 'selectedValueCategory': $scope.catalog_category[$scope.selectedImageIndex],
+                 'selectedCatalogName': $scope.catalog_name[$scope.selectedImageIndex],
+                 'type': type
+                };
+
+                /*Manisha Integration starts*/
+
+                $scope.userEntered = sharedProperties.getProperty();
+                console.log('userEntered == ' + $scope.userEntered);
+                // this / e.target is current target element.
+                // $scope.solnEntered=sharedProperties.getSoln();
+                $scope.solnEntered = sharedProperties.getCurrentCSolName()
+                console.log("$scope.solnEntered============" + $scope.solnEntered);
+                console.log("$scope.itemData.component_count====" + objectCount);
+                console.log("$scope.itemData.component_count====" + $scope.Title[$scope.selectedImageIndex]);
+                var user = $scope.userEntered;
+                var serviceName = $scope.catalog_name[$scope.selectedImageIndex];
+                var count_msp = sharedProperties.getMSPCount() + 1;
+                console.log("count isss MSP" + count_msp);
+                sharedProperties.setMSPCount(count_msp);
+                //july19 added
+                $scope.newVer = sharedProperties.getNewersion();
+                console.log("current version ----->" + $scope.newVer)
+
+                $scope.spinsCatalogueList = false;
+                $scope.spinsCanvas = true;
+                $scope.spinsRuntimeList = false;
+                $scope.spinsServicesList = false;
+                $scope.spinsCatalogueList = false;
+
+                $scope.loading = true;
+
+                $http({
+                 method: 'PUT',
+                 url: '/api/v2/AddComponentToCanvas',
+                 data: $.param({
+                  'uname': user,
+                  'solnName': $scope.solnEntered,
+                  'service_details': 'msp',
+                  'service_name': serviceName,
+                  'component_cnt': count_msp,
+                  'version': $scope.newVer
+                 }),
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                 //forms user object
                 })
 
+                    .success(function (data) {
+                     console.log("inside success function");
+                     if(data.status == 'failed'){
+                      //alert(data.description);
+                      $scope.loading = false;
+                      $uibModal.open({
+                       animation: $scope.animationsEnabled,
+                       templateUrl: '../components/modal/ErrorWarning.html',
+                       windowClass: 'app-modal-window-sam-Plan',
+                       controller: 'ErrorWarningCtrl',
+                       backdrop: 'static',
+                       keyboard: false,
+                       resolve: {
+                        ErrorMsg: function () {
+                         return data.description;
+                        },
+                       }
+                      });
+                     }
+                     else {
+                     $scope.DataResponse = data;
+                     console.log(JSON.stringify($scope.DataResponse));
+                     $scope.loading = false;
+                    }
+                    })
+
+                    .error(function (data, status, header, config) {
+                     $timeout(function () {
+
+                      console.log("header data" + header);
+                      console.log("status data" + status);
+                      console.log("config data" + config);
+                      console.log("Data:" + data);
+
+                     }, 2000);
+
+                    })
+
+                $scope.count = 0;
+
+                fabric.Image.fromURL($scope.icon[$scope.selectedImageIndex], function (oImg) {
+                 // scale image down, and flip it, before adding it onto canvas
+                 //oImg.scale(0.5).setFlipX(true);
+                 oImg.width = 80;
+                 oImg.height = 80;
+                 oImg.left = e.layerX;
+                 oImg.top = e.layerY;
+                 // canvas.add(oImg);
+
+                 var tbText = new fabric.Text($scope.Title[$scope.selectedImageIndex], {
+                  top: e.layerY + 45,
+                  left: e.layerX,
+                  fontSize: 15,
+                  hasControls: true,
+                  lockScalingX: true,
+                  lockScalingY: true
+                 });
+                 // canvas.add(tbText);
+                 var group = new fabric.Group([oImg, tbText], {left: e.layerX, top: e.layerY});
+                 console.log("group object is == " + JSON.stringify(group));
+                 canvas.add(group);
+                });
+               }
+               if ($scope.Bluemix === true) {
+
+                if ($scope.runtimeCatalogue === true) {
+                 $rootScope.objCount++;
+                 $scope.bluemixRuntimeComponentCount++;
+                 var indexRuntimeCompCount = $scope.bluemixRuntimeComponentCount;
+                 var bluemixRuntimeCompCount = indexRuntimeCompCount - 1;
+                 $scope.bluemixRuntimeimageSrc = $scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex];
+                 console.log("$scope.imageSrc===" + $scope.bluemixRuntimeimageSrc);
+                 $scope.bluemixRuntimeimageSrcArray = $scope.bluemixRuntimeimageSrc.split('MSP_Logos/');
+                 console.log("imageSrcArray===" + $scope.bluemixRuntimeimageSrcArray);
+                 $scope.bluemixRuntimeselectedImageName = $scope.bluemixRuntimeimageSrcArray[1].split('.png');
+                 console.log("selectedImageName===" + $scope.bluemixRuntimeselectedImageName);
+                 console.log("selected object==== " + $scope.bluemixRuntimeimageSrcArray[1]);
+                 console.log("selected object==== " + $scope.bluemixRuntimeselectedImageName[0]);
+                 var type = 'runtime';
+                 $scope.bluemixRuntimeSelectedImage = $scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex];
+                 console.log("selected object name ==== " + $scope.bluemixRuntimeSelectedImage);
+
+                 $scope.canvasCatalogueObject = {
+                  'selectedImage': $scope.bluemixRuntimeimageSrcArray[1],
+                  'selectedImageTitle': $scope.bluemixRuntimeSelectedImage,
+                  'type': type
+
+                 };
+
+                 $scope.runtimeUsername = sharedProperties.getProperty();
+                 console.log('userEntered == ' + $scope.runtimeUsername);
+                 // this / e.target is current target element.
+
+                 //$scope.solnRuntimeEntered=sharedProperties.getSoln();
+                 $scope.solnRuntimeEntered = sharedProperties.getCurrentCSolName();
+                 console.log("$scope.solnEntered============" + $scope.solnRuntimeEntered);
+                 var user = $scope.runtimeUsername;
+                 var serviceName = $scope.bluemixRuntimeSelectedImage;
+                 console.log("runtime serviceName====" + serviceName);
+                 console.log("bluemixRuntimeCompCount====" + bluemixRuntimeCompCount);
+                 var count_runtime = sharedProperties.getRuntimeCount() + 1;
+                 console.log("Runtime count is ===" + count_runtime);
+                 sharedProperties.setRuntimeCount(count_runtime);
+                 $scope.newVer = sharedProperties.getNewersion();
+                 console.log("current version ----->" + $scope.newVer)
+                 $scope.spinsCatalogueList = false;
+                 $scope.spinsRuntimeList = false;
+                 $scope.spinsServicesList = false;
+                 $scope.spinsCanvas = true;
+                 $scope.loading = true;
+
+                 $http({
+                  method: 'PUT',
+                  url: '/api/v2/AddBMRuntimeToCanvas',
+                  data: $.param({
+                   'uname': user,
+                   'solnName': $scope.solnRuntimeEntered,
+                   'service_details': 'runtime',
+                   'service_name': serviceName,
+                   'component_cnt': count_runtime,
+                   'version': $scope.newVer
+                  }),
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                 })
+
+                     .success(function (data) {
+                      console.log("inside bluemix runtime success function");
+                      $scope.runtimeDataResponse = data;
+                      console.log(JSON.stringify($scope.runtimeDataResponse));
+                      $scope.loading = false;
+                     }).error(function (data, status, header, config) {
+                      $timeout(function () {
+
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
+
+                      }, 2000);
+
+                     })
+
+                 $scope.count = 0;
+
+                 fabric.Image.fromURL($scope.bluemixRuntimeIcon[$scope.selectedBluemixImageIndex], function (oImg) {
+
+                  oImg.width = 80;
+                  oImg.height = 80;
+                  oImg.left = e.layerX;
+                  oImg.top = e.layerY;
+                  // canvas.add(oImg);
+
+                  var tbText = new fabric.Text($scope.bluemixRuntimeLabel[$scope.selectedBluemixImageIndex], {
+                   top: e.layerY + 45,
+                   left: e.layerX,
+                   fontSize: 15,
+                   hasControls: true,
+                   lockScalingX: true,
+                   lockScalingY: true
+                  });
+                  // canvas.add(tbText);
+                  var group = new fabric.Group([oImg, tbText], {left: e.layerX, top: e.layerY});
+                  // console.log("group object is == "+JSON.stringify(group));
+                  canvas.add(group);
+                 });
+                }
+                if ($scope.servicesCatalogue === true) {
+                 $rootScope.objCount++;
+                 $scope.bluemixServiceComponentCount++;
+                 var indexServiceCompCount = $scope.bluemixServiceComponentCount;
+                 var bluemixServiceCompCount = indexServiceCompCount - 1;
+                 $scope.bluemixServiceimageSrc = $scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex];
+                 console.log("$scope.imageSrc===" + $scope.bluemixServiceimageSrc);
+                 $scope.bluemixServiceimageSrcArray = $scope.bluemixServiceimageSrc.split('MSP_Logos/');
+                 console.log("imageSrcArray===" + $scope.bluemixServiceimageSrcArray);
+                 $scope.bluemixServiceselectedImageName = $scope.bluemixServiceimageSrcArray[1].split('.png');
+                 console.log("selectedImageName===" + $scope.bluemixServiceselectedImageName);
+                 console.log("selected object==== " + $scope.bluemixServiceimageSrcArray[1]);
+                 var type = 'bluemix';
+                 $scope.bluemixServiceSelectedImage = $scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex];
+                 console.log("selected object name ==== " + $scope.bluemixServiceSelectedImage);
+                 $scope.canvasCatalogueObject = {
+                  'selectedImage': $scope.bluemixServiceimageSrcArray[1],
+                  'selectedImageTitle': $scope.bluemixServiceSelectedImage,
+                  'type': type
+                 };
+                 $scope.serviceUsername = sharedProperties.getProperty();
+                 console.log('userEntered == ' + $scope.serviceUsername);
+                 // this / e.target is current target element.
+                 $scope.solnServiceEntered = sharedProperties.getCurrentCSolName()
+                 //$scope.solnServiceEntered=sharedProperties.getSoln();
+                 console.log("$scope.solnEntered============" + $scope.solnServiceEntered);
+                 var user = $scope.serviceUsername;
+                 var serviceName = $scope.bluemixServiceSelectedImage;
+                 console.log("serviceName============" + serviceName);
+                 console.log("bluemixServiceCompCount============" + bluemixServiceCompCount);
+                 $scope.newVer = sharedProperties.getNewersion();
+                 var compcnt = sharedProperties.getComponentCount() + 1;
+                 console.log("Component count before =========" + compcnt);
+                 sharedProperties.setComponentCount(compcnt);
+                 console.log("Component count after ==========" + compcnt);
+                 console.log("current version ----->" + $scope.newVer)
+                 $scope.spinsCatalogueList = false;
+                 $scope.spinsRuntimeList = false;
+                 $scope.spinsServicesList = false;
+                 $scope.spinsCanvas = true;
+                 $scope.loading = true;
+                 $http({
+                  method: 'PUT',
+                  url: '/api/v2/AddBMComponentToCanvas',
+                  data: $.param({
+                   'uname': user,
+                   'solnName': $scope.solnServiceEntered,
+                   'service_details': 'bluemix',
+                   'service_name': serviceName,
+                   'component_cnt': compcnt,
+                   'version': $scope.newVer
+                  }),
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                 }).success(function (data) {
+                  console.log("inside bluemix runtime success function");
+                  $scope.serviceDataResponse = data;
+                  console.log(JSON.stringify($scope.serviceDataResponse));
+                  $scope.loading = false;
+                 }).error(function (data, status, header, config) {
+                  // $timeout(function() {
+
+                  console.log("header data" + header);
+                  console.log("status data" + status);
+                  console.log("config data" + config);
+                  console.log("Data:" + data);
+
+
+                 })
+
+                 $scope.count = 0;
+
+                 fabric.Image.fromURL($scope.bluemixServiceIcon[$scope.selectedServiceBluemixImageIndex], function (oImgService) {
+
+                  oImgService.width = 80;
+                  oImgService.height = 80;
+                  oImgService.left = e.layerX;
+                  oImgService.top = e.layerY;
+                  // canvas.add(oImg);
+
+                  var serviceText = new fabric.Text($scope.bluemixServiceLabel[$scope.selectedServiceBluemixImageIndex], {
+                   top: e.layerY + 45,
+                   left: e.layerX,
+                   fontSize: 15,
+                   hasControls: true,
+                   lockScalingX: true,
+                   lockScalingY: true
+                  });
+                  // canvas.add(tbText);
+                  var group = new fabric.Group([oImgService, serviceText], {left: e.layerX, top: e.layerY});
+                  // console.log("group object is == "+JSON.stringify(group));
+                  canvas.add(group);
+                 });
+                }
+
+
+               }
+
+               canvas.forEachObject(function (o) {
+                o.hasBorders = o.hasControls = true;
+                o.lockScalingX = o.lockScalingY = true;
+               });
+
+               canvas.on({
+                'mouse:down': function (e) {
+                 if (e.target) {
+                  e.target.opacity = 0.5;
+                  canvas.renderAll();
+                  $("#canvas-container").draggable("disable");
+                 }
+                },
+                'mouse:up': function (e) {
+                 if (e.target) {
+                  e.target.opacity = 1;
+                  canvas.renderAll();
+                 }
+                },
+                'object:moved': function (e) {
+                 e.target.opacity = 0.5;
+                },
+                'object:modified': function (e) {
+                 e.target.opacity = 1;
+                 $("#canvas-container").draggable("enable");
+                }
+               });
+
+               $scope.addNewChoice($scope.canvasCatalogueObject);
+               return true;
+              }
+
+
+              $scope.handleDragEnd = function (e) {
+               // this/e.target is the source node.
+               $("#canvas-container").draggable("disable");
+               [].forEach.call(images, function (img) {
+                img.classList.remove('img_dragging');
+                console.log(" drag end : " + img);
+               });
+               [].forEach.call(images1, function (img) {
+                img.classList.remove('img_dragging');
+                console.log(" drag end : " + img);
+               });
+              }
+              $scope.connectionInfo = {
+               'connection_info': {
+                'services': []
+               }
+              };
+
+              $scope.servicesObject = {
+               service_name: '',
+               zone: "DMZ",
+               connect_with: []
+              };
+
+              $scope.childObject = {
+               service_name: '',
+               zone: "core",
+               protocol: ""
+              }
+
+              $scope.fromObjectArray = [];
+              $scope.toObjectArray = [];
+
+              $scope.addInfo = 0;
+
+              $scope.addChildLine = function (options) {
+               // console.log('options :: '+options);
+               canvas.off('object:selected', $scope.addChildLine);
+               // add the line
+               var fromObject = canvas.addChild.start;
+               console.log('from object every time:::' + JSON.stringify(fromObject));
+
+               if (angular.isObject(fromObject)) {
+                Object.keys(fromObject).forEach(function (key) {
+                 if (key === 'objects') {
+                  $scope.fromServiceObject = fromObject[key];
+                  for (var i = 0; i < $scope.fromServiceObject.length; i++) {
+                   $scope.fromGroupObject = $scope.fromServiceObject[i];
+                   Object.keys($scope.fromGroupObject).forEach(function (key) {
+                    // console.log("Object key fromGroupObject: " + key);
+                    if (key === 'text') {
+                     console.log('from image text name === ' + $scope.fromGroupObject.text);
+                     // $scope.servicesObject.service_name=$scope.fromGroupObject.text;
+                    }
+
+                   })
+                  }
+                 }
+                });
+               }
+
+               var toObject = options.target;
+
+               if (angular.isObject(toObject)) {
+                Object.keys(toObject).forEach(function (key) {
+                 //get the value of name
+                 // console.log("toGroupObject key : " + key);
+                 if (key === 'objects') {
+                  $scope.toServiceObject = toObject[key];
+                  for (var i = 0; i < $scope.toServiceObject.length; i++) {
+                   $scope.toGroupObject = $scope.toServiceObject[i];
+                   Object.keys($scope.toGroupObject).forEach(function (key) {
+                    if (key === 'text') {
+                     console.log('to image text name === ' + $scope.toGroupObject.text);
+                     // $scope.childObject.service_name=$scope.toGroupObject.text;
+
+                    }
+                   })
+                  }
+                 }
+                });
+
+               }
+
+
+               $scope.createCanvasInfo($scope.fromGroupObject.text, $scope.toGroupObject.text);
+
+               var from = fromObject.getCenterPoint();
+               var to = toObject.getCenterPoint();
+               var line = new fabric.Line([from.x, from.y, to.x, to.y], {
+                fill: 'grey',
+                stroke: 'grey',
+                strokeWidth: 1,
+                selectable: false
+               });
+               //$scope.lineAdded++;
+               canvas.add(line);
+               // so that the line is behind the connected shapes
+               line.sendToBack();
+
+               // add a reference to the line to each object
+               fromObject.addChild = {
+                // this retains the existing arrays (if there were any)
+                from: (fromObject.addChild && fromObject.addChild.from) || [],
+                to: (fromObject.addChild && fromObject.addChild.to)
+               }
+               fromObject.addChild.from.push(line);
+               toObject.addChild = {
+                from: (toObject.addChild && toObject.addChild.from),
+                to: (toObject.addChild && toObject.addChild.to) || []
+               }
+               toObject.addChild.to.push(line);
+
+               // to remove line references when the line gets removed
+               line.addChildRemove = function () {
+                fromObject.addChild.from.forEach(function (e, i, arr) {
+
+                 if (e === line) {
+                  console.log('i from object value === ' + i);
+                  arr.splice(i, 1);
+                 }
+                });
+                toObject.addChild.to.forEach(function (e, i, arr) {
+                 //$scope.lineAdded--;
+                 if (e === line) {
+                  console.log('i to object value === ' + i);
+                  arr.splice(i, 1);
+                 }
+                });
+                $scope.lineAdded--;
+               }
+
+               // undefined instead of delete since we are anyway going to do this many times
+               canvas.addChild = undefined;
+              }
+
+              $scope.createCanvasInfo = function (fromTextName, toTextName) {
+               console.log('fromTextName === ' + fromTextName);
+               console.log('toTextName === ' + toTextName);
+               console.log('$scope.addInfo === ' + $scope.addInfo);
+               if ($scope.addInfo > 0) {
+                console.log('greater than zero');
+                $scope.newServicesObject = {
+                 service_name: '',
+                 zone: "DMZ",
+                 connect_with: []
+                };
+
+                $scope.newChildObject = {
+                 service_name: '',
+                 zone: "core",
+                 protocol: ""
+                }
+
+                // for (var i = 0; i < $scope.fromObjectArray.length; i++) {
+                if ($scope.fromObjectArray.indexOf(fromTextName) === -1) {
+                 console.log('doesnt match in from array');
+                 $scope.newServicesObject['service_name'] = fromTextName;
+                 console.log('newServicesObject === ' + JSON.stringify($scope.newServicesObject));
+                 $scope.newChildObject['service_name'] = toTextName;
+                 console.log('newChildObject === ' + JSON.stringify($scope.newChildObject));
+                 $scope.newServicesObject.connect_with.push($scope.newChildObject);
+                 console.log('$scope.newServicesObject == ' + JSON.stringify($scope.newServicesObject));
+                 $scope.connectionInfo.connection_info.services.push($scope.newServicesObject);
+                 console.log('final json === ' + JSON.stringify($scope.connectionInfo));
+                } else {
+                 for (var i = 0; i < $scope.connectionInfo.connection_info.services.length; i++) {
+                  $scope.servicesObj = $scope.connectionInfo.connection_info.services[i];
+                  console.log('$scope.servicesObj === ' + JSON.stringify($scope.servicesObj));
+                  if ($scope.servicesObj.service_name === fromTextName) {
+                   console.log('from text name matches');
+                   $scope.newChildObject['service_name'] = toTextName;
+                   console.log('newChildObject === ' + JSON.stringify($scope.newChildObject));
+                   $scope.servicesObj.connect_with.push($scope.newChildObject);
+                   console.log('$scope.servicesObj == ' + JSON.stringify($scope.servicesObj));
+                   $scope.connectionInfo.connection_info.services[i] = $scope.servicesObj;
+                   // $scope.connectionInfo.connection_info.services.push($scope.servicesObj);
+                   console.log('final json === ' + JSON.stringify($scope.connectionInfo));
+                   break;
+                  }
+                 }
+                }
+                // }
+               } else {
+                $scope.servicesObject['service_name'] = fromTextName;
+                console.log('servicesObject === ' + JSON.stringify($scope.servicesObject));
+                $scope.childObject['service_name'] = toTextName;
+                console.log('servicesObject === ' + JSON.stringify($scope.childObject));
+                $scope.servicesObject.connect_with.push($scope.childObject);
+                console.log('$scope.servicesObject == ' + JSON.stringify($scope.servicesObject));
+                $scope.connectionInfo.connection_info.services.push($scope.servicesObject);
+                console.log('final json === ' + JSON.stringify($scope.connectionInfo));
+               }
+               $scope.fromObjectArray.push(fromTextName);
+               $scope.toObjectArray.push(toTextName);
+               $scope.addInfo++;
+              }
+
+              function addChildMoveLine(event) {
+               canvas.on(event, function (options) {
+                var object = options.target;
+                var objectCenter = object.getCenterPoint();
+                // udpate lines (if any)
+                if (object.addChild) {
+                 if (object.addChild.from)
+                  object.addChild.from.forEach(function (line) {
+                   line.set({'x1': objectCenter.x, 'y1': objectCenter.y});
+                  })
+                 if (object.addChild.to)
+                  object.addChild.to.forEach(function (line) {
+                   line.set({'x2': objectCenter.x, 'y2': objectCenter.y});
+                  })
+                }
+
+                canvas.renderAll();
+               });
+              }
+
+              $scope.addChild = function () {
+               console.log('inside addchild');
+               $scope.lineAdded++;
+               // $rootScope.objCount++;
+               // console.log('inside addchild'+$rootScope.objCount);
+               canvas.addChild = {
+                start: canvas.getActiveObject()
+               }
+
+               // for when addChild is clicked twice
+               canvas.off('object:selected', $scope.addChildLine);
+               canvas.on('object:selected', $scope.addChildLine);
+              }
+
+              $scope.deleteObject = function (index) {
+
+               console.log('deleted object index == ' + index);
+               var object = canvas.getActiveObject();
+               if (object === null || object === undefined) {
+                /*alert("Please Select the service from canvas to be deleted");*/
+                $uibModal.open({
+                 animation: $scope.animationsEnabled,
+                 templateUrl: '../components/modal/DeleteCanvasService.html',
+                 size: 'sm',
+                 controller: 'DeleteCanvasServiceCtrl',
+                 windowClass: 'app-modal-window-dc',
+                 backdrop: 'static',
+                 keyboard: false,
+                 resolve: {}
+                });
+               } else {
+                console.log('deleted group object === ' + object);
+
+                console.log('index in openpopup ====' + index);
+                console.log('choices in delete click == ' + JSON.stringify($scope.choices));
+
+                var nameInCanvas = '';
+                var nameInList = '';
+                nameInCanvas = $scope.choices[index].selectedImageTitle;
+                nameInList = object.objects[1].text;
+                console.log('nameInCanvas===' + nameInCanvas);
+                console.log('nameInList====' + nameInList);
+
+                if (nameInCanvas == nameInList) {
+                 if ($scope.choices[index].type === 'msp') {
+                  // $scope.openpopupMSPCount++;
+                  console.log('inside MSP');
+
+                  console.log("componentName======" + $scope.choices[index].selectedImageTitle);
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  // $scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName();
+                  for (var MSPIndex = 0; MSPIndex < $scope.choicesMSP.length; MSPIndex++) {
+                   if ($scope.choices[index].selectedCatalogName === $scope.choicesMSP[MSPIndex].selectedCatalogName) {
+                    $scope.actualMSPComponentIndex = MSPIndex;
+                    console.log('$scope.actualMSPComponentIndex === ' + $scope.actualMSPComponentIndex);
+                   }
+                  }
+                  var user1 = $scope.currentUser;
+                  var serviceName1 = $scope.choices[index].selectedCatalogName;
+                  console.log("serviceName ============" + serviceName1);
+                  var mspCount = $scope.openpopupMSPCount;
+                  $scope.mspCount = mspCount - 1;
+                  console.log('componentCount MSP === ' + $scope.mspCount);
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer)
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb',
+                   data: $.param({
+                    'uname': user1,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'msp',
+                    'service_name': serviceName1,
+                    'component_cnt': $scope.actualMSPComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       console.log("inside getServiceInfo function === " + JSON.stringify(data));
+                       $scope.popupData = data;
+                       // console.log("MSP attr data == "+$scope.popupData);
+
+
+                       /*$scope.loading=false;*/
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
+
+
+                      })
+                 }
+
+                 if ($scope.choices[index].type === 'runtime') {
+
+                  console.log("componentName======" + $scope.choices[index].selectedImageTitle);
+                  // sharedProperties.setRuntimeChoiceIndex($scope.openpopupRuntimeCount-1);
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  //$scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName()
+                  var user = $scope.currentUser;
+                  var runtimeServiceName = $scope.choices[index].selectedImageTitle;
+                  console.log("serviceName ============" + runtimeServiceName);
+                  console.log('$scope.openpopupRuntimeCount count === ' + $scope.openpopupRuntimeCount);
+                  var runtimeCount = $scope.openpopupRuntimeCount;
+                  $rootScope.componentCount = runtimeCount - 1;
+                  console.log('componentCount runtime === ' + $rootScope.componentCount);
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer)
+
+                  for (var runtimeIndex = 0; runtimeIndex < $scope.choicesRuntime.length; runtimeIndex++) {
+                   if ($scope.choices[index].selectedImageTitle === $scope.choicesRuntime[runtimeIndex].selectedImageTitle) {
+                    $scope.actualruntimeComponentIndex = runtimeIndex;
+                    console.log('$scope.actualruntimeComponentIndex === ' + $scope.actualruntimeComponentIndex);
+                   }
+                  }
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb',
+                   data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'runtime',
+                    'service_name': runtimeServiceName,
+                    'component_cnt': $scope.actualruntimeComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       console.log("inside runtime function === " + JSON.stringify(data));
+                       $scope.runtimePopupData = data;
+                       // console.log("MSP attr data == "+$scope.popupData);
+
+                       /*$scope.loading=false;*/
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
+
+
+                      })
+                 }
+
+                 if ($scope.choices[index].type === 'bluemix') {
+
+                  console.log("componentName======" + $scope.choices[index].selectedImageTitle);
+                  // sharedProperties.setServiceChoiceIndex($scope.openpopupBluemixCount);s
+                  $scope.currentUser = sharedProperties.getProperty();
+                  console.log('userEntered == ' + $scope.currentUser);
+                  //$scope.solnEntered = sharedProperties.getSoln();
+                  $scope.solnEntered = sharedProperties.getCurrentCSolName();
+                  var user = $scope.currentUser;
+                  var bluemixServiceName = $scope.choices[index].selectedImageTitle;
+                  console.log("serviceName ============" + bluemixServiceName);
+                  var bluemixCount = $scope.openpopupBluemixCount;
+                  $scope.componentServiceCount = bluemixCount - 1;
+                  console.log('componentCount Service === ' + $scope.componentServiceCount);
+                  $scope.newVer = sharedProperties.getNewersion();
+                  console.log("current version ----->" + $scope.newVer)
+
+                  for (var serviceIndex = 0; serviceIndex < $scope.choicesServices.length; serviceIndex++) {
+                   if ($scope.choices[index].selectedImageTitle === $scope.choicesServices[serviceIndex].selectedImageTitle) {
+                    $scope.actualServiceComponentIndex = serviceIndex;
+                    console.log('$scope.actualServiceComponentIndex === ' + $scope.actualServiceComponentIndex);
+                   }
+                  }
+
+
+                  $http({
+                   method: 'PUT',
+                   url: '/api/v2/removeComponentFromSolutiondb ',
+                   data: $.param({
+                    'uname': user,
+                    'solnName': $scope.solnEntered,
+                    'service_details': 'bluemix',
+                    'service_name': bluemixServiceName,
+                    'component_cnt': $scope.actualServiceComponentIndex,
+                    'version': $scope.newVer
+                   }),
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                   //forms user object
+                  })
+                      .success(function (data) {
+                       console.log("inside getBluemixServiceInfo function === " + JSON.stringify(data));
+                       $scope.servicePopupData = data;
+                       console.log("$scope.servicePopupData == " + JSON.stringify($scope.servicePopupData));
+                       /*$scope.loading=false;*/
+
+                      }
+                  ).error(function (data, status, header, config) {
+                       console.log("header data" + header);
+                       console.log("status data" + status);
+                       console.log("config data" + config);
+                       console.log("Data:" + data);
+
+
+                      })
+                 }
+
+
+                 if (canvas.getActiveGroup()) {
+                  canvas.getActiveGroup().forEachObject(function (o) {
+                   canvas.remove(o)
+                  });
+                  canvas.discardActiveGroup().renderAll();
+                 } else {
+                  canvas.remove(canvas.getActiveObject());
+                 }
+
+                 // console.log('deleted object'+JSON.stringify(object));
+                 // remove lines (if any)
+                 if (object.addChild) {
+                  if (object.addChild.from)
+                  // step backwards since we are deleting
+                   for (var i = object.addChild.from.length - 1; i >= 0; i--) {
+                    var line = object.addChild.from[i];
+                    line.addChildRemove();
+                    line.remove();
+                   }
+                  if (object.addChild.to)
+                   for (var i = object.addChild.to.length - 1; i >= 0; i--) {
+                    var line = object.addChild.to[i];
+                    line.addChildRemove();
+                    line.remove();
+                   }
+                 }
+                 // object.remove();
+                 // tbText.remove();
+                 $scope.removeChoice(index);
+
+                }
+                else {
+                 /*alert("this service has not been selected for delete.Please delete service which is selected");*/
+                 $uibModal.open({
+                  animation: $scope.animationsEnabled,
+                  templateUrl: '../components/modal/SelectProperService.html',
+                  size: 'sm',
+                  controller: 'SelectProperServiceCtrl',
+                  windowClass: 'app-modal-window-selectpro',
+                  backdrop: 'static',
+                  keyboard: false,
+                  resolve: {}
+                 });
+                }
+               }
+              }
+
+              $scope.printCanvas = function () {
+               /*console.log("created canvas== "+canvas);
+                console.log("Current canvas : " + JSON.stringify(canvas));
+                canvas.clear();*/
+               //canvas.clear();
+               //canvas.clear();
+               var imgDevice = document.getElementById("device_img");
+               var deviderImg = document.getElementById("devider_img");
+               var edgeDevice = document.getElementById("edge_device");
+
+               var imgInstance1 = new fabric.Image(imgDevice);
+               imgInstance1.left = 509;
+               imgInstance1.top = 180;
+               canvas.add(imgInstance1);
+               imgInstance1.lockMovementY = true;
+               imgInstance1.lockMovementX = true;
+
+
+               var imgInstance2 = new fabric.Image(deviderImg);
+               imgInstance2.left = 615;
+               imgInstance2.top = 342;
+               canvas.add(imgInstance2);
+               imgInstance2.lockMovementY = true;
+               imgInstance2.lockMovementX = true;
+
+               var imgInstance3 = new fabric.Image(edgeDevice);
+               imgInstance3.left = 722;
+               imgInstance3.top = 180;
+               canvas.add(imgInstance3);
+               imgInstance3.lockMovementY = true;
+               imgInstance3.lockMovementX = true;
+
+               $scope.choices = [];
+               $rootScope.objCount = 0;
+
+               /*$uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/newSolArchitecture.html',
+                controller: 'newsolCtrl',
+                windowClass: 'app-modal-window-nns',
+                backdrop: 'static',
+                resolve: {
+
+                }
+                });*/
+
+               $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/newArchConfirmation.html',
+                controller: 'newArchConfirmCtrl',
+                windowClass: 'app-modal-window-newArch',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {}
+               });
+              };
+
+
+              $scope.esave = function () {
+               console.log("from save----->")
+               $scope.newVer = sharedProperties.getNewersion();
+               console.log("current version ----->" + $scope.newVer)
+               /*console.log("created canvas== "+canvas);
+                console.log("Current canvas : " + JSON.stringify(canvas));*/
+               $scope.canvasCreated = JSON.stringify(canvas);
+               console.log("Current canvasCreated : " + $scope.canvasCreated);
+               var s1 = canvas;
+               console.log('s1 type === ' + typeof s1);
+               $scope.currentUser1 = sharedProperties.getProperty();
+               console.log('userEntered == ' + $scope.currentUser1);
+               // $scope.solnEntered1 = sharedProperties.getSoln();
+               $scope.solnEntered1 = sharedProperties.getCurrentCSolName();
+               console.log('solnEntered1 == ' + $scope.solnEntered1);
+               $scope.spinsViewBoM = true;
+               $scope.spinsRuntimeList = false;
+               $scope.spinsServicesList = false;
+               $scope.spinsCanvasCatalogue = false;
+               $scope.spinsCanvas = false;
+               $scope.loading = true;
+
+               $http({
+                method: 'PUT',
+                url: '/api/v2/updateCanvasInfo',
+                data: $.param({
+                 'uname': $scope.currentUser1,
+                 'solnName': $scope.solnEntered1,
+                 'canvasinfo': $scope.canvasCreated,
+                 'version': $scope.newVer
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //forms user object
+               })
+                   .success(function (data, status, header, config) {
+
+                    if (data.errors) {
+                     // Showing errors.
+                     $scope.errorName = data.errors.name;
+                    } else {
+                     console.log("inside success function");
+                     $scope.PostDataResponse = data;
+                     console.log(JSON.stringify($scope.PostDataResponse));
+
+
+                    }
+                    $scope.spinsViewBoM = false;
+
+                   })
+                   .error(function (data, status, header, config) {
+                    console.log("header data" + header);
+                    console.log("status data" + status);
+                    console.log("config data" + JSON.stringify(config));
+
+                   })
+
+
+              };
+
+              $scope.redirectToPrev = function () {
+
+               //alert("inside redirect to Prev");
+               //$scope.redirectToHome = function(){
+
+               $scope.canvasCreated = JSON.stringify(canvas);
+               console.log('$scope.canvasCreated==' + JSON.stringify($scope.canvasCreated));
+               $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '../components/modal/homePageConfirm.html',
+                windowClass: 'app-modal-window-homeConfirm',
+                controller: 'confirmHomeCtrlViewMode',
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                 canvasInformation: function () {
+                  console.log('$scope.canvasCreated==' + JSON.stringify($scope.canvasCreated));
+                  return $scope.canvasCreated;
+                 },
+                 /*countComp:function () {
+                  return $scope.actualServiceComponentIndex;
+                  },
+                  serviceType:function(){
+                  return 'bluemix';
+                  }
+                  */
+                }
+               });
+               /*console.log("inside redirect");
+                $location.path('/home');*/
+               //$state.go('/home');
+               //};
+              }
+
+              $scope.choices = [];
+              $scope.choicesMSP = [];
+              $scope.choicesRuntime = [];
+              $scope.choicesServices = [];
+
+
+              $scope.getIndex = function (index) {
+               console.log("index=====" + index);
+               $scope.selectedImageIndex = index;
+              }
+
+              $scope.getIndexBluemix = function (index) {
+               console.log("index=====" + index);
+               $scope.selectedBluemixImageIndex = index;
+              }
+
+              $scope.getIndexServiceBluemix = function (index) {
+               console.log("index=====" + index);
+               $scope.selectedServiceBluemixImageIndex = index;
+              }
+
+              $scope.addNewChoice = function (obj) {
+               console.log('Inside addnewchoice');
+               if ($scope.count > 0) {
+                for (var i = 0; i < choices.length; i++) {
+                 if (choices[i].selectedImage === obj.selectedImage && choices[i].selectedImageTitle === obj.selectedImageTitle) {
+                  break;
+                 } else {
+                  if (obj.type === 'msp') {
+                   $scope.choicesMSP.push(obj);
+                  } else if (obj.type === 'runtime') {
+                   $scope.choicesRuntime.push(obj);
+                  } else if (obj.type === 'bluemix') {
+                   $scope.choicesRuntime.push(obj);
+                  }
+
+                  $scope.choices.push(obj);
+
+                 }
+
+                }
+               } else {
+                if (obj.type === 'msp') {
+                 $scope.choicesMSP.push(obj);
+                } else if (obj.type === 'runtime') {
+                 $scope.choicesRuntime.push(obj);
+                } else if (obj.type === 'bluemix') {
+                 $scope.choicesServices.push(obj);
+                }
+
+                $scope.choices.push(obj);
+               }
+               // $rootScope.objCount++;
+               $scope.count++;
+
+
+               console.log('choicesObject == ' + JSON.stringify($scope.choices));
+               console.log('choicesMSP == ' + JSON.stringify($scope.choicesMSP));
+               console.log('choicesRuntime == ' + JSON.stringify($scope.choicesRuntime));
+               console.log('choicesServices == ' + JSON.stringify($scope.choicesServices));
+               // var newItemNo = $scope.choices.length+1;
+               // $scope.choices.push({'id':'choice'+newItemNo});
+              };
+
+              $scope.removeChoice = function (index) {
+               var lastItem = index;
+               $scope.choices.splice(lastItem, 1);
+               $rootScope.objCount--;
+               // $scope.deleteObject();
+              };
+
+              if (Modernizr.draganddrop) {
+               // Browser supports HTML5 DnD.
+
+               // Bind the event listeners for the image elements
+               var images = document.querySelectorAll('#images img');
+
+               [].forEach.call(images, function (img) {
+                img.addEventListener('dragstart', $scope.handleDragStart, false);
+                img.addEventListener('dragend', $scope.handleDragEnd, false);
+               });
+
+               var images1 = document.querySelectorAll('#images1 img');
+
+               [].forEach.call(images1, function (img) {
+                img.addEventListener('dragstart', $scope.handleDragStart, false);
+                img.addEventListener('dragend', $scope.handleDragEnd, false);
+               });
+               // Bind the event listeners for the canvas
+               var canvasContainer = document.getElementById('canvas-container');
+               canvasContainer.addEventListener('dragenter', $scope.handleDragEnter, false);
+               canvasContainer.addEventListener('dragover', $scope.handleDragOver, false);
+               canvasContainer.addEventListener('dragleave', $scope.handleDragLeave, false);
+               canvasContainer.addEventListener('drop', $scope.handleDrop, false);
+              } else {
+               // Replace with a fallback to a library solution.
+               // alert("This browser doesn't support the HTML5 Drag and Drop API.");
+              }
+             })
             }
+
+
         })
         .error(function (data, status, header, config) {
             console.log("header data" + header);
@@ -6472,261 +6701,281 @@ angular.module('portalControllers').controller('orderBillCtrl2', function ($scop
     var newver = sharedProperties.getNewersion();
 
     console.log("new version==========="+newver);
-    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data){
-        $scope.ResponseDataViewBillObject = data;
-        console.log('view bill of material === '+JSON.stringify($scope.ResponseDataViewBillObject));
-        sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
-        Object.keys($scope.ResponseDataViewBillObject).forEach(function (key){
-            console.log('ResponseDataViewBillObject key values === '+ key);
-            if(key==='msp'){
-                $scope.mspDataViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.mspDataViewBillObject === '+JSON.stringify($scope.mspDataViewBillObjectsArray));
+    $http.get("/api/v2/viewBillofMaterial?solnName="+$scope.solnEntered+"&uname="+userName+"&version="+newver).success(function(data) {
+     //error
+     if(data.status == 'failed'){
+      //alert(data.description);
+      $scope.loading = false;
+      $uibModal.open({
+       animation: $scope.animationsEnabled,
+       templateUrl: '../components/modal/ErrorWarning.html',
+       windowClass: 'app-modal-window-sam-Plan',
+       controller: 'ErrorWarningCtrl',
+       backdrop: 'static',
+       keyboard: false,
+       resolve: {
+        ErrorMsg: function () {
+         return data.description;
+        },
+       }
+      });
+     }
+     else {
+     $scope.ResponseDataViewBillObject = data;
+     console.log('view bill of material === ' + JSON.stringify($scope.ResponseDataViewBillObject));
+     sharedPropertiesCanvas.setviewArchData($scope.ResponseDataViewBillObject);
+     Object.keys($scope.ResponseDataViewBillObject).forEach(function (key) {
+      console.log('ResponseDataViewBillObject key values === ' + key);
+      if (key === 'msp') {
+       $scope.mspDataViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+       console.log('$scope.mspDataViewBillObject === ' + JSON.stringify($scope.mspDataViewBillObjectsArray));
 
-                for(var mspArrayIndex=0;mspArrayIndex<$scope.mspDataViewBillObjectsArray.length;mspArrayIndex++) {
-                    $scope.viewBillOfOrder={
-                        'productName':'',
-                        'productDesc':'',
-                        'productProvider':'MSP',
-                        'productQuantity':'',
-                        'productPrice':'',
-                        'productLC':'',
-                        'productDisktype':'',
-                        'servermw':'',
-                        'servermemory':'',
-                        'serveros':'',
-                        'serverdisksize':'',
-                        'servercpu':''
-                    };
-                    $scope.mspViewBillObject=$scope.mspDataViewBillObjectsArray[mspArrayIndex];
-                    $.each($scope.mspViewBillObject, function (key, value) {
-                        console.log('key===' + key);
-                        if (key === 'catalog_name') {
-                            $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
-                        }
-                        if (key === 'title') {
-                            $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
-                            $scope.viewBillOfOrder.productName=$scope.MSPVBAttrTitle;
-                            $scope.viewBillOfOrder.productDesc=$scope.MSPVBAttrTitle;
-                        }
-                        if (key === 'priceDetails') {
-                            $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
-                            console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
-                            $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
-                            $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
-                            console.log('$scope.mspLicenseCost == '+$scope.mspLicenseCost);
-                            $scope.viewBillOfOrder.productPrice=$scope.msptotal_Price;
-                            $scope.viewBillOfOrder.productLC=$scope.mspLicenseCost;
-                        }
-                        if (key === 'Pattern') {
-                            $scope.patternObject = {};
-                            $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
-                            console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
-                            Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
-                                $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
-                                console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
-                                /*$scope.viewBillOfOrder.quantity=$scope.MSPVBPatternObject_Server;
-                                 console.log('$scope.viewBillOfOrder====' +JSON.stringify($scope.viewBillOfOrder));*/
-                                Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
-                                    var isQuantityKey = key1;
-                                    console.log('isQuantityKey === '+isQuantityKey);
-                                    if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found quantity key');
-                                        $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
-                                        $scope.viewBillOfOrder.productQuantity=$scope.MSPVBPatternObjectQuantity;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectQuantity);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-                                    if (isQuantityKey.indexOf("Server_DiskType") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found disktype key');
-                                        $scope.MSPVBPatternObjectDisktype = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectDisktype == ' + $scope.MSPVBPatternObjectDisktype);
-                                        $scope.viewBillOfOrder.productDisktype=$scope.MSPVBPatternObjectDisktype;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectDisktype);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-                                    if (isQuantityKey.indexOf("Server_M/W") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found server_m/w key');
-                                        $scope.MSPVBPatternObjectservermw = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectservermw == ' + $scope.MSPVBPatternObjectservermw);
-                                        $scope.viewBillOfOrder.servermw=$scope.MSPVBPatternObjectservermw;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermw);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-
-
-                                    if (isQuantityKey.indexOf("Server_Memory") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found Server_Memory key');
-                                        $scope.MSPVBPatternObjectservermemory = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectservermemory == ' + $scope.MSPVBPatternObjectservermemory);
-                                        $scope.viewBillOfOrder.servermemory=$scope.MSPVBPatternObjectservermemory;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermemory);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-
-                                    if (isQuantityKey.indexOf("Server_O/S") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found Server_O/S key');
-                                        $scope.MSPVBPatternObjectserveros = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserveros);
-                                        $scope.viewBillOfOrder.serveros=$scope.MSPVBPatternObjectserveros;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectserveros);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-
-                                    if (isQuantityKey.indexOf("Server_DiskSize") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found Server_DiskSize key');
-                                        $scope.MSPVBPatternObjectserverdisksize = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserverdisksize);
-                                        $scope.viewBillOfOrder.serverdisksize=$scope.MSPVBPatternObjectserverdisksize;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectserverdisksize);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-                                    if (isQuantityKey.indexOf("Server_vCPU") !== -1) {
-                                        $scope.serialNumber++;
-                                        console.log('found Server_vCPU key');
-                                        $scope.MSPVBPatternObjectservercpu = $scope.MSPVBPatternObject_Server[isQuantityKey];
-                                        console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectservercpu);
-                                        $scope.viewBillOfOrder.servercpu=$scope.MSPVBPatternObjectservercpu;
-                                        $scope.quantityValueArray.push($scope.MSPVBPatternObjectservercpu);
-                                        console.log('$scope.quantityValueArray == '+$scope.quantityValueArray);
-                                    }
-                                });
-                            });
-                        }
-                    });
-                    console.log('$scope.viewBillOfOrder === '+JSON.stringify($scope.viewBillOfOrder));
-                    $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
-                }
+       for (var mspArrayIndex = 0; mspArrayIndex < $scope.mspDataViewBillObjectsArray.length; mspArrayIndex++) {
+        $scope.viewBillOfOrder = {
+         'productName': '',
+         'productDesc': '',
+         'productProvider': 'MSP',
+         'productQuantity': '',
+         'productPrice': '',
+         'productLC': '',
+         'productDisktype': '',
+         'servermw': '',
+         'servermemory': '',
+         'serveros': '',
+         'serverdisksize': '',
+         'servercpu': ''
+        };
+        $scope.mspViewBillObject = $scope.mspDataViewBillObjectsArray[mspArrayIndex];
+        $.each($scope.mspViewBillObject, function (key, value) {
+         console.log('key===' + key);
+         if (key === 'catalog_name') {
+          $scope.mspVBAttrCatalog_name = $scope.mspViewBillObject["catalog_name"];
+         }
+         if (key === 'title') {
+          $scope.MSPVBAttrTitle = $scope.mspViewBillObject["title"];
+          $scope.viewBillOfOrder.productName = $scope.MSPVBAttrTitle;
+          $scope.viewBillOfOrder.productDesc = $scope.MSPVBAttrTitle;
+         }
+         if (key === 'priceDetails') {
+          $scope.mspVBAttrTotalPrice = $scope.mspViewBillObject["priceDetails"];
+          console.log("total price === " + $scope.mspVBAttrTotalPrice.TotalPrice);
+          $scope.msptotal_Price = $scope.mspVBAttrTotalPrice.TotalPrice;
+          $scope.mspLicenseCost = $scope.mspVBAttrTotalPrice['Total License Cost'];
+          console.log('$scope.mspLicenseCost == ' + $scope.mspLicenseCost);
+          $scope.viewBillOfOrder.productPrice = $scope.msptotal_Price;
+          $scope.viewBillOfOrder.productLC = $scope.mspLicenseCost;
+         }
+         if (key === 'Pattern') {
+          $scope.patternObject = {};
+          $scope.MSPVBPatternObject = $scope.mspViewBillObject["Pattern"];
+          console.log('patternObject == ' + JSON.stringify($scope.MSPVBPatternObject));
+          Object.keys($scope.MSPVBPatternObject).forEach(function (key) {
+           $scope.MSPVBPatternObject_Server = $scope.MSPVBPatternObject[key];
+           console.log("$scope.patternObjectIIB_Server == " + JSON.stringify($scope.MSPVBPatternObject_Server));
+           /*$scope.viewBillOfOrder.quantity=$scope.MSPVBPatternObject_Server;
+            console.log('$scope.viewBillOfOrder====' +JSON.stringify($scope.viewBillOfOrder));*/
+           Object.keys($scope.MSPVBPatternObject_Server).forEach(function (key1) {
+            var isQuantityKey = key1;
+            console.log('isQuantityKey === ' + isQuantityKey);
+            if (isQuantityKey.indexOf("Server_Quantity") !== -1) {
+             $scope.serialNumber++;
+             console.log('found quantity key');
+             $scope.MSPVBPatternObjectQuantity = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectQuantity == ' + $scope.MSPVBPatternObjectQuantity);
+             $scope.viewBillOfOrder.productQuantity = $scope.MSPVBPatternObjectQuantity;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectQuantity);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
+            }
+            if (isQuantityKey.indexOf("Server_DiskType") !== -1) {
+             $scope.serialNumber++;
+             console.log('found disktype key');
+             $scope.MSPVBPatternObjectDisktype = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectDisktype == ' + $scope.MSPVBPatternObjectDisktype);
+             $scope.viewBillOfOrder.productDisktype = $scope.MSPVBPatternObjectDisktype;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectDisktype);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
+            }
+            if (isQuantityKey.indexOf("Server_M/W") !== -1) {
+             $scope.serialNumber++;
+             console.log('found server_m/w key');
+             $scope.MSPVBPatternObjectservermw = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectservermw == ' + $scope.MSPVBPatternObjectservermw);
+             $scope.viewBillOfOrder.servermw = $scope.MSPVBPatternObjectservermw;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermw);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
             }
 
-            if(key==='bluemix'){
-                $scope.bluemixViewBillObjectsArray=$scope.ResponseDataViewBillObject[key];
-                console.log('$scope.bluemixViewBillObjectsArray === '+JSON.stringify($scope.bluemixViewBillObjectsArray));
-                for(var bluemixArrayIndex=0;bluemixArrayIndex<$scope.bluemixViewBillObjectsArray.length;bluemixArrayIndex++) {
-                    $scope.bluemixViewBillObject=$scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
-                    Object.keys($scope.bluemixViewBillObject).forEach(function(key){
-                        if(key === 'services'){
-                            $scope.bluemixServiceViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixServiceViewBillObjectArray === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                            for(var bluemixServiceArrayIndex=0;bluemixServiceArrayIndex<$scope.bluemixServiceViewBillObjectArray.length;bluemixServiceArrayIndex++) {
-                                $scope.bluemixServiceObject=$scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
-                                console.log('$scope.bluemixServiceObject === '+JSON.stringify($scope.bluemixServiceViewBillObjectArray));
-                                Object.keys($scope.bluemixServiceObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixServicesVBTitle=$scope.bluemixServiceObject[key];
-                                        console.log('$scope.bluemixServicesVBTitle= '+$scope.bluemixServicesVBTitle);
-                                    }
-                                    if (key === 'properties') {
-                                        $scope.propertiesOArray = $scope.bluemixServiceObject[key];
-                                        console.log('propertiesOArray == ' + JSON.stringify($scope.propertiesOArray));
-                                        $scope.propertiesObjectArrayData = $scope.propertiesOArray[0];
-                                        console.log('propertiesObject == ' + JSON.stringify($scope.propertiesObjectArrayData));
-                                        for (var i = 0; i < $scope.propertiesObjectArrayData.length; i++) {
-                                            $scope.propertiesObject=$scope.propertiesObjectArrayData[i];
-                                            Object.keys($scope.propertiesObject).forEach(function (key) {
-                                                $scope.propertiesObjectFirstKey = key;
-                                                console.log("$scope.propertiesObjectFirstKey == " + JSON.stringify($scope.propertiesObjectFirstKey));
-                                                $scope.propertiesObjectFirstKeyValue = $scope.propertiesObject[key];
-                                                console.log("$scope.propertiesObjectFirstKeyValue == " + JSON.stringify($scope.propertiesObjectFirstKeyValue));
-                                                if($scope.propertiesObjectFirstKey === 'metadata'){
-                                                    $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
-                                                    console.log('$scope.guid_data===' +JSON.stringify($scope.guid_data));
-                                                    //$scope.service_plan_guid = $scope.guid_data.guid;
-                                                    //console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
-                                                }
 
-                                                if($scope.propertiesObjectFirstKey === 'entity') {
-                                                    $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
-                                                    console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
-                                                    /* $scope.planData = $scope.entity_data.name;
-                                                     console.log('$scope.planData===' + $scope.planData);
-                                                     $scope.descriptionData = $scope.entity_data.description;*/
-                                                    //console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
-                                                    $scope.extraData = $scope.entity_data.extra;
-                                                    console.log('$scope.extraData===' + JSON.stringify($scope.extraData));
-                                                    if ($scope.entity_data.free === false) {
-                                                        $scope.bulletdata = $scope.extraData.bullets[0];
-                                                        console.log('$scope.bulletdata===' + JSON.stringify($scope.bulletdata));
-                                                        $scope.costData = $scope.extraData.costs;
-                                                        console.log('$scope.costdata===' + JSON.stringify($scope.costData));
-                                                        console.log('$scope.costdata===' + JSON.stringify($scope.costData[0]));
-                                                        $scope.totalbluemixQuantity = $scope.costData[0].unitQuantity;
-                                                        console.log('$scope.totalbluemixQuantity===' + JSON.stringify($scope.totalbluemixQuantity));
-                                                        $scope.unitID = $scope.costData[0].unitId;
-                                                        console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
-                                                    }
-                                                    else if($scope.entity_data.free === true){
-                                                        $scope.unitID = 'discount';
-                                                        console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
-                                                    }
-                                                }
-
-                                                if($scope.propertiesObjectFirstKey === 'extra'){
-                                                    $scope.extraData = $scope.propertiesObjectFirstKeyValue;
-                                                    console.log(' $scope.extraData===' + JSON.stringify($scope.extraData));
-                                                    /*$scope.bulletData = $scope.extraData.bullets[0];
-                                                     console.log(' $scope.bulletData===' + JSON.stringify($scope.bulletData));*/
-                                                    $scope.costData = $scope.extraData.costs;
-                                                    console.log('$scope.costdata===' + JSON.stringify($scope.costData));
-                                                    //$scope.currencyData = $scope.costData[0].currencies;
-                                                    console.log('$scope.currencyData===' + JSON.stringify($scope.currencyData));
-
-                                                }
-                                            })
-
-
-                                        }
-                                    }
-                                })
-                            }
-                        }
-
-                        if(key === 'runtime'){
-                            $scope.bluemixRuntimeViewBillObjectArray=$scope.bluemixViewBillObject[key];
-                            console.log('$scope.bluemixRuntimeViewBillObjectArray === '+JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
-                            for(var bluemixRuntimeArrayIndex=0;bluemixRuntimeArrayIndex<$scope.bluemixRuntimeViewBillObjectArray.length;bluemixRuntimeArrayIndex++) {
-                                $scope.bluemixRuntimeObject=$scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
-                                Object.keys($scope.bluemixRuntimeObject).forEach(function(key){
-                                    if(key==='title'){
-                                        $scope.serialNumber++;
-                                        $scope.bluemixRuntimeVBTitle=$scope.bluemixRuntimeObject[key];
-                                        console.log('$scope.bluemixRuntimeVBTitle === '+$scope.bluemixRuntimeVBTitle);
-                                    }
-                                    if(key === 'plan'){
-                                        $scope.planRuntime = $scope.bluemixRuntimeObject[key];
-                                        console.log('$scope.planRuntime===' +$scope.planRuntime);
-                                    }
-                                    if(key==='properties'){
-                                        $scope.bluemixRuntimeVBPropertiesObject=$scope.bluemixRuntimeObject[key];
-                                        Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function(key){
-                                            if(key==='price'){
-                                                $scope.bluemixRuntimeVBPrice=$scope.bluemixRuntimeVBPropertiesObject[key];
-                                                console.log('$scope.bluemixRuntimeVBPrice === '+$scope.bluemixRuntimeVBPrice);
-                                            }
-                                            if(key ==='memory'){
-                                                $scope.bluemixRuntimememory=$scope.bluemixRuntimeVBPropertiesObject[key];
-                                                console.log('$scope.bluemixRuntimememory === '+$scope.bluemixRuntimememory);
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        }
-                    })
-                }
+            if (isQuantityKey.indexOf("Server_Memory") !== -1) {
+             $scope.serialNumber++;
+             console.log('found Server_Memory key');
+             $scope.MSPVBPatternObjectservermemory = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectservermemory == ' + $scope.MSPVBPatternObjectservermemory);
+             $scope.viewBillOfOrder.servermemory = $scope.MSPVBPatternObjectservermemory;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectservermemory);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
             }
-            if(key==='Final_Price'){
-                $scope.viewBillFinalPrice=$scope.ResponseDataViewBillObject[key];
+
+            if (isQuantityKey.indexOf("Server_O/S") !== -1) {
+             $scope.serialNumber++;
+             console.log('found Server_O/S key');
+             $scope.MSPVBPatternObjectserveros = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserveros);
+             $scope.viewBillOfOrder.serveros = $scope.MSPVBPatternObjectserveros;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectserveros);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
             }
+
+            if (isQuantityKey.indexOf("Server_DiskSize") !== -1) {
+             $scope.serialNumber++;
+             console.log('found Server_DiskSize key');
+             $scope.MSPVBPatternObjectserverdisksize = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectserverdisksize);
+             $scope.viewBillOfOrder.serverdisksize = $scope.MSPVBPatternObjectserverdisksize;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectserverdisksize);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
+            }
+            if (isQuantityKey.indexOf("Server_vCPU") !== -1) {
+             $scope.serialNumber++;
+             console.log('found Server_vCPU key');
+             $scope.MSPVBPatternObjectservercpu = $scope.MSPVBPatternObject_Server[isQuantityKey];
+             console.log('$scope.MSPVBPatternObjectserveros == ' + $scope.MSPVBPatternObjectservercpu);
+             $scope.viewBillOfOrder.servercpu = $scope.MSPVBPatternObjectservercpu;
+             $scope.quantityValueArray.push($scope.MSPVBPatternObjectservercpu);
+             console.log('$scope.quantityValueArray == ' + $scope.quantityValueArray);
+            }
+           });
+          });
+         }
         });
-        $scope.loading = false;
+        console.log('$scope.viewBillOfOrder === ' + JSON.stringify($scope.viewBillOfOrder));
+        $scope.pushBOMObjectsMSP($scope.viewBillOfOrder);
+       }
+      }
+
+      if (key === 'bluemix') {
+       $scope.bluemixViewBillObjectsArray = $scope.ResponseDataViewBillObject[key];
+       console.log('$scope.bluemixViewBillObjectsArray === ' + JSON.stringify($scope.bluemixViewBillObjectsArray));
+       for (var bluemixArrayIndex = 0; bluemixArrayIndex < $scope.bluemixViewBillObjectsArray.length; bluemixArrayIndex++) {
+        $scope.bluemixViewBillObject = $scope.bluemixViewBillObjectsArray[bluemixArrayIndex];
+        Object.keys($scope.bluemixViewBillObject).forEach(function (key) {
+         if (key === 'services') {
+          $scope.bluemixServiceViewBillObjectArray = $scope.bluemixViewBillObject[key];
+          console.log('$scope.bluemixServiceViewBillObjectArray === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+          for (var bluemixServiceArrayIndex = 0; bluemixServiceArrayIndex < $scope.bluemixServiceViewBillObjectArray.length; bluemixServiceArrayIndex++) {
+           $scope.bluemixServiceObject = $scope.bluemixServiceViewBillObjectArray[bluemixServiceArrayIndex];
+           console.log('$scope.bluemixServiceObject === ' + JSON.stringify($scope.bluemixServiceViewBillObjectArray));
+           Object.keys($scope.bluemixServiceObject).forEach(function (key) {
+            if (key === 'title') {
+             $scope.serialNumber++;
+             $scope.bluemixServicesVBTitle = $scope.bluemixServiceObject[key];
+             console.log('$scope.bluemixServicesVBTitle= ' + $scope.bluemixServicesVBTitle);
+            }
+            if (key === 'properties') {
+             $scope.propertiesOArray = $scope.bluemixServiceObject[key];
+             console.log('propertiesOArray == ' + JSON.stringify($scope.propertiesOArray));
+             $scope.propertiesObjectArrayData = $scope.propertiesOArray[0];
+             console.log('propertiesObject == ' + JSON.stringify($scope.propertiesObjectArrayData));
+             for (var i = 0; i < $scope.propertiesObjectArrayData.length; i++) {
+              $scope.propertiesObject = $scope.propertiesObjectArrayData[i];
+              Object.keys($scope.propertiesObject).forEach(function (key) {
+               $scope.propertiesObjectFirstKey = key;
+               console.log("$scope.propertiesObjectFirstKey == " + JSON.stringify($scope.propertiesObjectFirstKey));
+               $scope.propertiesObjectFirstKeyValue = $scope.propertiesObject[key];
+               console.log("$scope.propertiesObjectFirstKeyValue == " + JSON.stringify($scope.propertiesObjectFirstKeyValue));
+               if ($scope.propertiesObjectFirstKey === 'metadata') {
+                $scope.guid_data = $scope.propertiesObjectFirstKeyValue;
+                console.log('$scope.guid_data===' + JSON.stringify($scope.guid_data));
+                //$scope.service_plan_guid = $scope.guid_data.guid;
+                //console.log('$scope.service_plan_guid===' +$scope.service_plan_guid);
+               }
+
+               if ($scope.propertiesObjectFirstKey === 'entity') {
+                $scope.entity_data = $scope.propertiesObjectFirstKeyValue;
+                console.log('$scope.entity_data===' + JSON.stringify($scope.entity_data));
+                /* $scope.planData = $scope.entity_data.name;
+                 console.log('$scope.planData===' + $scope.planData);
+                 $scope.descriptionData = $scope.entity_data.description;*/
+                //console.log('$scope.descriptionData===' + JSON.stringify($scope.descriptionData));
+                $scope.extraData = $scope.entity_data.extra;
+                console.log('$scope.extraData===' + JSON.stringify($scope.extraData));
+                if ($scope.entity_data.free === false) {
+                 $scope.bulletdata = $scope.extraData.bullets[0];
+                 console.log('$scope.bulletdata===' + JSON.stringify($scope.bulletdata));
+                 $scope.costData = $scope.extraData.costs;
+                 console.log('$scope.costdata===' + JSON.stringify($scope.costData));
+                 console.log('$scope.costdata===' + JSON.stringify($scope.costData[0]));
+                 $scope.totalbluemixQuantity = $scope.costData[0].unitQuantity;
+                 console.log('$scope.totalbluemixQuantity===' + JSON.stringify($scope.totalbluemixQuantity));
+                 $scope.unitID = $scope.costData[0].unitId;
+                 console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
+                }
+                else if ($scope.entity_data.free === true) {
+                 $scope.unitID = 'discount';
+                 console.log('$scope.unitID===' + JSON.stringify($scope.unitID));
+                }
+               }
+
+               if ($scope.propertiesObjectFirstKey === 'extra') {
+                $scope.extraData = $scope.propertiesObjectFirstKeyValue;
+                console.log(' $scope.extraData===' + JSON.stringify($scope.extraData));
+                /*$scope.bulletData = $scope.extraData.bullets[0];
+                 console.log(' $scope.bulletData===' + JSON.stringify($scope.bulletData));*/
+                $scope.costData = $scope.extraData.costs;
+                console.log('$scope.costdata===' + JSON.stringify($scope.costData));
+                //$scope.currencyData = $scope.costData[0].currencies;
+                console.log('$scope.currencyData===' + JSON.stringify($scope.currencyData));
+
+               }
+              })
+
+
+             }
+            }
+           })
+          }
+         }
+
+         if (key === 'runtime') {
+          $scope.bluemixRuntimeViewBillObjectArray = $scope.bluemixViewBillObject[key];
+          console.log('$scope.bluemixRuntimeViewBillObjectArray === ' + JSON.stringify($scope.bluemixRuntimeViewBillObjectArray));
+          for (var bluemixRuntimeArrayIndex = 0; bluemixRuntimeArrayIndex < $scope.bluemixRuntimeViewBillObjectArray.length; bluemixRuntimeArrayIndex++) {
+           $scope.bluemixRuntimeObject = $scope.bluemixRuntimeViewBillObjectArray[bluemixRuntimeArrayIndex];
+           Object.keys($scope.bluemixRuntimeObject).forEach(function (key) {
+            if (key === 'title') {
+             $scope.serialNumber++;
+             $scope.bluemixRuntimeVBTitle = $scope.bluemixRuntimeObject[key];
+             console.log('$scope.bluemixRuntimeVBTitle === ' + $scope.bluemixRuntimeVBTitle);
+            }
+            if (key === 'plan') {
+             $scope.planRuntime = $scope.bluemixRuntimeObject[key];
+             console.log('$scope.planRuntime===' + $scope.planRuntime);
+            }
+            if (key === 'properties') {
+             $scope.bluemixRuntimeVBPropertiesObject = $scope.bluemixRuntimeObject[key];
+             Object.keys($scope.bluemixRuntimeVBPropertiesObject).forEach(function (key) {
+              if (key === 'price') {
+               $scope.bluemixRuntimeVBPrice = $scope.bluemixRuntimeVBPropertiesObject[key];
+               console.log('$scope.bluemixRuntimeVBPrice === ' + $scope.bluemixRuntimeVBPrice);
+              }
+              if (key === 'memory') {
+               $scope.bluemixRuntimememory = $scope.bluemixRuntimeVBPropertiesObject[key];
+               console.log('$scope.bluemixRuntimememory === ' + $scope.bluemixRuntimememory);
+              }
+             })
+            }
+           })
+          }
+         }
+        })
+       }
+      }
+      if (key === 'Final_Price') {
+       $scope.viewBillFinalPrice = $scope.ResponseDataViewBillObject[key];
+      }
+     });
+     $scope.loading = false;
+    }
     });
 
     $scope.pushBOMObjectsMSP=function (BOMObj) {
@@ -7048,10 +7297,24 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
         })
             .success(function (data, status, header, config) {
 
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
+             if(data.status == 'failed'){
+              //alert(data.description);
+              $scope.loading = false;
+              $uibModal.open({
+               animation: $scope.animationsEnabled,
+               templateUrl: '../components/modal/ErrorWarning.html',
+               windowClass: 'app-modal-window-sam-Plan',
+               controller: 'ErrorWarningCtrl',
+               backdrop: 'static',
+               keyboard: false,
+               resolve: {
+                ErrorMsg: function () {
+                 return data.description;
+                },
+               }
+              });
+             }
+             else {
                     // console.log("inside success function");
                     $rootScope.showhideprop=false;
                     $scope.editCanvasDetails = data;
@@ -7137,17 +7400,22 @@ angular.module('portalControllers').controller('viewArchEditctrl', function ($sc
                     $timeout(function () {
                         var canvas;
                         // window.newAnimation = function () {
-                        canvas = new fabric.Canvas('canvas');
+                       // canvas = new fabric.Canvas('canvas');
                         canvas = new fabric.Canvas('canvas',{
                             selection: true,
                         });
+                     $(function() {
+                      $( "#canvas-container").draggable();
+                     });
                         $scope.canvasCreated=JSON.stringify(canvas);
                         console.log("Current canvasCreated : " + $scope.canvasCreated);
 
-                        canvas.on("object:selected", function(options) {
-                            options.target.bringToFront();
-                            $( "#canvas-container").draggable("enable");
-                        });
+                     var connectors = [];
+                  /* canvas.on("object:selected", function(options) {
+                      options.target.bringToFront();
+                      $( "#canvas-container").draggable("disable");
+                     });
+*/
                         window.addEventListener("load", function()
                         {
                             var canvas = document.createElement('canvas'); document.body.appendChild(canvas);
@@ -7315,10 +7583,24 @@ angular.module('portalControllers').controller('confirmHomeCtrlViewMode', functi
         })
             .success(function (data, status, header, config) {
 
-                if (data.errors) {
-                    // Showing errors.
-                    $scope.errorName = data.errors.name;
-                } else {
+             if(data.status == 'failed') {
+              //alert(data.description);
+              $scope.loading = false;
+              $uibModal.open({
+               animation: $scope.animationsEnabled,
+               templateUrl: '../components/modal/ErrorWarning.html',
+               windowClass: 'app-modal-window-sam-Plan',
+               controller: 'ErrorWarningCtrl',
+               backdrop: 'static',
+               keyboard: false,
+               resolve: {
+                ErrorMsg: function () {
+                 return data.description;
+                },
+               }
+              });
+             }
+             else {
                     console.log("inside success function");
                     $scope.PostDataResponse = data;
                     console.log(JSON.stringify($scope.PostDataResponse));

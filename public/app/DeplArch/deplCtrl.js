@@ -271,7 +271,7 @@ angular.module('portalControllers').controller('deplCtrl', function ($scope,$loc
     }
 
     $scope.deleteArchHybrid = function (index) {
-        $uibModal.open({
+        $rootScope.delAl=$uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: '../components/modal/delArchAll.html',
             controller: 'sol1Ctrl',
@@ -924,13 +924,13 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
         $location.path('/home');
     };
     $scope.delallconfirms=function(){
-        // console.log('data of hybrid is------->' +index);
-        var solIndex =$rootScope.SolnArrayHybrid.indexOf( $rootScope.delindex);
-        console.log('solIndex hybrid === '+solIndex);
+       // console.log('data of hybrid is------->' +index);
+        $rootScope.solIndex =$rootScope.SolnArrayHybrid.indexOf( $rootScope.delindex);
+        console.log('solIndex hybrid === '+$rootScope.solIndex);
         var uid = sharedProperties.getProperty();
         console.log("user name in solution ctrl === "+uid);
-        $scope.deletedSolnNameHybrid =$rootScope.SolnArrayHybrid[solIndex];
-        console.log('index of hybrid is' +solIndex);
+        $scope.deletedSolnNameHybrid =$rootScope.SolnArrayHybrid[$rootScope.solIndex];
+        console.log('index of hybrid is' +$rootScope.solIndex);
         /*$rootScope.solnName = $scope.itemData.solnInput;*/
         console.log("$scope.deletedSolnNameHybrid === " +$scope.deletedSolnNameHybrid);
 
@@ -961,6 +961,10 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 }
                 else {
                     $scope.deletedSolNameHybrid = data;
+                $rootScope.SolnArrayHybrid.splice($rootScope.solIndex,1);
+                $uibModalInstance.dismiss();
+
+
                     console.log('$scope.deleteArchitectureData ==== ' + JSON.stringify($scope.deletedSolNameHybrid));
                 }
             })
@@ -969,17 +973,18 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 console.log("status data" + status);
                 console.log("config data" + JSON.stringify(config));
             })
-        $rootScope.SolnArrayHybrid.splice(solIndex,1);
-        $uibModalInstance.dismiss();
+        //$rootScope.SolnArrayHybrid.splice(solIndex,1);
+       //$uibModalInstance.dismiss();
     };
 
     $scope.delconfirms= function(){
 
         //$rootScope.verData=version;
         // $rootScope.verindex=index;
+        console.log("version----->"+ $rootScope.verData);
 
         console.log("inside version delete");
-        console.log('version22222===  ' + $rootScope.verData);
+        //console.log('version22222===  ' + $rootScope.verData);
         $scope.solN=sharedProperties.getCurrentCSolName();
         console.log("current solution name"+ $scope.solN);
         $scope.username = sharedProperties.getProperty();
@@ -1021,9 +1026,22 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
                 else {
                     $scope.deletedSolName = data;
                     // $scope.data.splice(index, 1);
+                   console.log("$rootScope.hybridversionObjectsArray=====>"+ $scope.currentcount)
 
+                    $scope.currentcount=$rootScope.hybridversionObjectsArray.length-1
                     console.log('deleted solution name==== '+JSON.stringify($scope.deletedSolName));
                 }
+              $rootScope.hybridversionObjectsArray.splice($scope.currentcount, 1);
+              $uibModalInstance.dismiss();
+
+              if($scope.currentcount ===0){
+                  $rootScope.verpop.dismiss('cancel');
+
+                  $scope.solin=$rootScope.solIndex
+                  console.log("current --------->"+ $scope.solin)
+                  $rootScope.SolnArrayHybrid.splice( $scope.solin,1);
+
+              }
             })
             .error(function (data, status, header, config) {
                 console.log("header data" + header);
@@ -1045,6 +1063,7 @@ angular.module('portalControllers').controller('sol1Ctrl', function ($scope,$uib
          console.log("last element in arrary---->")
          // $rootScope.verpop.dismiss('cancel');
          }*/
+
     }
 
 
