@@ -475,10 +475,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
 
     $scope.names = [
-        {
+        /*{
         id:1,
         name:'IND'
-    },
+    },*/
         {
             id:2,
             name:'USD'
@@ -566,6 +566,20 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
 
         });
 
+        $scope.checkSelected = function() {
+            console.log('inside checkSelected');
+            for (var i = 0; i < $scope.patternObjectIIB_Server.length; i++) {
+                if ($scope.patternObjectIIB_Server[i].hasOwnProperty("size")){
+                    continue;
+                }
+                else {
+                    return true;
+                }
+                    }
+            if(i === $scope.patternObjectIIB_Server.length){
+                return false;
+            }
+            }
         $scope.changeServerSize = function(index,size,key){
             console.log('inside changeServerSize');
             console.log('key===>' +key);
@@ -1041,6 +1055,16 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             // parentDivCall.callInitMethod();
             $uibModalInstance.dismiss('cancel');
         };
+        $scope.checkRuntimeSelected = function(){
+            console.log("instances===" +JSON.stringify($scope.memoryProperties['instance']));
+            if($scope.memoryProperties['instance'] > 0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
 
         $scope.saveDataRuntime = function () {
             console.log("username==" +JSON.stringify($scope.username));
@@ -1114,6 +1138,7 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
         $scope.showServiceAttributes=true;
         $scope.ngShowModal = true;
         $scope.totalbluemixQuantity;
+        $scope.showAlertQuantity = false;
         $scope.planDataArray = [];
         console.log("inside bluemix ctrl");
         $scope.username = sharedProperties.getProperty();
@@ -1325,6 +1350,10 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             console.log('$scope.latestPrice==' +$scope.latestPrice);
             console.log('$scope.latestPrice==' +$scope.pricedata);
             console.log('$scope.latestQuantity===' +$scope.latestQuantity);
+            /*if($scope.latestQuantity === undefined){
+                //alert('enter quantity');
+                $scope.showAlertQuantity = true;
+            }*/
             //console.log('quantity==' +quantity);
             //console.log('price===' +price);
             console.log('title===' +title);
@@ -1336,42 +1365,48 @@ angular.module('portalControllers').controller('AttrCtrl', function ($scope,pare
             var guid = $scope.propertiesObjectArrayData[indexCourseId].metadata.guid;
             console.log('guid===' +JSON.stringify(guid));
 
+            if($scope.latestQuantity === undefined){
 
-             $rootScope.bluemixPlanModal = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: '../components/modal/BluemixPlanSave.html',
-                windowClass: 'app-modal-window-sam-Plan',
-                controller: 'BluemixPlanCtrl',
-                backdrop: 'static',
-                keyboard: false,
-                scope:$rootScope,
-                resolve: {
-                    serviceTitle: function () {
-                        return $scope.popupDataService.title;
-                    },
-                    compCount:function () {
-                        return $scope.compServiceAdded;
-                    },
-                    popupData:function () {
-                        return $scope.popupDataService;
-                    },
-                    guidPlan:function () {
-                        return guid;
-                    },
-                    planName : function(){
-                        return radioselected;
-                    },
-                   quantitySelected : function(){
-                        return $scope.latestQuantity ;
-                    },
-                    estimateSelected : function(){
-                        return $scope.latestPrice;
-                    },
-                    latestTitle : function(){
-                        return title;
-                    },
-                }
-            });
+                $scope.showAlertQuantity = true;
+            }
+            else {
+                $scope.showAlertQuantity = false;
+                $rootScope.bluemixPlanModal = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '../components/modal/BluemixPlanSave.html',
+                    windowClass: 'app-modal-window-sam-Plan',
+                    controller: 'BluemixPlanCtrl',
+                    backdrop: 'static',
+                    keyboard: false,
+                    scope: $rootScope,
+                    resolve: {
+                        serviceTitle: function () {
+                            return $scope.popupDataService.title;
+                        },
+                        compCount: function () {
+                            return $scope.compServiceAdded;
+                        },
+                        popupData: function () {
+                            return $scope.popupDataService;
+                        },
+                        guidPlan: function () {
+                            return guid;
+                        },
+                        planName: function () {
+                            return radioselected;
+                        },
+                        quantitySelected: function () {
+                            return $scope.latestQuantity;
+                        },
+                        estimateSelected: function () {
+                            return $scope.latestPrice;
+                        },
+                        latestTitle: function () {
+                            return title;
+                        },
+                    }
+                });
+            }
         }
 
 

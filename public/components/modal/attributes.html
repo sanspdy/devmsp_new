@@ -4,7 +4,7 @@
             <p class="pop_heading">{{attrTitle}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showMSPAttributes">
-                <button  class="save_btn_msp" type="button" ng-click="saveData()">SAVE</button>
+                <button  class="save_btn_msp" data-ng-disabled="checkSelected()"  type="button" ng-click="saveData()">SAVE</button>
             </div>
             <hr>
         </div>
@@ -12,7 +12,8 @@
             <p class="pop_heading">{{popupDataRuntime.title}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showRuntimeAttributes">
-            <button  class="save_btn" type="button" ng-click="saveDataRuntime()">SAVE</button>
+            <button  class="save_btn_runtime" type="button" data-ng-disabled="checkRuntimeSelected()" ng-click="saveDataRuntime()">SAVE</button>
+
                 </div>
             <hr>
         </div>
@@ -20,7 +21,8 @@
             <p class="pop_heading">{{bluemixServiceTitle}} </p>
             <!--<img class="po-cross" src="../../images/btn_popup_cross.png"  ng-click="cancel()" alt="close">-->
             <div class=" btn_div row" ng-show="showServiceAttributes">
-                <button  class="save_btn" type="button"  ng-click="saveDataService(selectvalue,attrTitle)">SAVE</button>
+                <p  class="alertQuantity" ng-show="showAlertQuantity"> Enter Quantity!!</p>
+                <button  class="save_btn" type="button" data-ng-disabled="!selectvalue "  ng-click="saveDataService(selectvalue,attrTitle)">SAVE</button>
             </div>
             <hr>
         </div>
